@@ -199,14 +199,14 @@ waterways = L.tileLayer.betterWms("http://gallo.ad.uow.edu.au:8080/geoserver/pet
 
 //Get confirmed reports
 function getConfirmedReports(callback, err){
-	jQuery.getJSON('/banjir/data/reports.json?type=confirmed', function(data, err){
+	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?type=confirmed', function(data, err){
 		callback(data);
 	})
 }
 
 //Get unconfirmed reports
 function getUnConfirmedReports(callback, err){
-	jQuery.getJSON('/banjir/data/reports.json?type=unconfirmed', function(data, err){
+	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?type=unconfirmed', function(data, err){
 		callback(data);
 	})
 }
