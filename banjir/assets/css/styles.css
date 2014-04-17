@@ -25,7 +25,13 @@ body {
 
 .jumbotron{
 	margin-bottom:0px;
-	background-color: #fff;
+	background-color: #00AAEE;
+	color:#fff;
+	text-align: center;
+}
+
+.a{
+	text-decoration:none; 
 }
 
 .container .text-muted{
@@ -37,28 +43,30 @@ body {
   text-align: center;
 }
 
+/* move image for small screens*/
+@media screen and (max-width: 480px){
+	.navbar-header img{
+		margin-left: -10px;
+	}
+}
+/*
 @media screen and (min-width: 480px){
-	.custom-masthead h1{
-	  font-size: 120px;
-	  font-weight: 600;
-	  font-style: bold;
-	  line-height: 1;
-	  letter-spacing:2px;
-	  color:#444;
+	#title{
+		font-size:60px; 
+		font-weight:400;
 	}
 }
 
-@media screen and (max-width: 480px){
-	.custom-masthead h1{
-	  margin-top:50px;
-	  font-size: 60px;
-	  font-weight: 600;
-	  font-style: bold;
-	  line-height: 1;
-	  letter-spacing:2px;
-	  color:#444;
-	}
+#title{
+	font-size:60px;
 }
+
+@media screen and (max-width: 480px){
+	#title{
+		font-size:60px; 
+		font-weight:400;
+	}
+}*/
 .custom-masthead h2{
 	font-size: 40px;
 }
@@ -77,21 +85,16 @@ body {
 	margin-left:-10px;
 }
 
-
-
-#btnlang:hover{
-	color:white;
-}
-
-#btntheme:hover{
-	padding:15px;
-}
-
 /* Report table */
-#reports{
-	height:310px; 
-	overflow:scroll; 
-	margin-bottom:30px;
+
+#modal-body{
+	overflow:scroll;
+}
+
+.navbar-right {
+	margin-right:0px;
+	font-size:18px;
+
 }
 
 /* Leaflet map*/
@@ -116,7 +119,7 @@ cursor: default;
     white-space: normal;
 }
 .info h4 {
-    margin: 5px;;
+    margin: 5px;
     color: #777;
 }
 
