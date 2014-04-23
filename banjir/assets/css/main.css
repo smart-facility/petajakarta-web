@@ -42,7 +42,6 @@ h4 {
 
 /* Paragraph & Typographic */
 p {
-
     font-size: 24px;
     font-weight:300;
 }
@@ -207,28 +206,6 @@ a:after {
 	}
 }
 
-/*@media screen and (min-width: 680px){
-		#headerwrap h1 {
-		margin-top: 40px;
-		margin-bottom: 15px;
-		color: white;
-		font-size: 60px;
-		font-weight: 300;
-		letter-spacing: 1px;
-	}
-}*/
-
-/*@media screen and (min-width: 480px){
-	#headerwrap h1 {
-		margin-top: 40px;
-		margin-bottom: 15px;
-		color: white;
-		font-size: 60px;
-		font-weight: 400;
-		letter-spacing: 1px;
-	}
-}*/
-
 #privacy h1{
 	font-size:28pt;
 }
@@ -284,24 +261,7 @@ body {
     margin-left: -10px;
   }
 }
-/*
-@media screen and (min-width: 480px){
-  #title{
-    font-size:60px;
-    font-weight:400;
-  }
-}
 
-#title{
-  font-size:60px;
-}
-
-@media screen and (max-width: 480px){
-  #title{
-    font-size:60px;
-    font-weight:400;
-  }
-}*/
 .custom-masthead h2{
   font-size: 40px;
 }
