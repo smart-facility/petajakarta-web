@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Peta Jakarta">
     <meta name="author" content="Peta Jakarta">
+    <meta name="twitter:widgets:csp" content="on">
+
+    <title>Peta Jakarta &middot; Banjir</title>
+
+    <!-- Favicon -->
     <link rel="shortcut icon" href="assets/img/petajakarta_icon_32x32.png">
-	<meta name="twitter:widgets:csp" content="on">
-    <title>Peta Jakarta &middot Banjir</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../vendor/css/bootstrap.min.css" rel="stylesheet">
@@ -17,17 +20,17 @@
     <link href="../assets/css/main.css" rel="stylesheet">
 
     <!-- Fonts from Google Fonts -->
-  	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
     <!-- Leaflet styles -->
-  	<link href="../vendor/css/leaflet.css" rel="stylesheet"/>
-  	<link href="../vendor/css/L.Control.MousePosition.css" rel="stylesheet"/>
+    <link href="../vendor/css/leaflet.css" rel="stylesheet"/>
+    <link href="../vendor/css/L.Control.MousePosition.css" rel="stylesheet"/>
   </head>
 
   <body>
@@ -37,131 +40,114 @@
       <div class="container">
         <div class="navbar-header">
           <a href="/banjir/en/"><img src="../assets/img/petajakarta.png" width="252" height="45" alt=""/></a>
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			      <span class="sr-only">Toggle navigation</span>
-			      <span class="icon-bar"></span>
-			      <span class="icon-bar"></span>
-			      <span class="icon-bar"></span>
-			  </button>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-        	<ul class="nav navbar-nav navbar-right">
-        	<li class="active"><a href="/banjir/en/">Home</a></li>
-        	<li><a href="/banjir/en/map.html">Map</a></li>
-        	<li><a href="/banjir/in/">[Bahasa Indonesia]</a></li>
-        	</ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/banjir/en/">Home</a></li>
+            <li><a href="/banjir/en/map.html">Map</a></li>
+            <li><a href="/banjir/in/">[Bahasa Indonesia]</a></li>
+          </ul>
         </div>
+      </div>
     </div>
-    </div>
 
-	<div id="headerwrap">
-		<div class="container">
-		<div class="jumbotron" style="padding-top:0px;">
-		<h1 id="title">PetaJakarta.org/banjir</h1>
-		<p class="lead"><b>petajakarta.org/banjir</b> is an open source, community-led platform to collect and disseminate information about flooding and critical water infrastructure in Jakarta</p>
-			</div>
-		</div><!-- /container -->
-	</div><!-- /headerwrap -->
-
-
-  <div class="container">
-
-			<div class="row" style="margin-top:25px;">
-				<div class="col-md-2">
-				</div>
-				<div class="col-md-4 centered">
-				<a href="#share"><img src="../assets/img/submit.png" alt="">
-				<h3>Share flood information</h3>
-				<p>See a flood? Share it on the Community Map</p></a>
-				<a class="btn btn-default" href="#share" style="color:#000; text-decoration:none;">Share »</a>
-				</div>
-				<div class="col-md-4 centered">
-				<a href="./map.html"><img src="../assets/img/map.png">
-				<h3>View the map</h3>
-				<p>See where the floods are right now</p></a>
-				<a class="btn btn-default" href="./map.html" style="color:#000; text-decoration:none;">Map »</a>
-				</div>
-				<div class="col-md-2">
-				</div>
-			</div><!-- /row -->
-
-			<div id="share"></div>
-
-			<div id="share"></div>
-			<div class="row" style="margin-top:30px;">
-			<div class="col-md-12 centered">
-			<hr></hr>
-			<h1>Share flood information</h1>
-			</div>
-			</div>
-			<div class="row">
-				<div class="col-md-1">
-				</div>
-				<div class="col-md-8">
-				<h3>1. Launch your Twitter App</h3>
-					<p>use your twitter account to post to the community flood map<p>
-				<h3>2. Enable Geolocation</h3>
-					<p>geolocation helps us flag the flood on the map</p>
-				<h3>3. Tweet your message @petajkt #banjir</h3>
-					<p>tweet it at us, and we'll put it on the map!</p>
-
-				</div>
-				<div class="col-md-3">
-<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/petajkt">@petajkt</a> damage assessment at Tongtek Bridge with Ciliwung Merdeka <a href="https://twitter.com/search?q=%23banjir&amp;src=hash">#banjir</a> <a href="http://t.co/iC3B5DeTwt">pic.twitter.com/iC3B5DeTwt</a></p>&mdash; Peta Jakarta (@petajkt) <a href="https://twitter.com/petajkt/statuses/431711264809566208">February 7, 2014</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-				</div>
-			</div>
-			<div id="about"></div>
-			<div class="row">
-			<div class="col-md-12 centered">
-			<hr></hr>
-			<h1>About us</h1>
-			</div>
-			</div>
-			<div class="row">
-				<div class="col-md-1">
-				</div>
-				<div class="col-md-8">
-							  <p><b>petajakarta.org</b> is supported by a grassroots coalition to harness the power of social media by gathering, sorting, and displaying information about flooding for Jakarta residents in real time.</p>
-							  <p>The platform runs on the open source software known as <a href="http://cognicity.info" target="_blank">CogniCity</a>. This GeoSocial Intelligence framework allows data to be collected and disseminated by community members through their location-enabled mobile devices to map information about flooding and water infrastructure in real-time.
-</p>
-<h3><b>Privacy</b></h3>
-<p>We do not store any information about users; all information derived from location-enabled mobile devices is stored and displayed anonymously.</p>
-<h3><b>Contact</b></h3>
-	<p>E-mail <a href="mailto: info@petajakarta.org">info@petajakarta.org</a></p>
-	<p>Follow us on <a href="https://twitter.com/petajkt" target="_blank">Twitter</a></p>
-				</div>
-				<div class="col-md-3">
-				<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/turpin_etienne">@turpin_etienne</a> _ Testing <a href="https://twitter.com/search?q=%23grasp&amp;src=hash">#grasp</a> for post-flood damage assessment in Bukit Duri with <a href="http://t.co/WDmT2E6CVQ">http://t.co/WDmT2E6CVQ</a> <a href="https://twitter.com/search?q=%23banjir&amp;src=hash">#banjir</a> <a href="http://t.co/eP4rYZc6Qf">pic.twitter.com/eP4rYZc6Qf</a></p>&mdash; PetaJakarta.org (@mapjkt) <a href="https://twitter.com/mapjkt/statuses/433528216985161728">February 12, 2014</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-				</div>
-			</div>
-	</div><!--container - main stuff-->
-
-	<div class="container">
-		<hr>
-	  <div class="row centered"></div><!-- /row -->
-	  <p class="centered" style="font-size:12px;">PetaJakarta.org &copy 2014 SMART Infrastructure Facility, University of Wollongong</p>
-  </div><!-- /container -->
+    <!-- Jumbotron -->
+    <div id="headerwrap">
+      <div class="container">
+        <div class="jumbotron" style="padding-top:0px;">
+          <h1 id="title">PetaJakarta.org/banjir</h1>
+          <p class="lead"><b>petajakarta.org/banjir</b> is an open source, community-led platform to collect and disseminate information about flooding and critical water infrastructure in Jakarta</p>
+        </div>
+      </div><!-- /container -->
+    </div><!-- /headerwrap -->
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Main page body -->
+    <div class="container">
+      <div class="row" style="margin-top:25px;">
+        <div class="col-md-4 col-md-offset-2 centered">
+          <a href="#share"><img src="../assets/img/submit.png" alt="">
+            <h3>Share flood information</h3>
+            <p>See a flood? Share it on the Community Map</p></a>
+          <a class="btn btn-default" href="#share" style="color:#000; text-decoration:none;">Share »</a>
+        </div>
+        <div class="col-md-4 centered">
+          <a href="./map.html">
+            <img src="../assets/img/map.png" alt="Map">
+            <h3>View the map</h3>
+            <p>See where the floods are right now</p></a>
+          <a class="btn btn-default" href="./map.html" style="color:#000; text-decoration:none;">Map »</a>
+        </div>
+      </div><!-- /row -->
+
+      <div class="row" style="margin-top:30px;">
+        <div class="col-md-12 centered">
+          <hr>
+          <h1>Share flood information</h1>
+        </div>
+        <div class="col-md-8 col-md-offset-1">
+          <h3>1. Launch your Twitter App</h3>
+          <p>use your twitter account to post to the community flood map</p>
+          <h3>2. Enable Geolocation</h3>
+          <p>geolocation helps us flag the flood on the map</p>
+          <h3>3. Tweet your message @petajkt #banjir</h3>
+          <p>tweet it at us, and we'll put it on the map!</p>
+        </div>
+        <div class="col-md-3">
+          <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/petajkt">@petajkt</a> damage assessment at Tongtek Bridge with Ciliwung Merdeka <a href="https://twitter.com/search?q=%23banjir&amp;src=hash">#banjir</a> <a href="http://t.co/iC3B5DeTwt">pic.twitter.com/iC3B5DeTwt</a></p>&mdash; Peta Jakarta (@petajkt) <a href="https://twitter.com/petajkt/statuses/431711264809566208">February 7, 2014</a></blockquote>
+          <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 centered">
+          <hr>
+          <h1>About us</h1>
+        </div>
+        <div class="col-md-8 col-md-offset-1">
+          <p><b>petajakarta.org</b> is supported by a grassroots coalition to harness the power of social media by gathering, sorting, and displaying information about flooding for Jakarta residents in real time.</p>
+          <p>The platform runs on the open source software known as <a href="http://cognicity.info" target="_blank">CogniCity</a>. This GeoSocial Intelligence framework allows data to be collected and disseminated by community members through their location-enabled mobile devices to map information about flooding and water infrastructure in real-time.
+          </p>
+          <h3><b>Privacy</b></h3>
+          <p>We do not store any information about users; all information derived from location-enabled mobile devices is stored and displayed anonymously.</p>
+          <h3><b>Contact</b></h3>
+          <p>E-mail <a href="mailto:info@petajakarta.org">info@petajakarta.org</a></p>
+          <p>Follow us on <a href="https://twitter.com/petajkt" target="_blank">Twitter</a></p>
+        </div>
+        <div class="col-md-3">
+          <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/turpin_etienne">@turpin_etienne</a> _ Testing <a href="https://twitter.com/search?q=%23grasp&amp;src=hash">#grasp</a> for post-flood damage assessment in Bukit Duri with <a href="http://t.co/WDmT2E6CVQ">http://t.co/WDmT2E6CVQ</a> <a href="https://twitter.com/search?q=%23banjir&amp;src=hash">#banjir</a> <a href="http://t.co/eP4rYZc6Qf">pic.twitter.com/eP4rYZc6Qf</a></p>&mdash; PetaJakarta.org (@mapjkt) <a href="https://twitter.com/mapjkt/statuses/433528216985161728">February 12, 2014</a></blockquote>
+          <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+      </div>
+    </div><!-- container -->
+
+    <!-- Page footer -->
+    <div class="container">
+      <hr>
+      <div class="row centered">
+        <p class="centered" style="font-size:12px;">PetaJakarta.org &copy; 2014 SMART Infrastructure Facility, University of Wollongong</p>
+      </div><!-- /row -->
+    </div><!-- footer -->
+
+
+    <!-- Bootstrap core JavaScript -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="../vendor/js/bootstrap.min.js"></script>
 
     <!-- Google analytics -->
     <script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA-46996603-1', 'petajakarta.org');
-	  ga('send', 'pageview');
-
-	</script>
+      ga('create', 'UA-46996603-1', 'petajakarta.org');
+      ga('send', 'pageview');
+    </script>
   </body>
 </html>
