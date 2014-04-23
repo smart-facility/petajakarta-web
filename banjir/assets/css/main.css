@@ -144,13 +144,16 @@ a:after {
 
 }
 
-
+#sharing-instructions {
+  margin-top: 30px;
+}
 
 /* HeaderWrap */
 #headerwrap {
 	/* background: url(../img/bg01.jpg) no-repeat center top; */
 	background-color: #00AAEE;
 	margin-top: -20px;
+  margin-bottom: 25px;
 	padding-top:100px;
 	background-attachment: relative;
 	background-position: center center;
@@ -204,6 +207,10 @@ a:after {
 	font-size:28pt;
 }
 
+#page-foot p {
+  font-size: 12px;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 
@@ -229,8 +236,9 @@ body {
   background-color: #f5f5f5;
 }
 
+
 .jumbotron {
-  margin-bottom:0px;
+  padding-top: 0px;
   background-color: #00AAEE;
   color:#fff;
   text-align: center;
@@ -242,11 +250,6 @@ body {
 
 .container .text-muted {
   margin-top: 20px;
-}
-
-/* Custom masthead */
-.custom-masthead {
-  text-align: center;
 }
 
 /* move image for small screens*/
