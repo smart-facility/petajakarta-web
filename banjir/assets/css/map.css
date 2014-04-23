@@ -4,7 +4,7 @@ margin-bottom: 20px;
 cursor: default;
 }
 
-#headerwrap a{
+#headerwrap a {
   color:white;
   text-decoration: underline;
 }
@@ -41,7 +41,7 @@ cursor: default;
 }
 
 
-.water{
+.water {
     width: 24px;
     height: 12px;
     float: left;
@@ -54,7 +54,7 @@ cursor: default;
     border:0px solid #000;
 }
 
-.c{
+.c {
     width: 18px;
     height: 18px;
     float: left;
