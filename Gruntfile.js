@@ -39,6 +39,14 @@ module.exports = function(grunt) {
         files: { 'build/in/*.html': 'banjir/assets/templates/*.hbs'},
         options: { json: 'banjir/assets/translations/in.json' }
       }
+    },
+    copy: {
+      images: {
+        expand: true,
+        flatten: true,
+        src: "banjir/assets/img/*",
+        dest: "build/img/"
+      }
     }
   });
 
@@ -46,10 +54,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-static-handlebars');
 
   // Tasks
-  grunt.registerTask('assets', ['concat:dist', 'uglify:build', 'cssmin:build']);
+  grunt.registerTask('assets', ['concat:dist', 'uglify:build', 'cssmin:build', 'copy:images']);
   grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in']);
   grunt.registerTask('default', ['assets', 'site']);
 
