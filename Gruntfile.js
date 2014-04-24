@@ -6,8 +6,8 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         files: {
-          'build/application.js': ['banjir/vendor/js/*.js', 'banjir/assets/js/*.js'],
-          'build/application.css': ['banjir/vendor/css/*.css', 'banjir/assets/css/*.css']
+          'build/js/application.js': ['banjir/vendor/js/*.js', 'banjir/assets/js/*.js'],
+          'build/css/application.css': ['banjir/vendor/css/*.css', 'banjir/assets/css/*.css']
         }
       }
     },
@@ -16,8 +16,8 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       build: {
-        src: 'build/application.js',
-        dest: 'build/application.min.js'
+        src: 'build/js/application.js',
+        dest: 'build/js/application.min.js'
       }
     },
     cssmin: {
@@ -26,8 +26,18 @@ module.exports = function(grunt) {
         keepSpecialComments: false
       },
       build: {
-        src: 'build/application.css',
-        dest: 'build/application.min.css'
+        src: 'build/css/application.css',
+        dest: 'build/css/application.min.css'
+      }
+    },
+    staticHandlebars: {
+      en: {
+        files: { 'build/en/*.html': 'banjir/assets/templates/*.hbs' },
+        options: { json: 'banjir/assets/translations/en.json' }
+      },
+      in: {
+        files: { 'build/in/*.html': 'banjir/assets/templates/*.hbs'},
+        options: { json: 'banjir/assets/translations/in.json' }
       }
     }
   });
@@ -36,9 +46,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-static-handlebars');
 
-  // Default task(s).
+  // Tasks
   grunt.registerTask('assets', ['concat:dist', 'uglify:build', 'cssmin:build']);
-  grunt.registerTask('default', ['assets']);
+  grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in']);
+  grunt.registerTask('default', ['assets', 'site']);
 
 };
