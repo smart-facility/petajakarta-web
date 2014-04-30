@@ -4,11 +4,24 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
-      dist: {
-        files: {
-          'build/js/application.js': ['banjir/vendor/js/*.js', 'banjir/assets/js/*.js'],
-          'build/css/application.css': ['banjir/vendor/css/*.css', 'banjir/assets/css/*.css']
-        }
+      js: {
+        src: [
+          'banjir/vendor/js/bootstrap.min.js',
+          'banjir/vendor/js/leaflet.js',
+          'banjir/vendor/js/betterWMS.js',
+          'banjir/vendor/js/leaflet-providers.js',
+          'banjir/vendor/js/L.Control.MousePosition.js',
+          'banjir/vendor/js/leaflet.markercluster.js',
+          'banjir/vendor/js/spin.min.js',
+          'banjir/vendor/js/leaflet.spin.js',
+          'banjir/assets/js/reports.js',
+          'banjir/assets/js/map.js'
+        ],
+        dest: 'build/js/application.js'
+      },
+      css: {
+        src: ['banjir/vendor/css/*.css', 'banjir/assets/css/*.css'],
+        dest: 'build/css/application.css'
       }
     },
     uglify: {
@@ -44,8 +57,10 @@ module.exports = function(grunt) {
       images: {
         expand: true,
         flatten: true,
-        src: "banjir/assets/img/*",
-        dest: "build/img/"
+        files: [
+          { expand: true, flatten: true, src: "banjir/assets/img/*", dest: "build/img/" },
+          { expand: true, flatten: true, src: "banjir/vendor/css/images/*", dest: "build/css/images/" }
+        ]
       }
     }
   });
@@ -58,7 +73,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-static-handlebars');
 
   // Tasks
-  grunt.registerTask('assets', ['concat:dist', 'uglify:build', 'cssmin:build', 'copy:images']);
+  grunt.registerTask('assets', ['concat:js', 'uglify:build', 'concat:css', 'cssmin:build', 'copy:images']);
   grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in']);
   grunt.registerTask('default', ['assets', 'site']);
 

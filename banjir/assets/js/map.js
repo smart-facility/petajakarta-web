@@ -10,7 +10,7 @@ map.locate({setView:false});
 //map.on('locationfound', setViewJakarta);//Leaflet not working. Use HTML5 instead
 if (navigator.geolocation){
 	navigator.geolocation.getCurrentPosition(setViewJakarta);
-}	
+}
 
 //Load layers
 map.spin(true);
@@ -38,7 +38,7 @@ var temp = L.tileLayer('http://{s}.tile.openweathermap.org/map/temp/{z}/{x}/{y}.
 if (document.documentElement.lang == 'in'){
 	var baseMaps = {
 		"OpenStreetMap": base0,
-		"OpenStreetMap (warna)":base1	
+		"OpenStreetMap (warna)":base1
 	}
 }
 else {
@@ -149,14 +149,14 @@ function getFloodgates(){
     transparent: true,
     //attribution: "Floodgates © 2014 SMART Facility"
 	});
-	
+
 	//Add to custom legend
-	
+
 	if (document.documentElement.lang == 'in'){
-		overlayMaps['<img src="../assets/img/floodgate.svg" height="32" alt="Floodgate icon"/> Pintu air'] = floodgates;
+		overlayMaps['<img src="/img/floodgate.svg" height="32" alt="Floodgate icon"/> Pintu air'] = floodgates;
 		}
 	else {
-		overlayMaps['<img src="../assets/img/floodgate.svg" height="32" alt="Floodgate icon"/> Floodgates'] = floodgates;
+		overlayMaps['<img src="/img/floodgate.svg" height="32" alt="Floodgate icon"/> Floodgates'] = floodgates;
 		}
 }
 
@@ -168,12 +168,12 @@ function getPumps(){
     transparent: true,
     //attribution: "Pumps © 2014 SMART Facility"
 	});
-	
+
 	if (document.documentElement.lang == 'in'){
-		overlayMaps['<img src="../assets/img/pump.svg" height="32" alt="Pumps icon"/> Pompa'] = pumps;
+		overlayMaps['<img src="/img/pump.svg" height="32" alt="Pumps icon"/> Pompa'] = pumps;
 	}
 	else {
-		overlayMaps['<img src="../assets/img/pump.svg" height="32" alt="Pumps icon"/> Pumps'] = pumps;
+		overlayMaps['<img src="/img/pump.svg" height="32" alt="Pumps icon"/> Pumps'] = pumps;
 		}
 }
 
@@ -188,12 +188,12 @@ waterways = L.tileLayer.betterWms("http://gallo.ad.uow.edu.au:8080/geoserver/pet
 
 	//Load floodgates seperate to layers control
 	waterways.addTo(map);
-	
+
 	if (document.documentElement.lang == 'in'){
-		overlayMaps['<img src="../assets/img/river.svg" heigh="32"/> Sungai'] = waterways;
+		overlayMaps['<img src="/img/river.svg" heigh="32"/> Sungai'] = waterways;
 	}
 	else {
-		overlayMaps['<img src="../assets/img/river.svg" heigh="32"/> Waterways'] = waterways;
+		overlayMaps['<img src="/img/river.svg" heigh="32"/> Waterways'] = waterways;
 		}
 }
 
@@ -214,25 +214,25 @@ function getUnConfirmedReports(callback, err){
 //Create a map of tweets using Cluster Markers plugin - not currenty used.
 function loadClusters(reports){
 	if (reports.features){
-		
+
 		//loadTable(reports); //sneaky loadTable function...
-		
+
 		//Initialise empty marker group
 		clusterMarkers = new L.markerClusterGroup();
 		//Create markers from geoJson
 		var clusterLayer = L.geoJson(reports, {onEachFeature:markerPopup});
 		clusterMarkers.addLayer(clusterLayer)
-		
+
 		map.addLayer(clusterMarkers)
-		
-		$("#count").text('Showing '+numberWithCommas(reports.features.length)+' reports from the past hour'); 
+
+		$("#count").text('Showing '+numberWithCommas(reports.features.length)+' reports from the past hour');
 		map.spin(false);
 	}
 }
 
 //Put confirmed points on the map
 function loadConfirmedPoints(reports){
-	
+
 	loadTable(reports); //sneaky loadTable function.
 
 	window.confirmedPoints = L.geoJson(reports, {
@@ -241,12 +241,12 @@ function loadConfirmedPoints(reports){
 		},
 		onEachFeature: markerPopup
 	}).addTo(map);
-	
+
 	if (document.documentElement.lang == 'in'){
-		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan  '+numberWithCommas(reports.features.length)+' laporan dikonfirmasi terakhir</a>');		
+		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan  '+numberWithCommas(reports.features.length)+' laporan dikonfirmasi terakhir</a>');
 	}
 	else {
-		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+numberWithCommas(reports.features.length)+' confirmed reports</a>');		
+		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+numberWithCommas(reports.features.length)+' confirmed reports</a>');
 	}
 	map.spin(false);
 }
@@ -257,7 +257,7 @@ function loadUnConfirmedPoints(reports){
     pointToLayer: function (feature, latlng) {
         return L.circleMarker(latlng, style_unconfirmed);
 		}, onEachFeature: ucMarkerPopup
-	}).addTo(map);	
+	}).addTo(map);
 }
 
 //Centre the map on a given popup and open the text box
@@ -280,22 +280,22 @@ function setViewJakarta(e){
 		if (layer.name == "Pintu air" || layer.name == "Floodgates"){
 			//Update legend
 			if (document.documentElement.lang == 'in'){
-				legend.update('<div id="l_pumps"><img src="../assets/img/floodgate.svg" height="32" alt="Floodgate icon" style="margin-left:-5px;"/>Pintu air<br></div>');
+				legend.update('<div id="l_pumps"><img src="/img/floodgate.svg" height="32" alt="Floodgate icon" style="margin-left:-5px;"/>Pintu air<br></div>');
 			}
 			else {
-				legend.update('<div id="l_floodgates"><img src="../assets/img/floodgate.svg" height="32" alt="Floodgate icon" style="margin-left:-5px;"/>Floodgates<br></div>');
+				legend.update('<div id="l_floodgates"><img src="/img/floodgate.svg" height="32" alt="Floodgate icon" style="margin-left:-5px;"/>Floodgates<br></div>');
 			}
 
 		}
 		else if (layer.name == 'Pompa' || layer.name == "Pumps"){
 			//Update legend
 			if (document.documentElement.lang == 'in'){
-				legend.update('<div id="l_pumps"><img src="../assets/img/pump.svg" height="32" alt="Pumps icon" style="margin-left:-5px;"/>Pompa<br></div>');
+				legend.update('<div id="l_pumps"><img src="/img/pump.svg" height="32" alt="Pumps icon" style="margin-left:-5px;"/>Pompa<br></div>');
 			}
 			else {
-				legend.update('<div id="l_pumps"><img src="../assets/img/pump.svg" height="32" alt="Pumps icon" style="margin-left:-5px;"/>Pumps<br></div>');
+				legend.update('<div id="l_pumps"><img src="/img/pump.svg" height="32" alt="Pumps icon" style="margin-left:-5px;"/>Pumps<br></div>');
 			}
-			
+
 		}
 		else if (layer.name == 'Sungai' || layer.name == "Waterways"){
 			if (document.documentElement.lang == 'in'){
@@ -319,7 +319,7 @@ function setViewJakarta(e){
 	      legend.remove_item('#l_waterways');
       }
     });
-    
+
 */
 
 // Load reports
@@ -332,7 +332,7 @@ if (document.documentElement.lang == 'in'){
 else {
 	$('.leaflet-control-layers-overlays').append('<label><div class=c></div><span>Confirmed reports</span></label><label><div class=u></div><span>Unconfirmed reports</span></label>');
 }
-	
+
 
 
 // Layer ordering *** Moving to waterways WMS from GeoJSON seems to make this redundant. Commented here for reference
@@ -340,4 +340,3 @@ else {
 //var topPane = map._createPane('leaflet-top-pane', map.getPanes().mapPane);
 //topPane.appendChild(pumps.getContainer());
 //pumps.setZIndex(4);
-
