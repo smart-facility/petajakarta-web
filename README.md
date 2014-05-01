@@ -30,3 +30,7 @@ Run `grunt assets` to compile the site's CSS and JS files into single, minified 
 
 #### Build HTML - `grunt site`
 Fill in the site's HTML templates with strings for each of the various translations available, with the output in `/build/:language`.
+
+## Contribution Guidelines
+
+The site should be compiled with the `grunt` command before commiting, this way there'll always be a pre-built, up to date version of the site included with the repo.
