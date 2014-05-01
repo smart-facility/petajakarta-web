@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>getinfo.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="getinfo.html">
+                getinfo.js
+              </a>
+            
+              
+              <a class="source" href="map.html">
+                map.js
+              </a>
+            
+              
+              <a class="source" href="reports.html">
+                reports.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>getinfo.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> map, popup;
+
+<span class="hljs-keyword">var</span> cloudmadeUrl = <span class="hljs-string">'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png'</span>,
+	cloudmadeAttribution = <span class="hljs-string">'Map data &amp;copy; 2011 OpenStreetMap contributors, Imagery &amp;copy; 2011 CloudMade'</span>,
+	cloudmade = <span class="hljs-keyword">new</span> L.TileLayer(cloudmadeUrl, {maxZoom: <span class="hljs-number">18</span>, attribution: cloudmadeAttribution});
+
+<span class="hljs-keyword">var</span> mapquestUrl = <span class="hljs-string">'/web/20130525053623/http://otile{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png'</span>,
+	mapquestAttribution = <span class="hljs-string">"Data CC-By-SA by &lt;a href='/web/20130525053623/http://openstreetmap.org/' target='_blank'&gt;OpenStreetMap&lt;/a&gt;, Tiles Courtesy of &lt;a href='/web/20130525053623/http://open.mapquest.com' target='_blank'&gt;MapQuest&lt;/a&gt;"</span>,
+	mapquest = <span class="hljs-keyword">new</span> L.TileLayer(mapquestUrl, {maxZoom: <span class="hljs-number">18</span>, attribution: mapquestAttribution, subdomains: [<span class="hljs-string">'1'</span>,<span class="hljs-string">'2'</span>,<span class="hljs-string">'3'</span>,<span class="hljs-string">'4'</span>]});
+
+<span class="hljs-keyword">var</span> nexrad = <span class="hljs-keyword">new</span> L.TileLayer.WMS(<span class="hljs-string">"/web/20130525053623/http://suite.opengeo.org/geoserver/usa/wms"</span>, {
+	layers: <span class="hljs-string">'usa:states'</span>,
+	format: <span class="hljs-string">'image/png'</span>,
+	transparent: <span class="hljs-literal">true</span>
+});
+
+map = <span class="hljs-keyword">new</span> L.Map(<span class="hljs-string">'map'</span>, {
+	center: <span class="hljs-keyword">new</span> L.LatLng(<span class="hljs-number">44.095475729465</span>, -<span class="hljs-number">72.388916015626</span>),
+	zoom: <span class="hljs-number">7</span>,
+	layers: [mapquest, nexrad],
+	zoomControl: <span class="hljs-literal">true</span>
+});
+
+map.addEventListener(<span class="hljs-string">'click'</span>, onMapClick);
+
+popup = <span class="hljs-keyword">new</span> L.Popup({
+	maxWidth: <span class="hljs-number">400</span>
+});
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onMapClick</span><span class="hljs-params">(e)</span> {</span>
+    <span class="hljs-keyword">var</span> latlngStr = <span class="hljs-string">'('</span> + e.latlng.lat.toFixed(<span class="hljs-number">3</span>) + <span class="hljs-string">', '</span> + e.latlng.lng.toFixed(<span class="hljs-number">3</span>) + <span class="hljs-string">')'</span>;
+    <span class="hljs-keyword">var</span> BBOX = map.getBounds().toBBoxString();
+    <span class="hljs-keyword">var</span> WIDTH = map.getSize().x;
+    <span class="hljs-keyword">var</span> HEIGHT = map.getSize().y;
+    <span class="hljs-keyword">var</span> X = map.layerPointToContainerPoint(e.layerPoint).x;
+    <span class="hljs-keyword">var</span> Y = map.layerPointToContainerPoint(e.layerPoint).y;
+    <span class="hljs-keyword">var</span> URL = <span class="hljs-string">'?SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetFeatureInfo&amp;LAYERS=usa:states&amp;QUERY_LAYERS=usa:states&amp;STYLES=&amp;BBOX='</span>+BBOX+<span class="hljs-string">'&amp;FEATURE_COUNT=5&amp;HEIGHT='</span>+HEIGHT+<span class="hljs-string">'&amp;WIDTH='</span>+WIDTH+<span class="hljs-string">'&amp;FORMAT=image%2Fpng&amp;INFO_FORMAT=text%2Fhtml&amp;SRS=EPSG%3A4326&amp;X='</span>+X+<span class="hljs-string">'&amp;Y='</span>+Y;
+    URL = <span class="hljs-built_in">escape</span>(URL);
+    $.ajax({
+        url: <span class="hljs-string">"wms_proxy.php?&amp;args="</span> + URL,
+        dataType: <span class="hljs-string">"html"</span>,
+        type: <span class="hljs-string">"GET"</span>,
+        success: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data)</span> {</span>
+            <span class="hljs-keyword">if</span> (data.indexOf(<span class="hljs-string">"&lt;table"</span>) != -<span class="hljs-number">1</span>) {
+                popup.setContent(data);
+                popup.setLatLng(e.latlng);
+                map.openPopup(popup);
+            }
+        }
+    });
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DoTheCheck</span><span class="hljs-params">()</span> {</span>
+	<span class="hljs-keyword">if</span> (document.checkform.getfeatureinfo.checked === <span class="hljs-literal">true</span>)
+	  {map.addEventListener(<span class="hljs-string">'click'</span>, onMapClick);}
+	<span class="hljs-keyword">if</span> (document.checkform.getfeatureinfo.checked === <span class="hljs-literal">false</span>)
+	  {map.removeEventListener(<span class="hljs-string">'click'</span>, onMapClick); map.closePopup(popup);}
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

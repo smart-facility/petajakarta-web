@@ -78,7 +78,7 @@ module.exports = function(grunt) {
     watch: {
       js: {
         files: 'banjir/assets/js/**/*.js',
-        tasks: ['concat:js', 'uglify:build']
+        tasks: ['jshint', 'concat:js', 'uglify:build']
       },
       css: {
         files: 'banjir/assets/css/**/*.css',
@@ -97,6 +97,14 @@ module.exports = function(grunt) {
       options: {
         logConcurrentOutput: true
       }
+    },
+    docco: {
+      docs: {
+        src: ['banjir/assets/js/**/*.js'],
+        options: {
+          output: 'docs/'
+        }
+      }
     }
   });
 
@@ -110,9 +118,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-static-handlebars');
   grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-docco');
 
   // Tasks
-  grunt.registerTask('assets', ['concat:js', 'uglify:build', 'concat:css', 'cssmin:build', 'copy:images']);
+  grunt.registerTask('assets', ['jshint', 'concat:js', 'uglify:build', 'concat:css', 'cssmin:build', 'copy:images']);
   grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in']);
   grunt.registerTask('server', ['assets', 'site', 'concurrent:server']);
   grunt.registerTask('default', ['assets', 'site']);
