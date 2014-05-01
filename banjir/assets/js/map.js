@@ -157,7 +157,6 @@ var setViewJakarta = function(e) {
 	}
 };
 
-
 //Initialise map
 var latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
 var map = L.map('map').setView(latlon, 12); // Initialise map
