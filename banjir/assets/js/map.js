@@ -3,12 +3,12 @@
 
 //Initialise map
 var latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
-var map = L.map('map').setView(latlon, 12) // Initialise map
+var map = L.map('map').setView(latlon, 12); // Initialise map
 
 //Check user location and alter map view accordingly
 map.locate({setView:false});
 //map.on('locationfound', setViewJakarta);//Leaflet not working. Use HTML5 instead
-if (navigator.geolocation){
+if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(setViewJakarta);
 }
 
@@ -39,7 +39,7 @@ if (document.documentElement.lang == 'in'){
 	var baseMaps = {
 		"OpenStreetMap": base0,
 		"OpenStreetMap (warna)":base1
-	}
+	};
 }
 else {
 	var baseMaps = {
@@ -47,18 +47,7 @@ else {
 		"Open Street Map (Colour)": base1
 		};
 	}
-var overlayMaps = { // not adding weather data at the moment
-//	"Precipitation": precip,
-//	"Pressure": pressure,
-//	"Temperature" :temp,
-}
-
-/*
-// Remove mouse cursos widget on touch devices - removed nice mouse widget as not needed
-var is_touch_device = 'ontouchstart' in document.documentElement;
-if (is_touch_device == false){
-	L.control.mousePosition({numDigits:4}).addTo(map); // Nice mouse-cursor coodiante widget
-}*/
+var overlayMaps = { /* not adding weather data at the moment */ };
 
 var markerMap = {}; //Reference list of markers stored outside of Leaflet
 
@@ -88,27 +77,6 @@ var rivers = {
     "opacity": 0.65
 };
 
-//Custom legend - no longer needed
-/*
-var legend = L.control(baseMaps, overlayMaps,{position:'bottomleft'});
-
-legend.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-    this.update('Layers');
-    return this._div;
-};
-
-legend.update = function (html) {
-    this._div.innerHTML += html;
-};
-
-legend.remove_item = function(id){
-	$(id).remove();
-}
-
-//legend.addTo(map);
-*/
-
 // URL replacement in tweets
 String.prototype.parseURL = function() {
 	return this.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function(url) {
@@ -133,7 +101,7 @@ function markerPopup(feature, layer){
 function ucMarkerPopup(feature, layer){
 	if (feature.properties){
 		if (document.documentElement.lang == 'in'){
-			layer.bindPopup('Laporan belum dikonfirmasi. Twit pesanmu dengan menyebutkan @petajkt #banjir')
+			layer.bindPopup('Laporan belum dikonfirmasi. Twit pesanmu dengan menyebutkan @petajkt #banjir');
 		}
 		else {
 			layer.bindPopup('Unconfirmed report. To confirm tweet @petajkt #banjir');
@@ -201,14 +169,14 @@ waterways = L.tileLayer.betterWms("http://gallo.ad.uow.edu.au:8080/geoserver/pet
 function getConfirmedReports(callback, err){
 	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?type=confirmed', function(data, err){
 		callback(data);
-	})
+	});
 }
 
 //Get unconfirmed reports
 function getUnConfirmedReports(callback, err){
 	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?type=unconfirmed', function(data, err){
 		callback(data);
-	})
+	});
 }
 
 //Create a map of tweets using Cluster Markers plugin - not currenty used.
@@ -221,9 +189,9 @@ function loadClusters(reports){
 		clusterMarkers = new L.markerClusterGroup();
 		//Create markers from geoJson
 		var clusterLayer = L.geoJson(reports, {onEachFeature:markerPopup});
-		clusterMarkers.addLayer(clusterLayer)
+		clusterMarkers.addLayer(clusterLayer);
 
-		map.addLayer(clusterMarkers)
+		map.addLayer(clusterMarkers);
 
 		$("#count").text('Showing '+numberWithCommas(reports.features.length)+' reports from the past hour');
 		map.spin(false);
@@ -274,53 +242,6 @@ function setViewJakarta(e){
 	}
 }
 
-// Listen for load events  - not needed as moved to one integrated legend. Left for refernece.
-/*
-	map.on('overlayadd', function(layer){
-		if (layer.name == "Pintu air" || layer.name == "Floodgates"){
-			//Update legend
-			if (document.documentElement.lang == 'in'){
-				legend.update('<div id="l_pumps"><img src="/img/floodgate.svg" height="32" alt="Floodgate icon" style="margin-left:-5px;"/>Pintu air<br></div>');
-			}
-			else {
-				legend.update('<div id="l_floodgates"><img src="/img/floodgate.svg" height="32" alt="Floodgate icon" style="margin-left:-5px;"/>Floodgates<br></div>');
-			}
-
-		}
-		else if (layer.name == 'Pompa' || layer.name == "Pumps"){
-			//Update legend
-			if (document.documentElement.lang == 'in'){
-				legend.update('<div id="l_pumps"><img src="/img/pump.svg" height="32" alt="Pumps icon" style="margin-left:-5px;"/>Pompa<br></div>');
-			}
-			else {
-				legend.update('<div id="l_pumps"><img src="/img/pump.svg" height="32" alt="Pumps icon" style="margin-left:-5px;"/>Pumps<br></div>');
-			}
-
-		}
-		else if (layer.name == 'Sungai' || layer.name == "Waterways"){
-			if (document.documentElement.lang == 'in'){
-				legend.update('<div id="l_waterways"><div class="legend"><div class="water"></div> Sungai</div><br></div>');
-			}
-			else {
-				legend.update('<div id="l_waterways"><div class="legend"><div class="water"></div> Waterways</div><br></div>');
-			}
-		}
-	});
-
-// Listen for unload events
-    map.on('overlayremove', function(layer){
-      if (layer.name == "Pintu air" || layer.name == 'Floodgates'){
-		  legend.remove_item('#l_floodgates');
-      }
-      else if (layer.name == 'Pompa' || layer.name == 'Pumps'){
-	      legend.remove_item('#l_pumps');
-      }
-      else if (layer.name == 'Sungai' || layer.name == 'Waterways'){
-	      legend.remove_item('#l_waterways');
-      }
-    });
-
-*/
 
 // Load reports
 window.onload=getUnConfirmedReports(loadUnConfirmedPoints);getConfirmedReports(loadConfirmedPoints);getWaterways();getFloodgates();getPumps();var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
@@ -332,11 +253,3 @@ if (document.documentElement.lang == 'in'){
 else {
 	$('.leaflet-control-layers-overlays').append('<label><div class=c></div><span>Confirmed reports</span></label><label><div class=u></div><span>Unconfirmed reports</span></label>');
 }
-
-
-
-// Layer ordering *** Moving to waterways WMS from GeoJSON seems to make this redundant. Commented here for reference
-//Fix layer ordering
-//var topPane = map._createPane('leaflet-top-pane', map.getPanes().mapPane);
-//topPane.appendChild(pumps.getContainer());
-//pumps.setZIndex(4);

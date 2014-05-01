@@ -25,8 +25,7 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      beforeconcat: ['banjir/assets/js/**/*.js'],
-      afterconcat: ['build/js/application.js']
+      beforeconcat: ['banjir/assets/js/**/*.js']
     },
     uglify: {
       options: {
