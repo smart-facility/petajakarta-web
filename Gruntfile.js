@@ -24,6 +24,10 @@ module.exports = function(grunt) {
         dest: 'build/css/application.css'
       }
     },
+    jshint: {
+      beforeconcat: ['banjir/assets/js/**/*.js'],
+      afterconcat: ['build/js/application.js']
+    },
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -99,6 +103,7 @@ module.exports = function(grunt) {
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
