@@ -31,6 +31,12 @@ Run `grunt assets` to compile the site's CSS and JS files into single, minified 
 #### Build HTML - `grunt site`
 Fill in the site's HTML templates with strings for each of the various translations available, with the output in `/build/:language`.
 
+### Rebuild Site on Changes - `grunt watch`
+Watches for changes in the `assets` directory and rebuilds the site when they change. Useful during development.
+
+### Launch a Server - `grunt server`
+Builds the site and launches a barebones server to serve up files in the `\build` directory. This command also concurrently runs the `watch` command to update files as they change.
+
 ## Contribution Guidelines
 
 The site should be compiled with the `grunt` command before commiting, this way there'll always be a pre-built, up to date version of the site included with the repo.

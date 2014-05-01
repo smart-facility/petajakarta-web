@@ -62,6 +62,38 @@ module.exports = function(grunt) {
           { expand: true, flatten: true, src: "banjir/vendor/css/images/*", dest: "build/css/images/" }
         ]
       }
+    },
+    connect: {
+      server: {
+        options: {
+          port: 8000,
+          base: 'build',
+          keepalive: true
+        }
+      }
+    },
+    watch: {
+      js: {
+        files: 'banjir/assets/js/**/*.js',
+        tasks: ['concat:js', 'uglify:build']
+      },
+      css: {
+        files: 'banjir/assets/css/**/*.css',
+        tasks: ['concat:css', 'cssmin:build']
+      },
+      templates: {
+        files: [
+          'banjir/assets/templates/**/*.hbs',
+          'banjir/assets/translations/**/*.json'
+        ],
+        tasks: ['site']
+      }
+    },
+    concurrent: {
+      server: ['watch', 'connect'],
+      options: {
+        logConcurrentOutput: true
+      }
     }
   });
 
@@ -70,11 +102,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-static-handlebars');
+  grunt.loadNpmTasks('grunt-concurrent');
 
   // Tasks
   grunt.registerTask('assets', ['concat:js', 'uglify:build', 'concat:css', 'cssmin:build', 'copy:images']);
   grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in']);
+  grunt.registerTask('server', ['assets', 'site', 'concurrent:server']);
   grunt.registerTask('default', ['assets', 'site']);
 
 };
