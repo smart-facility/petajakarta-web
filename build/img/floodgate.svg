@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32px"
+   height="32px"
+   id="svg3564"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="New document 29">
+  <defs
+     id="defs3566" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.197802"
+     inkscape:cx="16"
+     inkscape:cy="16"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="1033"
+     inkscape:window-height="585"
+     inkscape:window-x="640"
+     inkscape:window-y="48"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata3569">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <circle
+       transform="translate(-17.819116,-9.2658853)"
+       style="fill:#00aeef"
+       sodipodi:ry="12"
+       sodipodi:rx="12"
+       sodipodi:cy="25.101999"
+       sodipodi:cx="33.983002"
+       cx="33.983002"
+       cy="25.101999"
+       r="12"
+       id="circle3143" />
+    <g
+       transform="translate(-17.819116,-9.2658853)"
+       id="g3147">
+      <polygon
+         style="fill:#ffffff"
+         points="38.872,20.441 41.872,20.441 41.872,31.391 25.966,31.391 25.966,20.441 28.966,20.441 28.966,28.391 38.872,28.391 "
+         id="polygon3149" />
+    </g>
+    <path
+       style="fill:#ffffff"
+       inkscape:connector-curvature="0"
+       d="m 13.229885,13.620114 h 0.002 c -0.123,0.34 -0.193,0.703 -0.193,1.084 0,1.758001 1.425,3.182001 3.183,3.182001 1.758,0 3.182,-1.424 3.182,-3.182001 0,-0.595 -0.165,-1.148 -0.449,-1.625 h 0.002 l -2.734,-5.563 -2.698,5.507 c -0.114,0.182 -0.209,0.377 -0.284,0.581 l -0.011,0.016 z"
+       id="path3151" />
+  </g>
+</svg>

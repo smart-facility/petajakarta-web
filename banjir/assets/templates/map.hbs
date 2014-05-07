@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="in">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,32 +9,22 @@
 
     <link rel="shortcut icon" href="assets/img/petajakarta_icon_32x32.png">
 
-    <title>Peta Jakarta &middot Banjir</title>
+    <title>{{{site.name}}}</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../vendor/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Site stylesheet -->
-    <link href="../assets/css/main.css" rel="stylesheet">
-    <!-- Custom styles for map -->
-    <link href="../assets/css/map.css" rel="stylesheet">
-
-    <!--Jquery UI-->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/img/petajakarta_icon_32x32.png">
 
     <!-- Fonts from Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+
+    <!-- Site stylesheet -->
+    <link href="/css/application.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Leaflet styles -->
-    <link href="../vendor/css/leaflet.css" rel="stylesheet"/>
-    <link href="../vendor/css/L.Control.MousePosition.css" rel="stylesheet"/>
-
   </head>
 
   <body>
@@ -43,7 +33,7 @@
         <!-- Fixed navbar -->
         <div class="navbar navbar-default navbar-fixed-top">
           <div class="navbar-header">
-            <img src="../assets/img/petajakarta.png" width="252" height="45" alt=""/>
+            <img src="/img/petajakarta.png" width="252" height="45" alt=""/>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
@@ -52,22 +42,22 @@
             </button>
           </div>
           <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-right" style="margin-right:0px;">
-              <li><a href="/banjir/en/">Home</a></li>
-              <li class="active"><a href="/banjir/en/map.html">Map</a></li>
-              <li><a href="/banjir/in/map.html">[Bahasa Indonesia]</a></li>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="/{{site.url-prefix}}/">{{{navbar.home}}}</a></li>
+              <li><a href="/{{site.url-prefix}}/map.html">{{{navbar.map}}}</a></li>
+              <li><a href="/{{site.other-locale-url-prefix}}/map">[{{{navbar.other-locale}}}]</a></li>
             </ul>
           </div>
         </div>
 
-        <!-- Reports Modal -->
+        <!-- Modal -->
         <div class="modal fade" id="reportsModal" tabindex="-1" role="dialog" aria-labelledby="reportsModal" aria-hidden="true" style="height:500px;">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Confirmed reports</h4>
-                Click to a report to see its location on the map
+                <h4 class="modal-title">Laporan dikonfirmasi dari jam terakhir</h4>
+                Klik laporan untuk melihat lokasi pada peta
               </div>
               <div class="modal-body" id="modal-reports-body" style="height:300px; overflow:scroll;">
               </div>
@@ -83,17 +73,19 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Map information</h4>
+                <h4 class="modal-title">Peta
+                  informasi</h4>
               </div>
               <div class="modal-body" id="modal-info-body" style="height:300px; overflow:scroll;">
-                <h4>Base maps</h4>
+                <h4>Peta dasar</h4>
                 &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>
-                <h4>Infrastructure data</h4>
+                <h4>Data infrastruktur</h4>
                 &copy; <a href="http://smart.uow.edu.au">SMART Infrastructure Facility, University of Wollongong</a>
-                <h4>Reports</h4>
-                Derived from <a href="http://twitter.com" target="_blank">Twitter</a> data
-                <h4>Software</h4>
-                Powered by <a href="http://github.com/smart-facility/">CogniCity</a><br>        		Maps created using <a href="http://leafletjs.com">Leaflet</a>
+                <h4>Laporan</h4>
+                Dari <a href="http://twitter.com" target="_blank">Twitter</a> data
+                <h4>Perangkat lunak</h4>
+                Sebuah kerangka Pengetahuan GeoSosial: <a href="http://github.com/smart-facility/">CogniCity</a><br>
+                Peta: <a href="http://leafletjs.com">Leaflet</a>
               </div>
               <div class="modal-footer">
                 <h5 class="pull-left">PetaJakarta.org &copy SMART Infrastructure Facility, University of Wollongong</h5>
@@ -107,26 +99,14 @@
       <div id="content">
         <div id="map"></div>
       </div>
-
     </div>
 
   </div>
 
-  <!-- Bootstrap core JavaScript
-  ================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="../vendor/js/jquery-1.10.2.min.js"></script>
+  <!-- Site JavaScript -->
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  <script src="../vendor/js/bootstrap.min.js"></script>
-  <script src="../vendor/js/leaflet.js"></script>
-  <script src="../vendor/js/betterWMS.js"></script>
-  <script src="../vendor/js/leaflet-providers.js"></script>
-  <script src="../vendor/js/L.Control.MousePosition.js"></script>
-  <script src="../vendor/js/leaflet.markercluster.js"></script>
-  <script src="../vendor/js/spin.min.js"></script>
-  <script src="../vendor/js/leaflet.spin.js"></script>
-  <script src="../assets/js/reports.js"></script>
-  <script src="../assets/js/map.js"></script>
+  <script src="/js/application.min.js"></script>
 
   <!-- Google analytics -->
   <script>

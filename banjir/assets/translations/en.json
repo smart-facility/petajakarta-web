@@ -1,0 +1,57 @@
+{
+  "site": {
+    "name": "Peta Jakarta &middot; Banjir",
+    "url-prefix": "en",
+    "other-locale-url-prefix": "in"
+  },
+  "navbar": {
+    "home": "Home",
+    "map": "Map",
+    "other-locale": "Bahasa Indonesia"
+  },
+  "header": {
+    "title": "PetaJakarta.org/banjir",
+    "lead": "<b>petajakarta.org/banjir</b> is an open source, community-led platform to collect and disseminate information about flooding and critical water infrastructure in Jakarta"
+  },
+  "intro": {
+    "share": {
+      "title": "Share flood information",
+      "content": "See a flood? Share it on the Community Map",
+      "button-title": "Share"
+    },
+    "map": {
+      "title": "View the map",
+      "content": "See where the floods are right now",
+      "button-title": "Map"
+    }
+  },
+  "sharing-instructions": {
+    "title": "Share flood information",
+    "steps": [
+      {
+        "title": "1. Launch your Twitter App",
+        "content": "use your twitter account to post to the community flood map"
+      },
+      {
+        "title": "2. Enable Geolocation",
+        "content": "geolocation helps us flag the flood on the map"
+      },
+      {
+        "title": "3. Tweet your message @petajkt #banjir",
+        "content": "tweet it at us, and we'll put it on the map!"
+      }
+    ]
+  },
+  "about": {
+    "title": "About us",
+    "intro": "<p><b>petajakarta.org</b> is supported by a grassroots coalition to harness the power of social media by gathering, sorting, and displaying information about flooding for Jakarta residents in real time.</p><p>The platform runs on the open source software known as <a href=\"http://cognicity.info\" target=\"_blank\">CogniCity</a>. This GeoSocial Intelligence framework allows data to be collected and disseminated by community members through their location-enabled mobile devices to map information about flooding and water infrastructure in real-time.</p>",
+    "privacy": {
+      "title": "Privacy",
+      "content": "We do not store any information about users; all information derived from location-enabled mobile devices is stored and displayed anonymously."
+    },
+    "contact": {
+      "title": "Contact",
+      "follow-us": "Follow us on"
+    }
+  }
+}

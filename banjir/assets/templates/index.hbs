@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Peta Jakarta">
+    <meta name="author" content="Peta Jakarta">
+    <meta name="twitter:widgets:csp" content="on">
+
+    <title>{{{site.name}}}</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/img/petajakarta_icon_32x32.png">
+
+    <!-- Fonts from Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+
+    <!-- Site stylesheet -->
+    <link href="/css/application.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/{{site.url-prefix}}/"><img src="/img/petajakarta.png" width="252" height="45" alt=""/></a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/{{site.url-prefix}}/">{{{navbar.home}}}</a></li>
+            <li><a href="/{{site.url-prefix}}/map">{{{navbar.map}}}</a></li>
+            <li><a href="/{{site.other-locale-url-prefix}}/">[{{{navbar.other-locale}}}]</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jumbotron -->
+    <div id="headerwrap">
+      <div class="container">
+        <div class="jumbotron">
+          <h1 id="title">{{{header.title}}}</h1>
+          <p class="lead">{{{header.lead}}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main page body -->
+    <div class="container">
+      <!-- Links -->
+      <div class="row">
+        <div class="col-md-4 col-md-offset-2 centered">
+          <a href="#share"><img src="/img/submit.png" alt="">
+            <h3>{{{intro.share.title}}}</h3>
+            <p>{{{intro.share.content}}}</p>
+          </a>
+          <a class="btn btn-default" href="#share">{{{intro.share.button-title}}} »</a>
+        </div>
+        <div class="col-md-4 centered">
+          <a href="./map">
+            <img src="/img/map.png" alt="Map">
+            <h3>{{{intro.map.title}}}</h3>
+            <p>{{{intro.map.content}}}</p>
+          </a>
+          <a class="btn btn-default" href="./map">{{{intro.map.button-title}}} »</a>
+        </div>
+      </div>
+
+      <!-- Sharing instructions -->
+      <div class="row" id="sharing-instructions">
+        <div class="col-md-12 centered">
+          <hr>
+          <h1>{{{sharing-instructions.title}}}</h1>
+        </div>
+        <div class="col-md-8 col-md-offset-1">
+          {{#each sharing-instructions.steps}}
+            <h3>{{{title}}}</h3>
+            <p>{{{content}}}</p>
+          {{/each}}
+        </div>
+        <div class="col-md-3">
+          <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/petajkt">@petajkt</a> damage assessment at Tongtek Bridge with Ciliwung Merdeka <a href="https://twitter.com/search?q=%23banjir&amp;src=hash">#banjir</a> <a href="http://t.co/iC3B5DeTwt">pic.twitter.com/iC3B5DeTwt</a></p>&mdash; Peta Jakarta (@petajkt) <a href="https://twitter.com/petajkt/statuses/431711264809566208">February 7, 2014</a></blockquote>
+          <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+      </div>
+
+      <!-- About us -->
+      <div class="row">
+        <div class="col-md-12 centered">
+          <hr>
+          <h1>{{{about.title}}}</h1>
+        </div>
+        <div class="col-md-8 col-md-offset-1">
+          {{{about.intro}}}
+          <h3>{{{about.privacy.title}}}</h3>
+          <p>{{{about.privacy.content}}}</p>
+          <h3>{{{about.contact.title}}}</h3>
+          <p>E-mail <a href="mailto:info@petajakarta.org">info@petajakarta.org</a></p>
+          <p>{{{about.contact.follow-us}}} <a href="https://twitter.com/petajkt" target="_blank">Twitter</a></p>
+        </div>
+        <div class="col-md-3">
+          <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/turpin_etienne">@turpin_etienne</a> _ Testing <a href="https://twitter.com/search?q=%23grasp&amp;src=hash">#grasp</a> for post-flood damage assessment in Bukit Duri with <a href="http://t.co/WDmT2E6CVQ">http://t.co/WDmT2E6CVQ</a> <a href="https://twitter.com/search?q=%23banjir&amp;src=hash">#banjir</a> <a href="http://t.co/eP4rYZc6Qf">pic.twitter.com/eP4rYZc6Qf</a></p>&mdash; PetaJakarta.org (@mapjkt) <a href="https://twitter.com/mapjkt/statuses/433528216985161728">February 12, 2014</a></blockquote>
+          <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page footer -->
+    <div class="container" id="page-foot">
+      <hr>
+      <div class="row centered">
+        <p class="centered">PetaJakarta.org &copy; 2014 SMART Infrastructure Facility, University of Wollongong</p>
+      </div>
+    </div>
+
+    <!-- Site JavaScript -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/js/application.min.js"></script>
+
+    <!-- Google analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46996603-1', 'petajakarta.org');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

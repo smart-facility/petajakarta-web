@@ -1,0 +1,57 @@
+{
+  "site": {
+    "name": "Peta Jakarta &middot; Banjir",
+    "url-prefix": "in",
+    "other-locale-url-prefix": "en"
+  },
+  "navbar": {
+    "home": "Beranda",
+    "map": "Peta",
+    "other-locale": "English"
+  },
+  "header": {
+    "title": "PetaJakarta.org/banjir",
+    "lead": "<b>petajakarta.org/banjir</b> adalah platform <i>open source</i> berbasis masyarakat untuk mengumpulkan dan menyebarkan informasi tentang banjir dan infrastruktur air utama di Jakarta"
+  },
+  "intro": {
+    "share": {
+      "title": "Berbagi informasi banjir",
+      "content": "Ada banjir? Ceritakan di Peta Warga",
+      "button-title": "Ceritakan"
+    },
+    "map": {
+      "title": "Lihat Peta",
+      "content": "Lihat lokasi banjir <br>sekarang",
+      "button-title": "Peta"
+    }
+  },
+  "sharing-instructions": {
+    "title": "Instruksi",
+    "steps": [
+      {
+        "title": "1. Luncurkan aplikasi Twitter",
+        "content": "gunakan akun twitter Anda untuk mengepos ke peta warga"
+      },
+      {
+        "title": "2. Aktifkan Geolokasi",
+        "content": "geolokasi menolong kami menandai lokasi banjir di peta"
+      },
+      {
+        "title": "3. Twit pesanmu dengan menyebutkan @petajkt #banjir",
+        "content": "Twitkan ke kami, dan kami akan menampilkannya di peta!"
+      }
+    ]
+  },
+  "about": {
+    "title": "Tentang Kami",
+    "intro": "<p><b>petajakarta.org</b> didukung oleh koalisi masyarakat untuk memanfaatkan kekuatan media sosial dengan mengumpulkan, memilah, dan menyajikan informasi terkait banjir untuk warga Jakarta secara <i>real time</i>. Platform ini menggunakan perangkat lunak <i>open source</i> bernama <a href=\"http://cognicity.info\" target=\"_blank\">CogniCity</a>, sebuah kerangka Pengetahuan GeoSosial, yang memungkinkan pengumpulan dan penyebaran oleh anggota masyarakat melalui perangkat seluler bergeolokasi.</p>",
+    "privacy": {
+      "title": "Kebijakan Privasi",
+      "content": "Kami tidak menyimpan informasi tentang pengguna. Semua informasi yang berasal dari perangkat seluler bergeolokasi disimpan dan ditampilkan secara anonim."
+    },
+    "contact": {
+      "title": "Menghubungi",
+      "follow-us": "Twitter"
+    }
+  }
+}
