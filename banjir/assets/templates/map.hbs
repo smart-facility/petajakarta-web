@@ -27,7 +27,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body class="{{{url-prefix}}}">
     <div id="page">
       <div name="header">
         <!-- Fixed navbar -->
@@ -56,8 +56,8 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Laporan dikonfirmasi dari jam terakhir</h4>
-                Klik laporan untuk melihat lokasi pada peta
+                <h4 class="modal-title">{{{confirmed-reports.title}}}</h4>
+                {{{confirmed-reports.instructions}}}
               </div>
               <div class="modal-body" id="modal-reports-body" style="height:300px; overflow:scroll;">
               </div>
@@ -73,19 +73,10 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Peta
-                  informasi</h4>
+                <h4 class="modal-title">{{{map-information.title}}}</h4>
               </div>
               <div class="modal-body" id="modal-info-body" style="height:300px; overflow:scroll;">
-                <h4>Peta dasar</h4>
-                &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>
-                <h4>Data infrastruktur</h4>
-                &copy; <a href="http://smart.uow.edu.au">SMART Infrastructure Facility, University of Wollongong</a>
-                <h4>Laporan</h4>
-                Dari <a href="http://twitter.com" target="_blank">Twitter</a> data
-                <h4>Perangkat lunak</h4>
-                Sebuah kerangka Pengetahuan GeoSosial: <a href="http://github.com/smart-facility/">CogniCity</a><br>
-                Peta: <a href="http://leafletjs.com">Leaflet</a>
+                {{{map-information.acknowledgements}}}
               </div>
               <div class="modal-footer">
                 <h5 class="pull-left">PetaJakarta.org &copy SMART Infrastructure Facility, University of Wollongong</h5>
