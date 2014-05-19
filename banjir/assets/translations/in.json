@@ -53,5 +53,13 @@
       "title": "Menghubungi",
       "follow-us": "Twitter"
     }
+  },
+  "confirmed-reports": {
+    "title": "Laporan dikonfirmasi dari jam terakhir",
+    "instructions": "Klik laporan untuk melihat lokasi pada peta"
+  },
+  "map-information": {
+    "title": "Peta Informasi",
+    "acknowledgements": "<h4>Peta dasar</h4>\n&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>\n<h4>Data infrastruktur</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Laporan</h4>\nDari <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> data\n<h4>Perangkat lunak</h4>\nSebuah kerangka Pengetahuan GeoSosial: <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nPeta: <a href=\"http://leafletjs.com\">Leaflet</a>"
   }
 }

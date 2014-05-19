@@ -24,6 +24,9 @@ module.exports = function(grunt) {
         dest: 'build/css/application.css'
       }
     },
+    jshint: {
+      beforeconcat: ['banjir/assets/js/**/*.js']
+    },
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -75,7 +78,7 @@ module.exports = function(grunt) {
     watch: {
       js: {
         files: 'banjir/assets/js/**/*.js',
-        tasks: ['concat:js', 'uglify:build']
+        tasks: ['jshint', 'concat:js', 'uglify:build']
       },
       css: {
         files: 'banjir/assets/css/**/*.css',
@@ -94,11 +97,20 @@ module.exports = function(grunt) {
       options: {
         logConcurrentOutput: true
       }
+    },
+    jsdoc: {
+      dist: {
+        src: 'banjir/assets/js/**.js',
+        options: {
+          destination: 'docs'
+        }
+      }
     }
   });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
@@ -106,11 +118,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-static-handlebars');
   grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-jsdoc');
 
   // Tasks
-  grunt.registerTask('assets', ['concat:js', 'uglify:build', 'concat:css', 'cssmin:build', 'copy:images']);
+  grunt.registerTask('assets', ['jshint', 'concat:js', 'uglify:build', 'concat:css', 'cssmin:build', 'copy:images']);
   grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in']);
   grunt.registerTask('server', ['assets', 'site', 'concurrent:server']);
   grunt.registerTask('default', ['assets', 'site']);
+  grunt.registerTask('docs', ['jsdoc:dist'])
 
 };
