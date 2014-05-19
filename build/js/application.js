@@ -730,7 +730,7 @@ var ucMarkerPopup = function(feature, layer) {
 	Get a map overlay layer from the geoserver
 
 	@param {string} layer - the layer to be fetched
-	@return {L.tileLayer} - the layer that was fetched from the server
+	@return {L.TileLayer} - the layer that was fetched from the server
 */
 var getOverlay = function(layer) {
 	return L.tileLayer.betterWms("http://gallo.ad.uow.edu.au:8080/geoserver/petajakarta/wms", {
@@ -740,16 +740,14 @@ var getOverlay = function(layer) {
 	});
 };
 
-//Get confirmed reports
-var getConfirmedReports = function(callback, err) {
-	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?type=confirmed', function(data, err) {
-		callback(data);
-	});
-};
+/**
+	Get GeoJSON representing flooding reports from the server
 
-//Get unconfirmed reports
-var getUnConfirmedReports = function(callback, err) {
-	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?type=unconfirmed', function(data, err) {
+	@param {string} type - the type of report to get: `'confirmed'` or `'uncomfirmed'`
+	@param {function} callback - a function to be called when data is finished loading
+	*/
+var getReports = function(type, callback) {
+	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?type=' + type, function(data) {
 		callback(data);
 	});
 };
@@ -795,7 +793,7 @@ var loadConfirmedPoints = function(reports) {
 
 //Put unconfirmed points on the map
 var loadUnConfirmedPoints = function(reports) {
-	var a= L.geoJson(reports, {
+	var a = L.geoJson(reports, {
 		pointToLayer: function (feature, latlng) {
 				return L.circleMarker(latlng, style_unconfirmed);
 		}, onEachFeature: ucMarkerPopup
@@ -891,8 +889,8 @@ String.prototype.parseURL = function() {
 
 // Load reports
 $(function() {
-	getUnConfirmedReports(loadUnConfirmedPoints);
-	getConfirmedReports(loadConfirmedPoints);
+	getReports('unconfirmed', loadUnConfirmedPoints);
+	getReports('confirmed', loadConfirmedPoints);
 
 	var overlayMaps = [];
 	var waterwaysLayer = getOverlay('waterways');
