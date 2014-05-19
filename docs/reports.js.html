@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Index</title>
+    <title>JSDoc: Source: reports.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,30 +17,38 @@
 
 <div id="main">
     
-    <h1 class="page-title">Index</h1>
+    <h1 class="page-title">Source: reports.js</h1>
     
     
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/**
+ * Generate a table based on the provided reports
+ * 
+ * @param {object} reports - a GeoJSON object
+ */
+function loadTable(reports) {
+	var rows, thead;
 
+	rows = "";
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+	for (var i=0;i&lt;reports.features.length;i++) {
+		rows +='&lt;tr>&lt;td>'+reports.features[i].properties.created_at.substring(11, 19)+'&lt;/td>&lt;td>&lt;a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+reports.features[i].properties.pkey+','+reports.features[i].geometry.coordinates[1]+','+reports.features[i].geometry.coordinates[0]+')">'+reports.features[i].properties.text+'&lt;/a>&lt;/td>&lt;/tr>';
+	}
+	if (document.documentElement.lang == 'in') {
+		thead = '&lt;table class="table table-hover">&lt;thead>&lt;tr>&lt;th class="col-xs-2">Waktu&lt;/th>&lt;th class="col-xs-8">Sumber&lt;/th>&lt;/tr>&lt;/thead>';
+	} else {
+		thead = '&lt;table class="table table-hover">&lt;thead>&lt;tr>&lt;th class="col-xs-2">Time&lt;/th>&lt;th class="col-xs-8">Message&lt;/th>&lt;/tr>&lt;/thead>';
+	}
+	var tbody = '&lt;tbody>'+rows+'&lt;/tbody>&lt;/table>';
+	$("#modal-reports-body").append(thead+tbody);
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

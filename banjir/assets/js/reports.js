@@ -1,3 +1,8 @@
+/**
+ * Generate a table based on the provided reports
+ * 
+ * @param {object} reports - a GeoJSON object
+ */
 function loadTable(reports) {
 	var rows, thead;
 
