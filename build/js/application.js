@@ -706,7 +706,12 @@ var formatNumberAsString = function(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-//Add tweet message to popup
+/**
+	Add a popup to the provided layer based on the provided feature's text property
+
+	@param {object} feature - a GeoJSON feature
+	@param {L.ILayer} layer - the layer to attach the popup to
+*/
 var markerPopup = function(feature, layer) {
 	if (feature.properties) {
 		markerMap[feature.properties.pkey] = layer;
@@ -715,12 +720,17 @@ var markerPopup = function(feature, layer) {
 	}
 };
 
-var ucMarkerPopup = function(feature, layer) {
+/**
+	Add a text popup to the provided layer
+
+	@param {object} feature - a GeoJSON feature
+	@param {L.ILayer} layer - the layer to attach the popup to
+*/
+var uncomfirmedMarkerPopup = function(feature, layer) {
 	if (feature.properties) {
 		if (document.documentElement.lang == 'in') {
 			layer.bindPopup('Laporan belum dikonfirmasi. Twit pesanmu dengan menyebutkan @petajkt #banjir');
-		}
-		else {
+		} else {
 			layer.bindPopup('Unconfirmed report. To confirm tweet @petajkt #banjir');
 		}
 	}
@@ -730,7 +740,7 @@ var ucMarkerPopup = function(feature, layer) {
 	Get a map overlay layer from the geoserver
 
 	@param {string} layer - the layer to be fetched
-	@return {L.TileLayer} - the layer that was fetched from the server
+	@return {L.TileLayer} layer - the layer that was fetched from the server
 */
 var getOverlay = function(layer) {
 	return L.tileLayer.betterWms("http://gallo.ad.uow.edu.au:8080/geoserver/petajakarta/wms", {
@@ -745,33 +755,18 @@ var getOverlay = function(layer) {
 
 	@param {string} type - the type of report to get: `'confirmed'` or `'uncomfirmed'`
 	@param {function} callback - a function to be called when data is finished loading
-	*/
+*/
 var getReports = function(type, callback) {
 	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?type=' + type, function(data) {
 		callback(data);
 	});
 };
 
-//Create a map of tweets using Cluster Markers plugin - not currenty used.
-var loadClusters = function(reports) {
-	if (reports.features) {
+/**
+	Plots confirmed points on the map as circular markers
 
-		//loadTable(reports); //sneaky loadTable function...
-
-		//Initialise empty marker group
-		clusterMarkers = new L.markerClusterGroup();
-		//Create markers from geoJson
-		var clusterLayer = L.geoJson(reports, {onEachFeature:markerPopup});
-		clusterMarkers.addLayer(clusterLayer);
-
-		map.addLayer(clusterMarkers);
-
-		$("#count").text('Showing '+formatNumberAsString(reports.features.length)+' reports from the past hour');
-		map.spin(false);
-	}
-};
-
-//Put confirmed points on the map
+	@param {object} reports - a GeoJSON object containing report locations
+*/
 var loadConfirmedPoints = function(reports) {
 
 	loadTable(reports); //sneaky loadTable function.
@@ -791,26 +786,41 @@ var loadConfirmedPoints = function(reports) {
 	map.spin(false);
 };
 
-//Put unconfirmed points on the map
+/**
+	Plots unconfirmed points on the map as circular markers
+
+	@param {object} reports - a GeoJSON object containing report locations
+*/
 var loadUnConfirmedPoints = function(reports) {
 	var a = L.geoJson(reports, {
 		pointToLayer: function (feature, latlng) {
-				return L.circleMarker(latlng, style_unconfirmed);
-		}, onEachFeature: ucMarkerPopup
+				return L.circleMarker(latlng, styleUnconfirmed);
+		}, onEachFeature: uncomfirmedMarkerPopup
 	}).addTo(map);
 };
 
-//Centre the map on a given popup and open the text box
+/**
+	Centre the map on a given location and open a popup's text box
+
+	@param {string} pkey - the key of the marker to display
+	@param {number} lat - latitude to center on
+	@param {number} lon - longitude to center on
+*/
 var centreMapOnPopup = function(pkey,lat,lon) {
 	var m = markerMap[pkey];
 	map.setView(m._latlng, 17);
 	m.openPopup();
 };
 
-//Check if user location is in Jakarta and set map view accordingly
-var setViewJakarta = function(e) {
-	if (e.coords.latitude >= -6.4354 && e.coords.latitude <= -5.9029 && e.coords.longitude >= 106.5894 && e.coords.longitude <= 107.0782) {
-		map.setView(L.latLng(e.coords.latitude,e.coords.longitude), 17); // Set to the users current view
+/**
+	Center the map on the user's location if they're in jakarta
+
+	@param {Position} position - the user's position
+*/
+var setViewJakarta = function(position) {
+	if (position.coords.latitude >= -6.4354 && position.coords.latitude <= -5.9029 &&
+		  position.coords.longitude >= 106.5894 && position.coords.longitude <= 107.0782) {
+		map.setView(L.latLng(position.coords.latitude,position.coords.longitude), 17); // Set to the users current view
 	}
 };
 
@@ -820,7 +830,7 @@ var map = L.map('map').setView(latlon, 12); // Initialise map
 
 //Check user location and alter map view accordingly
 map.locate({setView:false});
-if (navigator.geolocation) {
+if ('geolocation' in navigator) {
 	navigator.geolocation.getCurrentPosition(setViewJakarta);
 }
 
@@ -857,12 +867,11 @@ if (document.documentElement.lang == 'in') {
 			"Open Street Map (Colour)": base1
 		};
 	}
-var overlayMaps = { /* not adding weather data at the moment */ };
 
 var markerMap = {}; //Reference list of markers stored outside of Leaflet
 
 // Styles for confirmed and unconfirmed points
-var style_unconfirmed = {
+var styleUnconfirmed = {
     radius: 4,
     fillColor: "#ff7800",
     color: "#000",
@@ -892,7 +901,7 @@ $(function() {
 	getReports('unconfirmed', loadUnConfirmedPoints);
 	getReports('confirmed', loadConfirmedPoints);
 
-	var overlayMaps = [];
+	var overlayMaps = {};
 	var waterwaysLayer = getOverlay('waterways');
 
 	waterwaysLayer.addTo(map);
