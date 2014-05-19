@@ -98,11 +98,11 @@ module.exports = function(grunt) {
         logConcurrentOutput: true
       }
     },
-    docco: {
-      docs: {
-        src: ['banjir/assets/js/**/*.js'],
+    jsdoc: {
+      dist: {
+        src: 'banjir/assets/js/**.js',
         options: {
-          output: 'docs/'
+          destination: 'docs'
         }
       }
     }
@@ -118,12 +118,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-static-handlebars');
   grunt.loadNpmTasks('grunt-concurrent');
-  grunt.loadNpmTasks('grunt-docco');
+  grunt.loadNpmTasks('grunt-jsdoc');
 
   // Tasks
   grunt.registerTask('assets', ['jshint', 'concat:js', 'uglify:build', 'concat:css', 'cssmin:build', 'copy:images']);
   grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in']);
   grunt.registerTask('server', ['assets', 'site', 'concurrent:server']);
   grunt.registerTask('default', ['assets', 'site']);
+  grunt.registerTask('docs', ['jsdoc:dist'])
 
 };
