@@ -695,8 +695,14 @@ function loadTable(reports) {
 
 //map.js - JavaScript for j247-web map
 
-// Pretty number printing
-var numberWithCommas = function(x) {
+/**
+	Transforms a number into a formatted, comma separated string. e.g. `1234567`
+	becomes `"1,234,567"`.
+
+	@function
+	@param {number} x the number to be formatted
+*/
+var formatNumberAsString = function(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
@@ -720,60 +726,18 @@ var ucMarkerPopup = function(feature, layer) {
 	}
 };
 
-//Get floodgates infrastructure
-var getFloodgates = function() {
-	floodgates = L.tileLayer.betterWms("http://gallo.ad.uow.edu.au:8080/geoserver/petajakarta/wms", {
-		layers: 'petajakarta:floodgates',
-		format: 'image/png',
-		transparent: true,
-		//attribution: "Floodgates © 2014 SMART Facility"
+/**
+	Get a map overlay layer from the geoserver
+
+	@param {string} layer - the layer to be fetched
+	@return {L.tileLayer} - the layer that was fetched from the server
+*/
+var getOverlay = function(layer) {
+	return L.tileLayer.betterWms("http://gallo.ad.uow.edu.au:8080/geoserver/petajakarta/wms", {
+		layers: "petajakarta:" + layer,
+		format: "image/png",
+		transparent: true
 	});
-
-	//Add to custom legend
-
-	if (document.documentElement.lang == 'in') {
-		overlayMaps['<img src="/img/floodgate.svg" height="32" alt="Floodgate icon"/> Pintu air'] = floodgates;
-		}
-	else {
-		overlayMaps['<img src="/img/floodgate.svg" height="32" alt="Floodgate icon"/> Floodgates'] = floodgates;
-		}
-};
-
-//Get floodgates infrastructure
-var getPumps = function() {
-	pumps = L.tileLayer.betterWms("http://gallo.ad.uow.edu.au:8080/geoserver/petajakarta/wms", {
-		layers: 'petajakarta:pumps',
-		format: 'image/png',
-		transparent: true,
-		//attribution: "Pumps © 2014 SMART Facility"
-	});
-
-	if (document.documentElement.lang == 'in') {
-		overlayMaps['<img src="/img/pump.svg" height="32" alt="Pumps icon"/> Pompa'] = pumps;
-	}
-	else {
-		overlayMaps['<img src="/img/pump.svg" height="32" alt="Pumps icon"/> Pumps'] = pumps;
-		}
-};
-
-//Get waterways infrastructure
-var getWaterways = function() {
-waterways = L.tileLayer.betterWms("http://gallo.ad.uow.edu.au:8080/geoserver/petajakarta/wms", {
-		layers: 'petajakarta:waterways',
-		format: 'image/png',
-		transparent: true,
-		//attribution: "Waterways © 2014 SMART Facility"
-	});
-
-	//Load floodgates seperate to layers control
-	waterways.addTo(map);
-
-	if (document.documentElement.lang == 'in') {
-		overlayMaps['<img src="/img/river.svg" heigh="32"/> Sungai'] = waterways;
-	}
-	else {
-		overlayMaps['<img src="/img/river.svg" heigh="32"/> Waterways'] = waterways;
-		}
 };
 
 //Get confirmed reports
@@ -804,7 +768,7 @@ var loadClusters = function(reports) {
 
 		map.addLayer(clusterMarkers);
 
-		$("#count").text('Showing '+numberWithCommas(reports.features.length)+' reports from the past hour');
+		$("#count").text('Showing '+formatNumberAsString(reports.features.length)+' reports from the past hour');
 		map.spin(false);
 	}
 };
@@ -822,9 +786,9 @@ var loadConfirmedPoints = function(reports) {
 	}).addTo(map);
 
 	if (document.documentElement.lang == 'in') {
-		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan  '+numberWithCommas(reports.features.length)+' laporan dikonfirmasi terakhir</a>');
+		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan  '+formatNumberAsString(reports.features.length)+' laporan dikonfirmasi terakhir</a>');
 	} else {
-		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+numberWithCommas(reports.features.length)+' confirmed reports</a>');
+		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+formatNumberAsString(reports.features.length)+' confirmed reports</a>');
 	}
 	map.spin(false);
 };
@@ -918,13 +882,6 @@ var style_confirmed = {
     fillOpacity: 0.8
 };
 
-// Style for waterways
-var rivers = {
-    "color": "blue",
-    "weight": 2,
-    "opacity": 0.65
-};
-
 // URL replacement in tweets
 String.prototype.parseURL = function() {
 	return this.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function(url) {
@@ -933,7 +890,28 @@ String.prototype.parseURL = function() {
 };
 
 // Load reports
-window.onload=getUnConfirmedReports(loadUnConfirmedPoints);getConfirmedReports(loadConfirmedPoints);getWaterways();getFloodgates();getPumps();var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
+$(function() {
+	getUnConfirmedReports(loadUnConfirmedPoints);
+	getConfirmedReports(loadConfirmedPoints);
+
+	var overlayMaps = [];
+	var waterwaysLayer = getOverlay('waterways');
+
+	waterwaysLayer.addTo(map);
+
+	if (document.documentElement.lang == 'in') {
+		overlayMaps['<img src="/img/river.svg" heigh="32"/> Sungai'] = waterwaysLayer;
+		overlayMaps['<img src="/img/pump.svg" height="32" alt="Pumps icon"/> Pompa'] = getOverlay('pumps');
+		overlayMaps['<img src="/img/floodgate.svg" height="32" alt="Floodgate icon"/> Pintu air'] = getOverlay('floodgates');
+	} else {
+		overlayMaps['<img src="/img/river.svg" heigh="32"/> Waterways'] = waterwaysLayer;
+		overlayMaps['<img src="/img/pump.svg" height="32" alt="Pumps icon"/> Pumps'] = getOverlay('pumps');
+		overlayMaps['<img src="/img/floodgate.svg" height="32" alt="Floodgate icon"/> Floodgates'] = getOverlay('floodgates');
+	}
+
+	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
+});
+
 
 // Hack in the symbols for reports
 if (document.documentElement.lang == 'in') {
