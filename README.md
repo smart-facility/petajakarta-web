@@ -37,6 +37,9 @@ Watches for changes in the `assets` directory and rebuilds the site when they ch
 ### Launch a Server - `grunt server`
 Builds the site and launches a barebones server to serve up files in the `\build` directory. This command also concurrently runs the `watch` command to update files as they change.
 
+### Generate Documentation - `grunt docs`
+Generates documentation from the site's JavaScript files using [JSDoc](http://usejsdoc.org/)
+
 ## Contribution Guidelines
 
 The site should be compiled with the `grunt` command before commiting, this way there'll always be a pre-built, up to date version of the site included with the repo.
