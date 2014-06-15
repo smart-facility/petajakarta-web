@@ -6,6 +6,7 @@ module.exports = function(grunt) {
     concat: {
       js: {
         src: [
+          'banjir/vendor/js/jquery-1.10.2.min.js',
           'banjir/vendor/js/bootstrap.min.js',
           'banjir/vendor/js/leaflet.js',
           'banjir/vendor/js/betterWMS.js',
