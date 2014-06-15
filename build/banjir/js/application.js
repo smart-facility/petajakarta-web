@@ -961,6 +961,7 @@ var setViewJakarta = function(position) {
 var info = L.control();
 //Create info box
 info.onAdd = function(map){
+	this.flag = 1;
 	this._div = L.DomUtil.create('div', 'info'); // Create a div with class info
 	this.update();
 	return this._div;
@@ -1087,6 +1088,9 @@ map.on('zoomend', function(e){
 	var zoom  = map.getZoom();
 
 	if (zoom < 13){
+			if (info.flag === 0){
+				info_box.addTo(map);
+			}
 			if (aggregate_layers && aggregate_layers.rw){
 				map.removeLayer(aggregate_layers.rw);
 			}
@@ -1097,19 +1101,28 @@ map.on('zoomend', function(e){
 				getAggregates('village', loadAggregates);
 			}
 		}
-	else if (zoom >= 13){
-			console.log(zoom);
+	else if (zoom >= 13 && zoom < 17){
+		if (info.flag === 0){
+			info.addTo(map);
+		}
+
 			if (aggregate_layers && aggregate_layers.rw){
-				console.log('agg rw');
 				aggregate_layers.rw.addTo(map);
 			}
 			else {
 				getAggregates('rw', loadAggregates);
-				console.log('load rw');
 			}
 			if (aggregate_layers && aggregate_layers.village){
 				map.removeLayer(aggregate_layers.village);
 			}
 	}
-
+	else if (zoom >= 17){
+		if (aggregate_layers){
+			for (var layer in aggregate_layers){
+				map.removeLayer(aggregate_layers[layer]);
+				info.flag = 0;
+				info.removeFrom(map);
+			}
+		}
+	}
 });
