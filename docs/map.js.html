@@ -89,7 +89,18 @@ var getOverlay = function(layer) {
 	@param {function} callback - a function to be called when data is finished loading
 */
 var getReports = function(type, callback) {
-	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?type=' + type, function(data) {
+	jQuery.getJSON('http://localhost:8080/banjir/data/reports.json?type=' + type, function(data) {
+		callback(data);
+	});
+};
+
+
+/**
+	Get GeoJSON representing counts of reports in RW polygons
+	@param {function} callback - a function to be called when data is finished loading
+*/
+var getAggregates = function(callback){
+	jQuery.getJSON('http://localhost:8080/banjir/data/aggregates.json', function(data) {
 		callback(data);
 	});
 };
@@ -130,6 +141,61 @@ var loadUnConfirmedPoints = function(reports) {
 		}, onEachFeature: uncomfirmedMarkerPopup
 	}).addTo(map);
 };
+
+/**
+	Plots counts of reports in RW polygons
+
+	@param {object} aggregates - a GeoJSON object containing polygon features
+*/
+var loadAggregates = function(aggregates){
+	var a = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates}).addTo(map);
+};
+
+/**
+	Styles counts of reports in RW polygons
+
+	@param {object} feature - individual Leaflet/GeoJSON feature object
+	*/
+function styleAggregates(feature) {
+    return {
+        fillColor: getColor(feature.properties.count),
+        weight: 0.8,
+        opacity: 1,
+        color: 'white',
+        //dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+/**
+	Return a colour based on input number - based on Color Brewer
+
+	@param {integer} d - number representing some attribute (e.g. count)
+
+*/
+function getColor(d) {
+    return d > 30 ? '#800026' :
+           d > 25  ? '#BD0026' :
+           d > 20  ? '#E31A1C' :
+           d > 15  ? '#FC4E2A' :
+           d > 10   ? '#FD8D3C' :
+           d > 5   ? '#FEB24C' :
+           d > 1   ? '#FED976' :
+                      '#FFEDA0';
+}
+
+/**
+	Set a popup label for an aggregate poplygon based on it's count attribute
+
+	@param {object} feature - individual Leaflet/GeoJSON object
+	@param {object}	layer - leaflet layer object
+*/
+function labelAggregates(feature, layer) {
+    // does this feature have a property named count?
+    if (feature.properties && feature.properties.count) {
+        layer.bindPopup(JSON.stringify('RW: '+feature.properties.count+' reports'));
+    }
+}
 
 /**
 	Centre the map on a given location and open a popup's text box
@@ -232,6 +298,7 @@ String.prototype.parseURL = function() {
 $(function() {
 	getReports('unconfirmed', loadUnConfirmedPoints);
 	getReports('confirmed', loadConfirmedPoints);
+	getAggregates(loadAggregates);
 
 	var overlayMaps = {};
 	var waterwaysLayer = getOverlay('waterways');
@@ -239,13 +306,13 @@ $(function() {
 	waterwaysLayer.addTo(map);
 
 	if (document.documentElement.lang == 'in') {
-		overlayMaps['&lt;img src="/img/river.svg" heigh="32"/> Sungai'] = waterwaysLayer;
-		overlayMaps['&lt;img src="/img/pump.svg" height="32" alt="Pumps icon"/> Pompa'] = getOverlay('pumps');
-		overlayMaps['&lt;img src="/img/floodgate.svg" height="32" alt="Floodgate icon"/> Pintu air'] = getOverlay('floodgates');
+		overlayMaps['&lt;img src="/banjir/img/river.svg" heigh="32"/> Sungai'] = waterwaysLayer;
+		overlayMaps['&lt;img src="/banjir/img/pump.svg" height="32" alt="Pumps icon"/> Pompa'] = getOverlay('pumps');
+		overlayMaps['&lt;img src="/banjir/img/floodgate.svg" height="32" alt="Floodgate icon"/> Pintu air'] = getOverlay('floodgates');
 	} else {
-		overlayMaps['&lt;img src="/img/river.svg" heigh="32"/> Waterways'] = waterwaysLayer;
-		overlayMaps['&lt;img src="/img/pump.svg" height="32" alt="Pumps icon"/> Pumps'] = getOverlay('pumps');
-		overlayMaps['&lt;img src="/img/floodgate.svg" height="32" alt="Floodgate icon"/> Floodgates'] = getOverlay('floodgates');
+		overlayMaps['&lt;img src="/banjir/img/river.svg" heigh="32"/> Waterways'] = waterwaysLayer;
+		overlayMaps['&lt;img src="/banjir/img/pump.svg" height="32" alt="Pumps icon"/> Pumps'] = getOverlay('pumps');
+		overlayMaps['&lt;img src="/banjir/img/floodgate.svg" height="32" alt="Floodgate icon"/> Floodgates'] = getOverlay('floodgates');
 	}
 
 	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
@@ -268,13 +335,13 @@ if (document.documentElement.lang == 'in') {
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Global</h3><ul><li><a href="global.html#centreMapOnPopup">centreMapOnPopup</a></li><li><a href="global.html#formatNumberAsString">formatNumberAsString</a></li><li><a href="global.html#getOverlay">getOverlay</a></li><li><a href="global.html#getReports">getReports</a></li><li><a href="global.html#loadConfirmedPoints">loadConfirmedPoints</a></li><li><a href="global.html#loadTable">loadTable</a></li><li><a href="global.html#loadUnConfirmedPoints">loadUnConfirmedPoints</a></li><li><a href="global.html#markerPopup">markerPopup</a></li><li><a href="global.html#setViewJakarta">setViewJakarta</a></li><li><a href="global.html#uncomfirmedMarkerPopup">uncomfirmedMarkerPopup</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Global</h3><ul><li><a href="global.html#centreMapOnPopup">centreMapOnPopup</a></li><li><a href="global.html#formatNumberAsString">formatNumberAsString</a></li><li><a href="global.html#getAggregates">getAggregates</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getOverlay">getOverlay</a></li><li><a href="global.html#getReports">getReports</a></li><li><a href="global.html#labelAggregates">labelAggregates</a></li><li><a href="global.html#loadAggregates">loadAggregates</a></li><li><a href="global.html#loadConfirmedPoints">loadConfirmedPoints</a></li><li><a href="global.html#loadTable">loadTable</a></li><li><a href="global.html#loadUnConfirmedPoints">loadUnConfirmedPoints</a></li><li><a href="global.html#markerPopup">markerPopup</a></li><li><a href="global.html#setViewJakarta">setViewJakarta</a></li><li><a href="global.html#styleAggregates">styleAggregates</a></li><li><a href="global.html#uncomfirmedMarkerPopup">uncomfirmedMarkerPopup</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Mon May 19 2014 13:28:41 GMT+1000 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Jun 12 2014 16:08:58 GMT+1000 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

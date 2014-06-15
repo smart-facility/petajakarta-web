@@ -767,6 +767,17 @@ var getReports = function(type, callback) {
 	});
 };
 
+
+/**
+	Get GeoJSON representing counts of reports in RW polygons
+	@param {function} callback - a function to be called when data is finished loading
+*/
+var getAggregates = function(callback){
+	jQuery.getJSON('http://localhost:8080/banjir/data/aggregates.json', function(data) {
+		callback(data);
+	});
+};
+
 /**
 	Plots confirmed points on the map as circular markers
 
@@ -803,6 +814,61 @@ var loadUnConfirmedPoints = function(reports) {
 		}, onEachFeature: uncomfirmedMarkerPopup
 	}).addTo(map);
 };
+
+/**
+	Plots counts of reports in RW polygons
+
+	@param {object} aggregates - a GeoJSON object containing polygon features
+*/
+var loadAggregates = function(aggregates){
+	var a = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates}).addTo(map);
+};
+
+/**
+	Styles counts of reports in RW polygons
+
+	@param {object} feature - individual Leaflet/GeoJSON feature object
+	*/
+function styleAggregates(feature) {
+    return {
+        fillColor: getColor(feature.properties.count),
+        weight: 0.8,
+        opacity: 1,
+        color: 'white',
+        //dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+/**
+	Return a colour based on input number - based on Color Brewer
+
+	@param {integer} d - number representing some attribute (e.g. count)
+
+*/
+function getColor(d) {
+    return d > 30 ? '#800026' :
+           d > 25  ? '#BD0026' :
+           d > 20  ? '#E31A1C' :
+           d > 15  ? '#FC4E2A' :
+           d > 10   ? '#FD8D3C' :
+           d > 5   ? '#FEB24C' :
+           d > 1   ? '#FED976' :
+                      '#FFEDA0';
+}
+
+/**
+	Set a popup label for an aggregate poplygon based on it's count attribute
+
+	@param {object} feature - individual Leaflet/GeoJSON object
+	@param {object}	layer - leaflet layer object
+*/
+function labelAggregates(feature, layer) {
+    // does this feature have a property named count?
+    if (feature.properties && feature.properties.count) {
+        layer.bindPopup(JSON.stringify('RW: '+feature.properties.count+' reports'));
+    }
+}
 
 /**
 	Centre the map on a given location and open a popup's text box
@@ -905,6 +971,7 @@ String.prototype.parseURL = function() {
 $(function() {
 	getReports('unconfirmed', loadUnConfirmedPoints);
 	getReports('confirmed', loadConfirmedPoints);
+	getAggregates(loadAggregates);
 
 	var overlayMaps = {};
 	var waterwaysLayer = getOverlay('waterways');
