@@ -166,7 +166,7 @@ function getColor(d) {
 function labelAggregates(feature, layer) {
     // does this feature have a property named count?
     if (feature.properties && feature.properties.count && feature.properties.rw) {
-        layer.bindPopup(JSON.stringify(feature.properties.rw+': '+feature.properties.count+' reports'));
+        layer.bindPopup(JSON.stringify(feature.properties.level_name+':'+feature.properties.count+' reports'));
     }
 }
 
