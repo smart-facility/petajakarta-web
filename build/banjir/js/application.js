@@ -778,10 +778,11 @@ var getReports = function(type, callback) {
 /**
 	Get GeoJSON representing counts of reports in RW polygons
 	@param {function} callback - a function to be called when data is finished loading
+	@param {level} string - administrative boundary level to load. Can be 'rw' or 'village', also passed to load function for identification
 */
-var getAggregates = function(callback){
-	jQuery.getJSON('http://localhost:8080/banjir/data/aggregates.json', function(data) {
-		callback(data);
+var getAggregates = function(level, callback){
+	jQuery.getJSON('http://localhost:8080/banjir/data/aggregates.json?level='+level, function(data) {
+		callback(level, data);
 	});
 };
 
@@ -825,10 +826,12 @@ var loadUnConfirmedPoints = function(reports) {
 /**
 	Plots counts of reports in RW polygons
 
+	@param {string} level - string - administrative boundary level to load. Can be 'rw' or 'village', should be passed from getfunction
 	@param {object} aggregates - a GeoJSON object containing polygon features
 */
-var loadAggregates = function(aggregates){
-	var a = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates}).addTo(map);
+var loadAggregates = function(level, aggregates){
+	var agg_layer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates}).addTo(map);
+	window.aggregates.level = agg_layer;
 };
 
 /**
@@ -875,6 +878,48 @@ function labelAggregates(feature, layer) {
     if (feature.properties && feature.properties.count && feature.properties.level_name) {
         layer.bindPopup(JSON.stringify(feature.properties.level_name+': '+feature.properties.count+' reports'));
     }
+		layer.on({
+			mouseover: highlightAggregate,
+			mouseout: resetAggregate,
+			click: zoomToFeature
+		});
+}
+
+/**
+	Visual highlighting of polygon when hovered over with the mouse
+
+	@param {object} event - leaflet event object
+*/
+function highlightAggregate(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera) {
+        layer.bringToFront();
+    }
+}
+
+/**
+	Reset style of aggregate after hover over
+
+	@param {object} event - leaflet event object
+*/
+function resetAggregate(e){
+	var layer = e.target;
+
+	layer.setStyle(styleAggregates(layer.feature));
+	//console.log(layer);
+}
+
+
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
 }
 
 /**
@@ -978,7 +1023,7 @@ String.prototype.parseURL = function() {
 $(function() {
 	getReports('unconfirmed', loadUnConfirmedPoints);
 	getReports('confirmed', loadConfirmedPoints);
-	getAggregates(loadAggregates);
+	getAggregates('rw', loadAggregates);
 
 	var overlayMaps = {};
 	var waterwaysLayer = getOverlay('waterways');
@@ -998,6 +1043,8 @@ $(function() {
 	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
 });
 
+//Dictionary for aggregate layers
+window.aggregates = {};
 
 // Hack in the symbols for reports
 if (document.documentElement.lang == 'in') {
@@ -1005,3 +1052,20 @@ if (document.documentElement.lang == 'in') {
 } else {
 	$('.leaflet-control-layers-overlays').append('<label><div class=c></div><span>Confirmed reports</span></label><label><div class=u></div><span>Unconfirmed reports</span></label>');
 }
+
+/**
+	Listen for map zoom events and load required layers
+*/
+map.on('zoomend', function(e){
+
+	var zoom  = map.getZoom();
+
+	//if (zoom > 13){
+	//	getAggregates('rw', loadAggregates);
+	//}
+	if (zoom < 13){
+		map.removeLayer(window.aggregates.rw);
+		//window.aggregates.abc.removeLayer();
+	}
+
+});
