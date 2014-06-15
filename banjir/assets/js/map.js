@@ -341,7 +341,7 @@ String.prototype.parseURL = function() {
 $(function() {
 	getReports('unconfirmed', loadUnConfirmedPoints);
 	getReports('confirmed', loadConfirmedPoints);
-	getAggregates('rw', loadAggregates);
+	//getAggregates('rw', loadAggregates);
 
 	var overlayMaps = {};
 	var waterwaysLayer = getOverlay('waterways');
@@ -378,9 +378,9 @@ map.on('zoomend', function(e){
 
 	var zoom  = map.getZoom();
 
-	//if (zoom > 13){
-	//	getAggregates('rw', loadAggregates);
-	//}
+	if (zoom >= 13){
+		getAggregates('rw', loadAggregates);
+	}
 	if (zoom < 13){
 		map.removeLayer(window.aggregates.rw);
 		//window.aggregates.abc.removeLayer();
