@@ -391,7 +391,7 @@ map.on('zoomend', function(e){
 			}
 		}
 	else if (zoom >= 13){
-			console.log('13');
+			console.log(zoom);
 			if (aggregate_layers && aggregate_layers.rw){
 				console.log('agg rw');
 				aggregate_layers.rw.addTo(map);
