@@ -867,6 +867,7 @@ function getColor(d) {
            d > 10   ? '#FD8D3C' :
            d > 5   ? '#FEB24C' :
            d > 1   ? '#FED976' :
+					 d > 0	?	'#FFEDA0' :
                       '#FFEDA0';
 }
 
@@ -973,6 +974,26 @@ info.update = function(properties){
 		this._div.innerHTML = '<h4>Number of reports</h4><br>'+(properties ? properties.level_name+': '+properties.count+' reports' : 'Hover over an area');
 };
 
+/**
+	Legend box
+*/
+var legend = L.control({position:'bottomright'});
+
+legend.onAdd = function (map){
+
+	var div = L.DomUtil.create('div', 'info legend'),
+	grades = [0,1, 5, 10, 15, 20, 25, 30],
+	labels = [];
+
+	// loop through density intervals and generate label with coloured square
+	for (var i=0; i <grades.length; i++){
+		div.innerHTML +=
+			'<i style="background:'+getColor(grades[i]+1) + '"></i> '+
+			grades[i] + (grades[i+1] ? '&ndash;' + grades[i+1]+'<br>':'+');
+	}
+	return div;
+};
+
 //Initialise map
 var latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
 var map = L.map('map').setView(latlon, 12); // Initialise map
@@ -985,6 +1006,9 @@ if ('geolocation' in navigator) {
 
 //Add info box
 info.addTo(map);
+
+//Add legend
+legend.addTo(map);
 
 //Load layers
 map.spin(true);
