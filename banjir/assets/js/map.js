@@ -122,9 +122,12 @@ var loadUnConfirmedPoints = function(reports) {
 	@param {string} level - string - administrative boundary level to load. Can be 'rw' or 'village', should be passed from getfunction
 	@param {object} aggregates - a GeoJSON object containing polygon features
 */
+
+var aggregate_layers = {};
+
 var loadAggregates = function(level, aggregates){
 	var agg_layer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates}).addTo(map);
-	window.aggregates.level = agg_layer;
+	aggregate_layers[level] = agg_layer;
 };
 
 /**
@@ -341,7 +344,7 @@ String.prototype.parseURL = function() {
 $(function() {
 	getReports('unconfirmed', loadUnConfirmedPoints);
 	getReports('confirmed', loadConfirmedPoints);
-	//getAggregates('rw', loadAggregates);
+	getAggregates('rw', loadAggregates);
 
 	var overlayMaps = {};
 	var waterwaysLayer = getOverlay('waterways');
@@ -361,8 +364,6 @@ $(function() {
 	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
 });
 
-//Dictionary for aggregate layers
-window.aggregates = {};
 
 // Hack in the symbols for reports
 if (document.documentElement.lang == 'in') {
@@ -377,12 +378,21 @@ if (document.documentElement.lang == 'in') {
 map.on('zoomend', function(e){
 
 	var zoom  = map.getZoom();
+	console.log((aggregate_layers.rw));
+	//if (zoom >= 13){
+	//	getAggregates('rw', loadAggregates);
+	//	console.log('>=13');
+	//}
 
-	if (zoom >= 13){
-		getAggregates('rw', loadAggregates);
-	}
+	//console.log(JSON.stringify(window.aggregates));
 	if (zoom < 13){
-		map.removeLayer(window.aggregates.rw);
-		//window.aggregates.abc.removeLayer();
+		//if (window.aggregates && window.aggregates.rw){
+			if (aggregate_layers.rw){
+				map.removeLayer(aggregate_layers.rw);
+			}
+		}
+	else if (zoom >= 13){
+		aggregate_layers.rw.addTo(map);
 	}
+
 });
