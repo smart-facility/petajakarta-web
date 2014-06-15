@@ -344,7 +344,7 @@ String.prototype.parseURL = function() {
 $(function() {
 	getReports('unconfirmed', loadUnConfirmedPoints);
 	getReports('confirmed', loadConfirmedPoints);
-	getAggregates('rw', loadAggregates);
+	getAggregates('village', loadAggregates);
 
 	var overlayMaps = {};
 	var waterwaysLayer = getOverlay('waterways');
@@ -383,9 +383,26 @@ map.on('zoomend', function(e){
 			if (aggregate_layers && aggregate_layers.rw){
 				map.removeLayer(aggregate_layers.rw);
 			}
+			if (aggregate_layers && aggregate_layers.village){
+				aggregate_layers.village.addTo(map);
+			}
+			else {
+				getAggregates('village', loadAggregates);
+			}
 		}
 	else if (zoom >= 13){
-		aggregate_layers.rw.addTo(map);
+			console.log('13');
+			if (aggregate_layers && aggregate_layers.rw){
+				console.log('agg rw');
+				aggregate_layers.rw.addTo(map);
+			}
+			else {
+				getAggregates('rw', loadAggregates);
+				console.log('load rw');
+			}
+			if (aggregate_layers && aggregate_layers.village){
+				map.removeLayer(aggregate_layers.village);
+			}
 	}
 
 });
