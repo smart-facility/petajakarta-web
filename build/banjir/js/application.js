@@ -816,7 +816,7 @@ var loadConfirmedPoints = function(reports) {
 	@param {object} reports - a GeoJSON object containing report locations
 */
 var loadUnConfirmedPoints = function(reports) {
-	var a = L.geoJson(reports, {
+	window.unconfirmedPoints = L.geoJson(reports, {
 		pointToLayer: function (feature, latlng) {
 				return L.circleMarker(latlng, styleUnconfirmed);
 		}, onEachFeature: uncomfirmedMarkerPopup
@@ -1074,7 +1074,7 @@ String.prototype.parseURL = function() {
 
 // Load reports
 $(function() {
-	getReports('unconfirmed', loadUnConfirmedPoints);
+	//getReports('unconfirmed', loadUnConfirmedPoints);
 	getReports('confirmed', loadConfirmedPoints);
 	getAggregates('village', loadAggregates);
 
@@ -1110,7 +1110,7 @@ if (document.documentElement.lang == 'in') {
 map.on('zoomend', function(e){
 
 	var zoom  = map.getZoom();
-
+	console.log(zoom);
 	if (zoom < 13){
 			if (info.flag === 0){
 				info_box.addTo(map);
@@ -1141,6 +1141,8 @@ map.on('zoomend', function(e){
 			}
 	}
 	else if (zoom >= 17){
+		console.log('y');
+		getReports('unconfirmed', loadUnConfirmedPoints);
 		if (aggregate_layers){
 			for (var layer in aggregate_layers){
 				map.removeLayer(aggregate_layers[layer]);
@@ -1148,5 +1150,6 @@ map.on('zoomend', function(e){
 				info.removeFrom(map);
 			}
 		}
+
 	}
 });
