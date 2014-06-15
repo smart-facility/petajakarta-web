@@ -874,10 +874,11 @@ function getColor(d) {
 	@param {object}	layer - leaflet layer object
 */
 function labelAggregates(feature, layer) {
+		// commented pop up label as working on touch/info box
     // does this feature have a property named count?
-    if (feature.properties && feature.properties.count && feature.properties.level_name) {
+  	/*if (feature.properties && feature.properties.count && feature.properties.level_name) {
         layer.bindPopup(JSON.stringify(feature.properties.level_name+': '+feature.properties.count+' reports'));
-    }
+    }*/
 		layer.on({
 			mouseover: highlightAggregate,
 			mouseout: resetAggregate,
@@ -903,6 +904,8 @@ function highlightAggregate(e) {
     if (!L.Browser.ie && !L.Browser.opera) {
         layer.bringToFront();
     }
+
+		info.update(layer.feature.properties);
 }
 
 /**
@@ -915,6 +918,8 @@ function resetAggregate(e){
 
 	layer.setStyle(styleAggregates(layer.feature));
 	//console.log(layer);
+
+	info.update();
 }
 
 
@@ -947,6 +952,23 @@ var setViewJakarta = function(position) {
 	}
 };
 
+/**
+	Information box for aggregate details
+*/
+var info = L.control();
+//Create info box
+info.onAdd = function(map){
+	this._div = L.DomUtil.create('div', 'info'); // Create a div with class info
+	this.update();
+	return this._div;
+};
+
+//Update info box
+info.update = function(properties){
+
+		this._div.innerHTML = '<h4>Number of reports</h4><br>'+(properties ? properties.level_name+': '+properties.count+' reports' : 'Hover over an area');
+};
+
 //Initialise map
 var latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
 var map = L.map('map').setView(latlon, 12); // Initialise map
@@ -956,6 +978,9 @@ map.locate({setView:false});
 if ('geolocation' in navigator) {
 	navigator.geolocation.getCurrentPosition(setViewJakarta);
 }
+
+//Add info box
+info.addTo(map);
 
 //Load layers
 map.spin(true);
@@ -1067,5 +1092,4 @@ map.on('zoomend', function(e){
 		map.removeLayer(window.aggregates.rw);
 		//window.aggregates.abc.removeLayer();
 	}
-
 });
