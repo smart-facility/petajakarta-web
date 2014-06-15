@@ -378,16 +378,9 @@ if (document.documentElement.lang == 'in') {
 map.on('zoomend', function(e){
 
 	var zoom  = map.getZoom();
-	console.log((aggregate_layers.rw));
-	//if (zoom >= 13){
-	//	getAggregates('rw', loadAggregates);
-	//	console.log('>=13');
-	//}
 
-	//console.log(JSON.stringify(window.aggregates));
 	if (zoom < 13){
-		//if (window.aggregates && window.aggregates.rw){
-			if (aggregate_layers.rw){
+			if (aggregate_layers && aggregate_layers.rw){
 				map.removeLayer(aggregate_layers.rw);
 			}
 		}
