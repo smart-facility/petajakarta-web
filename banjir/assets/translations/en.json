@@ -1,7 +1,8 @@
 {
   "site": {
     "name": "Peta Jakarta &middot; Banjir",
-    "url-prefix": "en",
+    "url-prefix": "banjir",
+    "locale-url-prefix": "en",
     "other-locale-url-prefix": "in"
   },
   "navbar": {

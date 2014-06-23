@@ -912,13 +912,13 @@ $(function() {
 	waterwaysLayer.addTo(map);
 
 	if (document.documentElement.lang == 'in') {
-		overlayMaps['<img src="/img/river.svg" heigh="32"/> Sungai'] = waterwaysLayer;
-		overlayMaps['<img src="/img/pump.svg" height="32" alt="Pumps icon"/> Pompa'] = getOverlay('pumps');
-		overlayMaps['<img src="/img/floodgate.svg" height="32" alt="Floodgate icon"/> Pintu air'] = getOverlay('floodgates');
+		overlayMaps['<img src="/banjir/img/river.svg" heigh="32"/> Sungai'] = waterwaysLayer;
+		overlayMaps['<img src="/banjir/img/pump.svg" height="32" alt="Pumps icon"/> Pompa'] = getOverlay('pumps');
+		overlayMaps['<img src="/banjir/img/floodgate.svg" height="32" alt="Floodgate icon"/> Pintu air'] = getOverlay('floodgates');
 	} else {
-		overlayMaps['<img src="/img/river.svg" heigh="32"/> Waterways'] = waterwaysLayer;
-		overlayMaps['<img src="/img/pump.svg" height="32" alt="Pumps icon"/> Pumps'] = getOverlay('pumps');
-		overlayMaps['<img src="/img/floodgate.svg" height="32" alt="Floodgate icon"/> Floodgates'] = getOverlay('floodgates');
+		overlayMaps['<img src="/banjir/img/river.svg" heigh="32"/> Waterways'] = waterwaysLayer;
+		overlayMaps['<img src="/banjir/img/pump.svg" height="32" alt="Pumps icon"/> Pumps'] = getOverlay('pumps');
+		overlayMaps['<img src="/banjir/img/floodgate.svg" height="32" alt="Floodgate icon"/> Floodgates'] = getOverlay('floodgates');
 	}
 
 	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
