@@ -27,26 +27,29 @@
     <![endif]-->
   </head>
 
-  <body class="">
+  <body class="in">
+
     <div id="page">
-      <div name="header">
+      <div id="header">
         <!-- Fixed navbar -->
         <div class="navbar navbar-default navbar-fixed-top">
-          <div class="navbar-header">
-            <img src="/banjir/img/petajakarta.png" width="252" height="45" alt=""/>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="/banjir/in/">Beranda</a></li>
-              <li><a href="/banjir/in/map.html">Peta</a></li>
-              <li><a href="/banjir/en/map">[English]</a></li>
-            </ul>
+          <div class="container">
+            <div class="navbar-header">
+              <img src="/banjir/img/petajakarta.png" width="252" height="45" alt=""/>
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/banjir/in/">Beranda</a></li>
+                <li class="active"><a href="/banjir/in/map.html">Peta</a></li>
+                <li><a href="/banjir/en/map">[English]</a></li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -87,7 +90,7 @@ Sebuah kerangka Pengetahuan GeoSosial: <a href="http://github.com/smart-facility
 Peta: <a href="http://leafletjs.com">Leaflet</a>
               </div>
               <div class="modal-footer">
-                <h5 class="pull-left">PetaJakarta.org &copy SMART Infrastructure Facility, University of Wollongong</h5>
+                <h5 class="pull-left">PetaJakarta.org &copy; SMART Infrastructure Facility, University of Wollongong</h5>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
               </div>
@@ -99,8 +102,6 @@ Peta: <a href="http://leafletjs.com">Leaflet</a>
         <div id="map"></div>
       </div>
     </div>
-
-  </div>
 
   <!-- Site JavaScript -->
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
