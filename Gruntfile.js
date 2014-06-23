@@ -17,11 +17,11 @@ module.exports = function(grunt) {
           'banjir/assets/js/reports.js',
           'banjir/assets/js/map.js'
         ],
-        dest: 'build/js/application.js'
+        dest: 'build/banjir/js/application.js'
       },
       css: {
         src: ['banjir/vendor/css/*.css', 'banjir/assets/css/*.css'],
-        dest: 'build/css/application.css'
+        dest: 'build/banjir/css/application.css'
       }
     },
     jshint: {
@@ -32,8 +32,8 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       build: {
-        src: 'build/js/application.js',
-        dest: 'build/js/application.min.js'
+        src: 'build/banjir/js/application.js',
+        dest: 'build/banjir/js/application.min.js'
       }
     },
     cssmin: {
@@ -42,17 +42,17 @@ module.exports = function(grunt) {
         keepSpecialComments: false
       },
       build: {
-        src: 'build/css/application.css',
-        dest: 'build/css/application.min.css'
+        src: 'build/banjir/css/application.css',
+        dest: 'build/banjir/css/application.min.css'
       }
     },
     staticHandlebars: {
       en: {
-        files: { 'build/en/*.html': 'banjir/assets/templates/*.hbs' },
+        files: { 'build/banjir/en/*.html': 'banjir/assets/templates/*.hbs' },
         options: { json: 'banjir/assets/translations/en.json' }
       },
       in: {
-        files: { 'build/in/*.html': 'banjir/assets/templates/*.hbs'},
+        files: { 'build/banjir/in/*.html': 'banjir/assets/templates/*.hbs'},
         options: { json: 'banjir/assets/translations/in.json' }
       }
     },
@@ -61,8 +61,8 @@ module.exports = function(grunt) {
         expand: true,
         flatten: true,
         files: [
-          { expand: true, flatten: true, src: "banjir/assets/img/*", dest: "build/img/" },
-          { expand: true, flatten: true, src: "banjir/vendor/css/images/*", dest: "build/css/images/" }
+          { expand: true, flatten: true, src: "banjir/assets/img/*", dest: "build/banjir/img/" },
+          { expand: true, flatten: true, src: "banjir/vendor/css/images/*", dest: "build/banjir/css/images/" }
         ]
       }
     },
