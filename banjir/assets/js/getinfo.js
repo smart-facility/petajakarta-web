@@ -1,9 +1,5 @@
 var map, popup;
 
-var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png',
-	cloudmadeAttribution = 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade',
-	cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution});
-
 var mapquestUrl = '/web/20130525053623/http://otile{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
 	mapquestAttribution = "Data CC-By-SA by <a href='/web/20130525053623/http://openstreetmap.org/' target='_blank'>OpenStreetMap</a>, Tiles Courtesy of <a href='/web/20130525053623/http://open.mapquest.com' target='_blank'>MapQuest</a>",
 	mapquest = new L.TileLayer(mapquestUrl, {maxZoom: 18, attribution: mapquestAttribution, subdomains: ['1','2','3','4']});
