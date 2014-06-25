@@ -678,10 +678,10 @@ L.Map.addInitHook(function () {
 
 /**
  * Generate a table based on the provided reports
- * 
+ *
  * @param {object} reports - a GeoJSON object
  */
-function loadTable(reports) {
+var loadTable = function(reports) {
 	var rows, thead;
 
 	rows = "";
@@ -696,7 +696,7 @@ function loadTable(reports) {
 	}
 	var tbody = '<tbody>'+rows+'</tbody></table>';
 	$("#modal-reports-body").append(thead+tbody);
-}
+};
 
 //map.js - JavaScript for j247-web map
 
