@@ -14,6 +14,7 @@ module.exports = function(grunt) {
           'banjir/vendor/js/leaflet.markercluster.js',
           'banjir/vendor/js/spin.min.js',
           'banjir/vendor/js/leaflet.spin.js',
+          'banjir/vendor/js/topojson.js',
           'banjir/assets/js/reports.js',
           'banjir/assets/js/map.js'
         ],
