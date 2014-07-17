@@ -141,7 +141,6 @@ a:after {
 .bodytext {
 	border-left: #666 2px solid;
 	padding-left: 12px;
-
 }
 
 #sharing-instructions {
@@ -291,4 +290,14 @@ body {
   margin-right:0px;
   font-size:18px;
 
+}
+
+/* Helpers */
+
+/* Offset anchor links, to compensate for the sticky header */
+.anchor {
+    display: block;
+    position: relative;
+    top: -50px;
+    visibility: hidden;
 }
