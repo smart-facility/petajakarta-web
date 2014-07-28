@@ -67,6 +67,18 @@ var getReports = function(type, callback) {
 	});
 };
 
+
+/**
+	Get GeoJSON representing counts of reports in RW polygons
+	@param {function} callback - a function to be called when data is finished loading
+	@param {level} string - administrative boundary level to load. Can be 'rw' or 'village', also passed to load function for identification
+*/
+var getAggregates = function(level, callback){
+	jQuery.getJSON('http://petajakarta.org/banjir/data/aggregates.json?level='+level, function(data) {
+		callback(level, data);
+	});
+};
+
 /**
 	Plots confirmed points on the map as circular markers
 
@@ -97,12 +109,120 @@ var loadConfirmedPoints = function(reports) {
 	@param {object} reports - a GeoJSON object containing report locations
 */
 var loadUnConfirmedPoints = function(reports) {
-	var a = L.geoJson(reports, {
+	window.unconfirmedPoints = L.geoJson(reports, {
 		pointToLayer: function (feature, latlng) {
 				return L.circleMarker(latlng, styleUnconfirmed);
 		}, onEachFeature: uncomfirmedMarkerPopup
 	}).addTo(map);
 };
+
+/**
+	Plots counts of reports in RW polygons
+
+	@param {string} level - string - administrative boundary level to load. Can be 'rw' or 'village', should be passed from getfunction
+	@param {object} aggregates - a GeoJSON object containing polygon features
+*/
+
+var aggregate_layers = {};
+
+var loadAggregates = function(level, aggregates){
+	var agg_layer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates}).addTo(map);
+	aggregate_layers[level] = agg_layer;
+};
+
+/**
+	Styles counts of reports in RW polygons
+
+	@param {object} feature - individual Leaflet/GeoJSON feature object
+	*/
+function styleAggregates(feature) {
+    return {
+        fillColor: getColor(feature.properties.count),
+        weight: 0.8,
+        opacity: 1,
+        color: 'white',
+        //dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+/**
+	Return a colour based on input number - based on Color Brewer
+
+	@param {integer} d - number representing some attribute (e.g. count)
+
+*/
+function getColor(d) {
+    return d > 30 ? '#800026' :
+           d > 25  ? '#BD0026' :
+           d > 20  ? '#E31A1C' :
+           d > 15  ? '#FC4E2A' :
+           d > 10   ? '#FD8D3C' :
+           d > 5   ? '#FEB24C' :
+           d > 1   ? '#FED976' :
+					 d > 0	?	'#FFEDA0' :
+                      '#FFEDA0';
+}
+
+/**
+	Set a popup label for an aggregate poplygon based on it's count attribute
+
+	@param {object} feature - individual Leaflet/GeoJSON object
+	@param {object}	layer - leaflet layer object
+*/
+function labelAggregates(feature, layer) {
+		// commented pop up label as working on touch/info box
+    // does this feature have a property named count?
+  	/*if (feature.properties && feature.properties.count && feature.properties.level_name) {
+        layer.bindPopup(JSON.stringify(feature.properties.level_name+': '+feature.properties.count+' reports'));
+    }*/
+		layer.on({
+			mouseover: highlightAggregate,
+			mouseout: resetAggregate,
+			click: zoomToFeature
+		});
+}
+
+/**
+	Visual highlighting of polygon when hovered over with the mouse
+
+	@param {object} event - leaflet event object
+*/
+function highlightAggregate(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera) {
+        layer.bringToFront();
+    }
+
+		info.update(layer.feature.properties);
+}
+
+/**
+	Reset style of aggregate after hover over
+
+	@param {object} event - leaflet event object
+*/
+function resetAggregate(e){
+	var layer = e.target;
+
+	layer.setStyle(styleAggregates(layer.feature));
+	//console.log(layer);
+
+	info.update();
+}
+
+
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
 
 /**
 	Centre the map on a given location and open a popup's text box
@@ -129,6 +249,44 @@ var setViewJakarta = function(position) {
 	}
 };
 
+/**
+	Information box for aggregate details
+*/
+var info = L.control();
+//Create info box
+info.onAdd = function(map){
+	this.flag = 1;
+	this._div = L.DomUtil.create('div', 'info'); // Create a div with class info
+	this.update();
+	return this._div;
+};
+
+//Update info box
+info.update = function(properties){
+
+		this._div.innerHTML = '<h4>Number of reports</h4><br>'+(properties ? properties.level_name+': '+properties.count+' reports' : 'Hover over an area');
+};
+
+/**
+	Legend box
+*/
+var legend = L.control({position:'bottomright'});
+
+legend.onAdd = function (map){
+
+	var div = L.DomUtil.create('div', 'info legend'),
+	grades = [0,1, 5, 10, 15, 20, 25, 30],
+	labels = [];
+
+	// loop through density intervals and generate label with coloured square
+	for (var i=0; i <grades.length; i++){
+		div.innerHTML +=
+			'<i style="background:'+getColor(grades[i]+1) + '"></i> '+
+			grades[i] + (grades[i+1] ? '&ndash;' + grades[i+1]+'<br>':'+');
+	}
+	return div;
+};
+
 //Initialise map
 var latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
 var map = L.map('map').setView(latlon, 12); // Initialise map
@@ -138,6 +296,12 @@ map.locate({setView:false});
 if ('geolocation' in navigator) {
 	navigator.geolocation.getCurrentPosition(setViewJakarta);
 }
+
+//Add info box
+info.addTo(map);
+
+//Add legend
+legend.addTo(map);
 
 //Load layers
 map.spin(true);
@@ -203,8 +367,9 @@ String.prototype.parseURL = function() {
 
 // Load reports
 $(function() {
-	getReports('unconfirmed', loadUnConfirmedPoints);
+	//getReports('unconfirmed', loadUnConfirmedPoints);
 	getReports('confirmed', loadConfirmedPoints);
+	getAggregates('village', loadAggregates);
 
 	var overlayMaps = {};
 	var waterwaysLayer = getOverlay('waterways');
@@ -231,3 +396,53 @@ if (document.documentElement.lang == 'in') {
 } else {
 	$('.leaflet-control-layers-overlays').append('<label><div class=c></div><span>Confirmed reports</span></label><label><div class=u></div><span>Unconfirmed reports</span></label>');
 }
+
+/**
+	Listen for map zoom events and load required layers
+*/
+map.on('zoomend', function(e){
+
+	var zoom  = map.getZoom();
+	console.log(zoom);
+	if (zoom < 13){
+			if (info.flag === 0){
+				info_box.addTo(map);
+			}
+			if (aggregate_layers && aggregate_layers.rw){
+				map.removeLayer(aggregate_layers.rw);
+			}
+			if (aggregate_layers && aggregate_layers.village){
+				aggregate_layers.village.addTo(map);
+			}
+			else {
+				getAggregates('village', loadAggregates);
+			}
+		}
+	else if (zoom >= 13 && zoom < 17){
+		if (info.flag === 0){
+			info.addTo(map);
+		}
+
+			if (aggregate_layers && aggregate_layers.rw){
+				aggregate_layers.rw.addTo(map);
+			}
+			else {
+				getAggregates('rw', loadAggregates);
+			}
+			if (aggregate_layers && aggregate_layers.village){
+				map.removeLayer(aggregate_layers.village);
+			}
+	}
+	else if (zoom >= 17){
+		console.log('y');
+		getReports('unconfirmed', loadUnConfirmedPoints);
+		if (aggregate_layers){
+			for (var layer in aggregate_layers){
+				map.removeLayer(aggregate_layers[layer]);
+				info.flag = 0;
+				info.removeFrom(map);
+			}
+		}
+
+	}
+});

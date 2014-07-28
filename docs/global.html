@@ -226,7 +226,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map.js.html">map.js</a>, <a href="map.js.html#line114">line 114</a>
+        <a href="map.js.html">map.js</a>, <a href="map.js.html#line180">line 180</a>
     </li></ul></dd>
     
     
@@ -345,6 +345,240 @@
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="map.js.html">map.js</a>, <a href="map.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getAggregates"><span class="type-signature"></span>getAggregates<span class="signature">(callback)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Get GeoJSON representing counts of reports in RW polygons
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">a function to be called when data is finished loading</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="map.js.html">map.js</a>, <a href="map.js.html#line75">line 75</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getColor"><span class="type-signature"></span>getColor<span class="signature">(d)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Return a colour based on input number - based on Color Brewer
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>d</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">number representing some attribute (e.g. count)</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="map.js.html">map.js</a>, <a href="map.js.html#line149">line 149</a>
     </li></ul></dd>
     
     
@@ -651,6 +885,263 @@
         
             
 <dt>
+    <h4 class="name" id="labelAggregates"><span class="type-signature"></span>labelAggregates<span class="signature">(feature, layer)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Set a popup label for an aggregate poplygon based on it's count attribute
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>feature</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">individual Leaflet/GeoJSON object</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>layer</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">leaflet layer object</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="map.js.html">map.js</a>, <a href="map.js.html#line166">line 166</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="loadAggregates"><span class="type-signature"></span>loadAggregates<span class="signature">(aggregates)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Plots counts of reports in RW polygons
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>aggregates</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">a GeoJSON object containing polygon features</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="map.js.html">map.js</a>, <a href="map.js.html#line123">line 123</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
     <h4 class="name" id="loadConfirmedPoints"><span class="type-signature"></span>loadConfirmedPoints<span class="signature">(reports)</span><span class="type-signature"></span></h4>
     
     
@@ -740,7 +1231,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map.js.html">map.js</a>, <a href="map.js.html#line75">line 75</a>
+        <a href="map.js.html">map.js</a>, <a href="map.js.html#line86">line 86</a>
     </li></ul></dd>
     
     
@@ -974,7 +1465,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map.js.html">map.js</a>, <a href="map.js.html#line99">line 99</a>
+        <a href="map.js.html">map.js</a>, <a href="map.js.html#line110">line 110</a>
     </li></ul></dd>
     
     
@@ -1231,7 +1722,124 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="map.js.html">map.js</a>, <a href="map.js.html#line125">line 125</a>
+        <a href="map.js.html">map.js</a>, <a href="map.js.html#line191">line 191</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="styleAggregates"><span class="type-signature"></span>styleAggregates<span class="signature">(feature)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Styles counts of reports in RW polygons
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>feature</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">individual Leaflet/GeoJSON feature object</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="map.js.html">map.js</a>, <a href="map.js.html#line132">line 132</a>
     </li></ul></dd>
     
     
@@ -1412,13 +2020,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Global</h3><ul><li><a href="global.html#centreMapOnPopup">centreMapOnPopup</a></li><li><a href="global.html#formatNumberAsString">formatNumberAsString</a></li><li><a href="global.html#getOverlay">getOverlay</a></li><li><a href="global.html#getReports">getReports</a></li><li><a href="global.html#loadConfirmedPoints">loadConfirmedPoints</a></li><li><a href="global.html#loadTable">loadTable</a></li><li><a href="global.html#loadUnConfirmedPoints">loadUnConfirmedPoints</a></li><li><a href="global.html#markerPopup">markerPopup</a></li><li><a href="global.html#setViewJakarta">setViewJakarta</a></li><li><a href="global.html#uncomfirmedMarkerPopup">uncomfirmedMarkerPopup</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Global</h3><ul><li><a href="global.html#centreMapOnPopup">centreMapOnPopup</a></li><li><a href="global.html#formatNumberAsString">formatNumberAsString</a></li><li><a href="global.html#getAggregates">getAggregates</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getOverlay">getOverlay</a></li><li><a href="global.html#getReports">getReports</a></li><li><a href="global.html#labelAggregates">labelAggregates</a></li><li><a href="global.html#loadAggregates">loadAggregates</a></li><li><a href="global.html#loadConfirmedPoints">loadConfirmedPoints</a></li><li><a href="global.html#loadTable">loadTable</a></li><li><a href="global.html#loadUnConfirmedPoints">loadUnConfirmedPoints</a></li><li><a href="global.html#markerPopup">markerPopup</a></li><li><a href="global.html#setViewJakarta">setViewJakarta</a></li><li><a href="global.html#styleAggregates">styleAggregates</a></li><li><a href="global.html#uncomfirmedMarkerPopup">uncomfirmedMarkerPopup</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Mon May 19 2014 13:28:41 GMT+1000 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Jun 12 2014 16:08:58 GMT+1000 (EST)
 </footer>
 
 <script> prettyPrint(); </script>
