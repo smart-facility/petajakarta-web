@@ -62,7 +62,7 @@ var getOverlay = function(layer) {
 	@param {function} callback - a function to be called when data is finished loading
 */
 var getReports = function(type, callback) {
-	jQuery.getJSON('http://localhost:8080/banjir/data/reports.json?type=' + type, function(data) {
+	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?type=' + type, function(data) {
 		callback(data);
 	});
 };
@@ -74,7 +74,7 @@ var getReports = function(type, callback) {
 	@param {level} string - administrative boundary level to load. Can be 'rw' or 'village', also passed to load function for identification
 */
 var getAggregates = function(level, callback){
-	jQuery.getJSON('http://localhost:8080/banjir/data/aggregates.json?level='+level, function(data) {
+	jQuery.getJSON('http://petajakarta.org/banjir/data/aggregates.json?level='+level, function(data) {
 		callback(level, data);
 	});
 };
