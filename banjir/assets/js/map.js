@@ -1,4 +1,4 @@
-//map.js - JavaScript for j247-web map
+//map.js - JavaScript for PetaJakarta web map
 
 /**
 	Transforms a number into a formatted, comma separated string. e.g. `1234567`
@@ -56,14 +56,17 @@ var getOverlay = function(layer) {
 };
 
 /**
-	Get GeoJSON representing flooding reports from the server
+	Get TopoJSON representing flooding reports from the server
 
 	@param {string} type - the type of report to get: `'confirmed'` or `'uncomfirmed'`
 	@param {function} callback - a function to be called when data is finished loading
+
+	Converts TopoJson to GeoJson using topojson
 */
 var getReports = function(type, callback) {
-	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?type=' + type, function(data) {
-		callback(data);
+	jQuery.getJSON('/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
+		//Convert topojson back to geojson for Leaflet
+		callback(topojson.feature(data, data.objects.collection));
 	});
 };
 
@@ -74,14 +77,13 @@ var getReports = function(type, callback) {
 	@param {level} string - administrative boundary level to load. Can be 'rw' or 'village', also passed to load function for identification
 */
 var getAggregates = function(level, callback){
-	jQuery.getJSON('http://petajakarta.org/banjir/data/aggregates.json?level='+level, function(data) {
+	jQuery.getJSON('http://petajakarta.org/banjir/data/aggregates.json?format=topojson&level='+level, function(data) {
 		callback(level, data);
 	});
 };
 
 /**
 	Plots confirmed points on the map as circular markers
-
 	@param {object} reports - a GeoJSON object containing report locations
 */
 var loadConfirmedPoints = function(reports) {
@@ -434,7 +436,6 @@ map.on('zoomend', function(e){
 			}
 	}
 	else if (zoom >= 17){
-		console.log('y');
 		getReports('unconfirmed', loadUnConfirmedPoints);
 		if (aggregate_layers){
 			for (var layer in aggregate_layers){
