@@ -1318,7 +1318,7 @@ var getReports = function(type, callback) {
 */
 var getAggregates = function(level, callback){
 	jQuery.getJSON('http://petajakarta.org/banjir/data/aggregates.json?format=topojson&level='+level, function(data) {
-		callback(topojson.feature(data, data.objects.collection));
+		callback(level, topojson.feature(data, data.objects.collection));
 	});
 };
 
