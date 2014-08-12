@@ -1304,7 +1304,7 @@ var getOverlay = function(layer) {
 	Converts TopoJson to GeoJson using topojson
 */
 var getReports = function(type, callback) {
-	jQuery.getJSON('/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
+	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
 		if (data.features !== null){
 			//Convert topojson back to geojson for Leaflet
 			callback(topojson.feature(data, data.objects.collection));
@@ -1337,7 +1337,7 @@ var loadConfirmedPoints = function(reports) {
 
 	window.confirmedPoints = L.geoJson(reports, {
 		pointToLayer: function(feature, latlng) {
-			return L.circleMarker(latlng, style_confirmed);
+			return L.circleMarker(latlng, styleConfirmed);
 		},
 		onEachFeature: markerPopup
 	}).addTo(map);
@@ -1370,11 +1370,11 @@ var loadUnConfirmedPoints = function(reports) {
 	@param {object} aggregates - a GeoJSON object containing polygon features
 */
 
-var aggregate_layers = {};
+var aggregateLayers = {};
 
 var loadAggregates = function(level, aggregates){
-	var agg_layer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates}).addTo(map);
-	aggregate_layers[level] = agg_layer;
+	var aggregateLayer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates}).addTo(map);
+	aggregateLayers[level] = aggregateLayer;
 };
 
 /**
@@ -1604,7 +1604,7 @@ var styleUnconfirmed = {
     fillOpacity: 0.8
 };
 
-var style_confirmed = {
+var styleConfirmed = {
     radius: 4,
     fillColor: "blue",
     color: "#000",
@@ -1627,16 +1627,13 @@ $(function() {
 	getAggregates('village', loadAggregates);
 
 	var overlayMaps = {};
-	var waterwaysLayer = getOverlay('waterways');
-
-	waterwaysLayer.addTo(map);
 
 	if (document.documentElement.lang == 'in') {
-		overlayMaps['<img src="/banjir/img/river.svg" heigh="32"/> Sungai'] = waterwaysLayer;
+		overlayMaps['<img src="/banjir/img/river.svg" heigh="32"/> Sungai'] = getOverlay('waterways').addTo(map);
 		overlayMaps['<img src="/banjir/img/pump.svg" height="32" alt="Pumps icon"/> Pompa'] = getOverlay('pumps');
 		overlayMaps['<img src="/banjir/img/floodgate.svg" height="32" alt="Floodgate icon"/> Pintu air'] = getOverlay('floodgates');
 	} else {
-		overlayMaps['<img src="/banjir/img/river.svg" heigh="32"/> Waterways'] = waterwaysLayer;
+		overlayMaps['<img src="/banjir/img/river.svg" heigh="32"/> Waterways'] = getOverlay('waterways').addTo(map);
 		overlayMaps['<img src="/banjir/img/pump.svg" height="32" alt="Pumps icon"/> Pumps'] = getOverlay('pumps');
 		overlayMaps['<img src="/banjir/img/floodgate.svg" height="32" alt="Floodgate icon"/> Floodgates'] = getOverlay('floodgates');
 	}
@@ -1663,11 +1660,11 @@ map.on('zoomend', function(e){
 			if (info.flag === 0){
 				info_box.addTo(map);
 			}
-			if (aggregate_layers && aggregate_layers.rw){
-				map.removeLayer(aggregate_layers.rw);
+			if (aggregateLayers && aggregateLayers.rw){
+				map.removeLayer(aggregateLayers.rw);
 			}
-			if (aggregate_layers && aggregate_layers.village){
-				aggregate_layers.village.addTo(map);
+			if (aggregateLayers && aggregateLayers.village){
+				aggregateLayers.village.addTo(map);
 			}
 			else {
 				getAggregates('village', loadAggregates);
@@ -1678,21 +1675,21 @@ map.on('zoomend', function(e){
 			info.addTo(map);
 		}
 
-			if (aggregate_layers && aggregate_layers.rw){
-				aggregate_layers.rw.addTo(map);
+			if (aggregateLayers && aggregateLayers.rw){
+				aggregateLayers.rw.addTo(map);
 			}
 			else {
 				getAggregates('rw', loadAggregates);
 			}
-			if (aggregate_layers && aggregate_layers.village){
-				map.removeLayer(aggregate_layers.village);
+			if (aggregateLayers && aggregateLayers.village){
+				map.removeLayer(aggregateLayers.village);
 			}
 	}
 	else if (zoom >= 17){
 		getReports('unconfirmed', loadUnConfirmedPoints);
-		if (aggregate_layers){
-			for (var layer in aggregate_layers){
-				map.removeLayer(aggregate_layers[layer]);
+		if (aggregateLayers){
+			for (var layer in aggregateLayers){
+				map.removeLayer(aggregateLayers[layer]);
 				info.flag = 0;
 				info.removeFrom(map);
 			}
