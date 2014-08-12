@@ -64,7 +64,7 @@ var getOverlay = function(layer) {
 	Converts TopoJson to GeoJson using topojson
 */
 var getReports = function(type, callback) {
-	jQuery.getJSON('/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
+	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
 		if (data.features !== null){
 			//Convert topojson back to geojson for Leaflet
 			callback(topojson.feature(data, data.objects.collection));
