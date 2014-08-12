@@ -65,8 +65,13 @@ var getOverlay = function(layer) {
 */
 var getReports = function(type, callback) {
 	jQuery.getJSON('/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
-		//Convert topojson back to geojson for Leaflet
-		callback(topojson.feature(data, data.objects.collection));
+		if (data.features !== null){
+			//Convert topojson back to geojson for Leaflet
+			callback(topojson.feature(data, data.objects.collection));
+		}
+		else {
+			map.spin(false); //stop spinner if no reports added.
+		}
 	});
 };
 
@@ -77,7 +82,7 @@ var getReports = function(type, callback) {
 	@param {level} string - administrative boundary level to load. Can be 'rw' or 'village', also passed to load function for identification
 */
 var getAggregates = function(level, callback){
-	jQuery.getJSON('http://petajakarta.org/banjir/data/aggregates.json?format=topojson&level='+level, function(data) {
+	jQuery.getJSON('/banjir/data/aggregates.json?format=topojson&level='+level, function(data) {
 		callback(level, topojson.feature(data, data.objects.collection));
 	});
 };
