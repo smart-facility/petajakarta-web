@@ -86,9 +86,11 @@ var getReports = function(type) {
 	@param {function} callback - a function to be called when data is finished loading
 	@param {level} string - administrative boundary level to load. Can be 'rw' or 'village', also passed to load function for identification
 */
-var getAggregates = function(level, callback){
-	jQuery.getJSON('http://petajakarta.org/banjir/data/aggregates.json?format=topojson&level='+level, function(data) {
-		callback(level, topojson.feature(data, data.objects.collection));
+var getAggregates = function(level) {
+	return new RSVP.Promise(function(resolve, reject) {
+		jQuery.getJSON('http://petajakarta.org/banjir/data/aggregates.json?format=topojson&level='+level, function(data) {
+			resolve(topojson.feature(data, data.objects.collection));
+		});
 	});
 };
 
@@ -143,6 +145,7 @@ var aggregateLayers = {};
 var loadAggregates = function(level, aggregates){
 	var aggregateLayer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates}).addTo(map);
 	aggregateLayers[level] = aggregateLayer;
+	return aggregateLayers[level];
 };
 
 /**
@@ -407,17 +410,20 @@ $(function() {
 	getReports('confirmed').then(function(reports) {
 		return loadConfirmedPoints(reports);
 	}).then(function(pointLayer) {
-		console.log(pointLayer);
 		layers.addOverlay(pointLayer, "Confirmed Reports");
 	});
 
 	getReports('unconfirmed').then(function(reports) {
 		return loadUnConfirmedPoints(reports);
 	}).then(function(pointLayer) {
-		console.log(pointLayer);
 		layers.addOverlay(pointLayer, "Unconfirmed Reports");
 	});
-	getAggregates('village', loadAggregates);
+
+	getAggregates('village').then(function(reports) {
+		return loadAggregates('village', reports);
+	}).then(function(aggregateLayer) {
+		layers.addOverlay(aggregateLayer, "Aggregate Statistics");
+	});
 });
 
 
