@@ -63,20 +63,21 @@ var getOverlay = function(layer) {
 
 	Converts TopoJson to GeoJson using topojson
 */
-var getReports = function(type, callback) {
+var getReports = function(type) {
 	// Use live data
-	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
+	// jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
 	// Use fixture data
-	// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
-
-		if (data.features !== null){
-			//Convert topojson back to geojson for Leaflet
-			callback(topojson.feature(data, data.objects.collection));
-		}
-		else {
-			map.spin(false); //stop spinner if no reports added.
-		}
+	return new RSVP.Promise(function(resolve, reject) {
+		jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
+			if (data.features !== null){
+				//Convert topojson back to geojson for Leaflet
+				resolve(topojson.feature(data, data.objects.collection));
+			} else {
+				map.spin(false); //stop spinner if no reports added.
+			}
+		});
 	});
+
 };
 
 
@@ -111,6 +112,8 @@ var loadConfirmedPoints = function(reports) {
 		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+formatNumberAsString(reports.features.length)+' confirmed reports</a>');
 	}
 	map.spin(false);
+
+	return window.confirmedPoints;
 };
 
 /**
@@ -124,6 +127,8 @@ var loadUnConfirmedPoints = function(reports) {
 				return L.circleMarker(latlng, styleUnconfirmed);
 		}, onEachFeature: uncomfirmedMarkerPopup
 	}).addTo(map);
+
+	return window.unconfirmedPoints;
 };
 
 /**
@@ -384,10 +389,6 @@ String.prototype.parseURL = function() {
 
 // Load reports
 $(function() {
-	//getReports('unconfirmed', loadUnConfirmedPoints);
-	getReports('confirmed', loadConfirmedPoints);
-	getAggregates('village', loadAggregates);
-
 	var overlayMaps = {};
 
 	if (document.documentElement.lang == 'in') {
@@ -401,6 +402,22 @@ $(function() {
 	}
 
 	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
+
+	//getReports('unconfirmed', loadUnConfirmedPoints);
+	getReports('confirmed').then(function(reports) {
+		return loadConfirmedPoints(reports);
+	}).then(function(pointLayer) {
+		console.log(pointLayer);
+		layers.addOverlay(pointLayer, "Confirmed Reports");
+	});
+
+	getReports('unconfirmed').then(function(reports) {
+		return loadUnConfirmedPoints(reports);
+	}).then(function(pointLayer) {
+		console.log(pointLayer);
+		layers.addOverlay(pointLayer, "Unconfirmed Reports");
+	});
+	getAggregates('village', loadAggregates);
 });
 
 
