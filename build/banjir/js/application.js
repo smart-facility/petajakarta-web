@@ -2822,7 +2822,7 @@ L.Map.addInitHook(function () {
 }).call(this);
 /**
  * Generate a table based on the provided reports
- * 
+ *
  * @param {object} reports - a GeoJSON object
  */
 function loadTable(reports) {
@@ -2831,12 +2831,12 @@ function loadTable(reports) {
 	rows = "";
 
 	for (var i=0;i<reports.features.length;i++) {
-		rows +='<tr><td>'+reports.features[i].properties.created_at.substring(11, 19)+'</td><td><a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+reports.features[i].properties.pkey+','+reports.features[i].geometry.coordinates[1]+','+reports.features[i].geometry.coordinates[0]+')">'+reports.features[i].properties.text+'</a></td></tr>';
+		rows +='<tr><td>'+reports.features[i].properties.created_at.substring(0, 11) + '</td><td>' + reports.features[i].properties.created_at.substring(11, 19)+'</td><td><a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+reports.features[i].properties.pkey+','+reports.features[i].geometry.coordinates[1]+','+reports.features[i].geometry.coordinates[0]+')">'+reports.features[i].properties.text+'</a></td></tr>';
 	}
 	if (document.documentElement.lang == 'in') {
-		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Waktu</th><th class="col-xs-8">Sumber</th></tr></thead>';
+		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Tanggal</th><th class="col-xs-2">Waktu</th><th class="col-xs-6">Sumber</th></tr></thead>';
 	} else {
-		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Time</th><th class="col-xs-8">Message</th></tr></thead>';
+		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Date</th><th class="col-xs-2">Time</th><th class="col-xs-6">Message</th></tr></thead>';
 	}
 	var tbody = '<tbody>'+rows+'</tbody></table>';
 	$("#modal-reports-body").append(thead+tbody);
@@ -2908,7 +2908,11 @@ var getOverlay = function(layer) {
 	Converts TopoJson to GeoJson using topojson
 */
 var getReports = function(type, callback) {
+	// Use live data
 	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
+	// Use fixture data
+	// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
+
 		if (data.features !== null){
 			//Convert topojson back to geojson for Leaflet
 			callback(topojson.feature(data, data.objects.collection));
@@ -2926,7 +2930,7 @@ var getReports = function(type, callback) {
 	@param {level} string - administrative boundary level to load. Can be 'rw' or 'village', also passed to load function for identification
 */
 var getAggregates = function(level, callback){
-	jQuery.getJSON('/banjir/data/aggregates.json?format=topojson&level='+level, function(data) {
+	jQuery.getJSON('http://petajakarta.org/banjir/data/aggregates.json?format=topojson&level='+level, function(data) {
 		callback(level, topojson.feature(data, data.objects.collection));
 	});
 };
@@ -2936,7 +2940,6 @@ var getAggregates = function(level, callback){
 	@param {object} reports - a GeoJSON object containing report locations
 */
 var loadConfirmedPoints = function(reports) {
-
 	loadTable(reports); //sneaky loadTable function.
 
 	window.confirmedPoints = L.geoJson(reports, {
@@ -3065,7 +3068,6 @@ function resetAggregate(e){
 	var layer = e.target;
 
 	layer.setStyle(styleAggregates(layer.feature));
-	//console.log(layer);
 
 	info.update();
 }
@@ -3259,7 +3261,6 @@ if (document.documentElement.lang == 'in') {
 map.on('zoomend', function(e){
 
 	var zoom  = map.getZoom();
-	console.log(zoom);
 	if (zoom < 13){
 			if (info.flag === 0){
 				info_box.addTo(map);
