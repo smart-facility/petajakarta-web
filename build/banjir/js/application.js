@@ -2831,7 +2831,14 @@ function loadTable(reports) {
 	rows = "";
 
 	for (var i=0;i<reports.features.length;i++) {
-		rows +='<tr><td>'+reports.features[i].properties.created_at.substring(0, 11) + '</td><td>' + reports.features[i].properties.created_at.substring(11, 19)+'</td><td><a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+reports.features[i].properties.pkey+','+reports.features[i].geometry.coordinates[1]+','+reports.features[i].geometry.coordinates[0]+')">'+reports.features[i].properties.text+'</a></td></tr>';
+		var report = reports.features[i].properties;
+		var reportGeo = reports.features[i].geometry;
+
+		rows +='<tr>';
+			rows += '<td>'+report.created_at.substring(0, 11) + '</td>'; // Date
+			rows += '<td>' + report.created_at.substring(11, 19) + '</td>'; // Time
+			rows += '<td><a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+report.pkey+','+reportGeo.coordinates[1]+','+reportGeo.coordinates[0]+')">'+report.text+'</a></td>'; // Message
+		rows += '</tr>';
 	}
 	if (document.documentElement.lang == 'in') {
 		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Tanggal</th><th class="col-xs-2">Waktu</th><th class="col-xs-6">Sumber</th></tr></thead>';
