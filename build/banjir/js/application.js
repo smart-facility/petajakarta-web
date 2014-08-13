@@ -2974,7 +2974,7 @@ var loadConfirmedPoints = function(reports) {
 
 	@param {object} reports - a GeoJSON object containing report locations
 */
-var loadUnConfirmedPoints = function(reports) {
+var loadUnconfirmedPoints = function(reports) {
 	window.unconfirmedPoints = L.geoJson(reports, {
 		pointToLayer: function (feature, latlng) {
 				return L.circleMarker(latlng, styleUnconfirmed);
@@ -3257,24 +3257,25 @@ $(function() {
 
 	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
 
-	//getReports('unconfirmed', loadUnConfirmedPoints);
-	getReports('confirmed').then(function(reports) {
-		return loadConfirmedPoints(reports);
-	}).then(function(pointLayer) {
-		layers.addOverlay(pointLayer, "Confirmed Reports");
-	});
+	getReports('confirmed')
+		.then(loadConfirmedPoints)
+		.then(function(pointLayer) {
+			layers.addOverlay(pointLayer, "Confirmed Reports");
+		});
 
-	getReports('unconfirmed').then(function(reports) {
-		return loadUnConfirmedPoints(reports);
-	}).then(function(pointLayer) {
-		layers.addOverlay(pointLayer, "Unconfirmed Reports");
-	});
+	getReports('unconfirmed')
+		.then(loadUnconfirmedPoints)
+		.then(function(pointLayer) {
+			layers.addOverlay(pointLayer, "Unconfirmed Reports");
+		});
 
-	getAggregates('village').then(function(reports) {
-		return loadAggregates('village', reports);
-	}).then(function(aggregateLayer) {
-		layers.addOverlay(aggregateLayer, "Aggregate Statistics");
-	});
+	getAggregates('village')
+		.then(function(reports) {
+			return loadAggregates('village', reports);
+		})
+		.then(function(aggregateLayer) {
+			layers.addOverlay(aggregateLayer, "Aggregate Statistics");
+		});
 });
 
 
@@ -3321,7 +3322,7 @@ map.on('zoomend', function(e){
 			}
 	}
 	else if (zoom >= 17){
-		getReports('unconfirmed', loadUnConfirmedPoints);
+		getReports('unconfirmed', loadUnconfirmedPoints);
 		if (aggregateLayers){
 			for (var layer in aggregateLayers){
 				map.removeLayer(aggregateLayers[layer]);
