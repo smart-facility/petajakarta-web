@@ -3284,7 +3284,7 @@ $(function() {
 
 		// Make overlays visible
 		overlays.confirmed.addTo(map);
-		overlays.village.addTo(map);
+		overlays.subdistrict.addTo(map);
 
 
 		map.spin(false);
@@ -3303,51 +3303,32 @@ if (document.documentElement.lang == 'in') {
 	Listen for map zoom events and load required layers
 */
 map.on('zoomend', function(e){
-
 	var zoom  = map.getZoom();
-	if (zoom < 13){
-		if (info.flag === 0){
-			info_box.addTo(map);
-		}
 
-		if (aggregateLayers && aggregateLayers.rw){
-			map.removeLayer(aggregateLayers.rw);
-		}
-
-		if (aggregateLayers && aggregateLayers.village){
-			aggregateLayers.village.addTo(map);
-		} else {
-			getAggregates('village')
-				.then(function(aggregate) {
-					loadAggregates('village', aggregates);
-				});
-		}
-	} else if (zoom >= 13 && zoom < 17){
-		if (info.flag === 0){
-			info.addTo(map);
-		}
-
-		if (aggregateLayers && aggregateLayers.rw){
-			aggregateLayers.rw.addTo(map);
-		} else {
-			getAggregates('rw')
-				.then(function(aggregates) {
-					loadAggregates('rw', aggregates);
-				});
-		}
-
-		if (aggregateLayers && aggregateLayers.village){
-			map.removeLayer(aggregateLayers.village);
-		}
-	} else if (zoom >= 17){
-		getReports('unconfirmed', loadUnconfirmedPoints);
-		if (aggregateLayers){
-			for (var layer in aggregateLayers){
-				map.removeLayer(aggregateLayers[layer]);
-				info.flag = 0;
-				info.removeFrom(map);
+	var hideAggregates = function() {
+		if (aggregateLayers) {
+			if (aggregateLayers.subdistrict) {
+				map.removeLayer(aggregateLayers.subdistrict);
+			}
+			if (aggregateLayers.village) {
+				map.removeLayer(aggregateLayers.village);
+			}
+			if (aggregateLayers.rw) {
+				map.removeLayer(aggregateLayers.rw);
 			}
 		}
+	};
 
+	if (zoom < 13) {
+		hideAggregates();
+		aggregateLayers.subdistrict.addTo(map);
+	} else if (zoom >= 13 && zoom <= 14) {
+		hideAggregates();
+		aggregateLayers.village.addTo(map);
+	} else if (zoom >= 15 && zoom < 16) {
+		hideAggregates();
+		aggregateLayers.rw.addTo(map);
+	} else {
+		hideAggregates();
 	}
 });
