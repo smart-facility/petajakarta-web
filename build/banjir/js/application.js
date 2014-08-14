@@ -3283,9 +3283,8 @@ $(function() {
 		layers.addOverlay(overlays.rw, "Aggregates (rw)");
 
 		// Make overlays visible
-		overlays.confirmed.addTo(map);
 		overlays.subdistrict.addTo(map);
-
+		overlays.confirmed.addTo(map);
 
 		map.spin(false);
 	});
@@ -3322,12 +3321,15 @@ map.on('zoomend', function(e){
 	if (zoom < 13) {
 		hideAggregates();
 		aggregateLayers.subdistrict.addTo(map);
+		aggregateLayers.subdistrict.bringToBack();
 	} else if (zoom >= 13 && zoom <= 14) {
 		hideAggregates();
 		aggregateLayers.village.addTo(map);
+		aggregateLayers.village.bringToBack();
 	} else if (zoom >= 15 && zoom < 16) {
 		hideAggregates();
 		aggregateLayers.rw.addTo(map);
+		aggregateLayers.rw.bringToBack();
 	} else {
 		hideAggregates();
 	}
