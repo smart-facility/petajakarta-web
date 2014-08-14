@@ -2924,7 +2924,7 @@ var getReports = function(type) {
 				//Convert topojson back to geojson for Leaflet
 				resolve(topojson.feature(data, data.objects.collection));
 			} else {
-				map.spin(false); //stop spinner if no reports added.
+				// TODO: handle this case properly
 			}
 		});
 	});
@@ -2964,7 +2964,6 @@ var loadConfirmedPoints = function(reports) {
 	} else {
 		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+formatNumberAsString(reports.features.length)+' confirmed reports</a>');
 	}
-	map.spin(false);
 
 	return window.confirmedPoints;
 };
@@ -3171,9 +3170,6 @@ info.addTo(map);
 //Add legend
 legend.addTo(map);
 
-//Load layers
-map.spin(true);
-
 //Old Mapnik B&W rendering before aggregates layer was added
 //var base0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map);
 //Using stamen toner-lite
@@ -3245,6 +3241,8 @@ String.prototype.parseURL = function() {
 $(function() {
 	var overlayMaps = {};
 
+	map.spin(true);
+
 	if (document.documentElement.lang == 'in') {
 		overlayMaps['<img src="/banjir/img/river.svg" heigh="32"/> Sungai'] = getOverlay('waterways').addTo(map);
 		overlayMaps['<img src="/banjir/img/pump.svg" height="32" alt="Pumps icon"/> Pompa'] = getOverlay('pumps');
@@ -3257,43 +3255,40 @@ $(function() {
 
 	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
 
-	getReports('confirmed')
-		.then(loadConfirmedPoints)
-		.then(function(pointLayer) {
-			layers.addOverlay(pointLayer, "Confirmed Reports");
-			pointLayer.addTo(map);
-		});
+	var layerPromises = {
+		confirmed: getReports('confirmed')
+			.then(loadConfirmedPoints),
+		unconfirmed: getReports('unconfirmed')
+			.then(loadUnconfirmedPoints),
+		subdistrict: getAggregates('subdistrict')
+			.then(function(aggregates) {
+				return loadAggregates('subdistrict', aggregates);
+			}),
+		village: getAggregates('village')
+			.then(function(aggregates) {
+				return loadAggregates('village', aggregates);
+			}),
+		rw: getAggregates('rw')
+			.then(function(aggregates) {
+				return loadAggregates('rw', aggregates);
+			})
+	};
 
-	getReports('unconfirmed')
-		.then(loadUnconfirmedPoints)
-		.then(function(pointLayer) {
-			layers.addOverlay(pointLayer, "Unconfirmed Reports");
-		});
+	RSVP.hash(layerPromises).then(function(overlays) {
+		// Add overlays to the layers control
+		layers.addOverlay(overlays.confirmed, "Confirmed Reports");
+		layers.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
+		layers.addOverlay(overlays.subdistrict, "Aggregates (Subdistrict)");
+		layers.addOverlay(overlays.village, "Aggregates (Village)");
+		layers.addOverlay(overlays.rw, "Aggregates (rw)");
 
-	getAggregates('village')
-		.then(function(aggregates) {
-			return loadAggregates('subdistrict', aggregates);
-		})
-		.then(function(aggregateLayer) {
-			layers.addOverlay(aggregateLayer, "Aggregate Statistics (Subdistrict)");
-		});
+		// Make overlays visible
+		overlays.confirmed.addTo(map);
+		overlays.village.addTo(map);
 
-	getAggregates('village')
-		.then(function(aggregates) {
-			return loadAggregates('village', aggregates);
-		})
-		.then(function(aggregateLayer) {
-			layers.addOverlay(aggregateLayer, "Aggregate Statistics (Village)");
-			aggregateLayer.addTo(map);
-		});
 
-	getAggregates('rw')
-		.then(function(aggregates) {
-			return loadAggregates('rw', aggregates);
-		})
-		.then(function(aggregateLayer) {
-			layers.addOverlay(aggregateLayer, "Aggregate Statistics (RW)");
-		});
+		map.spin(false);
+	});
 });
 
 
