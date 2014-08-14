@@ -106,7 +106,7 @@ var loadConfirmedPoints = function(reports) {
 			return L.circleMarker(latlng, styleConfirmed);
 		},
 		onEachFeature: markerPopup
-	}).addTo(map);
+	});
 
 	if (document.documentElement.lang == 'in') {
 		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan  '+formatNumberAsString(reports.features.length)+' laporan dikonfirmasi terakhir</a>');
@@ -128,7 +128,7 @@ var loadUnconfirmedPoints = function(reports) {
 		pointToLayer: function (feature, latlng) {
 				return L.circleMarker(latlng, styleUnconfirmed);
 		}, onEachFeature: uncomfirmedMarkerPopup
-	}).addTo(map);
+	});
 
 	return window.unconfirmedPoints;
 };
@@ -143,7 +143,7 @@ var loadUnconfirmedPoints = function(reports) {
 var aggregateLayers = {};
 
 var loadAggregates = function(level, aggregates){
-	var aggregateLayer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates}).addTo(map);
+	var aggregateLayer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates});
 	aggregateLayers[level] = aggregateLayer;
 	return aggregateLayers[level];
 };
@@ -410,6 +410,7 @@ $(function() {
 		.then(loadConfirmedPoints)
 		.then(function(pointLayer) {
 			layers.addOverlay(pointLayer, "Confirmed Reports");
+			pointLayer.addTo(map);
 		});
 
 	getReports('unconfirmed')
@@ -419,11 +420,28 @@ $(function() {
 		});
 
 	getAggregates('village')
-		.then(function(reports) {
-			return loadAggregates('village', reports);
+		.then(function(aggregates) {
+			return loadAggregates('subdistrict', aggregates);
 		})
 		.then(function(aggregateLayer) {
-			layers.addOverlay(aggregateLayer, "Aggregate Statistics");
+			layers.addOverlay(aggregateLayer, "Aggregate Statistics (Subdistrict)");
+		});
+
+	getAggregates('village')
+		.then(function(aggregates) {
+			return loadAggregates('village', aggregates);
+		})
+		.then(function(aggregateLayer) {
+			layers.addOverlay(aggregateLayer, "Aggregate Statistics (Village)");
+			aggregateLayer.addTo(map);
+		});
+
+	getAggregates('rw')
+		.then(function(aggregates) {
+			return loadAggregates('rw', aggregates);
+		})
+		.then(function(aggregateLayer) {
+			layers.addOverlay(aggregateLayer, "Aggregate Statistics (RW)");
 		});
 });
 
@@ -442,35 +460,40 @@ map.on('zoomend', function(e){
 
 	var zoom  = map.getZoom();
 	if (zoom < 13){
-			if (info.flag === 0){
-				info_box.addTo(map);
-			}
-			if (aggregateLayers && aggregateLayers.rw){
-				map.removeLayer(aggregateLayers.rw);
-			}
-			if (aggregateLayers && aggregateLayers.village){
-				aggregateLayers.village.addTo(map);
-			}
-			else {
-				getAggregates('village', loadAggregates);
-			}
+		if (info.flag === 0){
+			info_box.addTo(map);
 		}
-	else if (zoom >= 13 && zoom < 17){
+
+		if (aggregateLayers && aggregateLayers.rw){
+			map.removeLayer(aggregateLayers.rw);
+		}
+
+		if (aggregateLayers && aggregateLayers.village){
+			aggregateLayers.village.addTo(map);
+		} else {
+			getAggregates('village')
+				.then(function(aggregate) {
+					loadAggregates('village', aggregates);
+				});
+		}
+	} else if (zoom >= 13 && zoom < 17){
 		if (info.flag === 0){
 			info.addTo(map);
 		}
 
-			if (aggregateLayers && aggregateLayers.rw){
-				aggregateLayers.rw.addTo(map);
-			}
-			else {
-				getAggregates('rw', loadAggregates);
-			}
-			if (aggregateLayers && aggregateLayers.village){
-				map.removeLayer(aggregateLayers.village);
-			}
-	}
-	else if (zoom >= 17){
+		if (aggregateLayers && aggregateLayers.rw){
+			aggregateLayers.rw.addTo(map);
+		} else {
+			getAggregates('rw')
+				.then(function(aggregates) {
+					loadAggregates('rw', aggregates);
+				});
+		}
+
+		if (aggregateLayers && aggregateLayers.village){
+			map.removeLayer(aggregateLayers.village);
+		}
+	} else if (zoom >= 17){
 		getReports('unconfirmed', loadUnconfirmedPoints);
 		if (aggregateLayers){
 			for (var layer in aggregateLayers){
