@@ -3068,7 +3068,9 @@ function highlightAggregate(e) {
 
     if (!L.Browser.ie && !L.Browser.opera) {
         layer.bringToFront();
-    }
+    } else {
+			layer.bringToBack();
+		}
 
 		info.update(layer.feature.properties);
 }
@@ -3082,6 +3084,7 @@ function resetAggregate(e){
 	var layer = e.target;
 
 	layer.setStyle(styleAggregates(layer.feature));
+	layer.bringToBack();
 
 	info.update();
 }
