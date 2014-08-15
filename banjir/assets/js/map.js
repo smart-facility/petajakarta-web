@@ -66,7 +66,7 @@ var getOverlay = function(layer) {
 var getReports = function(type) {
 	return new RSVP.Promise(function(resolve, reject) {
 		// Use live data
-		jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
+		jQuery.getJSON('/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
 		// Use fixture data
 		// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
 			if (data.features !== null){
@@ -88,7 +88,7 @@ var getReports = function(type) {
 */
 var getAggregates = function(level) {
 	return new RSVP.Promise(function(resolve, reject) {
-		jQuery.getJSON('http://petajakarta.org/banjir/data/aggregates.json?format=topojson&level='+level, function(data) {
+		jQuery.getJSON('/banjir/data/api/v1/aggregates/live?format=topojson&level='+level, function(data) {
 			resolve(topojson.feature(data, data.objects.collection));
 		});
 	});
