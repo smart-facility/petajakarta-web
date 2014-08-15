@@ -2914,20 +2914,21 @@ var getOverlay = function(layer) {
 
 	Converts TopoJson to GeoJson using topojson
 */
-var getReports = function(type, callback) {
-	// Use live data
-	jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
-	// Use fixture data
-	// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
-
-		if (data.features !== null){
-			//Convert topojson back to geojson for Leaflet
-			callback(topojson.feature(data, data.objects.collection));
-		}
-		else {
-			map.spin(false); //stop spinner if no reports added.
-		}
+var getReports = function(type) {
+	return new RSVP.Promise(function(resolve, reject) {
+		// Use live data
+		jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
+		// Use fixture data
+		// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
+			if (data.features !== null){
+				//Convert topojson back to geojson for Leaflet
+				resolve(topojson.feature(data, data.objects.collection));
+			} else {
+				resolve(null);
+			}
+		});
 	});
+
 };
 
 
@@ -2936,9 +2937,11 @@ var getReports = function(type, callback) {
 	@param {function} callback - a function to be called when data is finished loading
 	@param {level} string - administrative boundary level to load. Can be 'rw' or 'village', also passed to load function for identification
 */
-var getAggregates = function(level, callback){
-	jQuery.getJSON('http://petajakarta.org/banjir/data/aggregates.json?format=topojson&level='+level, function(data) {
-		callback(level, topojson.feature(data, data.objects.collection));
+var getAggregates = function(level) {
+	return new RSVP.Promise(function(resolve, reject) {
+		jQuery.getJSON('http://petajakarta.org/banjir/data/aggregates.json?format=topojson&level='+level, function(data) {
+			resolve(topojson.feature(data, data.objects.collection));
+		});
 	});
 };
 
@@ -2947,21 +2950,32 @@ var getAggregates = function(level, callback){
 	@param {object} reports - a GeoJSON object containing report locations
 */
 var loadConfirmedPoints = function(reports) {
-	loadTable(reports); //sneaky loadTable function.
+	if (reports) {
+		loadTable(reports); //sneaky loadTable function.
 
-	window.confirmedPoints = L.geoJson(reports, {
-		pointToLayer: function(feature, latlng) {
-			return L.circleMarker(latlng, styleConfirmed);
-		},
-		onEachFeature: markerPopup
-	}).addTo(map);
+		window.confirmedPoints = L.geoJson(reports, {
+			pointToLayer: function(feature, latlng) {
+				return L.circleMarker(latlng, styleConfirmed);
+			},
+			onEachFeature: markerPopup
+		});
 
-	if (document.documentElement.lang == 'in') {
-		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan  '+formatNumberAsString(reports.features.length)+' laporan dikonfirmasi terakhir</a>');
+		if (document.documentElement.lang == 'in') {
+			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan  '+formatNumberAsString(reports.features.length)+' laporan dikonfirmasi terakhir</a>');
+		} else {
+			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+formatNumberAsString(reports.features.length)+' confirmed reports</a>');
+		}
 	} else {
-		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+formatNumberAsString(reports.features.length)+' confirmed reports</a>');
+		window.confirmedPoints = L.geoJson();
+
+		if (document.documentElement.lang == 'in') {
+			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan 0 laporan dikonfirmasi terakhir</a>');
+		} else {
+			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing 0 confirmed reports</a>');
+		}
 	}
-	map.spin(false);
+
+	return window.confirmedPoints;
 };
 
 /**
@@ -2969,12 +2983,18 @@ var loadConfirmedPoints = function(reports) {
 
 	@param {object} reports - a GeoJSON object containing report locations
 */
-var loadUnConfirmedPoints = function(reports) {
-	window.unconfirmedPoints = L.geoJson(reports, {
-		pointToLayer: function (feature, latlng) {
-				return L.circleMarker(latlng, styleUnconfirmed);
-		}, onEachFeature: uncomfirmedMarkerPopup
-	}).addTo(map);
+var loadUnconfirmedPoints = function(reports) {
+	if (reports) {
+		window.unconfirmedPoints = L.geoJson(reports, {
+			pointToLayer: function (feature, latlng) {
+					return L.circleMarker(latlng, styleUnconfirmed);
+			}, onEachFeature: uncomfirmedMarkerPopup
+		});
+	} else {
+		window.unconfirmedPoints = L.geoJson();
+	}
+
+	return window.unconfirmedPoints;
 };
 
 /**
@@ -2987,8 +3007,9 @@ var loadUnConfirmedPoints = function(reports) {
 var aggregateLayers = {};
 
 var loadAggregates = function(level, aggregates){
-	var aggregateLayer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates}).addTo(map);
+	var aggregateLayer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates});
 	aggregateLayers[level] = aggregateLayer;
+	return aggregateLayers[level];
 };
 
 /**
@@ -3059,9 +3080,7 @@ function highlightAggregate(e) {
         fillOpacity: 0.7
     });
 
-    if (!L.Browser.ie && !L.Browser.opera) {
-        layer.bringToFront();
-    }
+    layer.bringToBack();
 
 		info.update(layer.feature.properties);
 }
@@ -3075,6 +3094,7 @@ function resetAggregate(e){
 	var layer = e.target;
 
 	layer.setStyle(styleAggregates(layer.feature));
+	layer.bringToBack();
 
 	info.update();
 }
@@ -3163,9 +3183,6 @@ info.addTo(map);
 //Add legend
 legend.addTo(map);
 
-//Load layers
-map.spin(true);
-
 //Old Mapnik B&W rendering before aggregates layer was added
 //var base0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map);
 //Using stamen toner-lite
@@ -3235,11 +3252,9 @@ String.prototype.parseURL = function() {
 
 // Load reports
 $(function() {
-	//getReports('unconfirmed', loadUnConfirmedPoints);
-	getReports('confirmed', loadConfirmedPoints);
-	getAggregates('village', loadAggregates);
-
 	var overlayMaps = {};
+
+	map.spin(true);
 
 	if (document.documentElement.lang == 'in') {
 		overlayMaps['<img src="/banjir/img/river.svg" heigh="32"/> Sungai'] = getOverlay('waterways').addTo(map);
@@ -3252,6 +3267,40 @@ $(function() {
 	}
 
 	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
+
+	window.layerPromises = {
+		confirmed: getReports('confirmed')
+			.then(loadConfirmedPoints),
+		unconfirmed: getReports('unconfirmed')
+			.then(loadUnconfirmedPoints),
+		subdistrict: getAggregates('subdistrict')
+			.then(function(aggregates) {
+				return loadAggregates('subdistrict', aggregates);
+			}),
+		village: getAggregates('village')
+			.then(function(aggregates) {
+				return loadAggregates('village', aggregates);
+			}),
+		rw: getAggregates('rw')
+			.then(function(aggregates) {
+				return loadAggregates('rw', aggregates);
+			})
+	};
+
+	RSVP.hash(window.layerPromises).then(function(overlays) {
+		// Add overlays to the layers control
+		layers.addOverlay(overlays.confirmed, "Confirmed Reports");
+		layers.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
+		layers.addOverlay(overlays.subdistrict, "Aggregates (Subdistrict)");
+		layers.addOverlay(overlays.village, "Aggregates (Village)");
+		layers.addOverlay(overlays.rw, "Aggregates (rw)");
+
+		// Make overlays visible
+		overlays.subdistrict.addTo(map);
+		overlays.confirmed.addTo(map);
+
+		map.spin(false);
+	});
 });
 
 
@@ -3266,46 +3315,35 @@ if (document.documentElement.lang == 'in') {
 	Listen for map zoom events and load required layers
 */
 map.on('zoomend', function(e){
-
 	var zoom  = map.getZoom();
-	if (zoom < 13){
-			if (info.flag === 0){
-				info_box.addTo(map);
-			}
-			if (aggregateLayers && aggregateLayers.rw){
-				map.removeLayer(aggregateLayers.rw);
-			}
-			if (aggregateLayers && aggregateLayers.village){
-				aggregateLayers.village.addTo(map);
-			}
-			else {
-				getAggregates('village', loadAggregates);
-			}
-		}
-	else if (zoom >= 13 && zoom < 17){
-		if (info.flag === 0){
-			info.addTo(map);
-		}
 
-			if (aggregateLayers && aggregateLayers.rw){
-				aggregateLayers.rw.addTo(map);
+	var hideAggregates = function() {
+		if (aggregateLayers) {
+			if (aggregateLayers.subdistrict) {
+				map.removeLayer(aggregateLayers.subdistrict);
 			}
-			else {
-				getAggregates('rw', loadAggregates);
-			}
-			if (aggregateLayers && aggregateLayers.village){
+			if (aggregateLayers.village) {
 				map.removeLayer(aggregateLayers.village);
 			}
-	}
-	else if (zoom >= 17){
-		getReports('unconfirmed', loadUnConfirmedPoints);
-		if (aggregateLayers){
-			for (var layer in aggregateLayers){
-				map.removeLayer(aggregateLayers[layer]);
-				info.flag = 0;
-				info.removeFrom(map);
+			if (aggregateLayers.rw) {
+				map.removeLayer(aggregateLayers.rw);
 			}
 		}
+	};
 
+	if (zoom < 13) {
+		hideAggregates();
+		aggregateLayers.subdistrict.addTo(map);
+		aggregateLayers.subdistrict.bringToBack();
+	} else if (zoom >= 13 && zoom <= 14) {
+		hideAggregates();
+		aggregateLayers.village.addTo(map);
+		aggregateLayers.village.bringToBack();
+	} else if (zoom >= 15 && zoom < 16) {
+		hideAggregates();
+		aggregateLayers.rw.addTo(map);
+		aggregateLayers.rw.bringToBack();
+	} else {
+		hideAggregates();
 	}
 });
