@@ -215,11 +215,7 @@ function highlightAggregate(e) {
         fillOpacity: 0.7
     });
 
-    if (!L.Browser.ie && !L.Browser.opera) {
-        layer.bringToFront();
-    } else {
-			layer.bringToBack();
-		}
+    layer.bringToBack();
 
 		info.update(layer.feature.properties);
 }
