@@ -62,6 +62,6 @@
   },
   "map-information": {
     "title": "Map information",
-    "acknowledgements": "<h4>Base maps</h4>\n&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>\n<h4>Infrastructure data</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Reports</h4>\nDerived from <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> data\n<h4>Software</h4>\nPowered by <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nMaps created using <a href=\"http://leafletjs.com\">Leaflet</a>"
+    "acknowledgements": "<h4>Base maps</h4>\nMap tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>.<BR>Data by <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Infrastructure data</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Reports</h4>\nDerived from <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> data\n<h4>Software</h4>\nPowered by <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nMaps created using <a href=\"http://leafletjs.com\">Leaflet</a>"
   }
 }
