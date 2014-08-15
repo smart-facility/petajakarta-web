@@ -64,16 +64,16 @@ var getOverlay = function(layer) {
 	Converts TopoJson to GeoJson using topojson
 */
 var getReports = function(type) {
-	// Use live data
-	// jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
-	// Use fixture data
 	return new RSVP.Promise(function(resolve, reject) {
-		jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
+		// Use live data
+		jQuery.getJSON('http://petajakarta.org/banjir/data/reports.json?format=topojson&type=' + type, function(data) {
+		// Use fixture data
+		// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
 			if (data.features !== null){
 				//Convert topojson back to geojson for Leaflet
 				resolve(topojson.feature(data, data.objects.collection));
 			} else {
-				// TODO: handle this case properly
+				resolve(null);
 			}
 		});
 	});
@@ -99,19 +99,29 @@ var getAggregates = function(level) {
 	@param {object} reports - a GeoJSON object containing report locations
 */
 var loadConfirmedPoints = function(reports) {
-	loadTable(reports); //sneaky loadTable function.
+	if (reports) {
+		loadTable(reports); //sneaky loadTable function.
 
-	window.confirmedPoints = L.geoJson(reports, {
-		pointToLayer: function(feature, latlng) {
-			return L.circleMarker(latlng, styleConfirmed);
-		},
-		onEachFeature: markerPopup
-	});
+		window.confirmedPoints = L.geoJson(reports, {
+			pointToLayer: function(feature, latlng) {
+				return L.circleMarker(latlng, styleConfirmed);
+			},
+			onEachFeature: markerPopup
+		});
 
-	if (document.documentElement.lang == 'in') {
-		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan  '+formatNumberAsString(reports.features.length)+' laporan dikonfirmasi terakhir</a>');
+		if (document.documentElement.lang == 'in') {
+			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan  '+formatNumberAsString(reports.features.length)+' laporan dikonfirmasi terakhir</a>');
+		} else {
+			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+formatNumberAsString(reports.features.length)+' confirmed reports</a>');
+		}
 	} else {
-		map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+formatNumberAsString(reports.features.length)+' confirmed reports</a>');
+		window.confirmedPoints = L.geoJson();
+
+		if (document.documentElement.lang == 'in') {
+			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan 0 laporan dikonfirmasi terakhir</a>');
+		} else {
+			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing 0 confirmed reports</a>');
+		}
 	}
 
 	return window.confirmedPoints;
@@ -123,11 +133,15 @@ var loadConfirmedPoints = function(reports) {
 	@param {object} reports - a GeoJSON object containing report locations
 */
 var loadUnconfirmedPoints = function(reports) {
-	window.unconfirmedPoints = L.geoJson(reports, {
-		pointToLayer: function (feature, latlng) {
-				return L.circleMarker(latlng, styleUnconfirmed);
-		}, onEachFeature: uncomfirmedMarkerPopup
-	});
+	if (reports) {
+		window.unconfirmedPoints = L.geoJson(reports, {
+			pointToLayer: function (feature, latlng) {
+					return L.circleMarker(latlng, styleUnconfirmed);
+			}, onEachFeature: uncomfirmedMarkerPopup
+		});
+	} else {
+		window.unconfirmedPoints = L.geoJson();
+	}
 
 	return window.unconfirmedPoints;
 };
@@ -403,7 +417,7 @@ $(function() {
 
 	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
 
-	var layerPromises = {
+	window.layerPromises = {
 		confirmed: getReports('confirmed')
 			.then(loadConfirmedPoints),
 		unconfirmed: getReports('unconfirmed')
@@ -422,7 +436,7 @@ $(function() {
 			})
 	};
 
-	RSVP.hash(layerPromises).then(function(overlays) {
+	RSVP.hash(window.layerPromises).then(function(overlays) {
 		// Add overlays to the layers control
 		layers.addOverlay(overlays.confirmed, "Confirmed Reports");
 		layers.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
