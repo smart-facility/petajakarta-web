@@ -3182,7 +3182,7 @@ var setViewJakarta = function(position) {
 /**
 	Information box for aggregate details
 */
-var info = L.control({'position':'bottomright'});
+var info = L.control({'position':'topright'});
 //Create info box
 info.onAdd = function(map){
 	this.flag = 1;
@@ -3196,6 +3196,19 @@ info.update = function(properties){
 
 		this._div.innerHTML = '<h4>Number of reports</h4><br>'+(properties ? properties.level_name+': '+properties.count+' reports' : 'Hover over an area');
 };
+
+/**
+	Information button
+*/
+var btn_reports = L.control({'position':'bottomleft'});
+btn_reports.onAdd = function(map){
+	this.flag=1;
+	this._div = L.DomUtil.create('div', 'info');
+	this._div.innerHTML = '<IMG src=http://localhost:8080/banjir/img/petajakarta_icon.png></IMG>';
+	//this.update();
+	return this._div;
+};
+
 
 /**
 	Legend box
@@ -3232,6 +3245,8 @@ info.addTo(map);
 
 //Add legend
 legend.addTo(map);
+
+btn_reports.addTo(map);
 
 //Old Mapnik B&W rendering before aggregates layer was added
 //var base0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map);

@@ -350,12 +350,13 @@ info.update = function(properties){
 	Information button
 */
 var btn_reports = L.control({'position':'bottomleft'});
-info.onAdd = function(map){
+btn_reports.onAdd = function(map){
 	this.flag=1;
-	this._div = L.DomUtil.created('div', 'info');
-	this.update();
+	this._div = L.DomUtil.create('div', 'info');
+	this._div.innerHTML = '<IMG src=http://localhost:8080/banjir/img/petajakarta_icon.png></IMG>';
+	//this.update();
 	return this._div;
-}
+};
 
 
 /**
