@@ -56,6 +56,27 @@ var getOverlay = function(layer) {
 };
 
 /**
+	Get a map overlay layer from the geoserver
+
+	@param {string} layer - the layer to be fetched
+	@return {L.TileLayer} layer - the layer that was fetched from the server
+*/
+var getInfrastructure = function(layer) {
+	return new RSVP.Promise(function(resolve, reject){
+		// Use live data
+		jQuery.getJSON("/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
+				console.log(JSON.stringify(data));
+				if (data.features !== null){
+					console.log('resolving');
+					resolve(topojson.feature(data, data.objects.collection));
+				} else {
+					resolve(null);
+				}
+		});
+	});
+};
+
+/**
 	Get TopoJSON representing flooding reports from the server
 
 	@param {string} type - the type of report to get: `'confirmed'` or `'uncomfirmed'`
@@ -162,6 +183,33 @@ var loadAggregates = function(level, aggregates){
 };
 
 /**
+	Plots hydrological infrastructure on map
+
+	@param {string} layer - string - name of infrastructure layer to load
+	@param {object} infrastructure - a GeoJSON object containing infrastructure features
+*/
+
+var loadInfrastructure = function(layer, infrastructure){
+	if(infrastructure) {
+		window[layer] = L.geoJson(infrastructure, {style:styleInfrastructure[layer]}).addTo(map);
+	}
+	else {
+			window[layer] = L.geoJson();
+	}
+
+	return window[layer];
+};
+
+var styleInfrastructure = {
+
+	waterways:{
+		color:'#3960ac',
+		weight:2.5,
+		opacity:1,
+	}
+};
+
+/**
 	Styles counts of reports in RW polygons
 
 	@param {object} feature - individual Leaflet/GeoJSON feature object
@@ -169,9 +217,10 @@ var loadAggregates = function(level, aggregates){
 function styleAggregates(feature) {
     return {
         fillColor: getColor(feature.properties.count),
-        weight: 0.8,
-        opacity: 1,
-        color: 'white',
+        weight: 0,
+				//disabled polygon borders for clarity
+        //opacity: 1,
+        //color: 'white',
         //dashArray: '3',
         fillOpacity: 0.7
     };
@@ -224,12 +273,13 @@ function highlightAggregate(e) {
 
     layer.setStyle({
         weight: 5,
-        color: '#666',
+        color: '#333',
+				opacity:1,
         dashArray: '',
         fillOpacity: 0.7
     });
 
-    layer.bringToBack();
+    //layer.bringToBack(); //buggy
 
 		info.update(layer.feature.properties);
 }
@@ -243,7 +293,7 @@ function resetAggregate(e){
 	var layer = e.target;
 
 	layer.setStyle(styleAggregates(layer.feature));
-	layer.bringToBack();
+	//layer.bringToBack();
 
 	info.update();
 }
@@ -281,7 +331,7 @@ var setViewJakarta = function(position) {
 /**
 	Information box for aggregate details
 */
-var info = L.control();
+var info = L.control({'position':'topright'});
 //Create info box
 info.onAdd = function(map){
 	this.flag = 1;
@@ -433,6 +483,10 @@ $(function() {
 		rw: getAggregates('rw')
 			.then(function(aggregates) {
 				return loadAggregates('rw', aggregates);
+			}),
+		waterways: getInfrastructure('waterways')
+			.then(function(waterways){
+				return loadInfrastructure('waterways', waterways);
 			})
 	};
 
@@ -443,6 +497,7 @@ $(function() {
 		layers.addOverlay(overlays.subdistrict, "Aggregates (Subdistrict)");
 		layers.addOverlay(overlays.village, "Aggregates (Village)");
 		layers.addOverlay(overlays.rw, "Aggregates (rw)");
+		layers.addOverlay(overlays.waterways, "Waterways");
 
 		// Make overlays visible
 		overlays.subdistrict.addTo(map);
@@ -483,15 +538,15 @@ map.on('zoomend', function(e){
 	if (zoom < 13) {
 		hideAggregates();
 		aggregateLayers.subdistrict.addTo(map);
-		aggregateLayers.subdistrict.bringToBack();
+		//aggregateLayers.subdistrict.bringToBack();
 	} else if (zoom >= 13 && zoom <= 14) {
 		hideAggregates();
 		aggregateLayers.village.addTo(map);
-		aggregateLayers.village.bringToBack();
+		//aggregateLayers.village.bringToBack();
 	} else if (zoom >= 15 && zoom < 16) {
 		hideAggregates();
 		aggregateLayers.rw.addTo(map);
-		aggregateLayers.rw.bringToBack();
+		//aggregateLayers.rw.bringToBack();
 	} else {
 		hideAggregates();
 	}
