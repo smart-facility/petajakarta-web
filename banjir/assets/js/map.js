@@ -65,9 +65,7 @@ var getInfrastructure = function(layer) {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
 		jQuery.getJSON("/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
-				console.log(JSON.stringify(data));
 				if (data.features !== null){
-					console.log('resolving');
 					resolve(topojson.feature(data, data.objects.collection));
 				} else {
 					resolve(null);
@@ -191,7 +189,17 @@ var loadAggregates = function(level, aggregates){
 
 var loadInfrastructure = function(layer, infrastructure){
 	if(infrastructure) {
-		window[layer] = L.geoJson(infrastructure, {style:styleInfrastructure[layer]}).addTo(map);
+		if (layer == 'waterways'){
+			window[layer] = L.geoJson(infrastructure, {style:styleInfrastructure[layer]}).addTo(map);
+		}
+		else {
+
+			window[layer] = L.geoJson(infrastructure, {
+				pointToLayer: function (feature, latlng){
+					return L.marker(latlng, {icon: styleInfrastructure[layer]}).addTo(map);
+				}
+			}).addTo(map);
+		}
 	}
 	else {
 			window[layer] = L.geoJson();
@@ -206,7 +214,19 @@ var styleInfrastructure = {
 		color:'#3960ac',
 		weight:2.5,
 		opacity:1,
-	}
+	},
+	pumps:L.icon({
+		iconUrl: 'http://localhost:8080/banjir/img/pump.svg',
+		iconSize: [10,10],
+		iconAnchor: [22, 94],
+		popupAnchor: [-3, -76],
+	}),
+	floodgates:L.icon({
+		iconUrl: 'http://localhost:8080/banjir/img/floodgate.svg',
+		iconSize: [10,10],
+		iconAnchor: [22, 94],
+		popupAnchor: [-3, -76],
+	})
 };
 
 /**
@@ -279,7 +299,7 @@ function highlightAggregate(e) {
         fillOpacity: 0.7
     });
 
-    //layer.bringToBack(); //buggy
+    layer.bringToBack(); //buggy?
 
 		info.update(layer.feature.properties);
 }
@@ -293,7 +313,7 @@ function resetAggregate(e){
 	var layer = e.target;
 
 	layer.setStyle(styleAggregates(layer.feature));
-	//layer.bringToBack();
+	layer.bringToBack();
 
 	info.update();
 }
@@ -347,19 +367,6 @@ info.update = function(properties){
 };
 
 /**
-	Information button
-*/
-var btn_reports = L.control({'position':'bottomleft'});
-btn_reports.onAdd = function(map){
-	this.flag=1;
-	this._div = L.DomUtil.create('div', 'info');
-	this._div.innerHTML = '<IMG src=http://localhost:8080/banjir/img/petajakarta_icon.png></IMG>';
-	//this.update();
-	return this._div;
-};
-
-
-/**
 	Legend box
 */
 var legend = L.control({position:'bottomright'});
@@ -394,8 +401,6 @@ info.addTo(map);
 
 //Add legend
 legend.addTo(map);
-
-btn_reports.addTo(map);
 
 //Old Mapnik B&W rendering before aggregates layer was added
 //var base0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map);
@@ -470,6 +475,8 @@ $(function() {
 
 	map.spin(true);
 
+// Moved infrastructure from WMS to GeoJSON from Data API. Commented for reference.
+/*
 	if (document.documentElement.lang == 'in') {
 		overlayMaps['<img src="/banjir/img/river.svg" heigh="32"/> Sungai'] = getOverlay('waterways').addTo(map);
 		overlayMaps['<img src="/banjir/img/pump.svg" height="32" alt="Pumps icon"/> Pompa'] = getOverlay('pumps');
@@ -479,7 +486,7 @@ $(function() {
 		overlayMaps['<img src="/banjir/img/pump.svg" height="32" alt="Pumps icon"/> Pumps'] = getOverlay('pumps');
 		overlayMaps['<img src="/banjir/img/floodgate.svg" height="32" alt="Floodgate icon"/> Floodgates'] = getOverlay('floodgates');
 	}
-
+*/
 	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
 
 	window.layerPromises = {
@@ -502,6 +509,14 @@ $(function() {
 		waterways: getInfrastructure('waterways')
 			.then(function(waterways){
 				return loadInfrastructure('waterways', waterways);
+			}),
+		pumps: getInfrastructure('pumps')
+			.then(function(pumps){
+				return loadInfrastructure('pumps', pumps);
+			}),
+		floodgates: getInfrastructure('floodgates')
+			.then(function(floodgates){
+				return loadInfrastructure('floodgates', floodgates);
 			})
 	};
 
@@ -513,6 +528,8 @@ $(function() {
 		layers.addOverlay(overlays.village, "Aggregates (Village)");
 		layers.addOverlay(overlays.rw, "Aggregates (rw)");
 		layers.addOverlay(overlays.waterways, "Waterways");
+		layers.addOverlay(overlays.pumps, "Pumps");
+		layers.addOverlay(overlays.floodgates, "Floodgates");
 
 		// Make overlays visible
 		overlays.subdistrict.addTo(map);
@@ -553,15 +570,15 @@ map.on('zoomend', function(e){
 	if (zoom < 13) {
 		hideAggregates();
 		aggregateLayers.subdistrict.addTo(map);
-		//aggregateLayers.subdistrict.bringToBack();
+		aggregateLayers.subdistrict.bringToBack();
 	} else if (zoom >= 13 && zoom <= 14) {
 		hideAggregates();
 		aggregateLayers.village.addTo(map);
-		//aggregateLayers.village.bringToBack();
+		aggregateLayers.village.bringToBack();
 	} else if (zoom >= 15 && zoom < 16) {
 		hideAggregates();
 		aggregateLayers.rw.addTo(map);
-		//aggregateLayers.rw.bringToBack();
+		aggregateLayers.rw.bringToBack();
 	} else {
 		hideAggregates();
 	}
