@@ -74,6 +74,12 @@ var getInfrastructure = function(layer) {
 	});
 };
 
+var infrastructureMarkerPopup = function(feature, layer){
+	if (feature.properties){
+		layer.bindPopup(properties.name);
+	}
+}
+
 /**
 	Get TopoJSON representing flooding reports from the server
 
@@ -197,7 +203,7 @@ var loadInfrastructure = function(layer, infrastructure){
 			window[layer] = L.geoJson(infrastructure, {
 				pointToLayer: function (feature, latlng){
 					return L.marker(latlng, {icon: styleInfrastructure[layer]});
-				}
+				}, onEachFeature: uncomfirmedMarkerPopup
 			}).addTo(map);
 		}
 	}
