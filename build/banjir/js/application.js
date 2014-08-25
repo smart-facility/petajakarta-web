@@ -3047,7 +3047,7 @@ var loadInfrastructure = function(layer, infrastructure){
 
 			window[layer] = L.geoJson(infrastructure, {
 				pointToLayer: function (feature, latlng){
-					return L.marker(latlng, {icon: styleInfrastructure[layer]}).addTo(map);
+					return L.marker(latlng, {icon: styleInfrastructure[layer]});
 				}
 			}).addTo(map);
 		}
@@ -3067,16 +3067,16 @@ var styleInfrastructure = {
 		opacity:1,
 	},
 	pumps:L.icon({
-		iconUrl: 'http://localhost:8080/banjir/img/pump.svg',
-		iconSize: [10,10],
-		iconAnchor: [22, 94],
-		popupAnchor: [-3, -76],
+		iconUrl: '/banjir/img/pump.svg',
+		iconSize: [28,28],
+		iconAnchor: [0, 0],
+		popupAnchor: [0, 0],
 	}),
 	floodgates:L.icon({
-		iconUrl: 'http://localhost:8080/banjir/img/floodgate.svg',
-		iconSize: [10,10],
-		iconAnchor: [22, 94],
-		popupAnchor: [-3, -76],
+		iconUrl: '/banjir/img/floodgate.svg',
+		iconSize: [28,28],
+		iconAnchor: [0, 0],
+		popupAnchor: [0, -0],
 	})
 };
 
