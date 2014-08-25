@@ -74,11 +74,17 @@ var getInfrastructure = function(layer) {
 	});
 };
 
+/**
+	Add a text popup to the provided layer
+
+	@param {object} feature - a GeoJSON feature
+	@param {L.ILayer} layer - the layer to attach the popup to
+*/
 var infrastructureMarkerPopup = function(feature, layer){
 	if (feature.properties){
-		layer.bindPopup(properties.name);
+		layer.bindPopup(feature.properties.name);
 	}
-}
+};
 
 /**
 	Get TopoJSON representing flooding reports from the server
@@ -203,7 +209,7 @@ var loadInfrastructure = function(layer, infrastructure){
 			window[layer] = L.geoJson(infrastructure, {
 				pointToLayer: function (feature, latlng){
 					return L.marker(latlng, {icon: styleInfrastructure[layer]});
-				}, onEachFeature: uncomfirmedMarkerPopup
+				}, onEachFeature: infrastructureMarkerPopup
 			}).addTo(map);
 		}
 	}
@@ -224,14 +230,14 @@ var styleInfrastructure = {
 	pumps:L.icon({
 		iconUrl: '/banjir/img/pump.svg',
 		iconSize: [28,28],
-		iconAnchor: [0, 0],
+		iconAnchor: [14, 14],
 		popupAnchor: [0, 0],
 	}),
 	floodgates:L.icon({
 		iconUrl: '/banjir/img/floodgate.svg',
 		iconSize: [28,28],
-		iconAnchor: [0, 0],
-		popupAnchor: [0, -0],
+		iconAnchor: [14, 14],
+		popupAnchor: [0, 0],
 	})
 };
 
