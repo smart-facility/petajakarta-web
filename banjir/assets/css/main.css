@@ -301,3 +301,8 @@ body {
     top: -50px;
     visibility: hidden;
 }
+
+/* Add some padding to compensate for the fixed navbar overlapping content */
+.top-navbar-padding {
+  padding-top: 50px;
+}

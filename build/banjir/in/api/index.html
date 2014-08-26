@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="in">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Peta Jakarta">
+    <meta name="author" content="Peta Jakarta">
+    <meta name="twitter:widgets:csp" content="on">
+
+    <title>Peta Jakarta &middot; Banjir</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/banjir/assets/img/petajakarta_icon_32x32.png">
+
+    <!-- Fonts from Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+
+    <!-- Site stylesheet -->
+    <link href="/banjir/css/application.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/banjir/in/"><img src="/banjir/img/petajakarta.png" width="252" height="45" alt=""/></a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/banjir/in/">Beranda</a></li>
+            <li><a href="/banjir/in/map">Peta</a></li>
+            <li><a href="/banjir/en/">[English]</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container top-navbar-padding">
+      <h1>The PetaJakarta.org API</h1>
+
+      
+        <h2>data/api/v1/reports</h2>
+
+        
+          <h3>/confirmed</h3>
+          <p class="lead">Get confirmed flood reports from the last hour in point form</p>
+          <p><pre><strong>GET</strong> http://petajakarta.org/banjir/data/api/v1/reports/confirmed</pre></p>
+
+          
+            <h4>Parameters</h4>
+            <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Required</th>
+                <th>Type</th>
+                <th>Options</th>
+              </tr>
+            </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>format</td>
+                    <td>Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.</td>
+                    <td>N</td>
+                    <td>enumerated</td>
+                    
+                      <td><pre>[&quot;geojson&quot;,&quot;topojson&quot;]</pre></td>
+                    
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        
+          <h3>/unconfirmed</h3>
+          <p class="lead">Get unconfirmed flood reports from the last hour in point form</p>
+          <p><pre><strong>GET</strong> http://petajakarta.org/banjir/data/api/v1/reports/unconfirmed</pre></p>
+
+          
+            <h4>Parameters</h4>
+            <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Required</th>
+                <th>Type</th>
+                <th>Options</th>
+              </tr>
+            </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>format</td>
+                    <td>Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.</td>
+                    <td>N</td>
+                    <td>enumerated</td>
+                    
+                      <td><pre>[&quot;geojson&quot;,&quot;topojson&quot;]</pre></td>
+                    
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        
+      
+        <h2>/data/api/v1/aggregates</h2>
+
+        
+          <h3>/live</h3>
+          <p class="lead">Get a real-time count of flood reports from the past hout</p>
+          <p><pre><strong>GET</strong> http://petajakarta.org/banjir/data/api/v1/aggregates/live</pre></p>
+
+          
+            <h4>Parameters</h4>
+            <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Required</th>
+                <th>Type</th>
+                <th>Options</th>
+              </tr>
+            </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>format</td>
+                    <td>Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.</td>
+                    <td>N</td>
+                    <td>enumerated</td>
+                    
+                      <td><pre>[&quot;geojson&quot;,&quot;topojson&quot;]</pre></td>
+                    
+                  </tr>
+                
+                  <tr>
+                    <td>level</td>
+                    <td>Specifies area for the counts (e.g. country, state, city etc.). If unspecified defaults to Jakarta &quot;subdistrict&quot; level.</td>
+                    <td>N</td>
+                    <td>enumerated</td>
+                    
+                      <td><pre>[&quot;subdistrict&quot;,&quot;village&quot;,&quot;rw&quot;]</pre></td>
+                    
+                  </tr>
+                
+                  <tr>
+                    <td>hours</td>
+                    <td>Specifies the duration of the count, hours={1|3|6}. If unspecified defaults to past 1 hour.</td>
+                    <td>N</td>
+                    <td>enumerated</td>
+                    
+                      <td><pre>[1,3,6]</pre></td>
+                    
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        
+          <h3>/archive</h3>
+          <p class="lead">Access historical counts of flood reports per area in 6 hour blocks</p>
+          <p><pre><strong>GET</strong> http://petajakarta.org/banjir/data/api/v1/aggregates/archive</pre></p>
+
+          
+            <h4>Parameters</h4>
+            <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Required</th>
+                <th>Type</th>
+                <th>Options</th>
+              </tr>
+            </thead>
+              <tbody>
+                
+                  <tr>
+                    <td>end_time</td>
+                    <td>The date and time of the end of the aggregate period represented as Unix time. Time should be one of {06:00|12:00|18:00|00:00} Indonesian time.</td>
+                    <td>N</td>
+                    <td>Unix time integer</td>
+                    
+                      <td>—</td>
+                    
+                  </tr>
+                
+              </tbody>
+            </table>
+          
+        
+      
+        <h2>/data/api/v1/infrastructure</h2>
+
+        
+          <h3>/floodgates</h3>
+          <p class="lead">Floodgates in Jakarta represented by point geometry</p>
+          <p><pre><strong>GET</strong> http://petajakarta.org/banjir/data/api/v1/infrastructure/floodgates</pre></p>
+
+          
+        
+          <h3>/pumps</h3>
+          <p class="lead">Pump stations in Jakarta represented by point geometry</p>
+          <p><pre><strong>GET</strong> http://petajakarta.org/banjir/data/api/v1/infrastructure/pumps</pre></p>
+
+          
+        
+          <h3>/waterways</h3>
+          <p class="lead">Rivers and canals in Jakarta represented by line geometry</p>
+          <p><pre><strong>GET</strong> http://petajakarta.org/banjir/data/api/v1/infrastructure/waterways</pre></p>
+
+          
+        
+      
+    </div>
+
+    <!-- Site JavaScript -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/banjir/js/application.min.js"></script>
+
+    <!-- Google analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46996603-1', 'petajakarta.org');
+      ga('send', 'pageview');
+    </script>
+
+    <script>
+      'use strict';
+
+      $(function() {
+          // Figure out and save aspect ratio for each video
+          $('iframe[src^="//www.youtube.com"]').each(function() {
+              $(this).data('aspectRatio', this.height / this.width)
+                     .removeAttr('height')
+                     .removeAttr('width');
+          });
+
+          // When the window is resized
+          $(window).resize(function() {
+              // Resize all videos according to their own aspect ratio
+              $('iframe[src^="//www.youtube.com"]').each(function() {
+                  var $this = $(this);
+                  var newWidth = $this.parent().width();
+                  $this.width(newWidth)
+                     .height(newWidth * $this.data('aspectRatio'));
+              });
+          }).resize();
+      });
+    </script>
+  </body>
+</html>
