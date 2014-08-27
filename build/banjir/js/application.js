@@ -2898,20 +2898,6 @@ var uncomfirmedMarkerPopup = function(feature, layer) {
 	@param {string} layer - the layer to be fetched
 	@return {L.TileLayer} layer - the layer that was fetched from the server
 */
-var getOverlay = function(layer) {
-	return L.tileLayer.betterWms("http://gallo.ad.uow.edu.au:8080/geoserver/petajakarta/wms", {
-		layers: "petajakarta:" + layer,
-		format: "image/png",
-		transparent: true
-	});
-};
-
-/**
-	Get a map overlay layer from the geoserver
-
-	@param {string} layer - the layer to be fetched
-	@return {L.TileLayer} layer - the layer that was fetched from the server
-*/
 var getInfrastructure = function(layer) {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
@@ -3338,18 +3324,6 @@ $(function() {
 
 	map.spin(true);
 
-// Moved infrastructure from WMS to GeoJSON from Data API. Commented for reference.
-/*
-	if (document.documentElement.lang == 'in') {
-		overlayMaps['<img src="/banjir/img/river.svg" heigh="32"/> Sungai'] = getOverlay('waterways').addTo(map);
-		overlayMaps['<img src="/banjir/img/pump.svg" height="32" alt="Pumps icon"/> Pompa'] = getOverlay('pumps');
-		overlayMaps['<img src="/banjir/img/floodgate.svg" height="32" alt="Floodgate icon"/> Pintu air'] = getOverlay('floodgates');
-	} else {
-		overlayMaps['<img src="/banjir/img/river.svg" heigh="32"/> Waterways'] = getOverlay('waterways').addTo(map);
-		overlayMaps['<img src="/banjir/img/pump.svg" height="32" alt="Pumps icon"/> Pumps'] = getOverlay('pumps');
-		overlayMaps['<img src="/banjir/img/floodgate.svg" height="32" alt="Floodgate icon"/> Floodgates'] = getOverlay('floodgates');
-	}
-*/
 	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
 
 	window.layerPromises = {
