@@ -47,12 +47,29 @@ var uncomfirmedMarkerPopup = function(feature, layer) {
 	@param {string} layer - the layer to be fetched
 	@return {L.TileLayer} layer - the layer that was fetched from the server
 */
-var getOverlay = function(layer) {
-	return L.tileLayer.betterWms("http://gallo.ad.uow.edu.au:8080/geoserver/petajakarta/wms", {
-		layers: "petajakarta:" + layer,
-		format: "image/png",
-		transparent: true
+var getInfrastructure = function(layer) {
+	return new RSVP.Promise(function(resolve, reject){
+		// Use live data
+		jQuery.getJSON("/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
+				if (data.features !== null){
+					resolve(topojson.feature(data, data.objects.collection));
+				} else {
+					resolve(null);
+				}
+		});
 	});
+};
+
+/**
+	Add a text popup to the provided layer
+
+	@param {object} feature - a GeoJSON feature
+	@param {L.ILayer} layer - the layer to attach the popup to
+*/
+var infrastructureMarkerPopup = function(feature, layer){
+	if (feature.properties){
+		layer.bindPopup(feature.properties.name);
+	}
 };
 
 /**
@@ -162,6 +179,55 @@ var loadAggregates = function(level, aggregates){
 };
 
 /**
+	Plots hydrological infrastructure on map
+
+	@param {string} layer - string - name of infrastructure layer to load
+	@param {object} infrastructure - a GeoJSON object containing infrastructure features
+*/
+
+var loadInfrastructure = function(layer, infrastructure){
+	if(infrastructure) {
+		if (layer == 'waterways'){
+			window[layer] = L.geoJson(infrastructure, {style:styleInfrastructure[layer]});
+		}
+		else {
+
+			window[layer] = L.geoJson(infrastructure, {
+				pointToLayer: function (feature, latlng){
+					return L.marker(latlng, {icon: styleInfrastructure[layer]});
+				}, onEachFeature: infrastructureMarkerPopup
+			});
+		}
+	}
+	else {
+			window[layer] = L.geoJson();
+	}
+
+	return window[layer];
+};
+
+var styleInfrastructure = {
+
+	waterways:{
+		color:'#3960ac',
+		weight:2.5,
+		opacity:1,
+	},
+	pumps:L.icon({
+		iconUrl: '/banjir/img/pump.svg',
+		iconSize: [28,28],
+		iconAnchor: [14, 14],
+		popupAnchor: [0, 0],
+	}),
+	floodgates:L.icon({
+		iconUrl: '/banjir/img/floodgate.svg',
+		iconSize: [28,28],
+		iconAnchor: [14, 14],
+		popupAnchor: [0, 0],
+	})
+};
+
+/**
 	Styles counts of reports in RW polygons
 
 	@param {object} feature - individual Leaflet/GeoJSON feature object
@@ -169,9 +235,10 @@ var loadAggregates = function(level, aggregates){
 function styleAggregates(feature) {
     return {
         fillColor: getColor(feature.properties.count),
-        weight: 0.8,
-        opacity: 1,
-        color: 'white',
+        weight: 0,
+				//disabled polygon borders for clarity
+        //opacity: 1,
+        //color: 'white',
         //dashArray: '3',
         fillOpacity: 0.7
     };
@@ -224,12 +291,13 @@ function highlightAggregate(e) {
 
     layer.setStyle({
         weight: 5,
-        color: '#666',
+        color: '#333',
+				opacity:1,
         dashArray: '',
         fillOpacity: 0.7
     });
 
-    layer.bringToBack();
+    layer.bringToBack(); //buggy?
 
 		info.update(layer.feature.properties);
 }
@@ -281,7 +349,7 @@ var setViewJakarta = function(position) {
 /**
 	Information box for aggregate details
 */
-var info = L.control();
+var info = L.control({'position':'topright'});
 //Create info box
 info.onAdd = function(map){
 	this.flag = 1;
@@ -405,16 +473,6 @@ $(function() {
 
 	map.spin(true);
 
-	if (document.documentElement.lang == 'in') {
-		overlayMaps['<img src="/banjir/img/river.svg" heigh="32"/> Sungai'] = getOverlay('waterways').addTo(map);
-		overlayMaps['<img src="/banjir/img/pump.svg" height="32" alt="Pumps icon"/> Pompa'] = getOverlay('pumps');
-		overlayMaps['<img src="/banjir/img/floodgate.svg" height="32" alt="Floodgate icon"/> Pintu air'] = getOverlay('floodgates');
-	} else {
-		overlayMaps['<img src="/banjir/img/river.svg" heigh="32"/> Waterways'] = getOverlay('waterways').addTo(map);
-		overlayMaps['<img src="/banjir/img/pump.svg" height="32" alt="Pumps icon"/> Pumps'] = getOverlay('pumps');
-		overlayMaps['<img src="/banjir/img/floodgate.svg" height="32" alt="Floodgate icon"/> Floodgates'] = getOverlay('floodgates');
-	}
-
 	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
 
 	window.layerPromises = {
@@ -433,6 +491,18 @@ $(function() {
 		rw: getAggregates('rw')
 			.then(function(aggregates) {
 				return loadAggregates('rw', aggregates);
+			}),
+		waterways: getInfrastructure('waterways')
+			.then(function(waterways){
+				return loadInfrastructure('waterways', waterways);
+			}),
+		pumps: getInfrastructure('pumps')
+			.then(function(pumps){
+				return loadInfrastructure('pumps', pumps);
+			}),
+		floodgates: getInfrastructure('floodgates')
+			.then(function(floodgates){
+				return loadInfrastructure('floodgates', floodgates);
 			})
 	};
 
@@ -443,10 +513,16 @@ $(function() {
 		layers.addOverlay(overlays.subdistrict, "Aggregates (Subdistrict)");
 		layers.addOverlay(overlays.village, "Aggregates (Village)");
 		layers.addOverlay(overlays.rw, "Aggregates (rw)");
+		layers.addOverlay(overlays.waterways, "Waterways");
+		layers.addOverlay(overlays.pumps, "Pumps");
+		layers.addOverlay(overlays.floodgates, "Floodgates");
 
 		// Make overlays visible
 		overlays.subdistrict.addTo(map);
 		overlays.confirmed.addTo(map);
+		overlays.waterways.addTo(map);
+		overlays.pumps.addTo(map);
+		overlays.floodgates.addTo(map);
 
 		map.spin(false);
 	});
