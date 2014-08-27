@@ -2901,7 +2901,7 @@ var uncomfirmedMarkerPopup = function(feature, layer) {
 var getInfrastructure = function(layer) {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
-		jQuery.getJSON("http://petajakarta.org/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
+		jQuery.getJSON("/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
 				if (data.features !== null){
 					resolve(topojson.feature(data, data.objects.collection));
 				} else {
@@ -2934,7 +2934,7 @@ var infrastructureMarkerPopup = function(feature, layer){
 var getReports = function(type) {
 	return new RSVP.Promise(function(resolve, reject) {
 		// Use live data
-		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
+		jQuery.getJSON('/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
 		// Use fixture data
 		// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
 			if (data.features !== null){
@@ -2956,7 +2956,7 @@ var getReports = function(type) {
 */
 var getAggregates = function(level) {
 	return new RSVP.Promise(function(resolve, reject) {
-		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/aggregates/live?format=topojson&level='+level, function(data) {
+		jQuery.getJSON('/banjir/data/api/v1/aggregates/live?format=topojson&level='+level, function(data) {
 			resolve(topojson.feature(data, data.objects.collection));
 		});
 	});
@@ -3039,7 +3039,7 @@ var loadAggregates = function(level, aggregates){
 var loadInfrastructure = function(layer, infrastructure){
 	if(infrastructure) {
 		if (layer == 'waterways'){
-			window[layer] = L.geoJson(infrastructure, {style:styleInfrastructure[layer]}).addTo(map);
+			window[layer] = L.geoJson(infrastructure, {style:styleInfrastructure[layer]});
 		}
 		else {
 
@@ -3047,7 +3047,7 @@ var loadInfrastructure = function(layer, infrastructure){
 				pointToLayer: function (feature, latlng){
 					return L.marker(latlng, {icon: styleInfrastructure[layer]});
 				}, onEachFeature: infrastructureMarkerPopup
-			}).addTo(map);
+			});
 		}
 	}
 	else {
@@ -3371,6 +3371,9 @@ $(function() {
 		// Make overlays visible
 		overlays.subdistrict.addTo(map);
 		overlays.confirmed.addTo(map);
+		overlays.waterways.addTo(map);
+		overlays.pumps.addTo(map);
+		overlays.floodgates.addTo(map);
 
 		map.spin(false);
 	});
