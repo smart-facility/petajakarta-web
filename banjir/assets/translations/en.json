@@ -64,6 +64,39 @@
     "title": "Map information",
     "acknowledgements": "<h4>Base maps</h4>\nMap tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>.<BR>Data by <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Infrastructure data</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Reports</h4>\nDerived from <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> data\n<h4>Software</h4>\nPowered by <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nMaps created using <a href=\"http://leafletjs.com\">Leaflet</a>"
   },
+  "aggregates": {
+    "title": "Twitter activity aggregates",
+    "attributes": "Attrbitues",
+    "tblAttributes": [
+      {
+        "hField": "Field",
+        "hDescription": "Description",
+        "hType": "Type",
+        "fields": [
+          {
+            "field": "pkey",
+            "description": "Unique Identifier",
+            "type": "Integer"
+          },
+          {
+            "field": "level_name",
+            "description": "Name of the municipal area [e.g. 'RW 01']",
+            "type": "String"
+          },
+          {
+            "field": "count",
+            "description": "Number of flood tweets in the municiapl area over six hours",
+            "type": "Integer"
+          },
+          {
+            "field": "geometry",
+            "description": "Geographical representation of municpal area",
+            "type": "Polygon"
+          }
+        ]
+      }
+    ]
+  },
   "api": {
     "endpoints": [
       {
