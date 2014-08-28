@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="{{site.locale-url-prefix}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Peta Jakarta">
+    <meta name="author" content="Peta Jakarta">
+    <meta name="twitter:widgets:csp" content="on">
+
+    <title>{{{site.name}}}</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/{{site.url-prefix}}/assets/img/petajakarta_icon_32x32.png">
+
+    <!-- Fonts from Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+
+    <!-- Site stylesheet -->
+    <link href="/{{site.url-prefix}}/css/application.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/"><img src="/{{site.url-prefix}}/img/petajakarta.png" width="252" height="45" alt=""/></a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/">{{{navbar.home}}}</a></li>
+            <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/map">{{{navbar.map}}}</a></li>
+            <li class="active"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/api">API</a></li>
+            <li><a href="/{{site.url-prefix}}/{{site.other-locale-url-prefix}}/">[{{{navbar.other-locale}}}]</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container top-navbar-padding">
+        <h1>Open Data Collection</h1>
+            <h3>{{aggregates.title}}</h3>
+              <h4>{{aggregates.attributes}}</h4>
+              <table class="table table-responsive table-hover">
+              {{#each aggregates.tblAttributes}}
+              <thead>
+                <tr>
+                  <th>{{hField}}</th>
+                  <th>{{hDescription}}</th>
+                  <th>{{hType}}</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{#each fields}}
+                <td>{{field}}</td>
+                <td>{{description}}</td>
+                <td>{{type}}</td>
+              </tr>
+              {{/each}}
+              </tbody>
+            {{/each}}
+            </table>
+          <h4>{{coordinates}}</h4>
+            <table class="table table-responsive table-hover">
+              {{#each aggregates.tblCRS}}
+            <thead>
+              <tr>
+                <th>{{hCRS}}</th>
+                <th>{{hName}}</th>
+                <th>{{hEPSG}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each fields}}
+              <tr>
+                <td>{{crs}}</td>
+                <td>{{name}}</td>
+                <td>{{epsg}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          {{/each}}
+          </table>
+          <h4>API Reference</h4>
+          <p class="lead"><a href="/banjir/en/api#aggregates">/data/api/v1/aggregates</a>
+    </div>
+
+
+    <!-- Page footer -->
+    <div class="container" id="page-foot">
+      <hr>
+      <div class="row centered">
+        <p class="centered">PetaJakarta.org &copy; 2014 SMART Infrastructure Facility, University of Wollongong</p>
+      </div>
+    </div>
+
+    <!-- Site JavaScript -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/{{site.url-prefix}}/js/application.min.js"></script>
+
+    <!-- Google analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46996603-1', 'petajakarta.org');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Video resize -->
+    <script>
+      'use strict';
+
+      $(function() {
+          // Figure out and save aspect ratio for each video
+          $('iframe[src^="//www.youtube.com"]').each(function() {
+              $(this).data('aspectRatio', this.height / this.width)
+                     .removeAttr('height')
+                     .removeAttr('width');
+          });
+
+          // When the window is resized
+          $(window).resize(function() {
+              // Resize all videos according to their own aspect ratio
+              $('iframe[src^="//www.youtube.com"]').each(function() {
+                  var $this = $(this);
+                  var newWidth = $this.parent().width();
+                  $this.width(newWidth)
+                     .height(newWidth * $this.data('aspectRatio'));
+              });
+          }).resize();
+      });
+    </script>
+
+    <!-- Twitter Button-->
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+    </script>
+
+  </body>
+</html>

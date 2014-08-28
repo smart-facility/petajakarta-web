@@ -74,7 +74,7 @@
         "hType": "Type",
         "fields": [
           {
-            "field": "pkey",
+            "field": "pkeys",
             "description": "Unique Identifier",
             "type": "Integer"
           },
@@ -92,6 +92,21 @@
             "field": "geometry",
             "description": "Geographical representation of municpal area",
             "type": "Polygon"
+          }
+        ]
+      }
+    ],
+    "coordinates": "Coordinate Reference System",
+    "tblCRS": [
+      {
+      "hCRS": "CRS",
+      "hName": "Name",
+      "hEPGS": "EPSG",
+      "fields":[
+          {
+            "crs": "WGS84",
+            "name": "World Geodetic System 1984",
+            "epsg": "4326"
           }
         ]
       }
