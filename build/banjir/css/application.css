@@ -844,6 +844,11 @@ body {
     visibility: hidden;
 }
 
+/* Add some padding to compensate for the fixed navbar overlapping content */
+.top-navbar-padding {
+  padding-top: 70px;
+}
+
 html,
 body {
   height: 100%;
