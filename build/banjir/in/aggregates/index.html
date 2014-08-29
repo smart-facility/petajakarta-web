@@ -42,7 +42,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/banjir/in/">Beranda</a></li>
             <li><a href="/banjir/in/map">Peta</a></li>
-            <li class="active"><a href="/banjir/in/api">API</a></li>
+            <li><a href="/banjir/in/data"></a></li>
             <li><a href="/banjir/en/">[English]</a></li>
           </ul>
         </div>
@@ -50,8 +50,9 @@
     </div>
 
     <div class="container top-navbar-padding">
-        <h1>Open Data Collection</h1>
+        <h1></h1>
             <h3></h3>
+            <p class="lead"></p>
               <h4></h4>
               <table class="table table-responsive table-hover">
               
@@ -61,7 +62,7 @@
               
           </table>
           <h4>API Reference</h4>
-          <p class="lead"><a href="/banjir/en/api#aggregates">/data/api/v1/aggregates</a>
+          <p class="lead"><a href="/banjir/in/data/api#aggregates">http://petajakarta.org/banjir/in/data/api#aggregates</a>
     </div>
 
 
@@ -86,31 +87,6 @@
 
       ga('create', 'UA-46996603-1', 'petajakarta.org');
       ga('send', 'pageview');
-    </script>
-
-    <!-- Video resize -->
-    <script>
-      'use strict';
-
-      $(function() {
-          // Figure out and save aspect ratio for each video
-          $('iframe[src^="//www.youtube.com"]').each(function() {
-              $(this).data('aspectRatio', this.height / this.width)
-                     .removeAttr('height')
-                     .removeAttr('width');
-          });
-
-          // When the window is resized
-          $(window).resize(function() {
-              // Resize all videos according to their own aspect ratio
-              $('iframe[src^="//www.youtube.com"]').each(function() {
-                  var $this = $(this);
-                  var newWidth = $this.parent().width();
-                  $this.width(newWidth)
-                     .height(newWidth * $this.data('aspectRatio'));
-              });
-          }).resize();
-      });
     </script>
 
     <!-- Twitter Button-->

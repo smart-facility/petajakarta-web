@@ -54,6 +54,12 @@ module.exports = function(grunt) {
         files: { 'build/banjir/en/*.html': 'banjir/assets/templates/*.hbs' },
         options: { json: 'banjir/assets/translations/en.json' }
       },
+
+      data: {
+        files: {'build/banjir/en/data/*.html': 'banjir/assets/templates/data/*.hbs'},
+        options: {json: 'banjir/assets/translations/en.json'}
+      },
+
       in: {
         files: { 'build/banjir/in/*.html': 'banjir/assets/templates/*.hbs'},
         options: { json: 'banjir/assets/translations/in.json' }
@@ -125,7 +131,7 @@ module.exports = function(grunt) {
 
   // Tasks
   grunt.registerTask('assets', ['jshint', 'concat:js', 'uglify:build', 'concat:css', 'cssmin:build', 'copy:images']);
-  grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in']);
+  grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in', 'staticHandlebars:data']);
   grunt.registerTask('server', ['assets', 'site', 'concurrent:server']);
   grunt.registerTask('default', ['assets', 'site']);
   grunt.registerTask('docs', ['jsdoc:dist'])

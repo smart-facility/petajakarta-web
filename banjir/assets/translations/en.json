@@ -8,6 +8,7 @@
   "navbar": {
     "home": "Home",
     "map": "Map",
+    "data": "Data",
     "other-locale": "Bahasa Indonesia"
   },
   "header": {
@@ -26,6 +27,9 @@
       "content": "See where the floods are right now",
       "button-title": "Map"
     }
+  },
+  "data": {
+    "title": "Open Data Collection"
   },
   "sharing-instructions": {
     "title": "Share flood information",
@@ -67,6 +71,7 @@
   "aggregates": {
     "title": "Twitter activity aggregates",
     "attributes": "Attrbitues",
+    "description": "Counts of tweets related to flooding in Jakarta within polygon geometries representing the 'RW' municipal scale at six hour intervals",
     "tblAttributes": [
       {
         "hField": "Field",
@@ -101,7 +106,124 @@
       {
       "hCRS": "CRS",
       "hName": "Name",
-      "hEPGS": "EPSG",
+      "hEPSG": "EPSG",
+      "fields":[
+          {
+            "crs": "WGS84",
+            "name": "World Geodetic System 1984",
+            "epsg": "4326"
+          }
+        ]
+      }
+    ]
+  },
+  "waterways": {
+    "title": "Waterways",
+    "attributes": "Attrbitues",
+    "description": "Line geometries representing the river and canal network in Jakarta",
+    "tblAttributes": [
+      {
+        "hField": "Field",
+        "hDescription": "Description",
+        "hType": "Type",
+        "fields": [
+          {
+            "field": "name",
+            "description": "Name of waterway",
+            "type": "String"
+          },
+          {
+            "field": "geometry",
+            "description": "Geographical representation of waterway",
+            "type": "LineString"
+          }
+        ]
+      }
+    ],
+    "coordinates": "Coordinate Reference System",
+    "tblCRS": [
+      {
+      "hCRS": "CRS",
+      "hName": "Name",
+      "hEPSG": "EPSG",
+      "fields":[
+          {
+            "crs": "WGS84",
+            "name": "World Geodetic System 1984",
+            "epsg": "4326"
+          }
+        ]
+      }
+    ]
+  },
+  "pumps": {
+    "title": "Pumps",
+    "attributes": "Attrbitues",
+    "description": " Point geometries representing the location of pump stations in Jakarta",
+    "tblAttributes": [
+      {
+        "hField": "Field",
+        "hDescription": "Description",
+        "hType": "Type",
+        "fields": [
+          {
+            "field": "name",
+            "description": "Name of pump station",
+            "type": "String"
+          },
+          {
+            "field": "geometry",
+            "description": "Geographical representation of pump location",
+            "type": "Point"
+          }
+        ]
+      }
+    ],
+    "coordinates": "Coordinate Reference System",
+    "tblCRS": [
+      {
+      "hCRS": "CRS",
+      "hName": "Name",
+      "hEPSG": "EPSG",
+      "fields":[
+          {
+            "crs": "WGS84",
+            "name": "World Geodetic System 1984",
+            "epsg": "4326"
+          }
+        ]
+      }
+    ]
+  },
+  "floodgates": {
+    "title": "Floodgates",
+    "attributes": "Attrbitues",
+    "description": "Point geometries representing the location of floodgates in Jakarta",
+    "tblAttributes": [
+      {
+        "hField": "Field",
+        "hDescription": "Description",
+        "hType": "Type",
+        "fields": [
+          {
+            "field": "name",
+            "description": "Name of floodgate",
+            "type": "String"
+          },
+          {
+            "field": "geometry",
+            "description": "Geographical representation of floodgate location",
+            "type": "Point"
+          }
+        ]
+      }
+    ],
+    "coordinates": "Coordinate Reference System",
+    "tblCRS": [
+      {
+      "hCRS": "CRS",
+      "hName": "Name",
+      "hEPSG": "EPSG",
       "fields":[
           {
             "crs": "WGS84",
