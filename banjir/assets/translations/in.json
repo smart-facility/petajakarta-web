@@ -8,6 +8,7 @@
   "navbar": {
     "home": "Beranda",
     "map": "Peta",
+    "data": "Data",
     "other-locale": "English"
   },
   "header": {
