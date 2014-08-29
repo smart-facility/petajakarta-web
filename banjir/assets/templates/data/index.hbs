@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{site.locale-url-prefix}}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -8,16 +8,16 @@
     <meta name="author" content="Peta Jakarta">
     <meta name="twitter:widgets:csp" content="on">
 
-    <title>Peta Jakarta &middot; Banjir</title>
+    <title>{{{site.name}}}</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="/banjir/assets/img/petajakarta_icon_32x32.png">
+    <link rel="shortcut icon" href="/{{site.url-prefix}}/assets/img/petajakarta_icon_32x32.png">
 
     <!-- Fonts from Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
 
     <!-- Site stylesheet -->
-    <link href="/banjir/css/application.min.css" rel="stylesheet">
+    <link href="/{{site.url-prefix}}/css/application.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="/banjir/en/"><img src="/banjir/img/petajakarta.png" width="252" height="45" alt=""/></a>
+          <a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/"><img src="/{{site.url-prefix}}/img/petajakarta.png" width="252" height="45" alt=""/></a>
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -40,10 +40,10 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/banjir/en/">Home</a></li>
-            <li><a href="/banjir/en/map">Map</a></li>
-            <li class="active"><a href="/banjir/en/data">Data</a></li>
-            <li><a href="/banjir/in/">[Bahasa Indonesia]</a></li>
+            <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/">{{{navbar.home}}}</a></li>
+            <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/map">{{{navbar.map}}}</a></li>
+            <li class="active"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data">Data</a></li>
+            <li><a href="/{{site.url-prefix}}/{{site.other-locale-url-prefix}}/">[{{{navbar.other-locale}}}]</a></li>
           </ul>
         </div>
       </div>
@@ -51,64 +51,46 @@
 
     <div class="container top-navbar-padding">
 
-        <h1>Open Data Collection</h1>
-        <p class="lead">The data from PetaJakarta.org is available for project partners and other researchers under an open license. If you'd like to use our data then we'd love to <a href='#contact'>hear from you</a>!</p>
-          <h3>Available data (2014/2015 monsoon season)</h3>
+        <h1>{{data.title}}</h1>
+        <p class="lead">{{{data.lead}}}</p>
+          <h3>{{data.available}}</h3>
           <table class="table table-responsive table-hover">
           <thead>
-            
+            {{#each data.tblData}}
             <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Type</th>
+              <th>{{hName}}</th>
+              <th>{{hDescription}}</th>
+              <th>{{hType}}</th>
             </tr>
           </thead>
           <tbody>
-              
+              {{#each fields}}
               <tr>
-                <td><a href="aggregates">Twitter activity aggregates</a></td>
-                <td>Counts of tweets related to flooding in Jakarta within polygon geometries representing the &#x27;RW&#x27; municipal scale at six hour intervals</td>
-                <td>Geosocial</td>
+                <td><a href="{{url}}">{{name}}</a></td>
+                <td>{{description}}</td>
+                <td>{{type}}</td>
               </tr>
-              
-              <tr>
-                <td><a href="waterways">Waterways</a></td>
-                <td>Line geometries representing the river and canal network in Jakarta</td>
-                <td>Infrastructure</td>
-              </tr>
-              
-              <tr>
-                <td><a href="pumps">Pumps</a></td>
-                <td>Point geometries representing the location of pump stations in Jakarta</td>
-                <td>Infrastructure</td>
-              </tr>
-              
-              <tr>
-                <td><a href="floodgates">Floodgates</a></td>
-                <td>Point geometries representing the location of floodgates in Jakarta</td>
-                <td>Infrastructure</td>
-              </tr>
-              
+              {{/each}}
           </tbody>
-          
+          {{/each}}
         </table>
 
-        <h3>Privacy</h3>
-        <p class="lead">Our open data collection archive does not contain individual tweets, but anonymised counts of Twitter activity at the &#x27;RW&#x27; level. The live map at PetaJakarta.org does store any information about users; all information derived from location-enabled mobile devices is stored and displayed anonymously.</p>
+        <h3>{{data.privacy.title}}</h3>
+        <p class="lead">{{data.privacy.text}}</p>
 
-        <h3>Licensing</h3>
-          <p class="lead">Data is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
+        <h3>{{data.licensing.title}}</h3>
+          <p class="lead">{{{data.licensing.text}}}</p>
           <p class="lead"><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a></p>
 
-        <h3>Data API</h3>
-          <p class="lead">The PetaJakarta.org API provides data in GeoJSON and TopoJSON formats. You can view the API documentation at <a href="/banjir/en/data/api">http://petajakarta.org/banjir/en/data/api</a></p>
+        <h3>{{data.api.title}}</h3>
+          <p class="lead">{{data.api.text}}<a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api">http://petajakarta.org/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api</a></p>
 
-        <h3>Data Partners</h3>
-          <p class="lead">The PetaJakarta.org Open Data Collection is part of the PetaJakarta Collaborative Data Sharing Project, supported by the Australian National Data Service (ANDS). ANDS is supported by the Australian Government through the National Collaborative Research Infrastructure Strategy Program. Visit <a href="http://ands.org.au" target="_blank">http://ands.org.au</a> or Research Data Australia (<a href="http://services.ands.org.au" target="_blank">services.ands.org.au</a>) to find out more.</p>
-          <img src="/banjir/img/ands.jpg" width="200" height="96" alt=""/>
+        <h3>{{data.partners.title}}</h3>
+          <p class="lead">{{{data.partners.text}}}</p>
+          <img src="/{{site.url-prefix}}/img/ands.jpg" width="200" height="96" alt=""/>
 
-        <h3><a name="contact"></a>Contact</h3>
-          <p>You can contact the PetaJakarta.org team via email or Twitter</p>
+        <h3><a name="contact"></a>{{data.contact.title}}</h3>
+          <p>{{data.contact.text}}</p>
           <p class="lead">Email: <a href="mailto:info@petajakarta.org">info@petajakarta.org</a><BR>Twitter:
           <a href="https://twitter.com/petajkt" target="_blank">@petajkt</a>
           </p>
@@ -125,7 +107,7 @@
 
     <!-- Site JavaScript -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="/banjir/js/application.min.js"></script>
+    <script src="/{{site.url-prefix}}/js/application.min.js"></script>
 
     <!-- Google analytics -->
     <script>
