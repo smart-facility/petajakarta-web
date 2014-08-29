@@ -27,6 +27,64 @@
       "button-title": "Peta"
     }
   },
+  "data": {
+    "title": "Open Data Collection",
+    "lead": "The data from PetaJakarta.org is available for project partners and other researchers under an open license. If you'd like to use our data then we'd love to <a href='#contact'>hear from you</a>!",
+    "available": "Available data (2014/2015 monsoon season)",
+    "tblData": [
+      {
+        "hName":"Name",
+        "hDescription": "Description",
+        "hType": "Type",
+        "fields": [
+          {
+            "name": "Twitter activity aggregates",
+            "url": "aggregates",
+            "description": "Counts of tweets related to flooding in Jakarta within polygon geometries representing the 'RW' municipal scale at six hour intervals",
+            "type": "Geosocial"
+          },
+          {
+            "name": "Waterways",
+            "url": "waterways",
+            "description": "Line geometries representing the river and canal network in Jakarta",
+            "type": "Infrastructure"
+          },
+          {
+            "name":  "Pumps",
+            "url": "pumps",
+            "description": "Point geometries representing the location of pump stations in Jakarta",
+            "type": "Infrastructure"
+          },
+          {
+            "name": "Floodgates",
+            "url": "floodgates",
+            "description": "Point geometries representing the location of floodgates in Jakarta",
+            "type": "Infrastructure"
+          }
+        ]
+      }
+    ],
+    "privacy": {
+      "title": "Privacy",
+      "text": "Our open data collection archive does not contain individual tweets, but anonymised counts of Twitter activity at the 'RW' level. The live map at PetaJakarta.org does store any information about users; all information derived from location-enabled mobile devices is stored and displayed anonymously."
+    },
+    "licensing":{
+      "title": "Licensing",
+      "text":"Data is licensed under a <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\">Creative Commons Attribution-NonCommercial 4.0 International License</a>."
+    },
+    "api":{
+      "title": "Data API",
+      "text": "The PetaJakarta.org API provides data in GeoJSON and TopoJSON formats. You can view the API documentation at "
+    },
+    "partners":{
+      "title": "Data Partners",
+      "text": "The PetaJakarta.org Open Data Collection is part of the PetaJakarta Collaborative Data Sharing Project, supported by the Australian National Data Service (ANDS). ANDS is supported by the Australian Government through the National Collaborative Research Infrastructure Strategy Program. Visit <a href=\"http://ands.org.au\" target=\"_blank\">http://ands.org.au</a> or Research Data Australia (<a href=\"http://services.ands.org.au\" target=\"_blank\">services.ands.org.au</a>) to find out more."
+    },
+    "contact":{
+      "title": "Contact",
+      "text": "You can contact the PetaJakarta.org team via email or Twitter"
+    }
+  },
   "sharing-instructions": {
     "title": "Instruksi",
     "steps": [
@@ -64,10 +122,177 @@
     "title": "Peta Informasi",
     "acknowledgements": "<h4>Peta dasar</h4>\n&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>\n<h4>Data infrastruktur</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Laporan</h4>\nDari <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> data\n<h4>Perangkat lunak</h4>\nSebuah kerangka Pengetahuan GeoSosial: <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nPeta: <a href=\"http://leafletjs.com\">Leaflet</a>"
   },
-  "api": {
+"aggregates": {
+  "title": "Twitter activity aggregates",
+  "attributes": "Attrbitues",
+  "description": "Counts of tweets related to flooding in Jakarta within polygon geometries representing the 'RW' municipal scale at six hour intervals",
+  "tblAttributes": [
+    {
+      "hField": "Field",
+      "hDescription": "Description",
+      "hType": "Type",
+      "fields": [
+        {
+          "field": "pkeys",
+          "description": "Unique Identifier",
+          "type": "Integer"
+        },
+        {
+          "field": "level_name",
+          "description": "Name of the municipal area [e.g. 'RW 01']",
+          "type": "String"
+        },
+        {
+          "field": "count",
+          "description": "Number of flood tweets in the municiapl area over six hours",
+          "type": "Integer"
+        },
+        {
+          "field": "geometry",
+          "description": "Geographical representation of municpal area",
+          "type": "Polygon"
+        }
+      ]
+    }
+  ],
+  "coordinates": "Coordinate Reference System",
+  "tblCRS": [
+    {
+    "hCRS": "CRS",
+    "hName": "Name",
+    "hEPSG": "EPSG",
+    "fields":[
+        {
+          "crs": "WGS84",
+          "name": "World Geodetic System 1984",
+          "epsg": "4326"
+        }
+      ]
+    }
+  ]
+},
+"waterways": {
+  "title": "Waterways",
+  "attributes": "Attrbitues",
+  "description": "Line geometries representing the river and canal network in Jakarta",
+  "tblAttributes": [
+    {
+      "hField": "Field",
+      "hDescription": "Description",
+      "hType": "Type",
+      "fields": [
+        {
+          "field": "name",
+          "description": "Name of waterway",
+          "type": "String"
+        },
+        {
+          "field": "geometry",
+          "description": "Geographical representation of waterway",
+          "type": "LineString"
+        }
+      ]
+    }
+  ],
+  "coordinates": "Coordinate Reference System",
+  "tblCRS": [
+    {
+    "hCRS": "CRS",
+    "hName": "Name",
+    "hEPSG": "EPSG",
+    "fields":[
+        {
+          "crs": "WGS84",
+          "name": "World Geodetic System 1984",
+          "epsg": "4326"
+        }
+      ]
+    }
+  ]
+},
+"pumps": {
+  "title": "Pumps",
+  "attributes": "Attrbitues",
+  "description": " Point geometries representing the location of pump stations in Jakarta",
+  "tblAttributes": [
+    {
+      "hField": "Field",
+      "hDescription": "Description",
+      "hType": "Type",
+      "fields": [
+        {
+          "field": "name",
+          "description": "Name of pump station",
+          "type": "String"
+        },
+        {
+          "field": "geometry",
+          "description": "Geographical representation of pump location",
+          "type": "Point"
+        }
+      ]
+    }
+  ],
+  "coordinates": "Coordinate Reference System",
+  "tblCRS": [
+    {
+    "hCRS": "CRS",
+    "hName": "Name",
+    "hEPSG": "EPSG",
+    "fields":[
+        {
+          "crs": "WGS84",
+          "name": "World Geodetic System 1984",
+          "epsg": "4326"
+        }
+      ]
+    }
+  ]
+},
+"floodgates": {
+  "title": "Floodgates",
+  "attributes": "Attrbitues",
+  "description": "Point geometries representing the location of floodgates in Jakarta",
+  "tblAttributes": [
+    {
+      "hField": "Field",
+      "hDescription": "Description",
+      "hType": "Type",
+      "fields": [
+        {
+          "field": "name",
+          "description": "Name of floodgate",
+          "type": "String"
+        },
+        {
+          "field": "geometry",
+          "description": "Geographical representation of floodgate location",
+          "type": "Point"
+        }
+      ]
+    }
+  ],
+  "coordinates": "Coordinate Reference System",
+  "tblCRS": [
+    {
+    "hCRS": "CRS",
+    "hName": "Name",
+    "hEPSG": "EPSG",
+    "fields":[
+        {
+          "crs": "WGS84",
+          "name": "World Geodetic System 1984",
+          "epsg": "4326"
+        }
+      ]
+    }
+  ]
+},
+"api": {
   "endpoints": [
     {
       "name": "data/api/v1/reports",
+      "short": "reports",
       "methods": [
         {
           "MethodName": "confirmed",
@@ -106,10 +331,11 @@
     },
     {
       "name": "/data/api/v1/aggregates",
+      "short": "aggregates",
       "methods": [
         {
           "MethodName": "live",
-          "Synopsis": "Get a real-time count of flood reports from the past hout",
+          "Synopsis": "Get a real-time count of flood reports from the past hour",
           "HTTPMethod": "GET",
           "URI": "http://petajakarta.org/banjir/data/api/v1/aggregates/live",
           "RequiresOAuth": "N",
@@ -159,6 +385,7 @@
     },
     {
       "name": "/data/api/v1/infrastructure",
+      "short": "infrastructure",
       "methods": [
         {
           "MethodName": "floodgates",
