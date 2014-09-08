@@ -50,7 +50,7 @@ var uncomfirmedMarkerPopup = function(feature, layer) {
 var getInfrastructure = function(layer) {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
-		jQuery.getJSON("/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
+		jQuery.getJSON("http://petajakarta.org/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
 				if (data.features !== null){
 					resolve(topojson.feature(data, data.objects.collection));
 				} else {
@@ -83,7 +83,7 @@ var infrastructureMarkerPopup = function(feature, layer){
 var getReports = function(type) {
 	return new RSVP.Promise(function(resolve, reject) {
 		// Use live data
-		jQuery.getJSON('/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
+		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
 		// Use fixture data
 		// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
 			if (data.features !== null){
@@ -105,7 +105,7 @@ var getReports = function(type) {
 */
 var getAggregates = function(level) {
 	return new RSVP.Promise(function(resolve, reject) {
-		jQuery.getJSON('/banjir/data/api/v1/aggregates/live?format=topojson&level='+level, function(data) {
+		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/aggregates/live?format=topojson&level='+level, function(data) {
 			resolve(topojson.feature(data, data.objects.collection));
 		});
 	});
@@ -475,56 +475,65 @@ $(function() {
 
 	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
 
-	window.layerPromises = {
+	var layerPromises = {
 		confirmed: getReports('confirmed')
 			.then(loadConfirmedPoints),
-		unconfirmed: getReports('unconfirmed')
-			.then(loadUnconfirmedPoints),
 		subdistrict: getAggregates('subdistrict')
 			.then(function(aggregates) {
 				return loadAggregates('subdistrict', aggregates);
-			}),
-		village: getAggregates('village')
-			.then(function(aggregates) {
-				return loadAggregates('village', aggregates);
-			}),
-		rw: getAggregates('rw')
-			.then(function(aggregates) {
-				return loadAggregates('rw', aggregates);
-			}),
-		waterways: getInfrastructure('waterways')
-			.then(function(waterways){
-				return loadInfrastructure('waterways', waterways);
-			}),
-		pumps: getInfrastructure('pumps')
-			.then(function(pumps){
-				return loadInfrastructure('pumps', pumps);
-			}),
-		floodgates: getInfrastructure('floodgates')
-			.then(function(floodgates){
-				return loadInfrastructure('floodgates', floodgates);
 			})
 	};
 
-	RSVP.hash(window.layerPromises).then(function(overlays) {
+	RSVP.hash(layerPromises).then(function(overlays) {
 		// Add overlays to the layers control
 		layers.addOverlay(overlays.confirmed, "Confirmed Reports");
-		layers.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
 		layers.addOverlay(overlays.subdistrict, "Aggregates (Subdistrict)");
-		layers.addOverlay(overlays.village, "Aggregates (Village)");
-		layers.addOverlay(overlays.rw, "Aggregates (rw)");
-		layers.addOverlay(overlays.waterways, "Waterways");
-		layers.addOverlay(overlays.pumps, "Pumps");
-		layers.addOverlay(overlays.floodgates, "Floodgates");
 
 		// Make overlays visible
 		overlays.subdistrict.addTo(map);
 		overlays.confirmed.addTo(map);
-		overlays.waterways.addTo(map);
-		overlays.pumps.addTo(map);
-		overlays.floodgates.addTo(map);
 
 		map.spin(false);
+
+		secondaryPromises =  {
+			unconfirmed: getReports('unconfirmed')
+				.then(loadUnconfirmedPoints),
+			village: getAggregates('village')
+				.then(function(aggregates) {
+					return loadAggregates('village', aggregates);
+				}),
+			rw: getAggregates('rw')
+				.then(function(aggregates) {
+					return loadAggregates('rw', aggregates);
+				}),
+			waterways: getInfrastructure('waterways')
+				.then(function(waterways){
+					return loadInfrastructure('waterways', waterways);
+				}),
+			pumps: getInfrastructure('pumps')
+				.then(function(pumps){
+					return loadInfrastructure('pumps', pumps);
+				}),
+			floodgates: getInfrastructure('floodgates')
+				.then(function(floodgates){
+					return loadInfrastructure('floodgates', floodgates);
+				})
+		};
+
+		RSVP.hash(secondaryPromises).then(function(overlays) {
+			// Add overlays to the layers control
+			layers.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
+			layers.addOverlay(overlays.village, "Aggregates (Village)");
+			layers.addOverlay(overlays.rw, "Aggregates (rw)");
+			layers.addOverlay(overlays.waterways, "Waterways");
+			layers.addOverlay(overlays.pumps, "Pumps");
+			layers.addOverlay(overlays.floodgates, "Floodgates");
+
+			// Make overlays visible
+			overlays.waterways.addTo(map);
+			overlays.pumps.addTo(map);
+			overlays.floodgates.addTo(map);
+		});
 	});
 });
 
