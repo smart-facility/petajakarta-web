@@ -3245,14 +3245,7 @@ String.prototype.parseURL = function() {
 	});
 };
 
-// Load reports
-$(function() {
-	var overlayMaps = {};
-
-	map.spin(true);
-
-	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
-
+var loadPrimaryLayers = function(layerControl) {
 	var layerPromises = {
 		confirmed: getReports('confirmed')
 			.then(loadConfirmedPoints),
@@ -3261,19 +3254,26 @@ $(function() {
 				return loadAggregates('subdistrict', aggregates);
 			})
 	};
+	return new RSVP.Promise(function(resolve, reject) {
+		RSVP.hash(layerPromises).then(function(overlays) {
+			// Add overlays to the layers control
+			layerControl.addOverlay(overlays.confirmed, "Confirmed Reports");
+			layerControl.addOverlay(overlays.subdistrict, "Aggregates (Subdistrict)");
 
-	RSVP.hash(layerPromises).then(function(overlays) {
-		// Add overlays to the layers control
-		layers.addOverlay(overlays.confirmed, "Confirmed Reports");
-		layers.addOverlay(overlays.subdistrict, "Aggregates (Subdistrict)");
+			// Make overlays visible
+			overlays.subdistrict.addTo(map);
+			overlays.confirmed.addTo(map);
 
-		// Make overlays visible
-		overlays.subdistrict.addTo(map);
-		overlays.confirmed.addTo(map);
+			map.spin(false);
 
-		map.spin(false);
+			resolve(layerControl);
+		}, reject);
+	});
+};
 
-		secondaryPromises =  {
+var loadSecondaryLayers = function(layerControl) {
+	return new RSVP.Promise(function(resolve, reject) {
+		secondaryPromises = {
 			unconfirmed: getReports('unconfirmed')
 				.then(loadUnconfirmedPoints),
 			village: getAggregates('village')
@@ -3299,13 +3299,13 @@ $(function() {
 		};
 
 		RSVP.hash(secondaryPromises).then(function(overlays) {
-			// Add overlays to the layers control
-			layers.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
-			layers.addOverlay(overlays.village, "Aggregates (Village)");
-			layers.addOverlay(overlays.rw, "Aggregates (rw)");
-			layers.addOverlay(overlays.waterways, "Waterways");
-			layers.addOverlay(overlays.pumps, "Pumps");
-			layers.addOverlay(overlays.floodgates, "Floodgates");
+			// Add overlays to the layer control
+			layerControl.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
+			layerControl.addOverlay(overlays.village, "Aggregates (Village)");
+			layerControl.addOverlay(overlays.rw, "Aggregates (rw)");
+			layerControl.addOverlay(overlays.waterways, "Waterways");
+			layerControl.addOverlay(overlays.pumps, "Pumps");
+			layerControl.addOverlay(overlays.floodgates, "Floodgates");
 
 			// Make overlays visible
 			overlays.waterways.addTo(map);
@@ -3313,6 +3313,13 @@ $(function() {
 			overlays.floodgates.addTo(map);
 		});
 	});
+};
+
+// Load reports
+$(function() {
+	map.spin(true);
+	var layerControl = L.control.layers(baseMaps, {}, {position: 'bottomleft'}).addTo(map);
+	loadPrimaryLayers(layerControl).then(loadSecondaryLayers);
 });
 
 
