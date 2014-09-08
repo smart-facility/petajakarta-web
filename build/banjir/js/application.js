@@ -3249,6 +3249,8 @@ var loadPrimaryLayers = function(layerControl) {
 	var layerPromises = {
 		confirmed: getReports('confirmed')
 			.then(loadConfirmedPoints),
+			unconfirmed: getReports('unconfirmed')
+				.then(loadUnconfirmedPoints),
 		subdistrict: getAggregates('subdistrict')
 			.then(function(aggregates) {
 				return loadAggregates('subdistrict', aggregates);
@@ -3258,11 +3260,13 @@ var loadPrimaryLayers = function(layerControl) {
 		RSVP.hash(layerPromises).then(function(overlays) {
 			// Add overlays to the layers control
 			layerControl.addOverlay(overlays.confirmed, "Confirmed Reports");
+			layerControl.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
 			layerControl.addOverlay(overlays.subdistrict, "Aggregates (Subdistrict)");
 
 			// Make overlays visible
 			overlays.subdistrict.addTo(map);
 			overlays.confirmed.addTo(map);
+			overlays.unconfirmed.addTo(map);
 
 			map.spin(false);
 
@@ -3274,8 +3278,6 @@ var loadPrimaryLayers = function(layerControl) {
 var loadSecondaryLayers = function(layerControl) {
 	return new RSVP.Promise(function(resolve, reject) {
 		secondaryPromises = {
-			unconfirmed: getReports('unconfirmed')
-				.then(loadUnconfirmedPoints),
 			village: getAggregates('village')
 				.then(function(aggregates) {
 					return loadAggregates('village', aggregates);
@@ -3300,7 +3302,6 @@ var loadSecondaryLayers = function(layerControl) {
 
 		RSVP.hash(secondaryPromises).then(function(overlays) {
 			// Add overlays to the layer control
-			layerControl.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
 			layerControl.addOverlay(overlays.village, "Aggregates (Village)");
 			layerControl.addOverlay(overlays.rw, "Aggregates (rw)");
 			layerControl.addOverlay(overlays.waterways, "Waterways");
