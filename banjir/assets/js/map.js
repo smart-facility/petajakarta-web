@@ -483,7 +483,7 @@ var loadPrimaryLayers = function(layerControl) {
 			// Add overlays to the layers control
 			layerControl.addOverlay(overlays.confirmed, "Confirmed Reports");
 			layerControl.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
-			layerControl.addOverlay(overlays.subdistrict, "Aggregates (Subdistrict)");
+			layerControl.addOverlay(overlays.subdistrict, "Aggregates");
 
 			// Make overlays visible
 			overlays.subdistrict.addTo(map);
@@ -524,8 +524,6 @@ var loadSecondaryLayers = function(layerControl) {
 
 		RSVP.hash(secondaryPromises).then(function(overlays) {
 			// Add overlays to the layer control
-			layerControl.addOverlay(overlays.village, "Aggregates (Village)");
-			layerControl.addOverlay(overlays.rw, "Aggregates (rw)");
 			layerControl.addOverlay(overlays.waterways, "Waterways");
 			layerControl.addOverlay(overlays.pumps, "Pumps");
 			layerControl.addOverlay(overlays.floodgates, "Floodgates");
@@ -541,8 +539,8 @@ var loadSecondaryLayers = function(layerControl) {
 // Load reports
 $(function() {
 	map.spin(true);
-	var layerControl = L.control.layers(baseMaps, {}, {position: 'bottomleft'}).addTo(map);
-	loadPrimaryLayers(layerControl).then(loadSecondaryLayers);
+	window.layerControl = L.control.layers(baseMaps, {}, {position: 'bottomleft'}).addTo(map);
+	loadPrimaryLayers(window.layerControl).then(loadSecondaryLayers);
 });
 
 
@@ -563,12 +561,15 @@ map.on('zoomend', function(e){
 		if (aggregateLayers) {
 			if (aggregateLayers.subdistrict) {
 				map.removeLayer(aggregateLayers.subdistrict);
+				window.layerControl.removeLayer(aggregateLayers.subdistrict);
 			}
 			if (aggregateLayers.village) {
 				map.removeLayer(aggregateLayers.village);
+				window.layerControl.removeLayer(aggregateLayers.village);
 			}
 			if (aggregateLayers.rw) {
 				map.removeLayer(aggregateLayers.rw);
+				window.layerControl.removeLayer(aggregateLayers.rw);
 			}
 		}
 	};
@@ -577,14 +578,17 @@ map.on('zoomend', function(e){
 		hideAggregates();
 		aggregateLayers.subdistrict.addTo(map);
 		aggregateLayers.subdistrict.bringToBack();
+		window.layerControl.addOverlay(aggregateLayers.subdistrict, "Aggregates");
 	} else if (zoom >= 13 && zoom <= 14) {
 		hideAggregates();
 		aggregateLayers.village.addTo(map);
 		aggregateLayers.village.bringToBack();
+		window.layerControl.addOverlay(aggregateLayers.village, "Aggregates");
 	} else if (zoom >= 15 && zoom < 16) {
 		hideAggregates();
 		aggregateLayers.rw.addTo(map);
 		aggregateLayers.rw.bringToBack();
+		window.layerControl.addOverlay(aggregateLayers.rw, "Aggregates");
 	} else {
 		hideAggregates();
 	}
