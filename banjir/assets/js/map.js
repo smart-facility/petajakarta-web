@@ -193,7 +193,7 @@ var loadInfrastructure = function(layer, infrastructure){
 		else {
 
 			window[layer] = L.geoJson(infrastructure, {
-				pointToLayer: function (feature, latlng){
+				pointToLayer: function(feature, latlng) {
 					return L.marker(latlng, {icon: styleInfrastructure[layer]});
 				}, onEachFeature: infrastructureMarkerPopup
 			});
@@ -369,18 +369,19 @@ info.update = function(properties){
 */
 var legend = L.control({position:'bottomright'});
 
-legend.onAdd = function (map){
+legend.onAdd = function(map) {
 
 	var div = L.DomUtil.create('div', 'info legend'),
 	grades = [0,1, 5, 10, 15, 20, 25, 30],
 	labels = [];
 
 	// loop through density intervals and generate label with coloured square
-	for (var i=0; i <grades.length; i++){
+	for (var i=0; i <grades.length; i++) {
 		div.innerHTML +=
 			'<i style="background:'+getColor(grades[i]+1) + '"></i> '+
 			grades[i] + (grades[i+1] ? '&ndash;' + grades[i+1]+'<br>':'+');
 	}
+
 	return div;
 };
 
