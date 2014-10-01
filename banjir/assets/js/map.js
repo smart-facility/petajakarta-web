@@ -126,19 +126,6 @@ var loadConfirmedPoints = function(reports) {
 			onEachFeature: markerPopup
 		});
 
-		if (document.documentElement.lang == 'in') {
-			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan  '+formatNumberAsString(reports.features.length)+' laporan dikonfirmasi terakhir</a>');
-		} else {
-			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+formatNumberAsString(reports.features.length)+' confirmed reports</a>');
-		}
-	} else {
-		window.confirmedPoints = L.geoJson();
-
-		if (document.documentElement.lang == 'in') {
-			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan 0 laporan dikonfirmasi terakhir</a>');
-		} else {
-			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing 0 confirmed reports</a>');
-		}
 	}
 
 	return window.confirmedPoints;
@@ -377,9 +364,12 @@ legend.onAdd = function(map) {
 
 	// loop through density intervals and generate label with coloured square
 	for (var i=0; i <grades.length; i++) {
-		div.innerHTML +=
-			'<i style="background:'+getColor(grades[i]+1) + '"></i> '+
-			grades[i] + (grades[i+1] ? '&ndash;' + grades[i+1]+'<br>':'+');
+		div.innerHTML += '<i class="color" style="background:'+getColor(grades[i]+1) + '"></i>';
+	}
+  div.innerHTML += '<br>';
+	// loop through density intervals and generate label with coloured square
+	for (i=0; i <grades.length; i++) {
+		div.innerHTML += '<span class="number">'+grades[i]+'</span>';
 	}
 
 	return div;
