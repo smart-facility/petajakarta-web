@@ -126,6 +126,19 @@ var loadConfirmedPoints = function(reports) {
 			onEachFeature: markerPopup
 		});
 
+		if (document.documentElement.lang == 'in') {
+			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan  '+formatNumberAsString(reports.features.length)+' laporan dikonfirmasi terakhir</a>');
+		} else {
+			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+formatNumberAsString(reports.features.length)+' confirmed reports</a>');
+		}
+	} else {
+		window.confirmedPoints = L.geoJson();
+
+		if (document.documentElement.lang == 'in') {
+			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan 0 laporan dikonfirmasi terakhir</a>');
+		} else {
+			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing 0 confirmed reports</a>');
+		}
 	}
 
 	return window.confirmedPoints;
