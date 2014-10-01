@@ -3152,7 +3152,7 @@ legend.onAdd = function(map) {
 	var div = L.DomUtil.create('div', 'info legend'),
 	grades = [0,1, 5, 10, 15, 20, 25, 30],
 	labels = [];
-
+  //
 	// loop through density intervals and generate label with coloured square
 	for (var i=0; i <grades.length; i++) {
 		div.innerHTML += '<i class="color" style="background:'+getColor(grades[i]+1) + '"></i>';
@@ -3164,6 +3164,32 @@ legend.onAdd = function(map) {
 	}
 
 	return div;
+};
+
+var aggregatesControl = L.control({position:'bottomright'});
+
+aggregatesControl.onAdd = function(map) {
+	var div = L.DomUtil.create('div', 'info control aggregates');
+
+  var buttonGroup = L.DomUtil.create('div', 'btn-group', div);
+  var buttons = [];
+  var labels = ['30min', '1hr', '24hr'];
+
+  var clickCallback = function() {
+    $('.control.aggregates button.active').removeClass('active');
+    this.className += " active";
+  };
+
+  for (var i = 0; i < 3; i++) {
+    buttons[i] = L.DomUtil.create('button', 'btn btn-default', buttonGroup);
+    buttons[i].setAttribute('value', i);
+    buttons[i].textContent = labels[i];
+    buttons[i].addEventListener("click", clickCallback);
+  }
+
+  L.DomUtil.addClass(buttons[0], 'active');
+
+  return div;
 };
 
 //Initialise map
@@ -3181,6 +3207,9 @@ info.addTo(map);
 
 //Add legend
 legend.addTo(map);
+
+//Add aggregates control
+aggregatesControl.addTo(map);
 
 //Old Mapnik B&W rendering before aggregates layer was added
 //var base0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map);
