@@ -980,6 +980,7 @@ body {
 
 /** Hide certain controls on touch enabled devices */
 .leaflet-touch .leaflet-control-zoom,
+.leaflet-touch .leaflet-control-attribution,
 .leaflet-touch .leaflet-top.leaflet-right .leaflet-control.info {
   display: none;
 }
