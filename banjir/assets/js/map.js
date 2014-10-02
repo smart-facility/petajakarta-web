@@ -50,7 +50,7 @@ var uncomfirmedMarkerPopup = function(feature, layer) {
 var getInfrastructure = function(layer) {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
-		jQuery.getJSON("/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
+		jQuery.getJSON("http://petajakarta.org/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
 				if (data.features !== null){
 					resolve(topojson.feature(data, data.objects.collection));
 				} else {
@@ -83,7 +83,7 @@ var infrastructureMarkerPopup = function(feature, layer){
 var getReports = function(type) {
 	return new RSVP.Promise(function(resolve, reject) {
 		// Use live data
-		jQuery.getJSON('/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
+		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
 		// Use fixture data
 		// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
 			if (data.features !== null){
@@ -105,7 +105,7 @@ var getReports = function(type) {
 */
 var getAggregates = function(level) {
 	return new RSVP.Promise(function(resolve, reject) {
-		jQuery.getJSON('/banjir/data/api/v1/aggregates/live?format=topojson&level='+level, function(data) {
+		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/aggregates/live?format=topojson&level='+level, function(data) {
 			resolve(topojson.feature(data, data.objects.collection));
 		});
 	});
@@ -281,27 +281,30 @@ function labelAggregates(feature, layer) {
 		});
 }
 
+var activeAggregate = null;
+
 /**
 	Visual highlighting of polygon when hovered over with the mouse
 
 	@param {object} event - leaflet event object
 */
 function highlightAggregate(e) {
-    var layer = e.target;
+  var layer = e.target;
 
-    layer.setStyle({
-        weight: 5,
-        color: '#333',
-				opacity:1,
-        dashArray: '',
-        fillOpacity: 0.7
-    });
+  layer.setStyle({
+    weight: 5,
+    color: '#333',
+    opacity:1,
+    dashArray: '',
+    fillOpacity: 0.7
+  });
 
-    layer.bringToBack(); //buggy?
+  layer.bringToBack(); //buggy?
 
-		info.update(layer.feature.properties);
+  info.update(layer.feature.properties);
+
+  activeAggregate = layer;
 }
-
 /**
 	Reset style of aggregate after hover over
 
@@ -543,6 +546,12 @@ map.on('zoomend', function(e){
 	var zoom  = map.getZoom();
 
 	var hideAggregates = function() {
+    if (activeAggregate) {
+      activeAggregate.setStyle(styleAggregates(activeAggregate.feature));
+      info.update();
+      activeAggregate = null;
+    }
+
 		if (aggregateLayers) {
 			if (aggregateLayers.subdistrict) {
 				map.removeLayer(aggregateLayers.subdistrict);
