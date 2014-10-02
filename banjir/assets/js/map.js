@@ -97,6 +97,7 @@ var getReports = function(type) {
 
 };
 
+var aggregateHours = 1;
 
 /**
 	Get GeoJSON representing counts of reports in RW polygons
@@ -105,7 +106,7 @@ var getReports = function(type) {
 */
 var getAggregates = function(level) {
 	return new RSVP.Promise(function(resolve, reject) {
-		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/aggregates/live?format=topojson&level='+level, function(data) {
+		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
 			resolve(topojson.feature(data, data.objects.collection));
 		});
 	});
@@ -171,10 +172,15 @@ var loadUnconfirmedPoints = function(reports) {
 */
 
 var aggregateLayers = {};
+var aggregateVersions = {};
+var aggregateInc = 0;
 
 var loadAggregates = function(level, aggregates){
 	var aggregateLayer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates});
 	aggregateLayers[level] = aggregateLayer;
+	aggregateLayers[level].version = aggregateInc;
+  aggregateVersions[level] = aggregateInc;
+  aggregateInc += 1;
 	return aggregateLayers[level];
 };
 
@@ -390,21 +396,88 @@ legend.onAdd = function(map) {
 
 var aggregatesControl = L.control({position:'bottomright'});
 
+var hideAggregates = function() {
+  if (aggregateLayers) {
+    if (aggregateLayers.subdistrict) {
+      map.removeLayer(aggregateLayers.subdistrict);
+      window.layerControl.removeLayer(aggregateLayers.subdistrict);
+    }
+    if (aggregateLayers.village) {
+      map.removeLayer(aggregateLayers.village);
+      window.layerControl.removeLayer(aggregateLayers.village);
+    }
+    if (aggregateLayers.rw) {
+      map.removeLayer(aggregateLayers.rw);
+      window.layerControl.removeLayer(aggregateLayers.rw);
+    }
+  }
+};
+
+var reloadAggregates = function() {
+  var promises = {
+    subdistrict: getAggregates('subdistrict')
+				.then(function(aggregates) {
+					return loadAggregates('subdistrict', aggregates);
+				}),
+    village: getAggregates('village')
+				.then(function(aggregates) {
+					return loadAggregates('village', aggregates);
+				}),
+    rw: getAggregates('rw')
+				.then(function(aggregates) {
+					return loadAggregates('rw', aggregates);
+				})
+  };
+
+  return RSVP.hash(promises);
+};
+
+var updateAggregateVisibility = function() {
+	var zoom  = map.getZoom();
+
+	if (zoom < 13) {
+		hideAggregates();
+		aggregateLayers.subdistrict.addTo(map);
+		aggregateLayers.subdistrict.bringToBack();
+		window.layerControl.addOverlay(aggregateLayers.subdistrict, "Aggregates");
+	} else if (zoom >= 13 && zoom <= 14) {
+		hideAggregates();
+		aggregateLayers.village.addTo(map);
+		aggregateLayers.village.bringToBack();
+		window.layerControl.addOverlay(aggregateLayers.village, "Aggregates");
+	} else if (zoom >= 15 && zoom < 16) {
+		hideAggregates();
+		aggregateLayers.rw.addTo(map);
+		aggregateLayers.rw.bringToBack();
+		window.layerControl.addOverlay(aggregateLayers.rw, "Aggregates");
+	} else {
+		hideAggregates();
+	}
+};
+
 aggregatesControl.onAdd = function(map) {
 	var div = L.DomUtil.create('div', 'info control aggregates');
 
   var buttonGroup = L.DomUtil.create('div', 'btn-group', div);
   var buttons = [];
-  var labels = ['30min', '1hr', '24hr'];
+  var labels = ['1hr', '3hrs', '6hrs'];
+  var values = [1, 3, 6];
 
   var clickCallback = function() {
     $('.control.aggregates button.active').removeClass('active');
     this.className += " active";
+    aggregateHours = parseInt(this.getAttribute('value'), 10);
+    aggregateLayers.subdistrict.foo = "bar";
+    hideAggregates();
+    reloadAggregates().then(function() {
+      updateAggregateVisibility();
+    });
   };
 
   for (var i = 0; i < 3; i++) {
     buttons[i] = L.DomUtil.create('button', 'btn btn-default', buttonGroup);
-    buttons[i].setAttribute('value', i);
+    buttons[i].setAttribute('value', values[i]);
+    buttons[i].setAttribute('disabled', true);
     buttons[i].textContent = labels[i];
     buttons[i].addEventListener("click", clickCallback);
   }
@@ -565,6 +638,8 @@ var loadSecondaryLayers = function(layerControl) {
 			overlays.waterways.addTo(map);
 			overlays.pumps.addTo(map);
 			overlays.floodgates.addTo(map);
+
+      $('.control.aggregates button').prop('disabled', false);
 		});
 	});
 };
@@ -587,42 +662,5 @@ if (document.documentElement.lang == 'in') {
 /**
 	Listen for map zoom events and load required layers
 */
-map.on('zoomend', function(e){
-	var zoom  = map.getZoom();
 
-	var hideAggregates = function() {
-		if (aggregateLayers) {
-			if (aggregateLayers.subdistrict) {
-				map.removeLayer(aggregateLayers.subdistrict);
-				window.layerControl.removeLayer(aggregateLayers.subdistrict);
-			}
-			if (aggregateLayers.village) {
-				map.removeLayer(aggregateLayers.village);
-				window.layerControl.removeLayer(aggregateLayers.village);
-			}
-			if (aggregateLayers.rw) {
-				map.removeLayer(aggregateLayers.rw);
-				window.layerControl.removeLayer(aggregateLayers.rw);
-			}
-		}
-	};
-
-	if (zoom < 13) {
-		hideAggregates();
-		aggregateLayers.subdistrict.addTo(map);
-		aggregateLayers.subdistrict.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.subdistrict, "Aggregates");
-	} else if (zoom >= 13 && zoom <= 14) {
-		hideAggregates();
-		aggregateLayers.village.addTo(map);
-		aggregateLayers.village.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.village, "Aggregates");
-	} else if (zoom >= 15 && zoom < 16) {
-		hideAggregates();
-		aggregateLayers.rw.addTo(map);
-		aggregateLayers.rw.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.rw, "Aggregates");
-	} else {
-		hideAggregates();
-	}
-});
+map.on('zoomend', updateAggregateVisibility);
