@@ -97,6 +97,7 @@ var getReports = function(type) {
 
 };
 
+var aggregateHours = 1;
 
 /**
 	Get GeoJSON representing counts of reports in RW polygons
@@ -105,7 +106,7 @@ var getReports = function(type) {
 */
 var getAggregates = function(level) {
 	return new RSVP.Promise(function(resolve, reject) {
-		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/aggregates/live?format=topojson&level='+level, function(data) {
+		jQuery.getJSON('/banjir/data/api/v1/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
 			resolve(topojson.feature(data, data.objects.collection));
 		});
 	});
@@ -171,10 +172,15 @@ var loadUnconfirmedPoints = function(reports) {
 */
 
 var aggregateLayers = {};
+var aggregateVersions = {};
+var aggregateInc = 0;
 
 var loadAggregates = function(level, aggregates){
 	var aggregateLayer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates});
 	aggregateLayers[level] = aggregateLayer;
+	aggregateLayers[level].version = aggregateInc;
+  aggregateVersions[level] = aggregateInc;
+  aggregateInc += 1;
 	return aggregateLayers[level];
 };
 
@@ -193,7 +199,7 @@ var loadInfrastructure = function(layer, infrastructure){
 		else {
 
 			window[layer] = L.geoJson(infrastructure, {
-				pointToLayer: function (feature, latlng){
+				pointToLayer: function(feature, latlng) {
 					return L.marker(latlng, {icon: styleInfrastructure[layer]});
 				}, onEachFeature: infrastructureMarkerPopup
 			});
@@ -372,19 +378,116 @@ info.update = function(properties){
 */
 var legend = L.control({position:'bottomright'});
 
-legend.onAdd = function (map){
+legend.onAdd = function(map) {
 
 	var div = L.DomUtil.create('div', 'info legend'),
 	grades = [0,1, 5, 10, 15, 20, 25, 30],
 	labels = [];
-
+  //
 	// loop through density intervals and generate label with coloured square
-	for (var i=0; i <grades.length; i++){
-		div.innerHTML +=
-			'<i style="background:'+getColor(grades[i]+1) + '"></i> '+
-			grades[i] + (grades[i+1] ? '&ndash;' + grades[i+1]+'<br>':'+');
+	for (var i=0; i <grades.length; i++) {
+		div.innerHTML += '<i class="color" style="background:'+getColor(grades[i]+1) + '"></i>';
 	}
+  div.innerHTML += '<br>';
+	// loop through density intervals and generate label with coloured square
+	for (i=0; i <grades.length; i++) {
+		div.innerHTML += '<span class="number">'+grades[i]+'</span>';
+	}
+
 	return div;
+};
+
+var aggregatesControl = L.control({position:'bottomright'});
+
+var hideAggregates = function() {
+  if (aggregateLayers) {
+    if (aggregateLayers.subdistrict) {
+      map.removeLayer(aggregateLayers.subdistrict);
+      window.layerControl.removeLayer(aggregateLayers.subdistrict);
+    }
+    if (aggregateLayers.village) {
+      map.removeLayer(aggregateLayers.village);
+      window.layerControl.removeLayer(aggregateLayers.village);
+    }
+    if (aggregateLayers.rw) {
+      map.removeLayer(aggregateLayers.rw);
+      window.layerControl.removeLayer(aggregateLayers.rw);
+    }
+  }
+};
+
+var reloadAggregates = function() {
+  var promises = {
+    subdistrict: getAggregates('subdistrict')
+				.then(function(aggregates) {
+					return loadAggregates('subdistrict', aggregates);
+				}),
+    village: getAggregates('village')
+				.then(function(aggregates) {
+					return loadAggregates('village', aggregates);
+				}),
+    rw: getAggregates('rw')
+				.then(function(aggregates) {
+					return loadAggregates('rw', aggregates);
+				})
+  };
+
+  return RSVP.hash(promises);
+};
+
+var updateAggregateVisibility = function() {
+	var zoom  = map.getZoom();
+
+	if (zoom < 13) {
+		hideAggregates();
+		aggregateLayers.subdistrict.addTo(map);
+		aggregateLayers.subdistrict.bringToBack();
+		window.layerControl.addOverlay(aggregateLayers.subdistrict, "Aggregates");
+	} else if (zoom >= 13 && zoom <= 14) {
+		hideAggregates();
+		aggregateLayers.village.addTo(map);
+		aggregateLayers.village.bringToBack();
+		window.layerControl.addOverlay(aggregateLayers.village, "Aggregates");
+	} else if (zoom >= 15 && zoom < 16) {
+		hideAggregates();
+		aggregateLayers.rw.addTo(map);
+		aggregateLayers.rw.bringToBack();
+		window.layerControl.addOverlay(aggregateLayers.rw, "Aggregates");
+	} else {
+		hideAggregates();
+	}
+};
+
+aggregatesControl.onAdd = function(map) {
+	var div = L.DomUtil.create('div', 'info control aggregates');
+
+  var buttonGroup = L.DomUtil.create('div', 'btn-group', div);
+  var buttons = [];
+  var labels = ['1hr', '3hrs', '6hrs'];
+  var values = [1, 3, 6];
+
+  var clickCallback = function() {
+    $('.control.aggregates button.active').removeClass('active');
+    this.className += " active";
+    aggregateHours = parseInt(this.getAttribute('value'), 10);
+    aggregateLayers.subdistrict.foo = "bar";
+    hideAggregates();
+    reloadAggregates().then(function() {
+      updateAggregateVisibility();
+    });
+  };
+
+  for (var i = 0; i < 3; i++) {
+    buttons[i] = L.DomUtil.create('button', 'btn btn-default', buttonGroup);
+    buttons[i].setAttribute('value', values[i]);
+    buttons[i].setAttribute('disabled', true);
+    buttons[i].textContent = labels[i];
+    buttons[i].addEventListener("click", clickCallback);
+  }
+
+  L.DomUtil.addClass(buttons[0], 'active');
+
+  return div;
 };
 
 //Initialise map
@@ -402,6 +505,9 @@ info.addTo(map);
 
 //Add legend
 legend.addTo(map);
+
+//Add aggregates control
+aggregatesControl.addTo(map);
 
 //Old Mapnik B&W rendering before aggregates layer was added
 //var base0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map);
@@ -470,65 +576,82 @@ String.prototype.parseURL = function() {
 	});
 };
 
-// Load reports
-$(function() {
-	var overlayMaps = {};
-
-	map.spin(true);
-
-	var layers = L.control.layers(baseMaps, overlayMaps, {position: 'bottomleft'}).addTo(map);
-
-	window.layerPromises = {
+var loadPrimaryLayers = function(layerControl) {
+	var layerPromises = {
 		confirmed: getReports('confirmed')
 			.then(loadConfirmedPoints),
-		unconfirmed: getReports('unconfirmed')
-			.then(loadUnconfirmedPoints),
+			unconfirmed: getReports('unconfirmed')
+				.then(loadUnconfirmedPoints),
 		subdistrict: getAggregates('subdistrict')
 			.then(function(aggregates) {
 				return loadAggregates('subdistrict', aggregates);
-			}),
-		village: getAggregates('village')
-			.then(function(aggregates) {
-				return loadAggregates('village', aggregates);
-			}),
-		rw: getAggregates('rw')
-			.then(function(aggregates) {
-				return loadAggregates('rw', aggregates);
-			}),
-		waterways: getInfrastructure('waterways')
-			.then(function(waterways){
-				return loadInfrastructure('waterways', waterways);
-			}),
-		pumps: getInfrastructure('pumps')
-			.then(function(pumps){
-				return loadInfrastructure('pumps', pumps);
-			}),
-		floodgates: getInfrastructure('floodgates')
-			.then(function(floodgates){
-				return loadInfrastructure('floodgates', floodgates);
 			})
 	};
+	return new RSVP.Promise(function(resolve, reject) {
+		RSVP.hash(layerPromises).then(function(overlays) {
+			// Add overlays to the layers control
+			layerControl.addOverlay(overlays.confirmed, "Confirmed Reports");
+			layerControl.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
+			layerControl.addOverlay(overlays.subdistrict, "Aggregates");
 
-	RSVP.hash(window.layerPromises).then(function(overlays) {
-		// Add overlays to the layers control
-		layers.addOverlay(overlays.confirmed, "Confirmed Reports");
-		layers.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
-		layers.addOverlay(overlays.subdistrict, "Aggregates (Subdistrict)");
-		layers.addOverlay(overlays.village, "Aggregates (Village)");
-		layers.addOverlay(overlays.rw, "Aggregates (rw)");
-		layers.addOverlay(overlays.waterways, "Waterways");
-		layers.addOverlay(overlays.pumps, "Pumps");
-		layers.addOverlay(overlays.floodgates, "Floodgates");
+			// Make overlays visible
+			overlays.subdistrict.addTo(map);
+			overlays.confirmed.addTo(map);
+			overlays.unconfirmed.addTo(map);
 
-		// Make overlays visible
-		overlays.subdistrict.addTo(map);
-		overlays.confirmed.addTo(map);
-		overlays.waterways.addTo(map);
-		overlays.pumps.addTo(map);
-		overlays.floodgates.addTo(map);
+			map.spin(false);
 
-		map.spin(false);
+			resolve(layerControl);
+		}, reject);
 	});
+};
+
+var loadSecondaryLayers = function(layerControl) {
+	return new RSVP.Promise(function(resolve, reject) {
+		secondaryPromises = {
+			village: getAggregates('village')
+				.then(function(aggregates) {
+					return loadAggregates('village', aggregates);
+				}),
+			rw: getAggregates('rw')
+				.then(function(aggregates) {
+					return loadAggregates('rw', aggregates);
+				}),
+			waterways: getInfrastructure('waterways')
+				.then(function(waterways){
+					return loadInfrastructure('waterways', waterways);
+				}),
+			pumps: getInfrastructure('pumps')
+				.then(function(pumps){
+					return loadInfrastructure('pumps', pumps);
+				}),
+			floodgates: getInfrastructure('floodgates')
+				.then(function(floodgates){
+					return loadInfrastructure('floodgates', floodgates);
+				})
+		};
+
+		RSVP.hash(secondaryPromises).then(function(overlays) {
+			// Add overlays to the layer control
+			layerControl.addOverlay(overlays.waterways, "Waterways");
+			layerControl.addOverlay(overlays.pumps, "Pumps");
+			layerControl.addOverlay(overlays.floodgates, "Floodgates");
+
+			// Make overlays visible
+			overlays.waterways.addTo(map);
+			overlays.pumps.addTo(map);
+			overlays.floodgates.addTo(map);
+
+      $('.control.aggregates button').prop('disabled', false);
+		});
+	});
+};
+
+// Load reports
+$(function() {
+	map.spin(true);
+	window.layerControl = L.control.layers(baseMaps, {}, {position: 'bottomleft'}).addTo(map);
+	loadPrimaryLayers(window.layerControl).then(loadSecondaryLayers);
 });
 
 
@@ -542,42 +665,5 @@ if (document.documentElement.lang == 'in') {
 /**
 	Listen for map zoom events and load required layers
 */
-map.on('zoomend', function(e){
-	var zoom  = map.getZoom();
 
-	var hideAggregates = function() {
-    if (activeAggregate) {
-      activeAggregate.setStyle(styleAggregates(activeAggregate.feature));
-      info.update();
-      activeAggregate = null;
-    }
-
-		if (aggregateLayers) {
-			if (aggregateLayers.subdistrict) {
-				map.removeLayer(aggregateLayers.subdistrict);
-			}
-			if (aggregateLayers.village) {
-				map.removeLayer(aggregateLayers.village);
-			}
-			if (aggregateLayers.rw) {
-				map.removeLayer(aggregateLayers.rw);
-			}
-		}
-	};
-
-	if (zoom < 13) {
-		hideAggregates();
-		aggregateLayers.subdistrict.addTo(map);
-		aggregateLayers.subdistrict.bringToBack();
-	} else if (zoom >= 13 && zoom <= 14) {
-		hideAggregates();
-		aggregateLayers.village.addTo(map);
-		aggregateLayers.village.bringToBack();
-	} else if (zoom >= 15 && zoom < 16) {
-		hideAggregates();
-		aggregateLayers.rw.addTo(map);
-		aggregateLayers.rw.bringToBack();
-	} else {
-		hideAggregates();
-	}
-});
+map.on('zoomend', updateAggregateVisibility);
