@@ -42,4 +42,4 @@ Generates documentation from the site's JavaScript files using [JSDoc](http://us
 
 ## Contribution Guidelines
 
-The site should be compiled with the `grunt` command before commiting, this way there'll always be a pre-built, up to date version of the site included with the repo.
+The site should be compiled with the `grunt` command before committing, this way there'll always be a pre-built, up to date version of the site included with the repo.
