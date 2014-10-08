@@ -2828,7 +2828,7 @@ var uncomfirmedMarkerPopup = function(feature, layer) {
 var getInfrastructure = function(layer) {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
-		jQuery.getJSON("http://petajakarta.org/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
+		jQuery.getJSON("/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
 				if (data.features !== null){
 					resolve(topojson.feature(data, data.objects.collection));
 				} else {
@@ -2861,7 +2861,7 @@ var infrastructureMarkerPopup = function(feature, layer){
 var getReports = function(type) {
 	return new RSVP.Promise(function(resolve, reject) {
 		// Use live data
-		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
+		jQuery.getJSON('/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
 		// Use fixture data
 		// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
 			if (data.features !== null){
@@ -3220,17 +3220,17 @@ var updateAggregateVisibility = function() {
 		hideAggregates();
 		aggregateLayers.subdistrict.addTo(map);
 		aggregateLayers.subdistrict.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.subdistrict, "Aggregates");
+		window.layerControl.addOverlay(aggregateLayers.subdistrict, "Subdistrict Aggregates");
 	} else if (zoom >= 13 && zoom <= 14) {
 		hideAggregates();
 		aggregateLayers.village.addTo(map);
 		aggregateLayers.village.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.village, "Aggregates");
+		window.layerControl.addOverlay(aggregateLayers.village, "Village Aggregates");
 	} else if (zoom >= 15 && zoom < 16) {
 		hideAggregates();
 		aggregateLayers.rw.addTo(map);
 		aggregateLayers.rw.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.rw, "Aggregates");
+		window.layerControl.addOverlay(aggregateLayers.rw, "Neighbourhood Aggregates");
 	} else {
 		hideAggregates();
 	}
@@ -3370,7 +3370,7 @@ var loadPrimaryLayers = function(layerControl) {
 			// Add overlays to the layers control
 			layerControl.addOverlay(overlays.confirmed, "Confirmed Reports");
 			layerControl.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
-			layerControl.addOverlay(overlays.subdistrict, "Aggregates");
+			layerControl.addOverlay(overlays.subdistrict, "Subdistrict Aggregates");
 
 			// Make overlays visible
 			overlays.subdistrict.addTo(map);
