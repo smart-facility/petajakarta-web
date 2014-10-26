@@ -50,7 +50,7 @@ var uncomfirmedMarkerPopup = function(feature, layer) {
 var getInfrastructure = function(layer) {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
-		jQuery.getJSON("/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
+		jQuery.getJSON("http://petajakarta.org/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
 				if (data.features !== null){
 					resolve(topojson.feature(data, data.objects.collection));
 				} else {
@@ -83,7 +83,7 @@ var infrastructureMarkerPopup = function(feature, layer){
 var getReports = function(type) {
 	return new RSVP.Promise(function(resolve, reject) {
 		// Use live data
-		jQuery.getJSON('/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
+		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
 		// Use fixture data
 		// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
 			if (data.features !== null){
@@ -106,7 +106,7 @@ var aggregateHours = 1;
 */
 var getAggregates = function(level) {
 	return new RSVP.Promise(function(resolve, reject) {
-		jQuery.getJSON('/banjir/data/api/v1/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
+		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
 			resolve(topojson.feature(data, data.objects.collection));
 		});
 	});
@@ -592,28 +592,36 @@ String.prototype.parseURL = function() {
 	});
 };
 
+var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+
 var loadPrimaryLayers = function(layerControl) {
 	var layerPromises = {
 		confirmed: getReports('confirmed')
 			.then(loadConfirmedPoints),
 			unconfirmed: getReports('unconfirmed')
-				.then(loadUnconfirmedPoints),
-		subdistrict: getAggregates('subdistrict')
-			.then(function(aggregates) {
-				return loadAggregates('subdistrict', aggregates);
-			})
-	};
+				.then(loadUnconfirmedPoints)};
+
+  if (!isTouch) {
+    layerPromises.subdistrict = getAggregates('subdistrict')
+      .then(function(aggregates) {
+        return loadAggregates('subdistrict', aggregates);
+      });
+  }
+
 	return new RSVP.Promise(function(resolve, reject) {
 		RSVP.hash(layerPromises).then(function(overlays) {
 			// Add overlays to the layers control
 			layerControl.addOverlay(overlays.confirmed, "Confirmed Reports");
 			layerControl.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
-			layerControl.addOverlay(overlays.subdistrict, "Subdistrict Aggregates");
 
 			// Make overlays visible
-			overlays.subdistrict.addTo(map);
 			overlays.confirmed.addTo(map);
 			overlays.unconfirmed.addTo(map);
+
+      if (!isTouch) {
+        layerControl.addOverlay(overlays.subdistrict, "Subdistrict Aggregates");
+        overlays.subdistrict.addTo(map);
+      }
 
 			map.spin(false);
 
@@ -625,14 +633,6 @@ var loadPrimaryLayers = function(layerControl) {
 var loadSecondaryLayers = function(layerControl) {
 	return new RSVP.Promise(function(resolve, reject) {
 		secondaryPromises = {
-			village: getAggregates('village')
-				.then(function(aggregates) {
-					return loadAggregates('village', aggregates);
-				}),
-			rw: getAggregates('rw')
-				.then(function(aggregates) {
-					return loadAggregates('rw', aggregates);
-				}),
 			waterways: getInfrastructure('waterways')
 				.then(function(waterways){
 					return loadInfrastructure('waterways', waterways);
@@ -646,6 +646,18 @@ var loadSecondaryLayers = function(layerControl) {
 					return loadInfrastructure('floodgates', floodgates);
 				})
 		};
+
+    if (!isTouch) {
+			secondayPromises.village = getAggregates('village')
+				.then(function(aggregates) {
+					return loadAggregates('village', aggregates);
+				});
+			secondayPromises.rw = getAggregates('rw')
+				.then(function(aggregates) {
+					return loadAggregates('rw', aggregates);
+				});
+    }
+      
 
 		RSVP.hash(secondaryPromises).then(function(overlays) {
 			// Add overlays to the layer control
@@ -692,3 +704,6 @@ function onLocationFound(e) {
 
 map.on('locationfound', onLocationFound);
 
+if (!isTouch) {
+  map.on('zoomend', updateAggregateVisibility);
+}
