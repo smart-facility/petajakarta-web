@@ -3289,6 +3289,7 @@ infoControl.onAdd = function(map) {
 //Initialise map
 var latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
 var map = L.map('map').setView(latlon, 12); // Initialise map
+map.attributionControl.setPrefix('');
 
 //Check user location and alter map view accordingly
 map.locate({setView:false});
@@ -3440,7 +3441,7 @@ var loadSecondaryLayers = function(layerControl) {
       rw: getAggregates('rw')
 				.then(function(aggregates) {
 					return loadAggregates('rw', aggregates);
-				}) 
+				})
       });
     }
 
