@@ -490,6 +490,19 @@ aggregatesControl.onAdd = function(map) {
   return div;
 };
 
+var reportsControl = L.control({position:'bottomleft'});
+
+reportsControl.onAdd = function(map) {
+  var div = L.DomUtil.create('div', 'leaflet-control');
+  var reportsLink = L.DomUtil.create('a', 'leaflet-control-reports-button', div);
+  reportsLink.textContent = "Reports";
+  reportsLink.setAttribute('data-toggle', 'modal');
+  reportsLink.setAttribute('href', '#infoModal');
+
+
+  return div;
+};
+
 //Initialise map
 var latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
 var map = L.map('map').setView(latlon, 12); // Initialise map
@@ -508,6 +521,9 @@ legend.addTo(map);
 
 //Add aggregates control
 aggregatesControl.addTo(map);
+
+// Reports control
+reportsControl.addTo(map);
 
 //Old Mapnik B&W rendering before aggregates layer was added
 //var base0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map);

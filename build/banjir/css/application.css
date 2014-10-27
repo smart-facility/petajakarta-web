@@ -849,6 +849,28 @@ body {
   padding-top: 70px;
 }
 
+.leaflet-control-reports-button {
+  box-shadow: 0 1px 5px rgba(0,0,0,.4);
+  background: #fff;
+  border-radius: 5px;
+  width: 36px;
+  height: 36px;
+  display: block;
+  background-size: 36px 36px;
+  background-image: url(/banjir/img/info.png);
+  text-display: none;
+
+  /* Hide the text. */
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.leaflet-retina .leaflet-control-reports-button {
+  background-image: url(/banjir/img/info-2x.png);
+}
+
+
 html,
 body {
   height: 100%;
