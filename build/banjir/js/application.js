@@ -3142,7 +3142,7 @@ info.onAdd = function(map){
 //Update info box
 info.update = function(properties){
 
-		this._div.innerHTML = '<h4>Number of reports</h4><br>'+(properties ? properties.level_name+': '+properties.count+' reports' : 'Hover over an area');
+		this._div.innerHTML = (properties ? properties.level_name+': '+properties.count+' reports' : 'Hover over an area');
 };
 
 /**
@@ -3155,7 +3155,8 @@ legend.onAdd = function(map) {
 	var div = L.DomUtil.create('div', 'info legend'),
 	grades = [0,1, 5, 10, 15, 20, 25, 30],
 	labels = [];
-  //
+  // label for legend
+	div.innerHTML+='Number of reports<BR>';
 	// loop through density intervals and generate label with coloured square
 	for (var i=0; i <grades.length; i++) {
 		div.innerHTML += '<i class="color" style="background:'+getColor(grades[i]+1) + '"></i>';
@@ -3291,6 +3292,7 @@ infoControl.onAdd = function(map) {
 //Initialise map
 var latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
 var map = L.map('map').setView(latlon, 12); // Initialise map
+map.attributionControl.setPrefix('');
 
 //Check user location and alter map view accordingly
 map.locate({setView:false});
@@ -3442,7 +3444,7 @@ var loadSecondaryLayers = function(layerControl) {
       rw: getAggregates('rw')
 				.then(function(aggregates) {
 					return loadAggregates('rw', aggregates);
-				}) 
+				})
       });
     }
 
