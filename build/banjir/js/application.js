@@ -3229,6 +3229,8 @@ var updateAggregateVisibility = function() {
 	} else {
 		hideAggregates();
 	}
+
+  activeAggregate = null;
 };
 
 aggregatesControl.onAdd = function(map) {
