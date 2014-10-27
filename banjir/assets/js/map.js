@@ -126,20 +126,8 @@ var loadConfirmedPoints = function(reports) {
 			},
 			onEachFeature: markerPopup
 		});
-
-		if (document.documentElement.lang == 'in') {
-			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan  '+formatNumberAsString(reports.features.length)+' laporan dikonfirmasi terakhir</a>');
-		} else {
-			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+formatNumberAsString(reports.features.length)+' confirmed reports</a>');
-		}
-	} else {
+  } else {
 		window.confirmedPoints = L.geoJson();
-
-		if (document.documentElement.lang == 'in') {
-			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan 0 laporan dikonfirmasi terakhir</a>');
-		} else {
-			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing 0 confirmed reports</a>');
-		}
 	}
 
 	return window.confirmedPoints;
@@ -490,6 +478,30 @@ aggregatesControl.onAdd = function(map) {
   return div;
 };
 
+var reportsControl = L.control({position:'bottomleft'});
+
+reportsControl.onAdd = function(map) {
+  var div = L.DomUtil.create('div', 'leaflet-control');
+  var reportsLink = L.DomUtil.create('a', 'leaflet-control-reports-button', div);
+  reportsLink.textContent = "Reports";
+  reportsLink.setAttribute('data-toggle', 'modal');
+  reportsLink.setAttribute('href', '#reportsModal');
+
+  return div;
+};
+
+var infoControl = L.control({position:'bottomleft'});
+
+infoControl.onAdd = function(map) {
+  var div = L.DomUtil.create('div', 'leaflet-control');
+  var infoLink = L.DomUtil.create('a', 'leaflet-control-info-button', div);
+  infoLink.textContent = "Information";
+  infoLink.setAttribute('data-toggle', 'modal');
+  infoLink.setAttribute('href', '#infoModal');
+
+  return div;
+};
+
 //Initialise map
 var latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
 var map = L.map('map').setView(latlon, 12); // Initialise map
@@ -508,6 +520,10 @@ legend.addTo(map);
 
 //Add aggregates control
 aggregatesControl.addTo(map);
+
+// Reports control
+infoControl.addTo(map);
+reportsControl.addTo(map);
 
 //Old Mapnik B&W rendering before aggregates layer was added
 //var base0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map);
@@ -667,3 +683,12 @@ if (document.documentElement.lang == 'in') {
 */
 
 map.on('zoomend', updateAggregateVisibility);
+
+function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+
+    L.circle(e.latlng, radius).addTo(map);
+}
+
+map.on('locationfound', onLocationFound);
+

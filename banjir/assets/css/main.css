@@ -306,3 +306,37 @@ body {
 .top-navbar-padding {
   padding-top: 70px;
 }
+
+.leaflet-control-reports-button,
+.leaflet-control-info-button {
+  box-shadow: 0 1px 5px rgba(0,0,0,.4);
+  background: #fff;
+  border-radius: 5px;
+  width: 36px;
+  height: 36px;
+  display: block;
+  background-size: 36px 36px;
+  text-display: none;
+
+  /* Hide the text. */
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.leaflet-control-reports-button {
+  background-image: url(/banjir/img/reports.png);
+}
+
+.leaflet-retina .leaflet-control-reports-button {
+  background-image: url(/banjir/img/reports-2x.png);
+}
+
+.leaflet-control-info-button {
+  background-image: url(/banjir/img/info.png);
+}
+
+.leaflet-retina .leaflet-control-info-button {
+  background-image: url(/banjir/img/info-2x.png);
+}
+
