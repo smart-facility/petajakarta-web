@@ -859,6 +859,7 @@ body {
   display: block;
   background-size: 36px 36px;
   text-display: none;
+  box-sizing: border-box;
 
   /* Hide the text. */
   text-indent: 100%;
@@ -882,6 +883,16 @@ body {
   background-image: url(/banjir/img/info-2x.png);
 }
 
+.leaflet-touch .leaflet-control-reports-button,
+.leaflet-touch .leaflet-control-info-button {
+  width: 48px;
+  height: 44px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 2px solid rgba(0,0,0,.2);
+  background-clip: padding-box;
+  box-shadow: none;
+}
 
 html,
 body {
@@ -1015,6 +1026,8 @@ body {
 /** Hide certain controls on touch enabled devices */
 .leaflet-touch .leaflet-control-zoom,
 .leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control.aggregates,
+.leaflet-touch .leaflet-control.info.legend,
 .leaflet-touch .leaflet-top.leaflet-right .leaflet-control.info {
   display: none;
 }

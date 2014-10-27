@@ -3049,7 +3049,8 @@ function labelAggregates(feature, layer) {
 		layer.on({
 			mouseover: highlightAggregate,
 			mouseout: resetAggregate,
-			click: zoomToFeature
+      click: highlightAggregate,
+			dblclick: zoomToFeature
 		});
 }
 
@@ -3063,6 +3064,11 @@ var activeAggregate = null;
 function highlightAggregate(e) {
   var layer = e.target;
 
+  if (activeAggregate !== null) {
+    activeAggregate.setStyle(styleAggregates(activeAggregate.feature));
+    activeAggregate.bringToBack();
+  }
+
   layer.setStyle({
     weight: 5,
     color: '#333',
@@ -3071,7 +3077,7 @@ function highlightAggregate(e) {
     fillOpacity: 0.7
   });
 
-  layer.bringToBack(); //buggy?
+  layer.bringToFront(); //buggy?
 
   info.update(layer.feature.properties);
 
@@ -3370,28 +3376,36 @@ String.prototype.parseURL = function() {
 	});
 };
 
+var isTouch = false;
+
 var loadPrimaryLayers = function(layerControl) {
 	var layerPromises = {
 		confirmed: getReports('confirmed')
 			.then(loadConfirmedPoints),
 			unconfirmed: getReports('unconfirmed')
-				.then(loadUnconfirmedPoints),
-		subdistrict: getAggregates('subdistrict')
-			.then(function(aggregates) {
-				return loadAggregates('subdistrict', aggregates);
-			})
-	};
+				.then(loadUnconfirmedPoints)};
+
+  if (!isTouch) {
+    layerPromises.subdistrict = getAggregates('subdistrict')
+      .then(function(aggregates) {
+        return loadAggregates('subdistrict', aggregates);
+      });
+  }
+
 	return new RSVP.Promise(function(resolve, reject) {
 		RSVP.hash(layerPromises).then(function(overlays) {
 			// Add overlays to the layers control
 			layerControl.addOverlay(overlays.confirmed, "Confirmed Reports");
 			layerControl.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
-			layerControl.addOverlay(overlays.subdistrict, "Subdistrict Aggregates");
 
 			// Make overlays visible
-			overlays.subdistrict.addTo(map);
 			overlays.confirmed.addTo(map);
 			overlays.unconfirmed.addTo(map);
+
+      if (!isTouch) {
+        layerControl.addOverlay(overlays.subdistrict, "Subdistrict Aggregates");
+        overlays.subdistrict.addTo(map);
+      }
 
 			map.spin(false);
 
@@ -3403,14 +3417,6 @@ var loadPrimaryLayers = function(layerControl) {
 var loadSecondaryLayers = function(layerControl) {
 	return new RSVP.Promise(function(resolve, reject) {
 		secondaryPromises = {
-			village: getAggregates('village')
-				.then(function(aggregates) {
-					return loadAggregates('village', aggregates);
-				}),
-			rw: getAggregates('rw')
-				.then(function(aggregates) {
-					return loadAggregates('rw', aggregates);
-				}),
 			waterways: getInfrastructure('waterways')
 				.then(function(waterways){
 					return loadInfrastructure('waterways', waterways);
@@ -3424,6 +3430,18 @@ var loadSecondaryLayers = function(layerControl) {
 					return loadInfrastructure('floodgates', floodgates);
 				})
 		};
+
+    if (!isTouch) {
+			secondayPromises.village = getAggregates('village')
+				.then(function(aggregates) {
+					return loadAggregates('village', aggregates);
+				});
+			secondayPromises.rw = getAggregates('rw')
+				.then(function(aggregates) {
+					return loadAggregates('rw', aggregates);
+				});
+    }
+      
 
 		RSVP.hash(secondaryPromises).then(function(overlays) {
 			// Add overlays to the layer control
@@ -3470,3 +3488,6 @@ function onLocationFound(e) {
 
 map.on('locationfound', onLocationFound);
 
+if (!isTouch) {
+  map.on('zoomend', updateAggregateVisibility);
+}
