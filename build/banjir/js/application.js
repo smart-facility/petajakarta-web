@@ -3376,7 +3376,7 @@ String.prototype.parseURL = function() {
 	});
 };
 
-var isTouch = false;
+var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
 
 var loadPrimaryLayers = function(layerControl) {
 	var layerPromises = {
