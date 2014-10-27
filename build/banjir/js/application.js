@@ -2828,7 +2828,7 @@ var uncomfirmedMarkerPopup = function(feature, layer) {
 var getInfrastructure = function(layer) {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
-		jQuery.getJSON("http://petajakarta.org/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
+		jQuery.getJSON("/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
 				if (data.features !== null){
 					resolve(topojson.feature(data, data.objects.collection));
 				} else {
@@ -2861,7 +2861,7 @@ var infrastructureMarkerPopup = function(feature, layer){
 var getReports = function(type) {
 	return new RSVP.Promise(function(resolve, reject) {
 		// Use live data
-		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
+		jQuery.getJSON('/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
 		// Use fixture data
 		// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
 			if (data.features !== null){
@@ -2884,7 +2884,7 @@ var aggregateHours = 1;
 */
 var getAggregates = function(level) {
 	return new RSVP.Promise(function(resolve, reject) {
-		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
+		jQuery.getJSON('/banjir/data/api/v1/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
 			resolve(topojson.feature(data, data.objects.collection));
 		});
 	});
@@ -2986,13 +2986,13 @@ var styleInfrastructure = {
 		opacity:1,
 	},
 	pumps:L.icon({
-		iconUrl: 'http://petajakarta.org/banjir/img/pump.svg',
+		iconUrl: '/banjir/img/pump.svg',
 		iconSize: [28,28],
 		iconAnchor: [14, 14],
 		popupAnchor: [0, 0],
 	}),
 	floodgates:L.icon({
-		iconUrl: 'http://petajakarta.org/banjir/img/floodgate.svg',
+		iconUrl: '/banjir/img/floodgate.svg',
 		iconSize: [28,28],
 		iconAnchor: [14, 14],
 		popupAnchor: [0, 0],
