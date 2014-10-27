@@ -3432,16 +3432,17 @@ var loadSecondaryLayers = function(layerControl) {
 		};
 
     if (!isTouch) {
-			secondayPromises.village = getAggregates('village')
+      _.extend(secondaryPromises, {
+      village: getAggregates('village')
 				.then(function(aggregates) {
 					return loadAggregates('village', aggregates);
-				});
-			secondayPromises.rw = getAggregates('rw')
+				}),
+      rw: getAggregates('rw')
 				.then(function(aggregates) {
 					return loadAggregates('rw', aggregates);
-				});
+				}) 
+      });
     }
-      
 
 		RSVP.hash(secondaryPromises).then(function(overlays) {
 			// Add overlays to the layer control
