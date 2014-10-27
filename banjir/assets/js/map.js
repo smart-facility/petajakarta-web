@@ -50,7 +50,7 @@ var uncomfirmedMarkerPopup = function(feature, layer) {
 var getInfrastructure = function(layer) {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
-		jQuery.getJSON("/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
+		jQuery.getJSON("http://petajakarta.org/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
 				if (data.features !== null){
 					resolve(topojson.feature(data, data.objects.collection));
 				} else {
@@ -83,7 +83,7 @@ var infrastructureMarkerPopup = function(feature, layer){
 var getReports = function(type) {
 	return new RSVP.Promise(function(resolve, reject) {
 		// Use live data
-		jQuery.getJSON('/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
+		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
 		// Use fixture data
 		// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
 			if (data.features !== null){
@@ -106,7 +106,7 @@ var aggregateHours = 1;
 */
 var getAggregates = function(level) {
 	return new RSVP.Promise(function(resolve, reject) {
-		jQuery.getJSON('/banjir/data/api/v1/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
+		jQuery.getJSON('http://petajakarta.org/banjir/data/api/v1/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
 			resolve(topojson.feature(data, data.objects.collection));
 		});
 	});
@@ -127,19 +127,6 @@ var loadConfirmedPoints = function(reports) {
 			onEachFeature: markerPopup
 		});
 
-		if (document.documentElement.lang == 'in') {
-			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan  '+formatNumberAsString(reports.features.length)+' laporan dikonfirmasi terakhir</a>');
-		} else {
-			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing '+formatNumberAsString(reports.features.length)+' confirmed reports</a>');
-		}
-	} else {
-		window.confirmedPoints = L.geoJson();
-
-		if (document.documentElement.lang == 'in') {
-			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Infomasi</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Menampilkan 0 laporan dikonfirmasi terakhir</a>');
-		} else {
-			map.attributionControl.setPrefix('<a data-toggle="modal" href="#infoModal" id="info">Information</a> | <a data-toggle="modal" href="#reportsModal" id="reports_link">Showing 0 confirmed reports</a>');
-		}
 	}
 
 	return window.confirmedPoints;
@@ -220,13 +207,13 @@ var styleInfrastructure = {
 		opacity:1,
 	},
 	pumps:L.icon({
-		iconUrl: '/banjir/img/pump.svg',
+		iconUrl: 'http://petajakarta.org/banjir/img/pump.svg',
 		iconSize: [28,28],
 		iconAnchor: [14, 14],
 		popupAnchor: [0, 0],
 	}),
 	floodgates:L.icon({
-		iconUrl: '/banjir/img/floodgate.svg',
+		iconUrl: 'http://petajakarta.org/banjir/img/floodgate.svg',
 		iconSize: [28,28],
 		iconAnchor: [14, 14],
 		popupAnchor: [0, 0],
@@ -497,8 +484,19 @@ reportsControl.onAdd = function(map) {
   var reportsLink = L.DomUtil.create('a', 'leaflet-control-reports-button', div);
   reportsLink.textContent = "Reports";
   reportsLink.setAttribute('data-toggle', 'modal');
-  reportsLink.setAttribute('href', '#infoModal');
+  reportsLink.setAttribute('href', '#reportsModal');
 
+  return div;
+};
+
+var infoControl = L.control({position:'bottomleft'});
+
+infoControl.onAdd = function(map) {
+  var div = L.DomUtil.create('div', 'leaflet-control');
+  var infoLink = L.DomUtil.create('a', 'leaflet-control-info-button', div);
+  infoLink.textContent = "Information";
+  infoLink.setAttribute('data-toggle', 'modal');
+  infoLink.setAttribute('href', '#infoModal');
 
   return div;
 };
@@ -523,6 +521,7 @@ legend.addTo(map);
 aggregatesControl.addTo(map);
 
 // Reports control
+infoControl.addTo(map);
 reportsControl.addTo(map);
 
 //Old Mapnik B&W rendering before aggregates layer was added
