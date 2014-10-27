@@ -271,7 +271,8 @@ function labelAggregates(feature, layer) {
 		layer.on({
 			mouseover: highlightAggregate,
 			mouseout: resetAggregate,
-			click: zoomToFeature
+      click: highlightAggregate,
+			dblclick: zoomToFeature
 		});
 }
 
@@ -285,6 +286,11 @@ var activeAggregate = null;
 function highlightAggregate(e) {
   var layer = e.target;
 
+  if (activeAggregate !== null) {
+    activeAggregate.setStyle(styleAggregates(activeAggregate.feature));
+    activeAggregate.bringToBack();
+  }
+
   layer.setStyle({
     weight: 5,
     color: '#333',
@@ -293,7 +299,7 @@ function highlightAggregate(e) {
     fillOpacity: 0.7
   });
 
-  layer.bringToBack(); //buggy?
+  layer.bringToFront(); //buggy?
 
   info.update(layer.feature.properties);
 
@@ -592,7 +598,7 @@ String.prototype.parseURL = function() {
 	});
 };
 
-var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+var isTouch = false;
 
 var loadPrimaryLayers = function(layerControl) {
 	var layerPromises = {
