@@ -2904,7 +2904,8 @@ var loadConfirmedPoints = function(reports) {
 			},
 			onEachFeature: markerPopup
 		});
-
+  } else {
+		window.confirmedPoints = L.geoJson();
 	}
 
 	return window.confirmedPoints;
@@ -3460,3 +3461,12 @@ if (document.documentElement.lang == 'in') {
 */
 
 map.on('zoomend', updateAggregateVisibility);
+
+function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+
+    L.circle(e.latlng, radius).addTo(map);
+}
+
+map.on('locationfound', onLocationFound);
+
