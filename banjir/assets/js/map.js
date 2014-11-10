@@ -322,6 +322,7 @@ function resetAggregate(e){
 
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
+		//pan to
 }
 
 /**
@@ -700,13 +701,9 @@ if (document.documentElement.lang == 'in') {
 } else {
 	$('.leaflet-control-layers-overlays').append('<label><div class=c></div><span>Confirmed reports</span></label><label><div class=u></div><span>Unconfirmed reports</span></label>');
 }
-
-/**
-	Listen for map zoom events and load required layers
+ /**
+	Add user location (if in Jakarta)
 */
-
-map.on('zoomend', updateAggregateVisibility);
-
 function onLocationFound(e) {
     var radius = e.accuracy / 2;
 
@@ -715,6 +712,9 @@ function onLocationFound(e) {
 
 map.on('locationfound', onLocationFound);
 
+/**
+	Listen for map zoom events and load required layers [non-touch devices]
+*/
 if (!isTouch) {
   map.on('zoomend', updateAggregateVisibility);
 }
