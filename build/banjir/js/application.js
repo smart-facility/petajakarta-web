@@ -3209,6 +3209,10 @@ var reloadAggregates = function() {
   return RSVP.hash(promises);
 };
 
+var showReports = function (){
+
+};
+
 var updateAggregateVisibility = function() {
 	var zoom  = map.getZoom();
 
@@ -3228,12 +3232,22 @@ var updateAggregateVisibility = function() {
 		aggregateLayers.rw.bringToBack();
 		window.layerControl.addOverlay(aggregateLayers.rw, "Neighbourhood Aggregates");
 	} else if (zoom >= 16) {
-		overlays.confirmed.addTo(map);
-		overlays.unconfirmed.addTo(map);
+		hideAggregates();
+		window.confirmedPoints.addTo(map);
+
+		layerControl.addOverlay(window.unconfirmedPoints, "Unconfirmed Reports");
+		layerControl.addOverlay(window.confirmedPoints, "Confirmed Reports");
+
+		window.unconfirmedPoints.addTo(map);
+		window.confirmedPoints.addTo(map);
+
+		//To do hide on zoom out (if !isTouch)
+
 	}
 
 	else {
 		hideAggregates();
+
 	}
 
   activeAggregate = null;
