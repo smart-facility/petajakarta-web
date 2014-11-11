@@ -449,8 +449,14 @@ var updateAggregateVisibility = function() {
 		aggregateLayers.rw.addTo(map);
 		aggregateLayers.rw.bringToBack();
 		window.layerControl.addOverlay(aggregateLayers.rw, "Neighbourhood Aggregates");
-	} else {
+	} else if (zoom >= 16) {
+		overlays.confirmed.addTo(map);
+		overlays.unconfirmed.addTo(map);
+	}
+
+	else {
 		hideAggregates();
+
 	}
 
   activeAggregate = null;
@@ -621,18 +627,21 @@ var loadPrimaryLayers = function(layerControl) {
 
 	return new RSVP.Promise(function(resolve, reject) {
 		RSVP.hash(layerPromises).then(function(overlays) {
-			// Add overlays to the layers control
-			layerControl.addOverlay(overlays.confirmed, "Confirmed Reports");
-			layerControl.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
-
-			// Make overlays visible
-			overlays.confirmed.addTo(map);
-			overlays.unconfirmed.addTo(map);
 
       if (!isTouch) {
         layerControl.addOverlay(overlays.subdistrict, "Subdistrict Aggregates");
         overlays.subdistrict.addTo(map);
       }
+
+			else {
+				// Add overlays to the layers control
+				layerControl.addOverlay(overlays.confirmed, "Confirmed Reports");
+				layerControl.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
+
+				// Make overlays visible
+				overlays.confirmed.addTo(map);
+				overlays.unconfirmed.addTo(map);
+			}
 
 			map.spin(false);
 
