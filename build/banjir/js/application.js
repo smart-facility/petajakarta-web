@@ -3251,7 +3251,6 @@ var updateAggregateVisibility = function() {
 		window.unconfirmedPoints.addTo(map);
 		window.confirmedPoints.addTo(map);
 
-		//To do hide on zoom out (if !isTouch)
 	}
 	else {
 		hideAggregates();
@@ -3485,10 +3484,12 @@ var loadSecondaryLayers = function(layerControl) {
 			layerControl.addOverlay(overlays.pumps, "Pumps");
 			layerControl.addOverlay(overlays.floodgates, "Floodgates");
 
-			// Make overlays visible
-			overlays.waterways.addTo(map);
-			overlays.pumps.addTo(map);
-			overlays.floodgates.addTo(map);
+			// Make overlays visible unless of touch device
+			if (!isTouch){
+				overlays.waterways.addTo(map);
+				overlays.pumps.addTo(map);
+				overlays.floodgates.addTo(map);
+			}
 
       $('.control.aggregates button').prop('disabled', false);
 		});
