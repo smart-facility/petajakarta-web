@@ -431,42 +431,50 @@ var reloadAggregates = function() {
   return RSVP.hash(promises);
 };
 
-var showReports = function (){
+var hideReports = function (){
+	map.removeLayer(window.unconfirmedPoints);
+	map.removeLayer(window.confirmedPoints);
 
+	window.layerControl.removeLayer(window.unconfirmedPoints);
+	window.layerControl.removeLayer(window.confirmedPoints);
 };
 
+// Turn layers on/off depending on zoom level
 var updateAggregateVisibility = function() {
 	var zoom  = map.getZoom();
 
 	if (zoom < 13) {
+		hideReports();
 		hideAggregates();
 		aggregateLayers.subdistrict.addTo(map);
 		aggregateLayers.subdistrict.bringToBack();
 		window.layerControl.addOverlay(aggregateLayers.subdistrict, "Subdistrict Aggregates");
 	} else if (zoom >= 13 && zoom <= 14) {
+		hideReports();
 		hideAggregates();
 		aggregateLayers.village.addTo(map);
 		aggregateLayers.village.bringToBack();
 		window.layerControl.addOverlay(aggregateLayers.village, "Village Aggregates");
 	} else if (zoom >= 15 && zoom < 16) {
+		hideReports();
 		hideAggregates();
 		aggregateLayers.rw.addTo(map);
 		aggregateLayers.rw.bringToBack();
 		window.layerControl.addOverlay(aggregateLayers.rw, "Neighbourhood Aggregates");
 	} else if (zoom >= 16) {
+		//Turn aggregates off
 		hideAggregates();
-		window.confirmedPoints.addTo(map);
 
+		// Add reports to legend at street level
 		layerControl.addOverlay(window.unconfirmedPoints, "Unconfirmed Reports");
 		layerControl.addOverlay(window.confirmedPoints, "Confirmed Reports");
 
+		// Turn reports on at street level
 		window.unconfirmedPoints.addTo(map);
 		window.confirmedPoints.addTo(map);
 
 		//To do hide on zoom out (if !isTouch)
-
 	}
-
 	else {
 		hideAggregates();
 
