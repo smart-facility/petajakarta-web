@@ -566,6 +566,9 @@ map.attributionControl.setPrefix('');
 //Specify default image path for Leaflet
 L.Icon.Default.imagePath = '/banjir/css/images/';
 
+//Determin if device is touchscreen/mobile
+var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+
 //Check user location and alter map view accordingly
 map.locate({setView:false});
 if ('geolocation' in navigator && isTouch) {
@@ -652,8 +655,6 @@ String.prototype.parseURL = function() {
 		return "<a target='_blank' href='"+url+"'>"+url+"</a>";
 	});
 };
-
-var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
 
 var loadPrimaryLayers = function(layerControl) {
 	var layerPromises = {
@@ -760,6 +761,7 @@ if (document.documentElement.lang == 'in') {
 
 /**
 Add user location (if in Jakarta) -> this logic moved to setViewJakarta()
+-left in for reference.
 */
 /*
 function onLocationFound(e) {
