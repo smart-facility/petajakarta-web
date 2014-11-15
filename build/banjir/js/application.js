@@ -3117,14 +3117,22 @@ var centreMapOnPopup = function(pkey,lat,lon) {
 };
 
 /**
-	Center the map on the user's location if they're in jakarta
+	Center the map on the user's location if they're in jakarta & add a pin to show location
 
 	@param {Position} position - the user's position
 */
 var setViewJakarta = function(position) {
 	if (position.coords.latitude >= -6.4354 && position.coords.latitude <= -5.9029 &&
 		  position.coords.longitude >= 106.5894 && position.coords.longitude <= 107.0782) {
-		map.setView(L.latLng(position.coords.latitude,position.coords.longitude), 17); // Set to the users current view
+				map.setView(L.latLng(position.coords.latitude,position.coords.longitude), 17); // Set to the users current view
+
+				//Remove existing marker if present
+				if (window.bluedot){
+					map.removeLayer(window.bluedot);
+				}
+				// Add new marker
+				window.bluedot = L.marker([position.coords.latitude,position.coords.longitude]);
+				window.bluedot.addTo(map);
 	}
 };
 
@@ -3316,14 +3324,29 @@ infoControl.onAdd = function(map) {
   return div;
 };
 
+var locationControl = L.control({position:'bottomleft'});
+
+locationControl.onAdd = function(map){
+	var div = L.DomUtil.create('div', 'leaflet-control');
+	var locationLink = L.DomUtil.create('a', 'leaflet-control-location-button', div);
+	locationLink.textContent = 'Current Location';
+	locationLink.setAttribute('href', '#');
+	locationLink.setAttribute('onclick', 'navigator.geolocation.getCurrentPosition(setViewJakarta); return false;');
+
+	return div;
+};
+
 //Initialise map
 var latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
 var map = L.map('map').setView(latlon, 12); // Initialise map
 map.attributionControl.setPrefix('');
 
+//Specify default image path for Leaflet
+L.Icon.Default.imagePath = '/banjir/css/images/';
+
 //Check user location and alter map view accordingly
 map.locate({setView:false});
-if ('geolocation' in navigator) {
+if ('geolocation' in navigator && isTouch) {
 	navigator.geolocation.getCurrentPosition(setViewJakarta);
 }
 
@@ -3339,6 +3362,7 @@ aggregatesControl.addTo(map);
 // Reports control
 infoControl.addTo(map);
 reportsControl.addTo(map);
+locationControl.addTo(map);
 
 //Old Mapnik B&W rendering before aggregates layer was added
 //var base0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map);
@@ -3510,16 +3534,21 @@ if (document.documentElement.lang == 'in') {
 } else {
 	$('.leaflet-control-layers-overlays').append('<label><div class=c></div><span>Confirmed reports</span></label><label><div class=u></div><span>Unconfirmed reports</span></label>');
 }
- /**
-	Add user location (if in Jakarta)
-*/
-function onLocationFound(e) {
-    var radius = e.accuracy / 2;
 
-    L.circle(e.latlng, radius).addTo(map);
+
+/**
+Add user location (if in Jakarta) -> this logic moved to setViewJakarta()
+*/
+/*
+function onLocationFound(e) {
+	var radius = e.accuracy / 2;
+
+	L.circle(e.latlng, radius).addTo(map);
 }
 
 map.on('locationfound', onLocationFound);
+*/
+
 
 /**
 	Listen for map zoom events and load required layers [non-touch devices]
