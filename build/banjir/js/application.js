@@ -3354,12 +3354,9 @@ map.attributionControl.setPrefix('');
 //Specify default image path for Leaflet
 L.Icon.Default.imagePath = '/banjir/css/images/';
 
-//Determin if device is touchscreen/mobile
-var isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
-
 //Check user location and alter map view accordingly
 map.locate({setView:false});
-if ('geolocation' in navigator && isTouch) {
+if ('geolocation' in navigator && window.isTouch) {
 	navigator.geolocation.getCurrentPosition(setViewJakarta);
 }
 
@@ -3451,7 +3448,7 @@ var loadPrimaryLayers = function(layerControl) {
 			unconfirmed: getReports('unconfirmed')
 				.then(loadUnconfirmedPoints)};
 
-  if (!isTouch) {
+  if (!window.isTouch) {
     layerPromises.subdistrict = getAggregates('subdistrict')
       .then(function(aggregates) {
         return loadAggregates('subdistrict', aggregates);
@@ -3461,7 +3458,7 @@ var loadPrimaryLayers = function(layerControl) {
 	return new RSVP.Promise(function(resolve, reject) {
 		RSVP.hash(layerPromises).then(function(overlays) {
 
-      if (!isTouch) {
+      if (!window.isTouch) {
         layerControl.addOverlay(overlays.subdistrict, "Subdistrict Aggregates");
         overlays.subdistrict.addTo(map);
       }
@@ -3500,7 +3497,7 @@ var loadSecondaryLayers = function(layerControl) {
 				})
 		};
 
-    if (!isTouch) {
+    if (!window.isTouch) {
       _.extend(secondaryPromises, {
       village: getAggregates('village')
 				.then(function(aggregates) {
@@ -3520,7 +3517,7 @@ var loadSecondaryLayers = function(layerControl) {
 			layerControl.addOverlay(overlays.floodgates, "Floodgates");
 
 			// Make overlays visible unless of touch device
-			if (!isTouch){
+			if (!window.isTouch){
 				overlays.waterways.addTo(map);
 				overlays.pumps.addTo(map);
 				overlays.floodgates.addTo(map);
@@ -3565,6 +3562,6 @@ map.on('locationfound', onLocationFound);
 /**
 	Listen for map zoom events and load required layers [non-touch devices]
 */
-if (!isTouch) {
+if (!window.isTouch) {
   map.on('zoomend', updateAggregateVisibility);
 }
