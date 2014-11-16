@@ -3420,7 +3420,7 @@ var markerMap = {}; //Reference list of markers stored outside of Leaflet
 
 // Styles for confirmed and unconfirmed points
 var styleUnconfirmed = {
-    radius: 4,
+    radius: 7,
     fillColor: "#ff7800",
     color: "#000",
     weight: 1,
@@ -3429,7 +3429,7 @@ var styleUnconfirmed = {
 };
 
 var styleConfirmed = {
-    radius: 4,
+    radius: 7,
     fillColor: "blue",
     color: "#000",
     weight: 1,
