@@ -526,10 +526,17 @@ var reportsControl = L.control({position:'bottomleft'});
 
 reportsControl.onAdd = function(map) {
   var div = L.DomUtil.create('div', 'leaflet-control');
+
+	//var reportsBadge = L.DomUtil.create('span', 'badge', div);
+	//reportsBadge.textContent = "4";
+
   var reportsLink = L.DomUtil.create('a', 'leaflet-control-reports-button', div);
-  reportsLink.textContent = "Reports";
+  //reportsLink.textContent = "<span class='badge'>4</span>";
   reportsLink.setAttribute('data-toggle', 'modal');
   reportsLink.setAttribute('href', '#reportsModal');
+
+	var reportsBadge = L.DomUtil.create('span', 'badge progress-bar-danger', reportsLink);
+	reportsBadge.textContent = "4";
 
   return div;
 };
