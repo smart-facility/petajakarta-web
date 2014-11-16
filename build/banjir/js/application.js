@@ -2898,6 +2898,8 @@ var loadConfirmedPoints = function(reports) {
 	if (reports) {
 		loadTable(reports); //sneaky loadTable function.
 
+		window.reportsBadge.textContent = reports.features.length;
+
 		window.confirmedPoints = L.geoJson(reports, {
 			pointToLayer: function(feature, latlng) {
 				return L.circleMarker(latlng, styleConfirmed);
@@ -3313,8 +3315,9 @@ reportsControl.onAdd = function(map) {
   reportsLink.setAttribute('data-toggle', 'modal');
   reportsLink.setAttribute('href', '#reportsModal');
 
-	var reportsBadge = L.DomUtil.create('span', 'badge progress-bar-danger', reportsLink);
-	reportsBadge.textContent = "4";
+	window.reportsBadge = L.DomUtil.create('span', 'badge progress-bar-danger', reportsLink);
+	//reportsBadge.textContent = "4";
+	//console.log(reports.features.length);
 
   return div;
 };
