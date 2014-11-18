@@ -18,8 +18,8 @@ module.exports = function(grunt) {
           'banjir/vendor/js/topojson.js',
           'banjir/vendor/js/rsvp.js',
           'banjir/vendor/js/underscore-min.js',
-          'banjir/assets/js/reports.js',
-          'banjir/assets/js/map.js'
+          'banjir/vendor/js/Chart.js',
+          'banjir/assets/js/reports.js'
         ],
         dest: 'build/banjir/js/application.js'
       },
@@ -78,6 +78,12 @@ module.exports = function(grunt) {
           { expand: true, flatten: true, src: "banjir/assets/img/*", dest: "build/banjir/img/" },
           { expand: true, flatten: true, src: "banjir/vendor/css/images/*", dest: "build/banjir/css/images/" }
         ]
+      },
+      custom_js:{
+        files: [
+          { src: "banjir/assets/js/analytics.js", dest: "build/banjir/js/analytics.js"},
+          { src: "banjir/assets/js/map.js", dest: "build/banjir/js/map.js"}
+        ]
       }
     },
     connect: {
@@ -135,7 +141,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jsdoc');
 
   // Tasks
-  grunt.registerTask('assets', ['jshint', 'concat:js', 'uglify:build', 'concat:css', 'cssmin:build', 'copy:images']);
+  grunt.registerTask('assets', ['jshint', 'concat:js', 'uglify:build', 'concat:css', 'cssmin:build', 'copy:images', 'copy:custom_js']);
   grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in', 'staticHandlebars:en_data', 'staticHandlebars:in_data']);
   grunt.registerTask('server', ['assets', 'site', 'concurrent:server']);
   grunt.registerTask('default', ['assets', 'site']);
