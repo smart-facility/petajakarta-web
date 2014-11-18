@@ -37,7 +37,7 @@ module.exports = function(grunt) {
       },
       build: {
         src: 'build/banjir/js/application.js',
-        dest: 'build/banjir/js/application.min.js'
+        dest: 'build/banjir/js/application.min.js',
       }
     },
     cssmin: {
