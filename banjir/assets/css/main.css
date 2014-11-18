@@ -382,3 +382,13 @@ body {
   background-clip: padding-box;
   box-shadow: none;
 }
+
+/*Custom parameters for analytics*/
+#static_map{
+  height:500px;
+  width:100%;
+}
+
+.leaflet-container {
+  background:#FFF
+}
