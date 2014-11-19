@@ -540,15 +540,6 @@
 	border: 1px solid #666;
 	}
 
-#static_map{
-  height:500px;
-  width:100%;
-}
-
-.leaflet-container {
-  background:#FFF
-}
-
 /*
  * Acknowledgements to Carlos Alvarez for original theme.
  * URL: http://alvarez.is
@@ -932,6 +923,16 @@ body {
   border: 2px solid rgba(0,0,0,.2);
   background-clip: padding-box;
   box-shadow: none;
+}
+
+/*Custom parameters for analytics*/
+#static_map{
+  height:500px;
+  width:100%;
+}
+
+.leaflet-container {
+  background:#FFF
 }
 
 html,
