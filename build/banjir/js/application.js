@@ -3237,21 +3237,49 @@ var updateAggregateVisibility = function() {
 		aggregateLayers.subdistrict.addTo(map);
 		aggregateLayers.subdistrict.bringToBack();
 		window.layerControl.addOverlay(aggregateLayers.subdistrict, "Subdistrict Aggregates");
+
 	} else if (zoom >= 13 && zoom <= 14) {
 		hideReports();
 		hideAggregates();
 		aggregateLayers.village.addTo(map);
 		aggregateLayers.village.bringToBack();
 		window.layerControl.addOverlay(aggregateLayers.village, "Village Aggregates");
+
 	} else if (zoom >= 15 && zoom < 16) {
 		hideReports();
 		hideAggregates();
 		aggregateLayers.rw.addTo(map);
 		aggregateLayers.rw.bringToBack();
 		window.layerControl.addOverlay(aggregateLayers.rw, "Neighbourhood Aggregates");
+
+		//Update legend boxes
+		info.update();
+		if (!legend._map){
+			legend.addTo(map);
+		}
+		if (!aggregatesControl._map){
+			aggregatesControl.addTo(map);
+			$('.control.aggregates button').prop('disabled', false);
+		}
+
+
 	} else if (zoom >= 16) {
 		//Turn aggregates off
 		hideAggregates();
+		//Update info box for street level
+		if (document.documentElement.lang == 'in') {
+			info._div.innerHTML = 'Jalan laporan dari jam terakhir';
+		}
+		else {
+			info._div.innerHTML = 'Street level reports from last hour';
+		}
+
+		if (legend._map){
+			map.removeControl(legend);
+		}
+		if (aggregatesControl._map){
+			map.removeControl(aggregatesControl);
+		}
 
 		// Add reports to legend at street level
 		layerControl.addOverlay(window.unconfirmedPoints, "Unconfirmed Reports");
@@ -3297,7 +3325,9 @@ aggregatesControl.onAdd = function(map) {
     buttons[i].addEventListener("click", clickCallback);
   }
 
-  L.DomUtil.addClass(buttons[0], 'active');
+  L.DomUtil.addClass(buttons[Math.round(aggregateHours/3)], 'active');
+	console.log(Math.round(aggregateHours/3));
+	console.log(aggregateHours);
 
   return div;
 };
