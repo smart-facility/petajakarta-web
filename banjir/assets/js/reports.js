@@ -13,7 +13,7 @@ function loadTable(reports) {
 		var reportGeo = reports.features[i].geometry;
 
 		rows +='<tr>';
-			rows += '<td>'+report.created_at.substring(0, 11) + '</td>'; // Date
+			//rows += '<td>'+report.created_at.substring(0, 11) + '</td>'; // Date
 			rows += '<td>' + report.created_at.substring(11, 19) + '</td>'; // Time
 			rows += '<td><a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+report.pkey+','+reportGeo.coordinates[1]+','+reportGeo.coordinates[0]+')">'+report.text+'</a></td>'; // Message
 		rows += '</tr>';
