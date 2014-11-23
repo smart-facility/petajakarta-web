@@ -396,9 +396,11 @@ legend.onAdd = function(map) {
 	}
   div.innerHTML += '<br>';
 	// loop through density intervals and generate label with coloured square
-	for (i=0; i <grades.length; i++) {
+	for (i=0; i <grades.length-1; i++) {
 		div.innerHTML += '<span class="number">'+grades[i]+'</span>';
 	}
+	div.innerHTML +='<span class="number" style="margin-left:1px;">'+grades[grades.length-1]+'+</span>';
+	//div.innerHTML +='+';
 
 	return div;
 };
