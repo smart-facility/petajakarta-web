@@ -13,15 +13,14 @@ function loadTable(reports) {
 		var reportGeo = reports.features[i].geometry;
 
 		rows +='<tr>';
-			rows += '<td>'+report.created_at.substring(0, 11) + '</td>'; // Date
 			rows += '<td>' + report.created_at.substring(11, 19) + '</td>'; // Time
 			rows += '<td><a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+report.pkey+','+reportGeo.coordinates[1]+','+reportGeo.coordinates[0]+')">'+report.text+'</a></td>'; // Message
 		rows += '</tr>';
 	}
 	if (document.documentElement.lang == 'in') {
-		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Tanggal</th><th class="col-xs-2">Waktu</th><th class="col-xs-6">Sumber</th></tr></thead>';
+		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Waktu</th><th class="col-xs-6">Sumber</th></tr></thead>';
 	} else {
-		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Date</th><th class="col-xs-2">Time</th><th class="col-xs-6">Message</th></tr></thead>';
+		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Time</th><th class="col-xs-6">Message</th></tr></thead>';
 	}
 	var tbody = '<tbody>'+rows+'</tbody></table>';
 	$("#modal-reports-body").append(thead+tbody);
