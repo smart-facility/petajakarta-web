@@ -11,7 +11,7 @@ var formatNumberAsString = function(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-var aggregateHours = 1;
+var aggregateHours = 24;
 
 /**
 	Get GeoJSON representing counts of reports in RW polygons
@@ -125,7 +125,12 @@ map.doubleClickZoom.disable();
 map.scrollWheelZoom.disable();
 if (map.tap) map.tap.disable();
 
-getAggregates('sub_district');
+getAggregates('city');
 
 //Add legend
 legend.addTo(map);
+
+//Count of reports
+jQuery.getJSON("/banjir/data/api/v1/reports/count", function(data){
+	console.log(data.data.uc_count);
+});
