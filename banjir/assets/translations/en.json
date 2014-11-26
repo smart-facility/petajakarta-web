@@ -16,6 +16,10 @@
     "lead": "<b>petajakarta.org/banjir</b> is an open source, community-led platform to collect and disseminate information about flooding and critical water infrastructure in Jakarta",
     "video-url": "//www.youtube.com/embed/fDlaGHjFtAY"
   },
+  "twitter-card" : {
+    "title":"PetaJakarta.org is a free and open source real-time flood map",
+    "description":"PetaJakarta.org maps flood tweets and displays real-time information for navigation, safety, and response. Tweet #banjir with your geolocation enabled @petajkt to add your report to the map."
+  },
   "intro": {
     "share": {
       "title": "Share flood information",

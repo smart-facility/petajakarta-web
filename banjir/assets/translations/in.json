@@ -16,6 +16,10 @@
     "lead": "<b>petajakarta.org/banjir</b> adalah platform <i>open source</i> berbasis masyarakat untuk mengumpulkan dan menyebarkan informasi tentang banjir dan infrastruktur air utama di Jakarta",
     "video-url": "//www.youtube.com/embed/IzjDqjFcYzc"
   },
+  "twitter-card" : {
+    "title":"PetaJakarta.org adalah hasil pemetaan banjir pada waktu terkini",
+    "description":"PetaJakarta.org memetakan banjir melalui tweet dan menampilkan informasi terkininya untuk navigasi, keamanan, respon. Aktifkan geolokasi, tweet #banjir ke @petajkt untuk menambahkan info Anda di peta."
+  },
   "intro": {
     "share": {
       "title": "Berbagi informasi banjir",
