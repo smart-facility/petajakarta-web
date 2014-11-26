@@ -65,7 +65,7 @@
           </div>
           <div class="col-sm-6">
             <p>{{analytics.chart_title}}</p>
-            <canvas id="myChart" width="500" height="500"></canvas>
+            <canvas id="barchart" width="500" height="500"></canvas>
           </div>
         </div>
         <div class="row" style="margin-top:15px;">
@@ -77,26 +77,9 @@
                 Jakarta Timur: 12 reports<BR>
                 Jakarta Utara: 45 reports<BR>
             </p>-->
-            <canvas id="barchart" width="500" height="500"></canvas>
-            <script>
-            var data2 = {
-              labels: ["Utara", "Timur", "Pusat", "Selatan", "Barat"],
-              datasets: [
-                  {
-                      label: "My First dataset",
-                      fillColor: "rgba(93, 160, 240, 0.9)",
-                      strokeColor: "rgba(220,220,220,0.8)",
-                      highlightFill: "rgba(220,220,220,0.75)",
-                      highlightStroke: "rgba(220,220,220,1)",
-                      data: [65, 59, 80, 81, 56]
-                  }
-              ]
-          };
-
-          </script>
-          <p>
-            <div id="c_count">Total confirmed reports:</div><BR>
-            <div id="uc_count">Total unconfirmed reports:</div>
+            <canvas id="timechart" width="500" height="500"></canvas>
+            <p id="c_count">Total confirmed reports:</p>
+            <p id="uc_count">Total unconfirmed reports:</p>
           </p>
           </div>
           <div class="col-sm-6">
@@ -120,7 +103,7 @@
     <<script src="/{{site.url-prefix}}/js/application.min.js"></script>
     <script src="/{{site.url-prefix}}/js/analytics.js"></script>
     <script>
-    var ctx = document.getElementById("myChart").getContext("2d");
+    var ctx = document.getElementById("timechart").getContext("2d");
 
     var data = {
     labels: ["18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "00:00, 01:00", "02:00", "03:00", "04:00", "05:00", "06:00"],
@@ -148,11 +131,8 @@
     ]
 };
 
-
+    var ctx = document.getElementById("timechart").getContext("2d");
     var myLineChart = new Chart(ctx).Line(data, {});
-
-    var ctx2 = document.getElementById("barchart").getContext("2d");
-    var myBarChart = new Chart(ctx2).Bar(data2,{});
 
     </script>
 

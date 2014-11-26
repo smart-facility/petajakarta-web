@@ -21,8 +21,42 @@ var aggregateHours = 24;
 var getAggregates = function(level) {
 
 		jQuery.getJSON('/banjir/data/api/v1/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
+
+			var array = {};
+			for (var i=0;i<data.objects.collection.geometries.length;i++){
+				array[i] = data.objects.collection.geometries[i].properties;
+			}
+			loadChart(array);
+
 			loadAggregates(level, topojson.feature(data, data.objects.collection));
 		});
+};
+
+var loadChart = function(data){
+	console.log(data);
+
+	var names = [];
+	var counts = [];
+	for (var key in data){
+		names.push(data[key].level_name);
+		counts.push(data[key].count);
+	}
+
+	var chart_data = {
+		labels: names,
+		datasets: [
+		{
+			label: "My First dataset",
+			fillColor: "rgba(93, 160, 240, 0.9)",
+			strokeColor: "rgba(220,220,220,0.8)",
+			highlightFill: "rgba(220,220,220,0.75)",
+			highlightStroke: "rgba(220,220,220,1)",
+			data: counts
+		}
+		]
+	};
+	var ctx2 = document.getElementById("barchart").getContext("2d");
+	var barchart = new Chart(ctx2).Bar(chart_data,{});
 };
 
 /**
@@ -132,5 +166,6 @@ legend.addTo(map);
 
 //Count of reports
 jQuery.getJSON("/banjir/data/api/v1/reports/count", function(data){
-	console.log(data.data.uc_count);
+	$("#c_count").append(' '+data.data.c_count);
+	$("#uc_count").append(' '+data.data.uc_count);
 });
