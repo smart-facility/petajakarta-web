@@ -59,6 +59,62 @@ var loadChart = function(data){
 	var barchart = new Chart(ctx2).Bar(chart_data,{});
 };
 
+var loadTimeseries = function(data){
+
+	var labels = [];
+	var c_counts = [];
+	var uc_counts = [];
+
+	for (var key in data){
+		console.log(data[key].c_count);
+		labels.push(data[key].stamp);
+		c_counts.push(data[key].c_count);
+		uc_counts.push(data[key].uc_count);
+	}
+
+
+	var data2 = {
+		labels: labels,
+		datasets: [
+			{
+				label: "Confirmed reports",
+				fillColor: "rgba(220,220,220,0.2)",
+				strokeColor: "rgba(220,220,220,1)",
+				pointColor: "rgba(220,220,220,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(220,220,220,1)",
+				data: c_counts
+			},
+			{
+				label: "Unconfirmed reports",
+				fillColor: "rgba(151,187,205,0.2)",
+				strokeColor: "rgba(151,187,205,1)",
+				pointColor: "rgba(151,187,205,1)",
+				pointStrokeColor: "#fff",
+				pointHighlightFill: "#fff",
+				pointHighlightStroke: "rgba(151,187,205,1)",
+				data: uc_counts
+			}
+		]
+	};
+	console.log(uc_count);
+	var ctx = document.getElementById("timechart").getContext("2d");
+	var myLineChart = new Chart(ctx).Line(data2, {});
+};
+
+var getTimeseries = function(){
+	jQuery.getJSON('/banjir/data/api/v1/reports/timeseries', function(data) {
+		var array = {};
+		for (var i=0;i<data.data.length;i++){
+			array[i] = data.data[i];
+		}
+		console.log(array);
+		loadTimeseries(array);
+	});
+};
+
+
 /**
 	Plots counts of reports in RW polygons
 
@@ -99,14 +155,14 @@ function styleAggregates(feature) {
 
 */
 function getColor(d) {
-    return d > 30 ? '#800026' :
-           d > 25  ? '#BD0026' :
-           d > 20  ? '#E31A1C' :
-           d > 15  ? '#FC4E2A' :
-           d > 10   ? '#FD8D3C' :
-           d > 5   ? '#FEB24C' :
-           d > 1   ? '#FED976' :
-					 d > 0	?	'#FFEDA0' :
+    return d > 150 ? '#800026' :
+           d > 130  ? '#BD0026' :
+           d > 110  ? '#E31A1C' :
+           d > 90  ? '#FC4E2A' :
+           d > 70   ? '#FD8D3C' :
+           d > 50   ? '#FEB24C' :
+           d > 30   ? '#FED976' :
+					 d > 10		?	'#FFEDA0' :
                       '#FFEDA0';
 }
 
@@ -132,7 +188,7 @@ var legend = L.control({position:'bottomleft'});
 legend.onAdd = function(map) {
 
 	var div = L.DomUtil.create('div', 'info legend'),
-	grades = [0,1, 5, 10, 15, 20, 25, 30],
+	grades = [10,30, 50, 70, 90, 110, 130, 150],
 	labels = [];
   // label for legend
 	div.innerHTML+='Number of reports<BR>';
@@ -169,3 +225,5 @@ jQuery.getJSON("/banjir/data/api/v1/reports/count", function(data){
 	$("#c_count").append(' '+data.data.c_count);
 	$("#uc_count").append(' '+data.data.uc_count);
 });
+
+getTimeseries();
