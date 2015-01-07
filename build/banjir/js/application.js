@@ -3149,9 +3149,22 @@ info.onAdd = function(map){
 };
 
 //Update info box
+
+var hover_text;
+var reports_text;
+
+if (document.documentElement.lang == 'in'){
+	hover_text = 'Arahkan ke area';
+	reports_text = 'laporan';
+}
+else {
+	hover_text = 'Hover over an area';
+	reports_text = 'reports';
+}
+
 info.update = function(properties){
 
-		this._div.innerHTML = (properties ? properties.level_name+': '+properties.count+' reports' : 'Hover over an area');
+		this._div.innerHTML = (properties ? properties.level_name+': '+properties.count+' '+reports_text : hover_text);
 };
 
 /**
@@ -3165,7 +3178,12 @@ legend.onAdd = function(map) {
 	grades = [0,1, 5, 10, 15, 20, 25, 30],
 	labels = [];
   // label for legend
-	div.innerHTML+='Number of reports<BR>';
+	if (document.documentElement.lang == 'in') {
+		div.innerHTML+='Jumlah laporan<BR>';
+	}
+	else {
+		div.innerHTML+='Number of reports<BR>';
+	}
 	// loop through density intervals and generate label with coloured square
 	for (var i=0; i <grades.length; i++) {
 		div.innerHTML += '<i class="color" style="background:'+getColor(grades[i]+1) + '"></i>';
@@ -3303,7 +3321,13 @@ aggregatesControl.onAdd = function(map) {
 
   var buttonGroup = L.DomUtil.create('div', 'btn-group', div);
   var buttons = [];
-  var labels = ['1hr', '3hrs', '6hrs'];
+	var labels = [];
+	if (document.documentElement.lang == 'in'){
+		labels = ['1 jam', '3 jam', '6 jam'];
+	}
+	else {
+  	labels = ['1hr', '3hrs', '6hrs'];
+	}
   var values = [1, 3, 6];
 
   var clickCallback = function() {

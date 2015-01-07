@@ -373,9 +373,22 @@ info.onAdd = function(map){
 };
 
 //Update info box
+
+var hover_text;
+var reports_text;
+
+if (document.documentElement.lang == 'in'){
+	hover_text = 'Arahkan ke area';
+	reports_text = 'laporan';
+}
+else {
+	hover_text = 'Hover over an area';
+	reports_text = 'reports';
+}
+
 info.update = function(properties){
 
-		this._div.innerHTML = (properties ? properties.level_name+': '+properties.count+' reports' : 'Hover over an area');
+		this._div.innerHTML = (properties ? properties.level_name+': '+properties.count+' '+reports_text : hover_text);
 };
 
 /**
@@ -532,7 +545,13 @@ aggregatesControl.onAdd = function(map) {
 
   var buttonGroup = L.DomUtil.create('div', 'btn-group', div);
   var buttons = [];
-  var labels = ['1hr', '3hrs', '6hrs'];
+	var labels = [];
+	if (document.documentElement.lang == 'in'){
+		labels = ['1 jam', '3 jam', '6 jam'];
+	}
+	else {
+  	labels = ['1hr', '3hrs', '6hrs'];
+	}
   var values = [1, 3, 6];
 
   var clickCallback = function() {
@@ -662,13 +681,13 @@ var temp = L.tileLayer('http://{s}.tile.openweathermap.org/map/temp/{z}/{x}/{y}.
 //Ancillary layers control
 if (document.documentElement.lang == 'in') {
 	var baseMaps = {
-		"OpenStreetMap": base0,
-		"OpenStreetMap (warna)":base1
+		"Open Street Map": base0,
+		"Open Street Map (warna)":base1
 	};
 } else {
 	var baseMaps = {
     	"Open Street Map (B&W)": base0,
-			"Open Street Map (Colour)": base1
+			"Open Street Map (colour)": base1
 		};
 	}
 
@@ -699,6 +718,18 @@ String.prototype.parseURL = function() {
 		return "<a target='_blank' href='"+url+"'>"+url+"</a>";
 	});
 };
+
+var layernames = {};
+
+if (document.documentElement.lang == 'in'){
+	layernames['confirmed'] = 'Laporan dikonfirmasi';
+	layernames['unconfirmed'] = 'Laporan belum dikonfirmasi';
+	layernames['aggregates'] = 'Laporan agregat';
+}
+else {
+	layernames['confirmed'] = 'Confirmed Reports';
+	layernames['unconfirmed'] = 'Unconfirmed Reports';
+}
 
 var loadPrimaryLayers = function(layerControl) {
 	var layerPromises = {
