@@ -478,21 +478,21 @@ var updateAggregateVisibility = function() {
 		hideAggregates();
 		aggregateLayers.subdistrict.addTo(map);
 		aggregateLayers.subdistrict.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.subdistrict, "Subdistrict Aggregates");
+		window.layerControl.addOverlay(aggregateLayers.subdistrict, layernames.subdistrict);
 
 	} else if (zoom >= 13 && zoom <= 14) {
 		hideReports();
 		hideAggregates();
 		aggregateLayers.village.addTo(map);
 		aggregateLayers.village.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.village, "Village Aggregates");
+		window.layerControl.addOverlay(aggregateLayers.village, layernames.village);
 
 	} else if (zoom >= 15 && zoom < 16) {
 		hideReports();
 		hideAggregates();
 		aggregateLayers.rw.addTo(map);
 		aggregateLayers.rw.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.rw, "Neighbourhood Aggregates");
+		window.layerControl.addOverlay(aggregateLayers.rw, layernames.neighbourhood);
 
 		//Update legend boxes
 		info.update();
@@ -524,8 +524,8 @@ var updateAggregateVisibility = function() {
 		}
 
 		// Add reports to legend at street level
-		layerControl.addOverlay(window.unconfirmedPoints, "Unconfirmed Reports");
-		layerControl.addOverlay(window.confirmedPoints, "Confirmed Reports");
+		layerControl.addOverlay(window.unconfirmedPoints, layernames.unconfirmed);
+		layerControl.addOverlay(window.confirmedPoints, layernames.confirmed);
 
 		// Turn reports on at street level
 		window.unconfirmedPoints.addTo(map);
@@ -722,13 +722,24 @@ String.prototype.parseURL = function() {
 var layernames = {};
 
 if (document.documentElement.lang == 'in'){
-	layernames['confirmed'] = 'Laporan dikonfirmasi';
-	layernames['unconfirmed'] = 'Laporan belum dikonfirmasi';
-	layernames['aggregates'] = 'Laporan agregat';
+	layernames.confirmed = 'Laporan dikonfirmasi';
+	layernames.unconfirmed = 'Laporan belum dikonfirmasi';
+	layernames.subdistrict = 'Laporan Kecamatan';
+	layernames.village = 'Laporan Desa';
+	layernames.neighbourhood = 'Laporan RW';
+	layernames.waterways = 'Aliran Air';
+	layernames.pumps = 'Pompa Air';
+	layernames.floodgates = 'Pintu Air';
 }
 else {
-	layernames['confirmed'] = 'Confirmed Reports';
-	layernames['unconfirmed'] = 'Unconfirmed Reports';
+	layernames.confirmed = 'Confirmed Reports';
+	layernames.unconfirmed = 'Unconfirmed Reports';
+	layernames.subdistrict = 'Subdistrict Aggregates';
+	layernames.village = 'Village Aggregates';
+	layernames.neighbourhood = 'Neighbourhood Aggregates';
+	layernames.waterways = 'Waterways';
+	layernames.pumps = 'Pumps';
+	layernames.floodgates = 'Floodgates';
 }
 
 var loadPrimaryLayers = function(layerControl) {
@@ -749,14 +760,14 @@ var loadPrimaryLayers = function(layerControl) {
 		RSVP.hash(layerPromises).then(function(overlays) {
 
       if (!window.isTouch) {
-        layerControl.addOverlay(overlays.subdistrict, "Subdistrict Aggregates");
+        layerControl.addOverlay(overlays.subdistrict, layernames.subdistrict);
         overlays.subdistrict.addTo(map);
       }
 
 			else {
 				// Add overlays to the layers control
-				layerControl.addOverlay(overlays.confirmed, "Confirmed Reports");
-				layerControl.addOverlay(overlays.unconfirmed, "Unconfirmed Reports");
+				layerControl.addOverlay(overlays.confirmed, layernames.confirmed);
+				layerControl.addOverlay(overlays.unconfirmed, layernames.unconfirmed);
 
 				// Make overlays visible
 				overlays.confirmed.addTo(map);
@@ -802,9 +813,9 @@ var loadSecondaryLayers = function(layerControl) {
 
 		RSVP.hash(secondaryPromises).then(function(overlays) {
 			// Add overlays to the layer control
-			layerControl.addOverlay(overlays.waterways, "Waterways");
-			layerControl.addOverlay(overlays.pumps, "Pumps");
-			layerControl.addOverlay(overlays.floodgates, "Floodgates");
+			layerControl.addOverlay(overlays.waterways, layernames.waterways);
+			layerControl.addOverlay(overlays.pumps, layernames.pumps);
+			layerControl.addOverlay(overlays.floodgates, layernames.floodgates);
 
 			// Make overlays visible unless of touch device
 			if (!window.isTouch){
