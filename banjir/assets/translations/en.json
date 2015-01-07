@@ -179,7 +179,8 @@
           }
         ]
       }
-    ]
+    ],
+    "api_ref":"API Reference"
   },
   "waterways": {
     "title": "Waterways",
@@ -218,7 +219,8 @@
           }
         ]
       }
-    ]
+    ],
+    "api_ref":"API Referensi"
   },
   "pumps": {
     "title": "Pumps",
@@ -257,7 +259,8 @@
           }
         ]
       }
-    ]
+    ],
+    "api_ref":"API Referensi"
   },
   "floodgates": {
     "title": "Floodgates",
@@ -296,7 +299,8 @@
           }
         ]
       }
-    ]
+    ],
+    "api_ref":"API Referensi"
   },
   "api": {
     "endpoints": [

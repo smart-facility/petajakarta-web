@@ -133,39 +133,39 @@
     "acknowledgements": "Peta ini memperlihatkan keadaan terkini (<i>real time</i>) melalui twit anda tentang keadaan banjir di Jakarta. <BR>Untuk menambahkan laporan anda silahkan twit menggunakan #banjir dan <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a><BR><h4>Peta dasar</h4>\nPeta ubin dengan <a href=\"http://stamen.com\">Stamen Design</a>, & <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>.<BR>Data oleh <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, & <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Data infrastruktur</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Laporan</h4>\nDari <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> data\n<h4>Perangkat lunak</h4>\nSebuah kerangka Pengetahuan GeoSosial: <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nPeta: <a href=\"http://leafletjs.com\">Leaflet</a>"
   },
 "aggregates": {
-  "title": "Twitter activity aggregates",
-  "attributes": "Attrbitues",
-  "description": "Counts of tweets related to flooding in Jakarta within polygon geometries representing the 'RW' municipal scale at six hour intervals",
+  "title": "Agregat aktivitas Twitter",
+  "attributes": "Atribut",
+  "description": "Jumlah tweets terkait banjir di Jakarta dalam poligon geometris yang merepresentasikan ‘RW’ skala kota pada interval 6 jam",
   "tblAttributes": [
     {
-      "hField": "Field",
-      "hDescription": "Description",
-      "hType": "Type",
+      "hField": "Kesatuan",
+      "hDescription": "Deskripsi",
+      "hType": "Jenis",
       "fields": [
         {
           "field": "pkeys",
-          "description": "Unique Identifier",
+          "description": "Indentifier unik",
           "type": "Integer"
         },
         {
           "field": "level_name",
-          "description": "Name of the municipal area [e.g. 'RW 01']",
+          "description": "Nama area kota [contoh ‘RW 01’]",
           "type": "String"
         },
         {
           "field": "count",
-          "description": "Number of flood tweets in the municiapl area over six hours",
+          "description": "Jumlah banjir yang ditweet di area kota selama enam jam",
           "type": "Integer"
         },
         {
           "field": "geometry",
-          "description": "Geographical representation of municpal area",
-          "type": "Polygon"
+          "description": "Representasi geografis area kota",
+          "type": "Poligon"
         }
       ]
     }
   ],
-  "coordinates": "Coordinate Reference System",
+  "coordinates": "Sistem Koordinat <i>(Coordinate Reference System)</i>",
   "tblCRS": [
     {
     "hCRS": "CRS",
@@ -179,32 +179,33 @@
         }
       ]
     }
-  ]
+  ],
+  "api_ref":"API Referensi"
 },
 "waterways": {
-  "title": "Waterways",
-  "attributes": "Attrbitues",
-  "description": "Line geometries representing the river and canal network in Jakarta",
+  "title": "Aliran Air",
+  "attributes": "Atribut",
+  "description": "Garis geometris merepresentasikan sungai dan jaringan kanal di Jakarta",
   "tblAttributes": [
     {
-      "hField": "Field",
-      "hDescription": "Description",
-      "hType": "Type",
+      "hField": "Kesatuan",
+      "hDescription": "Deskripsi",
+      "hType": "Jenis",
       "fields": [
         {
           "field": "name",
-          "description": "Name of waterway",
+          "description": "Nama aliran air",
           "type": "String"
         },
         {
           "field": "geometry",
-          "description": "Geographical representation of waterway",
+          "description": "Representasi geografis aliran air",
           "type": "LineString"
         }
       ]
     }
   ],
-  "coordinates": "Coordinate Reference System",
+  "coordinates": "Sistem Koordinat <i>(Coordinate Reference System)</i>",
   "tblCRS": [
     {
     "hCRS": "CRS",
@@ -218,32 +219,33 @@
         }
       ]
     }
-  ]
+  ],
+  "api_ref":"API Referensi"
 },
 "pumps": {
-  "title": "Pumps",
-  "attributes": "Attrbitues",
-  "description": " Point geometries representing the location of pump stations in Jakarta",
+  "title": "Pompa",
+  "attributes": "Atribut",
+  "description": "Poin geometris yang merepresentasikan lokasi rumah pompa di Jakarta",
   "tblAttributes": [
     {
-      "hField": "Field",
-      "hDescription": "Description",
-      "hType": "Type",
+      "hField": "Kesatuan",
+      "hDescription": "Deskripsi",
+      "hType": "Jenis",
       "fields": [
         {
           "field": "name",
-          "description": "Name of pump station",
+          "description": "Nama rumah pompa",
           "type": "String"
         },
         {
           "field": "geometry",
-          "description": "Geographical representation of pump location",
+          "description": "Representasi geograifs lokasi pompa",
           "type": "Point"
         }
       ]
     }
   ],
-  "coordinates": "Coordinate Reference System",
+  "coordinates": "Sistem Koordinat <i>(Coordinate Reference System)</i>",
   "tblCRS": [
     {
     "hCRS": "CRS",
@@ -257,32 +259,33 @@
         }
       ]
     }
-  ]
+  ],
+  "api_ref":"API Referensi"
 },
 "floodgates": {
-  "title": "Floodgates",
-  "attributes": "Attrbitues",
-  "description": "Point geometries representing the location of floodgates in Jakarta",
+  "title": "Pintu Air",
+  "attributes": "Atribut",
+  "description": "Titik geometris yang merepresentasikan lokasi pintu air di Jakarta",
   "tblAttributes": [
     {
-      "hField": "Field",
-      "hDescription": "Description",
-      "hType": "Type",
+      "hField": "Kesatuan",
+      "hDescription": "Deskripsi",
+      "hType": "Jenis",
       "fields": [
         {
           "field": "name",
-          "description": "Name of floodgate",
+          "description": "Nama pintu air",
           "type": "String"
         },
         {
           "field": "geometry",
-          "description": "Geographical representation of floodgate location",
+          "description": "Representasi geografis lokasi pintu air",
           "type": "Point"
         }
       ]
     }
   ],
-  "coordinates": "Coordinate Reference System",
+  "coordinates": "Sistem Koordinat <i>(Coordinate Reference System)</i>",
   "tblCRS": [
     {
     "hCRS": "CRS",
@@ -296,7 +299,8 @@
         }
       ]
     }
-  ]
+  ],
+  "api_ref":"API Referensi"
 },
 "api": {
   "endpoints": [
