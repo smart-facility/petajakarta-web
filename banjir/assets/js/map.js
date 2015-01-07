@@ -389,7 +389,12 @@ legend.onAdd = function(map) {
 	grades = [0,1, 5, 10, 15, 20, 25, 30],
 	labels = [];
   // label for legend
-	div.innerHTML+='Number of reports<BR>';
+	if (document.documentElement.lang == 'in') {
+		div.innerHTML+='Jumlah laporan<BR>';
+	}
+	else {
+		div.innerHTML+='Number of reports<BR>';
+	}
 	// loop through density intervals and generate label with coloured square
 	for (var i=0; i <grades.length; i++) {
 		div.innerHTML += '<i class="color" style="background:'+getColor(grades[i]+1) + '"></i>';
