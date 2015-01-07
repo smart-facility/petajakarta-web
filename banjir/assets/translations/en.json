@@ -134,7 +134,7 @@
   },
   "aggregates": {
     "title": "Twitter activity aggregates",
-    "attributes": "Attrbitues",
+    "attributes": "Attributes",
     "description": "Counts of tweets related to flooding in Jakarta within polygon geometries representing the 'RW' municipal scale at six hour intervals",
     "tblAttributes": [
       {
