@@ -126,8 +126,14 @@ var aggregateLayers = {};
 var aggregateVersions = {};
 var aggregateInc = 0;
 
+var onEachFeature = function(feature, layer){
+	if (feature.properties && feature.properties.level_name){
+		layer.bindPopup(feature.properties.level_name);
+	}
+};
+
 var loadAggregates = function(level, aggregates){
-	var aggregateLayer = L.geoJson(aggregates, {style:styleAggregates});
+	var aggregateLayer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:onEachFeature});
 	aggregateLayer.addTo(map);
 };
 
@@ -155,15 +161,15 @@ function styleAggregates(feature) {
 
 */
 function getColor(d) {
-    return d > 150 ? '#800026' :
-           d > 130  ? '#BD0026' :
-           d > 110  ? '#E31A1C' :
-           d > 90  ? '#FC4E2A' :
-           d > 70   ? '#FD8D3C' :
-           d > 50   ? '#FEB24C' :
-           d > 30   ? '#FED976' :
-					 d > 10		?	'#FFEDA0' :
-                      '#FFEDA0';
+	return d > 30 ? '#800026' :
+					d > 25  ? '#BD0026' :
+					d > 20  ? '#E31A1C' :
+					d > 15  ? '#FC4E2A' :
+					d > 10   ? '#FD8D3C' :
+					d > 5   ? '#FEB24C' :
+					d > 1   ? '#FED976' :
+					d > 0	?	'#FFEDA0' :
+					'#FFEDA0';
 }
 
 /**
@@ -188,19 +194,26 @@ var legend = L.control({position:'bottomleft'});
 legend.onAdd = function(map) {
 
 	var div = L.DomUtil.create('div', 'info legend'),
-	grades = [10,30, 50, 70, 90, 110, 130, 150],
+	grades = [0,1, 5, 10, 15, 20, 25, 30],
 	labels = [];
   // label for legend
-	div.innerHTML+='Number of reports<BR>';
+	// label for legend
+	if (document.documentElement.lang == 'in') {
+		div.innerHTML+='Jumlah laporan<BR>';
+	}
+	else {
+		div.innerHTML+='Number of reports<BR>';
+	}
 	// loop through density intervals and generate label with coloured square
 	for (var i=0; i <grades.length; i++) {
 		div.innerHTML += '<i class="color" style="background:'+getColor(grades[i]+1) + '"></i>';
 	}
-  div.innerHTML += '<br>';
+	div.innerHTML += '<br>';
 	// loop through density intervals and generate label with coloured square
-	for (i=0; i <grades.length; i++) {
+	for (i=0; i <grades.length-1; i++) {
 		div.innerHTML += '<span class="number">'+grades[i]+'</span>';
 	}
+	div.innerHTML +='<span class="number" style="margin-left:1px;">'+grades[grades.length-1]+'+</span>';
 
 	return div;
 };

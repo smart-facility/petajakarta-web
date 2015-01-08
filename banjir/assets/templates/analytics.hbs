@@ -64,13 +64,13 @@
             <div id=static_map></div>
           </div>
           <div class="col-sm-6">
-            <p>Reports by city</p>
+            <p>{{analytics.chart_title}}</p>
             <canvas id="barchart" width="500" height="500"></canvas>
           </div>
         </div>
         <div class="row" style="margin-top:15px;">
           <div class="col-sm-6">
-            <p>Confirmed & Unconfirmed Reports</p>
+            <p>{{analytics.graph_title}}</p>
             <!--<p class = lead>Jakarta Barat: 23 reports<BR>
                 Jakarta Pusat: 32 reports<BR>
                 Jakarta Seleta: 45 reports<BR>
@@ -83,7 +83,7 @@
           </p>
           </div>
           <div class="col-sm-6">
-            <p class="text-left">Live Stream</p>
+            <p class="text-left">{{analytics.stream_title}}</p>
             <a class="twitter-timeline"  href="https://twitter.com/petajkt" data-widget-id="534916767819124736" data-chrome="nofooter">Tweets by @petajkt</a>
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
           </div>

@@ -95,8 +95,10 @@
   "analytics": {
     "title": "Analytics",
     "lead": "Flood reports from past 24 hours",
-    "map_title": "All reports by district",
-    "chart_title": "Reports by hour"
+    "map_title": "Map of reports by district",
+    "chart_title": "Reports by district",
+    "graph_title": "Confirmed and unconfirmed reports",
+    "stream_title": "Live stream"
   },
   "sharing-instructions": {
     "title": "Share flood information",
