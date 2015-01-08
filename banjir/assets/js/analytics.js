@@ -230,7 +230,7 @@ getAggregates('city');
 legend.addTo(map);
 
 //Count of reports
-jQuery.getJSON("/banjir/data/api/v1/reports/count", function(data){
+jQuery.getJSON("/banjir/data/api/v1/reports/count?hours=24", function(data){
 	$("#c_count").append(' '+data.data.c_count);
 	$("#uc_count").append(' '+data.data.uc_count);
 });
