@@ -74,7 +74,7 @@
               </tbody>
             {{/each}}
             </table>
-          <h4>{{coordinates}}</h4>
+          <h4>{{{pumps.coordinates}}}</h4>
             <table class="table table-responsive table-hover">
               {{#each pumps.tblCRS}}
             <thead>
@@ -95,7 +95,7 @@
             </tbody>
           {{/each}}
           </table>
-          <h4>API Reference</h4>
+          <h4>{{aggregates.api_ref}}</h4>
           <p class="lead"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api#infrastructure">http://petajakarta.org/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api#infrastructure</a>
     </div>
 

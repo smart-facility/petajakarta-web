@@ -23,7 +23,7 @@ When completed, you'll be able to run the various Grunt commands provided from t
 ### Available Grunt Commands
 
 #### Build - `grunt`
-Run `grunt` to build the whole site, with the resulting files placed in the `/build` directory.
+Run `grunt` to build the whole site, with the resulting files placed in the `build/` directory.
 
 #### Compile assets - `grunt assets`
 Run `grunt assets` to compile the site's CSS and JS files into single, minified files.
