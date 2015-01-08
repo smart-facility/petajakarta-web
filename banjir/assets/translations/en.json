@@ -98,7 +98,9 @@
     "map_title": "Map of reports by district",
     "chart_title": "Reports by district",
     "graph_title": "Confirmed and unconfirmed reports",
-    "stream_title": "Live stream"
+    "stream_title": "Live stream",
+    "ccount_text": "Total confirmed reports:",
+    "ucount_text": "Total unconfirmed reports"
   },
   "sharing-instructions": {
     "title": "Share flood information",

@@ -98,7 +98,9 @@
     "map_title": "Peta semua laporan kabupaten",
     "chart_title": "Semua laporan kabupaten",
     "graph_title": "Dikonfirmasi dan laporan yang belum dikonfirmasi",
-    "stream_title": "Hidup aliran"
+    "stream_title": "Hidup aliran",
+    "ccount_text": "Jumlah laporan dikonfirmasi:",
+    "ucount_text": "Jumlah laporan yang belum dikonfirmasi:"
   },
   "sharing-instructions": {
     "title": "Instruksi",

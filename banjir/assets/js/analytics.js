@@ -33,7 +33,6 @@ var getAggregates = function(level) {
 };
 
 var loadChart = function(data){
-	console.log(data);
 
 	var names = [];
 	var counts = [];
@@ -66,7 +65,6 @@ var loadTimeseries = function(data){
 	var uc_counts = [];
 
 	for (var key in data){
-		console.log(data[key].c_count);
 		labels.push(data[key].stamp);
 		c_counts.push(data[key].c_count);
 		uc_counts.push(data[key].uc_count);
@@ -98,7 +96,6 @@ var loadTimeseries = function(data){
 			}
 		]
 	};
-	console.log(uc_count);
 	var ctx = document.getElementById("timechart").getContext("2d");
 	var myLineChart = new Chart(ctx).Line(data2, {});
 };
@@ -109,7 +106,6 @@ var getTimeseries = function(){
 		for (var i=0;i<data.data.length;i++){
 			array[i] = data.data[i];
 		}
-		console.log(array);
 		loadTimeseries(array);
 	});
 };
