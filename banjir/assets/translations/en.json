@@ -96,27 +96,7 @@
     "title": "Analytics",
     "lead": "Flood reports from past 24 hours",
     "map_title": "All reports by district",
-    "chart_title": "Reports by hour",
-    "privacy": {
-      "title": "Privacy",
-      "text": "Our open data collection archive does not contain individual tweets, but anonymised counts of Twitter activity at the 'RW' level. The live map at PetaJakarta.org does store any information about users; all information derived from location-enabled mobile devices is stored and displayed anonymously."
-    },
-    "licensing":{
-      "title": "Licensing",
-      "text":"Data is licensed under a <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\">Creative Commons Attribution-NonCommercial 4.0 International License</a>."
-    },
-    "api":{
-      "title": "Data API",
-      "text": "The PetaJakarta.org API provides data in GeoJSON and TopoJSON formats. You can view the API documentation at "
-    },
-    "partners":{
-      "title": "Data Partners",
-      "text": "The PetaJakarta.org Open Data Collection is part of the PetaJakarta Collaborative Data Sharing Project, supported by the Australian National Data Service (ANDS). ANDS is supported by the Australian Government through the National Collaborative Research Infrastructure Strategy Program. Visit <a href=\"http://ands.org.au\" target=\"_blank\">http://ands.org.au</a> or Research Data Australia (<a href=\"http://services.ands.org.au\" target=\"_blank\">services.ands.org.au</a>) to find out more."
-    },
-    "contact":{
-      "title": "Contact",
-      "text": "You can contact the PetaJakarta.org team via email or Twitter"
-    }
+    "chart_title": "Reports by hour"
   },
   "sharing-instructions": {
     "title": "Share flood information",
