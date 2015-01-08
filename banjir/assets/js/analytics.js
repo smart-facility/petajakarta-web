@@ -141,9 +141,9 @@ var loadAggregates = function(level, aggregates){
 function styleAggregates(feature) {
     return {
         fillColor: getColor(feature.properties.count),
-        weight: 0.7,
+        weight: 1,
 				//disabled polygon borders for clarity
-        //opacity: 1,
+        opacity: 1,
         color: 'black',
         //dashArray: '3',
         fillOpacity: 0.7
