@@ -389,14 +389,14 @@
           "parameters": [
             {
               "Name": "start_time",
-              "Description": "The date and time of the start of the aggregate period as an ISO8601 string, representing a time from 1970-01-01T00:00:00Z until now. Note that basic form cannot be used and extended form (with hyphens and colons) must be used.",
+              "Description": "Tanggal dan waktu mulainya periode agregat sebagai string ISO8601, merepresentasikan waktu dari 1970-01-01T00:00:00Z hingga sekarang. Perhatikan bahwa bentuk dasar tidak dapat digunakan dan bentuk yang lebih panjang (dengan tanda hubung dan titik dua) harus digunakan.",
               "Required": "N",
-              "Default": "time of request",
+              "Default": "waktu permintaan",
               "Type": "ISO8601 String"
             },
             {
               "Name": "blocks",
-              "Description": "The number of 1-hour blocks to return, starting at 'start_time'.",
+              "Description": "Jumlah blok berdurasi 1 jam yang didapatkan, dimulai dari ‘start_time’.",
               "Required": "N",
               "Default": "6",
               "Type": "integer"
