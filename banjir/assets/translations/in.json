@@ -250,7 +250,7 @@
         },
         {
           "field": "geometry",
-          "description": "Representasi geograifs lokasi pompa",
+          "description": "Representasi geografis lokasi pompa",
           "type": "Point"
         }
       ]
