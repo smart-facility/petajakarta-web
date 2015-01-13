@@ -94,11 +94,11 @@
   },
   "analytics": {
     "title": "Analytics",
-    "lead": "Banjir laporan dari masa 24 jam",
+    "lead": "Laporan banjir dalam waktu 24 jam",
     "map_title": "Peta semua laporan kabupaten",
     "chart_title": "Semua laporan kabupaten",
-    "graph_title": "Dikonfirmasi dan laporan yang belum dikonfirmasi",
-    "stream_title": "Hidup aliran",
+    "graph_title": "Laporan yang dikonfirmasi dan belum dikonfirmasi",
+    "stream_title": "Live Twitter stream",
     "ccount_text": "Jumlah laporan dikonfirmasi:",
     "ucount_text": "Jumlah laporan yang belum dikonfirmasi:"
   },
