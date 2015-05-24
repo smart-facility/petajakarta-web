@@ -3,7 +3,8 @@
     "name": "Peta Jakarta &middot; Banjir",
     "url-prefix": "banjir",
     "locale-url-prefix": "in",
-    "other-locale-url-prefix": "en"
+    "other-locale-url-prefix": "en",
+    "map-off-text": "map is off"
   },
   "navbar": {
     "home": "Beranda",

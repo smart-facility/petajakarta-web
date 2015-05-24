@@ -3,7 +3,9 @@
     "name": "Peta Jakarta &middot; Banjir",
     "url-prefix": "banjir",
     "locale-url-prefix": "en",
-    "other-locale-url-prefix": "in"
+    "other-locale-url-prefix": "in",
+    "map-off-title": "PetaJakarta.org is currently offline",
+    "map-off-text": "<BR>We will begin flood mapping again in December 2015. Thank you to everyone who participated to make the map a success!<BR><BR><a href='https://twitter.com/petajkt' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @petajkt</a><a href='https://twitter.com/BPBDJakarta' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @BPBDJakarta </a>"
   },
   "navbar": {
     "home": "Home",
@@ -100,7 +102,8 @@
     "graph_title": "Confirmed and unconfirmed reports",
     "stream_title": "Live stream",
     "ccount_text": "Total confirmed reports:",
-    "ucount_text": "Total unconfirmed reports"
+    "ucount_text": "Total unconfirmed reports",
+    "analytics-off": "PetaJakarta.org is not currently receiving reports; we will begin data collection and real-time flood mapping again in December 2015. Thank you to everyone who participated to make the map a success! See you again in the rainy season."
   },
   "sharing-instructions": {
     "title": "Share flood information",

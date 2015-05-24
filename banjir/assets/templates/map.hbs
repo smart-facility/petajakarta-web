@@ -55,6 +55,7 @@
           </div>
         </div>
 
+
         <!-- Modal -->
         <div class="modal fade" id="reportsModal" tabindex="-1" role="dialog" aria-labelledby="reportsModal" aria-hidden="true" style="height:500px;">
           <div class="modal-dialog">
@@ -100,7 +101,6 @@
   <!-- Site JavaScript -->
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<!--  <script src="/{{site.url-prefix}}/js/application.min.js"></script> -->
 
   <script> //Determine if device is touchscreen/mobile
     window.isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
@@ -112,6 +112,14 @@
 
   <script src="/{{site.url-prefix}}/js/application.min.js"></script>
   <script src="/{{site.url-prefix}}/js/map.min.js"></script>
+  <script src="/{{site.url-prefix}}/js/jquery.growl.js"></script>
+
+  <script>
+  $.growl.notice({size: 'large', location:'tc' ,fixed: true, title: "{{{site.map-off-title}}}", message:"{{{site.map-off-text}}}"});
+
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+
+  </script>
 
   <!-- Google analytics -->
   <script>
