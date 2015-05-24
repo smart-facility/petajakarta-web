@@ -19,8 +19,8 @@ module.exports = function(grunt) {
           'banjir/vendor/js/rsvp.js',
           'banjir/vendor/js/underscore-min.js',
           'banjir/vendor/js/Chart.js',
-          'banjir/assets/js/reports.js',
-          'banjir/assets/js/jquery.growl.js'
+          'banjir/vendor/js/jquery.growl.js',
+          'banjir/assets/js/reports.js'
         ],
         dest: 'build/banjir/js/application.js'
       },
