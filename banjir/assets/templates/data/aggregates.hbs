@@ -51,9 +51,12 @@
     </div>
 
     <div class="container top-navbar-padding">
+      <div class="row" style="margin-left:0px; margin-right:0px;">
+        <div class="col-md-8">
         <h1>{{data.title}}</h1>
             <h3>{{aggregates.title}}</h3>
             <p class="lead">{{aggregates.description}}</p>
+              <div>
               <h4>{{aggregates.attributes}}</h4>
               <table class="table table-responsive table-hover">
               {{#each aggregates.tblAttributes}}
@@ -75,30 +78,44 @@
             {{/each}}
             </table>
           <h4>{{{aggregates.coordinates}}}</h4>
-            <table class="table table-responsive table-hover">
-              {{#each aggregates.tblCRS}}
-            <thead>
-              <tr>
-                <th>{{hCRS}}</th>
-                <th>{{hName}}</th>
-                <th>{{hEPSG}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each fields}}
-              <tr>
-                <td>{{crs}}</td>
-                <td>{{name}}</td>
-                <td>{{epsg}}</td>
-              </tr>
-              {{/each}}
-            </tbody>
-          {{/each}}
-          </table>
-          <h4>{{aggregates.api_ref}}</h4>
-          <p class="lead"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api#aggregates">http://petajakarta.org/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api#aggregates</a>
+              <table class="table table-responsive table-hover">
+                {{#each aggregates.tblCRS}}
+              <thead>
+                <tr>
+                  <th>{{hCRS}}</th>
+                  <th>{{hName}}</th>
+                  <th>{{hEPSG}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each fields}}
+                <tr>
+                  <td>{{crs}}</td>
+                  <td>{{name}}</td>
+                  <td>{{epsg}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            {{/each}}
+            </table>
+            <h4>{{aggregates.api_ref}}</h4>
+            <p class="lead"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api#aggregates">http://petajakarta.org/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api#aggregates</a>
+          </div>
+        </div>
+        <div class="col-md-4" style="margin-top:100px;">
+          <div class="well">
+            <img class="img-responsive center-block" src="/{{site.url-prefix}}/img/md_aggregates.png" width="300" alt=""/>
+            <div style="margin-top:10px; margin-left:5px">
+              {{{aggregates.box.doi}}}<BR>
+              {{{aggregates.box.download}}}<BR>
+              {{{aggregates.box.ref}}}
+            <div style="margin-top:10px">
+              {{{aggregates.box.citation}}}
+            </div>
+          </div>
+        </div>
     </div>
-
+  </div>
 
     <!-- Page footer -->
     <div class="container" id="page-foot">

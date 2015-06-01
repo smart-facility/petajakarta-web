@@ -154,52 +154,58 @@
   "aggregates": {
     "title": "Twitter activity aggregates",
     "attributes": "Attributes",
-    "description": "Counts of tweets related to flooding in Jakarta within polygon geometries representing the 'RW' municipal scale at six hour intervals",
-    "tblAttributes": [
-      {
-        "hField": "Field",
-        "hDescription": "Description",
-        "hType": "Type",
-        "fields": [
-          {
-            "field": "pkeys",
-            "description": "Unique Identifier",
-            "type": "Integer"
-          },
-          {
-            "field": "level_name",
-            "description": "Name of the municipal area [e.g. 'RW 01']",
-            "type": "String"
-          },
-          {
-            "field": "count",
-            "description": "Number of flood tweets in the municiapl area over six hours",
-            "type": "Integer"
-          },
-          {
-            "field": "geometry",
-            "description": "Geographical representation of municpal area",
-            "type": "Polygon"
-          }
-        ]
-      }
-    ],
-    "coordinates": "Coordinate Reference System",
-    "tblCRS": [
-      {
-      "hCRS": "CRS",
-      "hName": "Name",
-      "hEPSG": "EPSG",
-      "fields":[
-          {
-            "crs": "WGS84",
-            "name": "World Geodetic System 1984",
-            "epsg": "4326"
-          }
-        ]
-      }
-    ],
-    "api_ref":"API Reference"
+    "box": {
+          "download": "Download: <a href='http://smart-metadata.eis.uow.edu.au/geonetwork/srv/eng/search?uuid=1ecb8a02-5c94-4532-ad19-ce690b8b0c21' target='_blank'>SMART Metadata Catalogue</a>",
+          "citation": "Turpin, Etienne & Holderness, Tomas (2015-01-01). PetaJakarta.org Major Open Data Collection - Twitter activity related to flooding in Jakarta, Indonesia. SMART Infrastructure Facility, University of Wollongong",
+          "doi": "DOI: <a href='http://ro.uow.edu.au/data/46/' target='_blank'>10.4225/48/5539d13f4a007</a>",
+          "ref": "Reference: <a href='http://trove.nla.gov.au/version/211576468' target='_blank'>National Library of Australia</a>"
+        },
+      "description": "Counts of tweets related to flooding in Jakarta within polygon geometries representing the 'RW' municipal scale at six hour intervals",
+      "tblAttributes": [
+        {
+          "hField": "Field",
+          "hDescription": "Description",
+          "hType": "Type",
+          "fields": [
+            {
+              "field": "pkeys",
+              "description": "Unique Identifier",
+              "type": "Integer"
+            },
+            {
+              "field": "level_name",
+              "description": "Name of the municipal area [e.g. 'RW 01']",
+              "type": "String"
+            },
+            {
+              "field": "count",
+              "description": "Number of flood tweets in the municiapl area over six hours",
+              "type": "Integer"
+            },
+            {
+              "field": "geometry",
+              "description": "Geographical representation of municpal area",
+              "type": "Polygon"
+            }
+          ]
+        }
+      ],
+      "coordinates": "Coordinate Reference System",
+      "tblCRS": [
+        {
+        "hCRS": "CRS",
+        "hName": "Name",
+        "hEPSG": "EPSG",
+        "fields":[
+            {
+              "crs": "WGS84",
+              "name": "World Geodetic System 1984",
+              "epsg": "4326"
+            }
+          ]
+        }
+      ],
+      "api_ref":"API Reference"
   },
   "waterways": {
     "title": "Waterways",
