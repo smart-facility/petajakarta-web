@@ -51,53 +51,70 @@
     </div>
 
     <div class="container top-navbar-padding">
-        <h1>{{data.title}}</h1>
-            <h3>{{pumps.title}}</h3>
-            <p class="lead">{{pumps.description}}</p>
-              <h4>{{pumps.attributes}}</h4>
+      <div class="row" style="margin-left:0px; margin-right:0px;">
+        <div class="col-md-8">
+          <h1>{{data.title}}</h1>
+              <h3>{{pumps.title}}</h3>
+              <p class="lead">{{pumps.description}}</p>
+                <h4>{{pumps.attributes}}</h4>
+                <table class="table table-responsive table-hover">
+                {{#each pumps.tblAttributes}}
+                <thead>
+                  <tr>
+                    <th>{{hField}}</th>
+                    <th>{{hDescription}}</th>
+                    <th>{{hType}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {{#each fields}}
+                  <td>{{field}}</td>
+                  <td>{{description}}</td>
+                  <td>{{type}}</td>
+                </tr>
+                {{/each}}
+                </tbody>
+              {{/each}}
+              </table>
+            <h4>{{{pumps.coordinates}}}</h4>
               <table class="table table-responsive table-hover">
-              {{#each pumps.tblAttributes}}
+                {{#each pumps.tblCRS}}
               <thead>
                 <tr>
-                  <th>{{hField}}</th>
-                  <th>{{hDescription}}</th>
-                  <th>{{hType}}</th>
+                  <th>{{hCRS}}</th>
+                  <th>{{hName}}</th>
+                  <th>{{hEPSG}}</th>
                 </tr>
               </thead>
               <tbody>
-              {{#each fields}}
-                <td>{{field}}</td>
-                <td>{{description}}</td>
-                <td>{{type}}</td>
-              </tr>
-              {{/each}}
+                {{#each fields}}
+                <tr>
+                  <td>{{crs}}</td>
+                  <td>{{name}}</td>
+                  <td>{{epsg}}</td>
+                </tr>
+                {{/each}}
               </tbody>
             {{/each}}
             </table>
-          <h4>{{{pumps.coordinates}}}</h4>
-            <table class="table table-responsive table-hover">
-              {{#each pumps.tblCRS}}
-            <thead>
-              <tr>
-                <th>{{hCRS}}</th>
-                <th>{{hName}}</th>
-                <th>{{hEPSG}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each fields}}
-              <tr>
-                <td>{{crs}}</td>
-                <td>{{name}}</td>
-                <td>{{epsg}}</td>
-              </tr>
-              {{/each}}
-            </tbody>
-          {{/each}}
-          </table>
-          <h4>{{aggregates.api_ref}}</h4>
-          <p class="lead"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api#infrastructure">http://petajakarta.org/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api#infrastructure</a>
-    </div>
+            <h4>{{aggregates.api_ref}}</h4>
+            <p class="lead"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api#infrastructure">http://petajakarta.org/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api#infrastructure</a>
+          </div>
+          <div class="col-md-4" style="margin-top:100px;">
+            <div class="well">
+              <img class="img-responsive center-block" src="/{{site.url-prefix}}/img/md-pumps-floodgates.png" width="300" alt=""/>
+              <div style="margin-top:10px; margin-left:5px">
+                {{{pumps.box.doi}}}<BR>
+                {{{pumps.box.download}}}<BR>
+                {{{pumps.box.ref}}}
+              <div style="margin-top:10px">
+                {{{pumps.box.citation}}}
+              </div>
+            </div>
+          </div>
+      </div>
+        </div>
+      </div>
 
 
     <!-- Page footer -->
