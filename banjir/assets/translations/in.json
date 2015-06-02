@@ -215,7 +215,7 @@
   "title": "Aliran Air",
   "attributes": "Atribut",
   "box": {
-        "download": "Download: <a href='http://smart-metadata.eis.uow.edu.au/geonetwork/srv/eng/search#|e9592e38-8696-4b5c-91af-41a04db6a71e'>SMART Metadata Catalogue</a>",
+        "download": "Download: <a href='http://smart-metadata.eis.uow.edu.au/geonetwork/srv/eng/search?uuid=e9592e38-8696-4b5c-91af-41a04db6a71e'>SMART Metadata Catalogue</a>",
         "citation": "Turpin, Etienne and Holderness, Tomas (2015) PetaJakarta.org Major Open Data Collection – Waterways in Jakarta, Indonesia. SMART Infrastructure Facility, University of Wollongong.",
         "doi": "DOI: <a href='http://doi.org/10.4225/48/5539d1a7ba7fa' target='_blank'>10.4225/48/5539d1a7ba7fa</a>",
         "ref": "Reference: <a href='http://trove.nla.gov.au/version/211576469' target='_blank'>National Library of Australia</a>"
@@ -261,7 +261,7 @@
   "title": "Pompa",
   "attributes": "Atribut",
   "box": {
-        "download": "Download: <a href='http://smart-metadata.eis.uow.edu.au/geonetwork/srv/eng/search#%7Cd29ecedc-4077-413e-b48b-c5afbbc225b3' target='_blank'>SMART Metadata Catalogue</a>",
+        "download": "Download: <a href='http://smart-metadata.eis.uow.edu.au/geonetwork/srv/eng/search?uuid=d29ecedc-4077-413e-b48b-c5afbbc225b3' target='_blank'>SMART Metadata Catalogue</a>",
         "citation": "Turpin, Etienne & Holderness, Tomas (2015-01-01). PetaJakarta.org Major Open Data Collection – Pumps and Floodgates in Jakarta, Indonesia. SMART Infrastructure Facility, University of Wollongong.",
         "doi": "DOI: <a href='http://doi.org/10.4225/48/5539cf9cb63d6' target='_blank'>10.4225/​48/​5539cf9cb63d6</a>",
         "ref": "Reference: <a href='http://trove.nla.gov.au/version/211576465' target='_blank'>National Library of Australia</a>"
