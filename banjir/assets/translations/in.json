@@ -39,7 +39,7 @@
   "data": {
     "title": "Open Data Collection",
     "lead": "Data dari PetaJakarta.org tersedia untuk partner proyek dan peneliti lain berbasis lisensi terbuka. Jika Anda ingin menggunakan data kami, silakan <a href='#contact'>hubungi kami</a>.",
-    "available": "Data yang tersedia (Musim 2014/2015 hujan)",
+    "available": "Data yang tersedia (Musim hujan 2014/2015)",
     "tblData": [
       {
         "hName":"Nama",
@@ -90,8 +90,8 @@
       "text": "Open Data Collection PetaJakarta.org merupakan bagian dari PetaJakarta Collaborative Data Sharing Project, didukung oleh Australian National Data Services (ANDS). ANDS didukung oleh pemerintah Australia melalui National Collaborative Research Infrastructure Strategy Program. Kunjungi <a href=\"http://ands.org.au\" target=\"_blank\">http://ands.org.au</a> atau Research Data Australia (<a href=\"http://services.ands.org.au\" target=\"_blank\">services.ands.org.au</a>) untuk info lebih lanjut."
     },
     "records": {
-      "text": "Data National Australia Layanan Rekaman",
-      "title": "Data Rekaman"
+      "text": "Lihat rekaman data di portal Research Data Australia",
+      "title": "Rekam Data"
     },
     "contact":{
       "title": "Kontak",
