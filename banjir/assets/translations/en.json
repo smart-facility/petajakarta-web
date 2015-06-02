@@ -89,9 +89,18 @@
       "title": "Data Partners",
       "text": "The PetaJakarta.org Open Data Collection is part of the PetaJakarta Collaborative Data Sharing Project, supported by the Australian National Data Service (ANDS). ANDS is supported by the Australian Government through the National Collaborative Research Infrastructure Strategy Program. Visit <a href=\"http://ands.org.au\" target=\"_blank\">http://ands.org.au</a> or Research Data Australia (<a href=\"http://services.ands.org.au\" target=\"_blank\">services.ands.org.au</a>) to find out more."
     },
+    "records": {
+      "text": "View records of the data at the Research Data Australia portal",
+      "title": "Data Records"
+    },
     "contact":{
       "title": "Contact",
-      "text": "You can contact the PetaJakarta.org team via email or Twitter"
+      "text": "You can contact the PetaJakarta.org team via email or Twitter."
+    },
+    "download":{
+      "title": "Download",
+      "text": "Download the data archive from the",
+      "catalog": "SMART Metadata Catalogue"
     }
   },
   "analytics": {

@@ -51,8 +51,9 @@
     </div>
 
     <div class="container top-navbar-padding">
-
-        <h1>{{data.title}}</h1>
+      <h1 style="margin-left:13px;">{{data.title}}</h1>
+      <div class="row" style="margin-left:0px; margin-right:0px;">
+        <div class="col-md-8">
         <p class="lead">{{{data.lead}}}</p>
           <h3>{{data.available}}</h3>
           <table class="table table-responsive table-hover">
@@ -79,23 +80,30 @@
         <h3>{{data.privacy.title}}</h3>
         <p class="lead">{{data.privacy.text}}</p>
 
-        <h3>{{data.licensing.title}}</h3>
-          <p class="lead">{{{data.licensing.text}}}</p>
-          <p class="lead"><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a></p>
-
-        <h3>{{data.api.title}}</h3>
-          <p class="lead">{{data.api.text}}<a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api">http://petajakarta.org/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api</a></p>
-
         <h3>{{data.partners.title}}</h3>
           <p class="lead">{{{data.partners.text}}}</p>
-          <img src="/{{site.url-prefix}}/img/ands.jpg" width="200" height="96" alt=""/>
 
         <h3><a name="contact"></a>{{data.contact.title}}</h3>
           <p>{{data.contact.text}}</p>
           <p class="lead">Email: <a href="mailto:info@petajakarta.org">info@petajakarta.org</a><BR>Twitter:
           <a href="https://twitter.com/petajkt" target="_blank">@petajkt</a>
           </p>
-
+        </div>
+        <div class="col-md-4">
+          <div class="well">
+          <p style="margin-bottom:2px;">{{{data.licensing.title}}}</p>
+          <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a></p>
+          {{{data.licensing.text}}}
+          <p style="margin-top:10px; margin-bottom:2px;">{{data.api.title}}</p>
+          {{{data.api.text}}}<a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api">http://petajakarta.org/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api</a>
+          <p style="margin-top:10px; margin-bottom:2px;">{{data.download.title}}</p>
+          {{data.download.text}} <a href="http://smart-metadata.eis.uow.edu.au/geonetwork/srv/eng/search#fast=index&from=1&to=50&keyword=petajakarta.org&any_OR_geokeyword=PetaJakarta.org?bigmap_x=106.8296365&bigmap_y=-6.228544&bigmap_zoom=2&bigmap_visibility_World%20Open%20Street%20Maps=true&bigmap_opacity_World%20Open%20Street%20Maps=1&bigmap_visibility_Feature%20info=true&bigmap_opacity_Feature%20info=1&bigmap_visibility_Search%20results=true&bigmap_opacity_Search%20results=1&minimap_x=106.8296365&minimap_y=-6.228544&minimap_zoom=9&minimap_visibility_World%20Open%20Street%20Maps=true&minimap_opacity_World%20Open%20Street%20Maps=1&minimap_visibility_Search%20results=true&minimap_opacity_Search%20results=1&s_search=&s_E_keyword=petajakarta.org&s_E_any_OR_geokeyword=PetaJakarta.org&s_O_dynamic=false&s_O_download=false&s_O_nodynamicdownload=false&s_scaleOn=false&s_timeType=true&bigmap_x=106.8296365&bigmap_y=-6.228544&bigmap_zoom=4&bigmap_visibility_World%20Open%20Street%20Maps=true&bigmap_opacity_World%20Open%20Street%20Maps=1&bigmap_visibility_Feature%20info=true&bigmap_opacity_Feature%20info=1&bigmap_visibility_Search%20results=true&bigmap_opacity_Search%20results=1&minimap_x=106.8296365&minimap_y=-6.228544&minimap_zoom=9&minimap_visibility_World%20Open%20Street%20Maps=true&minimap_opacity_World%20Open%20Street%20Maps=1&minimap_visibility_Search%20results=true&minimap_opacity_Search%20results=1&s_search=&s_E_keyword=petajakarta.org&s_E_any_OR_geokeyword=PetaJakarta.org&s_O_dynamic=false&s_O_download=false&s_O_nodynamicdownload=false&s_scaleOn=false&s_timeType=true&layerManager_collapsed=false&%23fast=index&from=1&to=50&keyword=petajakarta.org&any_OR_geokeyword=PetaJakarta.org%3F" target="_blank">{{data.download.catalog}}</a>
+          <p style="margin-top:10px; margin-bottom:2px;">{{data.records.title}}</p>
+          {{data.records.text}} <a href="https://researchdata.ands.org.au/petajakartaorg/552178" target="_blank">https://researchdata.ands.org.au/petajakartaorg/552178</a>
+          <img class="img-responsive center-block" src="/{{site.url-prefix}}/img/ands_alpha_background.png" width="200" height="96" alt=""/>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Page footer -->
