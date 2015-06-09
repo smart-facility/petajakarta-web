@@ -65,12 +65,21 @@ module.exports = function(grunt) {
         options: {json: 'banjir/assets/translations/en.json'}
       },
 
+      en_research: {
+        files: {'build/banjir/en/research*.html': 'banjir/assets/templates/research/*.hbs'},
+        options: {json: 'banjir/assets/translations/en.json'}
+      },
+
       in: {
         files: { 'build/banjir/in/*.html': 'banjir/assets/templates/*.hbs'},
         options: { json: 'banjir/assets/translations/in.json' }
       },
       in_data: {
         files: {'build/banjir/in/data/*.html': 'banjir/assets/templates/data/*.hbs'},
+        options: {json: 'banjir/assets/translations/in.json'}
+      },
+      in_research: {
+        files: {'build/banjir/in/research*.html': 'banjir/assets/templates/research/*.hbs'},
         options: {json: 'banjir/assets/translations/in.json'}
       },
     },
@@ -140,7 +149,7 @@ module.exports = function(grunt) {
 
   // Tasks
   grunt.registerTask('assets', ['jshint', 'concat:js', 'uglify:build', 'concat:css', 'cssmin:build', 'copy:images']);
-  grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in', 'staticHandlebars:en_data', 'staticHandlebars:in_data']);
+  grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in', 'staticHandlebars:en_data', 'staticHandlebars:in_data', 'staticHandlebars:en_research', 'staticHandlebars:in_research']);
   grunt.registerTask('server', ['assets', 'site', 'concurrent:server']);
   grunt.registerTask('default', ['assets', 'site']);
   grunt.registerTask('docs', ['jsdoc:dist'])
