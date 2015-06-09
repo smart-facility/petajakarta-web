@@ -52,45 +52,31 @@
     </div>
 
     <div class="container top-navbar-padding">
-      <h1 style="margin-left:13px;">{{data.title}}</h1>
+      <h1 style="margin-left:13px;">PetaJakarta.org - White Paper</h1>
       <div class="row" style="margin-left:0px; margin-right:0px;">
-        <div class="col-md-8">
-        <p class="lead">{{{data.lead}}}</p>
-          <h3>{{data.available}}</h3>
-          <table class="table table-responsive table-hover">
-          <thead>
-            {{#each data.tblData}}
-            <tr>
-              <th>{{hName}}</th>
-              <th>{{hDescription}}</th>
-              <th>{{hType}}</th>
-            </tr>
-          </thead>
-          <tbody>
-              {{#each fields}}
-              <tr>
-                <td><a href="{{url}}">{{name}}</a></td>
-                <td>{{description}}</td>
-                <td>{{type}}</td>
-              </tr>
-              {{/each}}
-          </tbody>
-          {{/each}}
-        </table>
-
-        <h3>{{data.privacy.title}}</h3>
-        <p class="lead">{{data.privacy.text}}</p>
-
-        <h3>{{data.partners.title}}</h3>
-          <p class="lead">{{{data.partners.text}}}</p>
-
-        <h3><a name="contact"></a>{{data.contact.title}}</h3>
-          <p>{{data.contact.text}}</p>
-          <p class="lead">Email: <a href="mailto:info@petajakarta.org">info@petajakarta.org</a><BR>Twitter:
-          <a href="https://twitter.com/petajkt" target="_blank">@petajkt</a>
-          </p>
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-4 col-md-push-8">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Table of Contents</h3>
+            </div>
+            <div class="panel-body" id="toc">
+              <h4>Executive Summary</h4>
+              <h3>1.0 Overview of PetaJakarta.org</h3>
+                <p>1.1 Project Summary</p>
+                <p>1.2 Fluid Geographies of the Coastal Megacity</p>
+                <p>1.3 Infrastructure Overview in Indonesia</p>
+              <h3>2.0 Computational Architectures for Big Crowdsourcing</h3>
+                <p>2.1 GeoSocial Intelligence</p>
+                <p>2.2 CogniCity System Requirements & Design</p>
+                <p>2.3 Technical Specifications</p>
+                <p>2.4 Summary & Recommendations<p>
+              <h3>3.0 Civic Co-management: Citizen Perspectives</h3>
+                <p>3.1 User Experience & Interface</p>
+                <p>3.2 Methods of Engagement</p>
+                <p>3.3 Communication Patterns</p>
+                <p>3.4 Summary & Recommendations</p>
+            </div>
+          </div>
           <div class="well">
           <p style="margin-bottom:2px;">{{{data.licensing.title}}}</p>
           <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a></p>
@@ -104,6 +90,23 @@
           <img class="img-responsive center-block" src="/{{site.url-prefix}}/img/ands_alpha_background.png" width="200" height="96" alt=""/>
           </div>
         </div>
+
+        <div class="col-md-8 col-md-pull-4">
+        <h2>Assessing the Role of Social Media for Civic Co-Management During
+  Monsoon Flooding in Jakarta, Indonesia</h2>
+        <p>Tomas Holderness & Etienne Turpin</p>
+        <p style="font-size:16px;">SMART Infrastructure Facility, University of Wollongong 2015</p>
+        <h3>Executive Summary</h3>
+        <p class="paper">PetaJakarta.org is a research project led by the SMART Infrastructure Facility, University of Wollongong in collaboration with the Jakarta Emergency Management Agency (BPBD DKI Jakarta) and Twitter Inc. The Joint Pilot Study for the project was operationally active from December 2014 to March 2015; during this time, the project enabled Jakarta’s citizens to report the locations of flood events using the social media network Twitter, thereby contributing to a publicly accessible real-time map of flood conditions at PetaJakarta.org. These data were used by BPBD DKI Jakarta to cross-validate formal reports of flooding from traditional data sources, supporting the creation of information for flood assessment, response, and management in real-time. This white paper provides a description of the PetaJakarta.org research project from both citizen and government perspectives and reports on the results of the Joint Pilot Study to evaluate of the project. At the time of publication, the project has entered its second phase—Operational Integration and Technology Transfer—as part of the ongoing collaboration between the SMART Infrastructure Facility, BPBD DKI Jakarta, and Twitter Inc.</p>
+        <p class="lead">{{{data.partners.text}}}</p>
+
+        <h3><a name="contact"></a>{{data.contact.title}}</h3>
+          <p>{{data.contact.text}}</p>
+          <p class="lead">Email: <a href="mailto:info@petajakarta.org">info@petajakarta.org</a><BR>Twitter:
+          <a href="https://twitter.com/petajkt" target="_blank">@petajkt</a>
+          </p>
+        </div>
+
       </div>
     </div>
 
