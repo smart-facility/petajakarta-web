@@ -294,6 +294,10 @@ a:after {
   text-align: justify;
 }
 
+.bib{
+  font-size:18px;
+}
+
 .panel-heading a:hover{
   color: #0AE;
 }
