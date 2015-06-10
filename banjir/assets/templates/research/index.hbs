@@ -42,10 +42,10 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/">{{{navbar.home}}}</a></li>
             <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/map">{{{navbar.map}}}</a></li>
-            <li class="active"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/">{{{navbar.research}}}</a></li>
+            <li class="active"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/research">{{{navbar.research}}}</a></li>
             <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/analytics">{{{navbar.analytics}}}</a></li>
             <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data">{{{navbar.data}}}</a></li>
-            <li><a href="/{{site.url-prefix}}/{{site.other-locale-url-prefix}}/data">[{{{navbar.other-locale}}}]</a></li>
+            <li><a href="/{{site.url-prefix}}/{{site.other-locale-url-prefix}}/research">[{{{navbar.other-locale}}}]</a></li>
           </ul>
         </div>
       </div>
@@ -63,10 +63,12 @@
           <p style="font-size:16px; font-style:italic">Preliminary Copy - Final Release 15th June 2015</p>
         </div>
         <div class="col-md-4">
+          <div class="panel panel-default" style="margin-top:25px;">
+            <div class="panel-body">
           <!--logos-->
           <!--leaders-->
-          <a href="http://smart.uow.edu.au" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/smart_australia_trans.png" width="150" alt=""/ style="margin-top:20px;"></a>
-          <div class="row" style="margin-top:25px; margin-left:0px; margin-right:0px;">
+          <a href="http://smart.uow.edu.au" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/smart_australia_trans.png" width="150" alt=""/></a>
+          <div class="row" style="margin-top:20px; margin-left:0px; margin-right:0px;">
             <div class="col-xs-4">
               <a href="http://www.jakarta.go.id/" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/dki_jayaraya.png" width="100" alt=""/></a>
             </div>
@@ -78,6 +80,8 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
       </div>
       <div class="row" style="margin-left:0px; margin-right:0px;">
         <div class="col-md-4 col-md-push-8">
@@ -112,7 +116,7 @@
                 </h4>
               </div>
               <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                <div class="panel-body" id="toc">
+                <div class="panel-body" id="cover">
                   <p>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
                   <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png"/></a></p>
                   <p>&copy Tomas Holderness & Etienne Turpin, 2015
@@ -158,7 +162,7 @@
           <h3 style="margin-top:0px;">Executive Summary</h3>
         </div>
         <p class="paper">PetaJakarta.org is a research project led by the SMART Infrastructure Facility, University of Wollongong in collaboration with the Jakarta Emergency Management Agency (BPBD DKI Jakarta) and Twitter Inc. The Joint Pilot Study for the project was operationally active from December 2014 to March 2015; during this time, the project enabled Jakarta’s citizens to report the locations of flood events using the social media network Twitter, thereby contributing to a publicly accessible real-time map of flood conditions at PetaJakarta.org. These data were used by BPBD DKI Jakarta to cross-validate formal reports of flooding from traditional data sources, supporting the creation of information for flood assessment, response, and management in real-time. This white paper provides a description of the PetaJakarta.org research project from both citizen and government perspectives and reports on the results of the Joint Pilot Study to evaluate of the project. At the time of publication, the project has entered its second phase—Operational Integration and Technology Transfer—as part of the ongoing collaboration between the SMART Infrastructure Facility, BPBD DKI Jakarta, and Twitter Inc.</p>
-        <div class="thumbnail with-caption col-md-8 col-md-offset-2" style="margin-right: 50%;">
+        <div class="thumbnail with-caption img-responsive col-md-8 col-md-offset-2" style="margin-right: 50%;">
           <img class="img-responsive" src="/{{site.url-prefix}}/img/wp_photo_01.jpg" alt="Photo 01"></img>
           <p>Photo 01. BPBD DKI Jakarta during collaborative workshop at the SMART Infrastructure Facility, University of Wollongong, October 2014.</p>
         </div>
@@ -172,7 +176,7 @@
         <h3>1.0 Overview of PetaJakarta.org</h3>
         </div>
         <p class="paper">In this section, we provide a general overview of the PetaJakarta.org Joint Pilot Study and offer preliminary explanations of the method, software, and relevant infrastructure in Jakarta, Indonesia. While Jakarta is not unique in facing severe flooding during the seasonal monsoon in Asia, it is an ideal case study for the development of open source software to support crowdsourcing of time-critical situational information during extreme weather events. First, Jakarta’s government has embraced social media as a means to communicate with residents; in fact, the Jakarta Emergency Management Agency has a strong mandate to improve communication with the public through social media. Second, the Jakarta government has already actively endorsed and supported the development of open data projects (such as the extensive district mapping conducted by the Humanitarian OpenStreetMap Team, discussed further in section 4.1.3). Third, Jakarta has an extremely high penetration of mobile phone usage, and one of the highest concentrations of Twitter users in the world; because the PetaJakarta.org project relies on densely populated urban environments with high proportions of social media users, Jakarta provides an especially compelling environment for understanding the value of social media in a disaster risk management context. The scalability and transferability of lessons learned from Jakarta is discussed in further detail below (see especially sections 6.1 and 6.2).</p>
-        <div class="thumbnail with-caption col-md-8 col-md-offset-2" style="margin-right: 50%;">
+        <div class="thumbnail with-caption img-responsive  col-md-8 col-md-offset-2" style="margin-right: 50%;">
           <img class="img-responsive" src="/{{site.url-prefix}}/img/wp_photo_02.jpg" alt="Photo 01"></img>
           <p>Photo 02. PetaJakarta.org researchers Ariel Shepherd and Yantri Dewi system testing in Bukit Duri, East Jakarta; February 2014.</p>
         </div>
@@ -180,18 +184,19 @@
         <h4>1.1 Project Summary</h4>
         <p class="subsection">1.1.1 PetaJakarta.org</p>
         <p class="paper">PetaJakarta.org is a world-first Joint Pilot Study initiated by the SMART Infrastructure Facility, University of Wollongong, in collaboration with the Jakarta Emergency Management Agency (BPBD DKI Jakarta) and Twitter Inc. The study aims to research and develop open source software (OSS) for the integrated management of social media and API-sourced data<sup>1</sup> in order to make hazard information open, accessible, and actionable by residents, government agencies, NGOs, and private sector developers. PetaJakarta.org runs on the OSS CogniCity, a framework for urban data collection and management developed by the SMART Infrastructure Facility and the SMART OSGeo Lab; released as OSS, CogniCity can readily be deployed in other urban environments in Indonesia and Southeast Asia facing similar challenges. As rates of urbanization continue to increase in Asia [<a href="#fig01">Fig. 01</a>], it is imperative to develop tools that can facilitate the co-management of increasingly complex urban environments. With more than fourteen megacities located on deltas in the region [<a href="#fig02">Fig. 02</a>], hundreds of millions of urban residents will face difficult challenges due to extreme weather events as a result of climate change (IPCC 2014); using the power of social media to network and validate time-critical situational information offers a key element for resilience to extreme weather events. PetaJakarta.org is the first pilot study to prove the value of integrated social media and API-sourced data for the civic co-management of disasters resulting from extreme weather events in a major Southeast Asian megacity.</p>
+        <!--footnote one-->
+        <p class="paper" style="font-size:12px;"><sup>1</sup>API refers to Application Programming Interface, or the means by which ‘machine-to-machine’ communication occurs between computer programs automatically, without the aid of human agents.</p>
         <a id="fig01" class="anchor"></a>
-        <div class="thumbnail with-caption col-md-8 col-md-offset-2" style="margin-right: 50%;">
+        <div class="thumbnail with-caption img-responsive col-md-8 col-md-offset-2" style="margin-right: 50%;">
           <img class="img-responsive" src="/{{site.url-prefix}}/img/wp_fig01.jpg" alt="Photo 01"></img>
           <p>Fig. 01. Map showing Asia's population.</p>
         </div>
         <p class="paper">The pilot project for CogniCity was sited in Jakarta for several key reasons. Jakarta, with its surrounding conurbation of Jabodatabek, has the highest rate of urbanization in the world and comprises the second-largest contiguous settlement on earth. With a greater metropolitan area hosting 13 rivers, 1100 kilometers of canals, seasonal monsoon flood events, and over 28 million residents, Jakarta is a key case study for the development of improved risk management through new tools and open source software. Open source software solutions are critical in Jakarta because cost-prohibitive private products remain unrealistic as solutions under current budget constraints. In Jakarta, risk information and coordination through open data protocols is critical to support decision-making about disaster response, emergency planning, and community resilience. Furthermore, rich suites of open and accessible geospatial risk data generate activity in NGOs and the private sector, especially for longer term disaster risk management planning tools, such as InaSAFE (developed by the Australian-Indonesian Facility for Disaster Reduction) and economic calculators such as JakSAFE (developed by the World Bank). The development of social media and application-driven data collection via mobile devices allows for unprecedented data collection capacities; in order to be effective, these technologies require coordination through robust, enterprise-grade open source software.</p>
         <p class="paper">BPBD DKI Jakarta is regularly faced with the difficult challenge of anticipating and responding to floods hazards and related extreme weather events in Jakarta. As a research partner, the organization allowed PetaJakarta.org invaluable access to their operations through a process of co-research and institutional ethnography. By carefully studying the operational procedures, concerns, and ambitions of the Agency, the project developed tools that could be integrated effectively into the existing structure of the organization and its various data flowlines, and transferred incrementally over the course of the research collaboration, thereby ensuring an efficient strategy for both development and implementation.</p>
         <p class="paper">Twitter was selected as the ideal social media platform for the Joint Pilot Study because Jakarta has one of the highest concentrations of Twitter users in the world. Additionally, a Twitter #DataGrant gave the research team unprecedented access to a suite of historical data about flooding in Jakarta, thus allowing the system to be developed and calibrated with large data sets, thereby ensuring its operative functionality during the actual monsoon season in 2014-2015. Finally, by working in close collaboration with Twitter, the project benefitted from the advice and mentorship of a group of media experts, engineers, and advocates who were all critical to the overall success of the project.</p>
-        <!--footnote one-->
-        <p class="paper" style="size:10;"><sup>1</sup>API refers to Application Programming Interface, or the means by which ‘machine-to-machine’ communication occurs between computer programs automatically, without the aid of human agents.</p>
+
         <a id="fig02" class="anchor"></a>
-        <div class="thumbnail with-caption col-md-8 col-md-offset-2" style="margin-right: 50%;">
+        <div class="thumbnail with-caption img-responsive col-md-8 col-md-offset-2" style="margin-right: 50%;">
           <img class="img-responsive" src="/{{site.url-prefix}}/img/wp_fig02.jpg" alt="Photo 01"></img>
           <p>Fig. 02. Map showing Megacities in Southeast Asia.</p>
         </div>
@@ -206,7 +211,7 @@
         <p class="paper">The coastal megacity of Jakarta experiences annual flooding during the seasonal monsoon which seriously affects human life, property, and urban infrastructure (Hartono et al. 2010). The city is situated on a coastal deltaic plain served by 13 rivers which flow from the mountains in the south, northwards through the city to the Java sea [<a href="#fig03">Fig. 03</a>]. Over forty percent of the city is at or below sea level, necessitating a complex system of hydraulic and hydrological infrastructure to manage the movement of water through the city (Hartono et al. 2010). The rapid urbanisation and population explosion seen in Jakarta over the past decade (Li 2003) has diminished natural surface infiltration, increased ground subsidence, and added additional stress on the deteriorating hydrological infrastructure, increasing the city’s exposure and vulnerability to flooding (Hallegatte et al. 2013).</p>
         <p class="paper">Importantly, however, flooding can no longer be seen as a “natural” event; as anthropogenic climate change interacts with the urban environment in increasingly unpredictable ways, the complex urban environment and its technical systems for the management of weather-related hazards is as much a part of the monsoon ecology as the precipitation itself. According to the renown philosopher of technology Jean-Luc Nancy (2015: 3-4), “From now on there is an interconnection, an intertwining, even a symbiosis of technologies, exchanges, movements, which makes it so that a flood—for instance—wherever it may occur, must necessarily involve relationships with any number of technical, social, economic, political intricacies that keep us from regarding it simply as a misadventure or a misfortune whose consequences can be more or less easily circumscribed.” Understanding these changing dynamics may mean giving up on expensive, “blackbox” (Townsend 2014: 88) predictive flood models, which have proven ineffective as tools for preparedness and response.</p>
         <a id="fig03" class="anchor"></a>
-        <div class="thumbnail with-caption col-md-8 col-md-offset-2" style="margin-right: 50%;">
+        <div class="thumbnail with-caption img-responsive col-md-8 col-md-offset-2" style="margin-right: 50%;">
           <img class="img-responsive" src="/{{site.url-prefix}}/img/wp_fig03.jpg" alt="Photo 01"></img>
           <p>Fig. 03. Map showing Jakarta and PetaJakarta.org Study Area.</p>
         </div>
@@ -218,7 +223,7 @@
         <h4>1.3 Infrastructure Overview in Indonesia</h4>
         <p class="subsection">1.3.1 Jakarta’s Flood Infrastructure: A General History</p>
         <p class="paper">Seasonal flooding has been a part of life in Jakarta since the seventeenth century. By 1850, the Dutch colonial government finally took action and established the Burgelijke Openbare Werke, a task force responsible for flooding in the colonial city of Batavia. Following the major flood of 1918, an integrated master plan was designed to prevent further flooding; the West Flood Canal was built under the supervision of Prof. Dr. Herman van Breen. Later, under Soekarno’s administration, Waduk Pluit, Waduk Setiabudi, Waduk Tomang and Waduk Grogol were all successfully constructed as part of Kopro Banjir project. Following these infrastructural measures to combat flooding, Soeharto then planned to widen the canal in 1973, but the project failed to launch. Instead, the central government and local governments built the Cengkareng Drainage System as a flood control network that was finished a decade later. Despite these efforts, the flood infrastructure was unable to protect Jakarta as major floods paralyzed the city in 1979, 1996, 1999 and 2002. The Indonesian government, under Megawati’s administration, initiated the East Flood Canal as an extension of the original design by van Breen; its construction was completed under Susilo Bambang Yudhoyono’s government, costing over 4.9 trillion Rupiah (US$ 373 million). Notably, as in many other countries hit by the 1997 financial crisis, Indonesia’s infrastructure has also suffered from underinvestment for over a decade; flood management infrastructure has been seriously affected.</p>
-        <div class="thumbnail with-caption col-md-8 col-md-offset-2" style="margin-right: 50%;">
+        <div class="thumbnail with-caption img-responsive col-md-8 col-md-offset-2" style="margin-right: 50%;">
           <img class="img-responsive" src="/{{site.url-prefix}}/img/wp_photo_03.jpg" alt="Photo 01"></img>
           <p>Photo 03. Children use the pumps in North Jakarta as a playground as water from Jakarta’s rivers is pumped over the seawall into Java Bay; March 2014.</p>
         </div>
@@ -241,7 +246,7 @@
     <div class="container" id="page-foot">
       <hr>
       <div class="row centered">
-        <p class="centered">PetaJakarta.org &copy; 2014 SMART Infrastructure Facility, University of Wollongong</p>
+        <p class="centered">PetaJakarta.org &copy; 2015 SMART Infrastructure Facility, University of Wollongong</p>
       </div>
     </div>
 
