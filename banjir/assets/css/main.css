@@ -216,11 +216,32 @@ a:after {
 
 #toc p {
   font-size: 16px;
+  color: #000;
+}
+
+#toc p:hover {
+  font-size: 16px;
+  color: #0AE;
 }
 
 #toc h3 {
+  font-size: 18px;
+  color: #000;
+}
+
+#toc h3:hover {
+  font-size: 18px;
+  color: #0AE;
+}
+
+#cover p {
   font-size: 16px;
-  font-weight: bold;
+  color: #000;
+}
+
+#cover h3 {
+  font-size: 18px;
+  color: #000;
 }
 
 .subsection{
@@ -233,7 +254,24 @@ a:after {
   text-align: justify;
 }
 
-.anchor{display:block; position: relative; top:90px; visibility: hidden;}
+.panel-heading a:hover{
+  color: #0AE;
+}
+
+.panel-heading a {
+  color: #000;
+}
+
+.panel-heading a:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+    float: right;
+}
+.panel-heading a.collapsed:after {
+    content: "\e080";
+}
+
+.anchor{display:block; position: relative; top:150px; padding-top:2px; visibility: hidden;}
 
 .thumbnail.with-caption {
   display: inline-block;

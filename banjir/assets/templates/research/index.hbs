@@ -55,39 +55,74 @@
       <h1 style="margin-left:13px;">PetaJakarta.org - White Paper</h1>
       <div class="row" style="margin-left:0px; margin-right:0px;">
         <div class="col-md-4 col-md-push-8">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Table of Contents</h3>
-            </div>
-            <div class="panel-body" id="toc">
-              <a href="#executive_summary"><h3>Executive Summary</h3></a>
-              <a href="#1.0"><h3>1.0 Overview of PetaJakarta.org</h3></a>
-                <a href="#1.1"><p>1.1 Project Summary</p></a>
-                <a href="#1.2"><p>1.2 Fluid Geographies of the Coastal Megacity</p>
-                <a href="#1.3"><p>1.3 Infrastructure Overview in Indonesia</p>
-              <a href="#2.0"<h3>2.0 Computational Architectures for Big Crowdsourcing</h3></a>
-                <p>2.1 GeoSocial Intelligence</p>
-                <p>2.2 CogniCity System Requirements & Design</p>
-                <p>2.3 Technical Specifications</p>
-                <p>2.4 Summary & Recommendations<p>
-              <h3>3.0 Civic Co-management: Citizen Perspectives</h3>
-                <p>3.1 User Experience & Interface</p>
-                <p>3.2 Methods of Engagement</p>
-                <p>3.3 Communication Patterns</p>
-                <p>3.4 Summary & Recommendations</p>
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="collapsed">
+                    Table of Contents
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body" id="toc">
+                  <a href="#executive_summary"><h3>Executive Summary</h3></a>
+                  <a href="#1.0"><h3>1.0 Overview of PetaJakarta.org</h3></a>
+                    <a href="#1.1"><p>1.1 Project Summary</p></a>
+                    <a href="#1.2"><p>1.2 Fluid Geographies of the Coastal Megacity</p>
+                    <a href="#1.3"><p>1.3 Infrastructure Overview in Indonesia</p>
+                  <a href="#2.0"><h3>2.0 Computational Architectures for Big Crowdsourcing</h3></a>
+                    <p>2.1 GeoSocial Intelligence</p>
+                    <p>2.2 CogniCity System Requirements & Design</p>
+                    <p>2.3 Technical Specifications</p>
+                    <p>2.4 Summary & Recommendations<p>
+                  <h3>3.0 Civic Co-management: Citizen Perspectives</h3>
+                    <p>3.1 User Experience & Interface</p>
+                    <p>3.2 Methods of Engagement</p>
+                    <p>3.3 Communication Patterns</p>
+                    <p>3.4 Summary & Recommendations</p>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="well">
-          <p style="margin-bottom:2px;">{{{data.licensing.title}}}</p>
-          <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a></p>
-          {{{data.licensing.text}}}
-          <p style="margin-top:10px; margin-bottom:2px;">{{data.api.title}}</p>
-          {{{data.api.text}}}<a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api">http://petajakarta.org/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/api</a>
-          <p style="margin-top:10px; margin-bottom:2px;">{{data.download.title}}</p>
-          {{data.download.text}} <a href="http://smart-metadata.eis.uow.edu.au/geonetwork/srv/eng/search#fast=index&from=1&to=50&keyword=petajakarta.org&any_OR_geokeyword=PetaJakarta.org?bigmap_x=106.8296365&bigmap_y=-6.228544&bigmap_zoom=2&bigmap_visibility_World%20Open%20Street%20Maps=true&bigmap_opacity_World%20Open%20Street%20Maps=1&bigmap_visibility_Feature%20info=true&bigmap_opacity_Feature%20info=1&bigmap_visibility_Search%20results=true&bigmap_opacity_Search%20results=1&minimap_x=106.8296365&minimap_y=-6.228544&minimap_zoom=9&minimap_visibility_World%20Open%20Street%20Maps=true&minimap_opacity_World%20Open%20Street%20Maps=1&minimap_visibility_Search%20results=true&minimap_opacity_Search%20results=1&s_search=&s_E_keyword=petajakarta.org&s_E_any_OR_geokeyword=PetaJakarta.org&s_O_dynamic=false&s_O_download=false&s_O_nodynamicdownload=false&s_scaleOn=false&s_timeType=true&bigmap_x=106.8296365&bigmap_y=-6.228544&bigmap_zoom=4&bigmap_visibility_World%20Open%20Street%20Maps=true&bigmap_opacity_World%20Open%20Street%20Maps=1&bigmap_visibility_Feature%20info=true&bigmap_opacity_Feature%20info=1&bigmap_visibility_Search%20results=true&bigmap_opacity_Search%20results=1&minimap_x=106.8296365&minimap_y=-6.228544&minimap_zoom=9&minimap_visibility_World%20Open%20Street%20Maps=true&minimap_opacity_World%20Open%20Street%20Maps=1&minimap_visibility_Search%20results=true&minimap_opacity_Search%20results=1&s_search=&s_E_keyword=petajakarta.org&s_E_any_OR_geokeyword=PetaJakarta.org&s_O_dynamic=false&s_O_download=false&s_O_nodynamicdownload=false&s_scaleOn=false&s_timeType=true&layerManager_collapsed=false&%23fast=index&from=1&to=50&keyword=petajakarta.org&any_OR_geokeyword=PetaJakarta.org%3F" target="_blank">{{data.download.catalog}}</a>
-          <p style="margin-top:10px; margin-bottom:2px;">{{data.records.title}}</p>
-          {{data.records.text}} <a href="https://researchdata.ands.org.au/petajakartaorg/552178" target="_blank">https://researchdata.ands.org.au/petajakartaorg/552178</a>
-          <img class="img-responsive center-block" src="/{{site.url-prefix}}/img/ands_alpha_background.png" width="200" height="96" alt=""/>
+          <div class="well" id="cover" style="margin-top:10px;">
+            <!--logos-->
+            <a href="http://smart.uow.edu.au" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/smart_australia_trans.png" width="150" alt=""/></a>
+            <div class="row" style="margin-top:25px; margin-left:0px; margin-right:0px;">
+              <div class="col-xs-4">
+                <a href="http://www.jakarta.go.id/" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/dki_jayaraya.png" width="100" alt=""/></a>
+              </div>
+              <div class="col-xs-4">
+                <a href="http://bpbd.jakarta.go.id/" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/bpbd_dki.png" width="100" alt=""/></a>
+              </div>
+              <div class="col-xs-4">
+                <a href="https://twitter.com/" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/twitter_logo_blue.png" width="100" alt=""/></a>
+              </div>
+            </div>
+            <div class="row" style="margin-top:20px; margin-bottom:20px; margin-left:0px; margin-right:0px;">
+              <div class="col-xs-3">
+                <a href="http://smart.uow.edu.au" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/smart_australia.png" width="100" alt=""/></a>
+              </div>
+              <div class="col-xs-3">
+                <a href="http://www.jakarta.go.id/" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/dki_jayaraya.png" width="100" alt=""/></a>
+              </div>
+              <div class="col-xs-3">
+                <a href="http://bpbd.jakarta.go.id/" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/bpbd_dki.png" width="100" alt=""/></a>
+              </div>
+              <div class="col-xs-3">
+                <a href="https://twitter.com/" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/twitter_logo_blue.png" width="100" alt=""/></a>
+              </div>
+            </div>
+            <!--cover matter-->
+            <h3>Document License</h3>
+              <p>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+              <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png"/></a></p>
+              <p>&copy Tomas Holderness & Etienne Turpin, 2015
+              <p>ISBN: 978-1-74128-249-8</p>
+            <h3>Bahasa Indonesia</h3>
+              <p>A Bahasa Indonesian version of this document is currently in preparation; it will be posted soon, thanks for your patience.</p>
+            <h3>Download</h3>
+              <p>A PDF version of this document is currently in preparation; it will be posted soon, thanks for your patience.</p>
           </div>
         </div>
         <!--white paper text-->
@@ -95,7 +130,7 @@
         <h2>Assessing the Role of Social Media for Civic Co-Management During
   Monsoon Flooding in Jakarta, Indonesia</h2>
         <p>Tomas Holderness & Etienne Turpin</p>
-        <p style="font-size:16px;">SMART Infrastructure Facility, University of Wollongong 2015</p>
+        <p style="font-size:16px;">SMART Infrastructure Facility, University of Wollongong</p>
 
         <!--Executive summary-->
         <a id="executive_summary" class="anchor"></a>
@@ -160,6 +195,8 @@
         <p class="paper">The history of investment in flood infrastructure in Jakarta tends to suggest that new infrastructure rarely guarantees a reasonable cost-benefit analysis; research suggests that the government should commit to a thorough analysis of all existing facilities and assets to develop an operational overview in addition to investing in new infrastructure. In the 2014, Regional Budget, the government allocated as little as 0.0153%, or 750 billion IDR, for flood control systems and drainage maintenance. With such little investment in the maintenance of critical flood infrastructure, it is not surprising that before monsoon season of 2012, for example, it was discovered that 141 out of 555 pumps in Jakarta were not operational (Megapolitan). While infrastructure maintenance and asset analysis is a relatively novel science, it is nevertheless critical for the Jakarta government to devote resources to assessments and maintenance in order to determine the current state of flood control infrastructure and to make evidence-based, targeted investments in new facilities that can reduce weak aspects of the current system. Because infrastructure facilities do not exist individually and are highly interdependent (Ebrahimy YEAR; Tran et al. 2014), if one flood management facility does not function properly, any attempt to create new components in the system will be, at best, a guess about how the overall system will respond. Decisions regarding critical flood infrastructure investment should be evidence-based and rely on an understanding of critical interdependencies, energy demands, and an integrated assessment of needs in all related sectors because infrastructure interdependencies bring with them layers of complexity, uncertainty, and risk to urban planning and design (Tran et al. 2014).</p>
         <p class="paper">From one administration to another, the most common approach toward flood infrastructure in Jakarta is to focus on new physical construction. Not only are these ventures capital intensive, but projects with large construction budgets are also prone to corruption (Yanto). Current information and communication technologies (ICT) remain a neglected dimension of flood management infrastructure. With such a high rate of mobile phone penetration, and exceedingly high rates of social media usage, the Jakarta government is well-positioned to encourage greater public participation in infrastructure monitoring and flood event reporting; these elements of civic co-management could help alleviate much of the burden currently carried by the government alone. However, such an approach requires a new vision of infrastructure that goes beyond canals and pumps, and begins to approach the question of flood management from a holistic view that includes ICT and public utilities for flood reporting.</p>
         <p class="paper">Related to ICT, open data allows universal participation where data is available as a whole and and at no more than a reasonable reproduction cost. By providing data under terms that permit reuse and redistribution, including intermixing with other datasets, citizen-users, student and advocacy groups, and private developers can generate new tools for information management within the application economy. One excellent example of a government innovation to promote open data is the recently released SmartCity Jakarta website, with its applications Qlue (public) and Crop (government use only). Further investment in projects like SmartCity Jakarta, and the API-enabled data they produce, would be a welcome element to the disaster risk management ecosystem.</p>
+        <h4 clss="subsection">Contributing Researchers</h4>
+        <p>Matthew Berryman, Rodney Clark, Sara Dean, Yantri Dewi, Olivia Dun, Ben Jones, Mohammad Kamil, Robert Ogie, Rhys Powell, Mary O’Malley, Milly Matthews-Mulroy, Alifa Rachmadia Putri, Widya Ramadhani, Frank Sedlar, Ariel Shepherd, Fitria Sudirman, Rohan Wickramasuriya and Albert Yang.</p>
         <h3><a name="contact"></a>{{data.contact.title}}</h3>
           <p>{{data.contact.text}}</p>
           <p class="lead">Email: <a href="mailto:info@petajakarta.org">info@petajakarta.org</a><BR>Twitter:
