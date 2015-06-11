@@ -19,6 +19,8 @@
     <!-- Site stylesheet -->
     <link href="/{{site.url-prefix}}/css/application.min.css" rel="stylesheet">
 
+
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -50,6 +52,20 @@
         </div>
       </div>
     </div>
+
+    <!--image modal-->
+    <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <p class="modal-header"></p>
+         <div class="modal-body">
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         </div>
+       </div><!-- /.modal-content -->
+     </div><!-- /.modal-dialog -->
+   </div><!-- /.modal -->
 
     <div class="container top-navbar-padding">
       <div class="row" style="margin-left:0px; margin-right:0px;">
@@ -162,10 +178,15 @@
           <h3 style="margin-top:0px;">Executive Summary</h3>
         </div>
         <p class="paper">PetaJakarta.org is a research project led by the SMART Infrastructure Facility, University of Wollongong in collaboration with the Jakarta Emergency Management Agency (BPBD DKI Jakarta) and Twitter Inc. The Joint Pilot Study for the project was operationally active from December 2014 to March 2015; during this time, the project enabled Jakarta’s citizens to report the locations of flood events using the social media network Twitter, thereby contributing to a publicly accessible real-time map of flood conditions at PetaJakarta.org. These data were used by BPBD DKI Jakarta to cross-validate formal reports of flooding from traditional data sources, supporting the creation of information for flood assessment, response, and management in real-time. This white paper provides a description of the PetaJakarta.org research project from both citizen and government perspectives and reports on the results of the Joint Pilot Study to evaluate of the project. At the time of publication, the project has entered its second phase—Operational Integration and Technology Transfer—as part of the ongoing collaboration between the SMART Infrastructure Facility, BPBD DKI Jakarta, and Twitter Inc.</p>
-        <div class="thumbnail with-caption img-responsive col-md-8 col-md-offset-2" style="margin-right: 50%;">
-          <img class="img-responsive" src="/{{site.url-prefix}}/img/wp_photo_01.jpg" alt="Photo 01"></img>
-          <p>Photo 01. BPBD DKI Jakarta during collaborative workshop at the SMART Infrastructure Facility, University of Wollongong, October 2014.</p>
-        </div>
+          <!--<div class="col-md-8 col-md-offset-2">-->
+          <a href="#">
+            <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+              <img src="/{{site.url-prefix}}/img/wp_photo_01.jpg" alt="Photo 01" style="width:100%"></img>
+              <p>Photo 01. BPBD DKI Jakarta during collaborative workshop at the SMART Infrastructure Facility, University of Wollongong, October 2014.</p>
+            </div>
+          </a>
+          <!--</div>-->
+
         <p class="paper">Through its integration in BPBD DKI Jakarta’s existing disaster risk management (DRM) information ecosystem, the PetaJakarta.org project has proven the value and utility of social media as a mega-city methodology for crowd-sourcing relevant situational information to aid in decision-making and response coordination during extreme weather events. PetaJakarta.org is a promising evolution within the DRM information ecosystem because it leverages both the inherent capabilities within ubiquitous mobile devices (i.e. GNSS-enabled messaging) and the network capabilities of social media through free and open source software (FOSS) to provide validated and actionable information for citizens and government agencies, thereby improving situational knowledge and increasing response times in disaster scenarios. To maintain resilience within this information ecosystem, the study emphasizes the need for access to data via open application programming interfaces (APIs), which enable the integration of vulnerability information and potential hazard exposure to facilitate integrated risk evaluation and assessment.</p>
         <p class="paper">For residents of Jakarta, PetaJakarta.org enabled autonomous users to make independant decisions on safey and navigation in response to the flood in real-time, thereby helping increase the resilience of the city’s residents to flooding and its attendant difficulties. Critically, this outcome was achieved using the same data and map that was used by the government; designing the platform to meet the needs of citizen-users and government agencies enables and promotes civic co-management as a strategy for climate adaptation. This social strategy is underpinned by the open source software CogniCity, a framework for urban data that anyone is free to inspect, download, and redesign; this open source ethos and the transparency it facilitates was critical to the success of the Joint Pilot Study.</p>
         <p class="paper">PetaJakarta.org has demonstrated social media’s valuable niche within the disaster risk management information ecosystem; as an operational tool capable of providing decision support at the various spatial and temporal scales required by the different actors within city, PetaJakarta.org offers an innovative and inexpensive method for the crowdsourcing of time-critical situational information in disaster scenarios.</p>
@@ -275,6 +296,7 @@
         <!--Walsh-->
         <!--Paar & Rekittke 2011-->
         <!--Rosenzweig 2011-->
+        <!--Townsend 2014 & 2013-->
     </div><!--text column-->
 
 
@@ -328,5 +350,27 @@
           }).resize();
       });
     </script>
+
+    <script>
+    $(document).ready(function(){
+        $('.thumbnail img').on('click',function(){
+             var src = $(this).attr('src');
+             var img = '<img src="' + src + '" class="img-responsive"/>';
+             var caption = $(this).attr('alt')
+             $('#imgModal').modal();
+             $('#imgModal').on('shown.bs.modal', function(){
+                $('#imgModal .modal-header').html(caption);
+                $('#imgModal .modal-body').html(img);
+
+             });
+             $('#imgModal').on('hidden.bs.modal', function(){
+                 $('#imgModal .modal-body').html('');
+             });
+        });
+     })
+    </script>
+
+
+
   </body>
 </html>
