@@ -128,9 +128,8 @@
                   <a href="#appendicies"><h3>Appendicies</h3></a>
                     <a href="#Appendix1"><p>Appendix I. CogniCity Software References</p></a>
                     <a href="#Appendix2"><p>Appendix II. Listing of Tables in CogniCity Database</p></a>
-
-
-
+                    <a href="#Appendix3"><p>Appendix III. Listing of Data API Endpoints in CogniCity Server</p></a>
+                    <a href="#Appendix3"><p>Appendix IV. PetaJakarta.org Major Open Data Collection References</p></a>
                 </div>
               </div>
             </div>
@@ -434,7 +433,7 @@
         <p class="paper">As described in Section 2.2 above, the system testing from February 2014 showed 5,000 tweets over a single day which could potentially be classified as unconfirmed reports, albeit with the six keywords, instead of only “flood” and “banjir” as used for the 2014/2015 monsoon season. To assess the CogniCity Reports module prior to deployment, the system was load-tested using both data from the Twitter #DataGrant and Twitter PowerTrack. At maximum throughput, CogniCity is capable of handling up to 250 tweets per second, with the complete processing of each tweet including classification, writing to the database, and sending of automated replies taking 30 milliseconds, although these values are subject to the platform on which CogniCity is deployed operationally. During operation, errors such as disconnections from the PowerTrack API or the database server are logged and the module attempts to reconnect at specified intervals. Within a five minute window, any missing data is recovered using the PowerTrack backfill functionality, and loss of connection to the CogniCity database results in internal caching in CogniCity Reports until the database connection is restored. Any exceptions which go unhandled result in a notification Tweet being sent to the CogniCity system administrators.</p>
         <p class="subsection">2.3.3 CogniCity Server Module and Database Design</p>
         <p class="paper">The server module is a custom NodeJS application tasked with providing the API-based data on the reports stored in the CogniCity database. The server module also serves the static components of the client interface (i.e. the PetaJakarta.org website), using the Express framework within NodeJS.</p>
-        <p class="paper">The server module provides access to three groups of data across nine API endpoints [Appendix III]. The reports endpoint provides real-time (i.e. last hour) listing of confirmed and unconfirmed reports, and their geolocation metadata. The aggregates endpoint provides real-time counts of the sum of confirmed and unconfirmed reports from the past one, three, six or 24 hour periods at three different municipal scales. The municipal scale is specified by the client when requesting data and includes the city scale (i.e. the five cities of Jakarta), sub-district scale (i.e. ‘Kecamatan’), village scale (i.e. ‘Kelurahan’), and RW scale (‘Rukun-Warga’). Lastly, the infrastructure endpoint provides access to data representing the location of waterways, pumps, and floodgates in Jakarta, used by PetaJakarta.org as contextual support for the real-time flood map. CogniCity serves the endpoints under the domain of the web interface (i.e. PetaJakarta.org). For example, to access counts of reports from the last hour, the client makes a request to the following URL <a href="http://petajakarta.org/banjir/data/api/v1/aggregates/live" target="_blank">http://petajakarta.org/banjir/data/api/v1/aggregates/live</a>. For references to complete API documentation for each of the endpoints, consult Appendix III.</p>
+        <p class="paper">The server module provides access to three groups of data across nine API endpoints [<a href="#appendix3">Appendix III</a>]. The reports endpoint provides real-time (i.e. last hour) listing of confirmed and unconfirmed reports, and their geolocation metadata. The aggregates endpoint provides real-time counts of the sum of confirmed and unconfirmed reports from the past one, three, six or 24 hour periods at three different municipal scales. The municipal scale is specified by the client when requesting data and includes the city scale (i.e. the five cities of Jakarta), sub-district scale (i.e. ‘Kecamatan’), village scale (i.e. ‘Kelurahan’), and RW scale (‘Rukun-Warga’). Lastly, the infrastructure endpoint provides access to data representing the location of waterways, pumps, and floodgates in Jakarta, used by PetaJakarta.org as contextual support for the real-time flood map. CogniCity serves the endpoints under the domain of the web interface (i.e. PetaJakarta.org). For example, to access counts of reports from the last hour, the client makes a request to the following URL <a href="http://petajakarta.org/banjir/data/api/v1/aggregates/live" target="_blank">http://petajakarta.org/banjir/data/api/v1/aggregates/live</a>. For references to complete API documentation for each of the endpoints, consult <a href="#appendix3">Appendix III</a>.</p>
         <p class="paper">Apart from the report-count and report-time series endpoints, all endpoints provide data in the GeoJSON format by default. This provides the data in a format which is readable by the PetaJakarta.org map library LeafletJS and by the open source GIS platform QGIS used by BPBD DKI Jakarta. Optionally, the client can request the data in the TopoJSON format, which is a compressed representation of GeoJSON data. TopoJSON reduces data volume by employing a topological representation to minimise the number of geometric vertices and edges which are required to represent vector geometries. PetaJakarta.org used the TopoJSON library to compress geometries served by the data API, which are then uncompressed (converted back to GeoJSON) on the client. During testing, the TopoJSON format reduced data volumes by 85% and associated data transfer speeds by a third, helping to improve performance of PetaJakarta.org, especially on mobile devices.</p>
         <p class="paper">To further improve responsiveness of the map when loading data, each of the endpoint requests is cached in computer memory by the CogniCity server application for sixty seconds. This ensures that users are provided with data in real-time, which is no more than sixty seconds old, but reduces the number of individual database queries executed if a large number of users logon to PetaJakarta.org simultaneously. This architecture is particularly relevant for the aggregates layers, which are computed on-the-fly after a request to an aggregates endpoint is received in order to reduce database volume. Whilst this creates increased workload for the database, it reduces database size, removes the need for periodic calculations of aggregates, and ensures that the aggregates data is real-time. The spatial computation of how many tweets are within a specific municipal district at a given time is achieved using a spatial SQL query embedded within the server module. The query uses the PostGIS function ‘ST_Within’ to aggregate and count tweets in the reports and unconfirmed reports tables, with the polygon table of the municipal district scale requested [see Appendix II for listing of CogniCity Database tables]. The process is optimised by employing a Generalized Search Tree (“GIST”) Index on the geometry column for all spatial tables in the database. Furthermore, the unique ID for each polygon geometry at the RW scale is the same primary key system used by BPBD DKI Jakarta, ensuring inter-operability for PetaJakarta.org data with applications within the existing DRM information ecosystem in Jakarta, such as the InaSAFE planning tool, built by AIFDR. As such, the PetaJakarta.org aggregate layers, generated by CogniCity, could be used as hazard exposure layers for future flood mitigation and adaption planning in Jakarta.</p>
         <p class="subsection">2.3.4 PetaJakarta.org Map Interface</p>
@@ -497,7 +496,7 @@
 
 
         <p class="subsection">2.3.5 Metadata Records and the PetaJakarta.org Major Open Data Collection</p>
-        <p class="paper">The PetaJakarta.org Major Open Data Collection (MODC) is an initiative supported by the Australian National Data Service (ANDS). In addition to provision of the data via the CogniCity API at PetaJakarta.org, an archive of data from the 2014/2015 monsoon season is available under an open license to support further research. The MODC compliments the open source ethos of CogniCity and includes the aggregate counts of confirmed and unconfirmed reports at the ‘Rukun-Warga’ (RW) scale in hourly intervals, as well as the layers representing Jakarta’s hydrological network. As shown in <a href="#fig05">Fig. 05</a>, these data and their metadata are held in the University of Wollongong institutional repository, referenced by unique digital object identifiers (DOIs). Corresponding records for the data are kept in the National Library of Australia and the Research Data Australia Portal. Appendix IV contains further details of the metadata and links to their records.</p>
+        <p class="paper">The PetaJakarta.org Major Open Data Collection (MODC) is an initiative supported by the Australian National Data Service (ANDS). In addition to provision of the data via the CogniCity API at PetaJakarta.org, an archive of data from the 2014/2015 monsoon season is available under an open license to support further research. The MODC compliments the open source ethos of CogniCity and includes the aggregate counts of confirmed and unconfirmed reports at the ‘Rukun-Warga’ (RW) scale in hourly intervals, as well as the layers representing Jakarta’s hydrological network. As shown in <a href="#fig05">Fig. 05</a>, these data and their metadata are held in the University of Wollongong institutional repository, referenced by unique digital object identifiers (DOIs). Corresponding records for the data are kept in the National Library of Australia and the Research Data Australia Portal. <a href="#appendix4">Appendix IV</a> contains further details of the metadata and links to their records.</p>
 
         <!--2.4-->
         <a id="2.4" class="anchor"></a>
@@ -792,7 +791,7 @@
         <!--Rosenzweig 2011-->
         <!--Townsend 2014 & 2013-->
 
-        <!--3.0-->
+        <!--Appendicies-->
         <a id="appendicies" class="anchor"></a>
         <div class="page-header">
         <h3>Appendicies</h3>
@@ -834,7 +833,11 @@
                 </tbody>
               </table>
             </div>
+            <div class="panel-heading">
+              <div class="paper" style="font-size:14px;">[1] CogniCity Software References</p></div>
+            </div>
       </div>
+
 
       <a id="appendix2" class="anchor"></a>
       <h4>Appendix II. Listing of Tables in CogniCity Database</h4>
@@ -907,7 +910,168 @@
               </tbody>
             </table>
           </div>
+          <div class="panel-heading">
+            <div class="paper" style="font-size:14px;">[1] Tables in the CogniCity Database</p></div>
+          </div>
     </div>
+
+    <a id="appendix3" class="anchor"></a>
+    <h4>Appendix III. Listing of Data API Endpoints in CogniCity Server</h4>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>CogniCity API Endpoint</th>
+                <th>Description</th>
+                <th>Data</th>
+                <th>Temporal Extent</th>
+                <th>Spatial Extent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>reports/confirmed</td>
+                <td>Real-time listing of confirmed flood reports</td>
+                <td>Point geometries + message</td>
+                <td>1 hour</td>
+                <td>Jakarta + surrounds</td>
+              </tr>
+              <tr>
+                <td>reports/unconfirmed</td>
+                <td>Real-time listing of unconfirmed flood reports</td>
+                <td>Point geometries</td>
+                <td>1 hour</td>
+                <td>Jakarta + surrounds</td>
+              </tr>
+              <tr>
+                <td>reports/count</td>
+                <td>Real-time sum count of all reports</td>
+                <td>Count</td>
+                <td>1, 3, 6, or 24 hours</td>
+                <td>n/a</td>
+              </tr>
+              <tr>
+                <td>reports/timeseries</td>
+                <td>Real-time sum count of all reports at hourly intervals</td>
+                <td>Timestamps + count</td>
+                <td>24 hours</td>
+                <td>n/a</td>
+              </tr>
+              <tr>
+                <td>aggregates/live</td>
+                <td>Real-time count of all reports by municipal area</td>
+                <td>Polygon geometries + count</td>
+                <td>1, 3, 6, or 24 hours</td>
+                <td>Jakarta</td>
+              </tr>
+              <tr>
+                <td>aggregates/archive</td>
+                <td>Archive of previous counts of all reports by municipal area</td>
+                <td>Polygon geometries + timestamp + count</td>
+                <td>Archive extents in 1 hour blocks</td>
+                <td>Jakarta</td>
+              </tr>
+              <tr>
+                <td>infrastructure/waterways</td>
+                <td>Waterways in Jakarta</td>
+                <td>Linestring geometry + name</td>
+                <td>n/a</td>
+                <td>Jakarta + surrounds</td>
+              <tr>
+                <td>infrastructure/pumps</td>
+                <td>Water pumps in Jakarta</td>
+                <td>Point geometry + name</td>
+                <td>n/a</td>
+                <td>Jakarta + surrounds</td>
+              </tr>
+              <tr>
+                <td>infrastructure/floodgates</td>
+                <td>Floodgates in Jakarta</td>
+                <td>Point geometry + name</td>
+                <td>n/a</td>
+                <td>Jakarta + surrounds</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-heading">
+          <div class="paper" style="font-size:14px;">[1] CogniCity Server Data API Endpoints</p></div>
+        </div>
+      </div>
+
+      <a id="appendix4" class="anchor"></a>
+      <h4>Appendix IV. PetaJakarta.org Major Open Data Collection References</h4>
+      <p class="paper">The table below provides information on the PetaJakarta.org Major Open Data Collection (MODC). The PetaJakarta.org MODC project was supported by the Australian National Data Service (ANDS). ANDS is supported by the Australian Government through the National Collaborative Research Infrastructure Strategy Program. For further information see: <a href="http://petajakarta.org/banjir/en/data/" target="_blank">http://petajakarta.org/banjir/en/data/</a></p>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Site</th>
+                  <th>Reference</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Australian National Data Service</td>
+                  <td><a href="https://projects.ands.org.au/id/MODC15" target="_blank">https://projects.ands.org.au/id/MODC15</a></td>
+                </tr>
+                <tr>
+                  <td>Research Data Australia</td>
+                  <td><a href="https://researchdata.ands.org.au/petajakartaorg/552178" target="_blank">https://researchdata.ands.org.au/petajakartaorg/552178</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <div class="panel-heading">
+          <div class="paper" style="font-size:14px;">[1] PetaJakarta.org MODC Project Information</p></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <table class="table table-bordered" style="font-size:14px;">
+            <thead>
+              <tr>
+                <th>Dataset</th>
+                <th>Digital Object Identifier</th>
+                <th>National Library of Australia Reference</th>
+                <th>PetaJakarta.org Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Twitter Activity Aggregates</td>
+                <td><a href="http://doi.org/10.4225/48/5539d13f4a007" target="_blank">10.4225/48/5539d13f4a007</a></td>
+                <td><a href="http://trove.nla.gov.au/version/211576468" target="_blank">http://trove.nla.gov.au/version/211576468</a></td>
+                <td><a href="http://petajakarta.org/banjir/en/data/aggregates/" target="_blank">http://petajakarta.org/banjir/en/data/aggregates/</a></td>
+              </tr>
+              <tr>
+                <td>Waterways in Jakarta</td>
+                <td><a href="http://doi.org/10.4225/48/5539d1a7ba7fa" target="_blank">10.4225/48/5539d1a7ba7fa</a></td>
+                <td><a href="http://trove.nla.gov.au/version/211576469" target="_blank">http://trove.nla.gov.au/version/211576469</a></td>
+                <td><a href="http://petajakarta.org/banjir/en/data/waterways/" target="_blank">http://petajakarta.org/banjir/en/data/waterways/</a></td>
+              </tr>
+              <tr>
+                <td>Floodgates & Pumps in Jakarta</td>
+                <td><a href="http://doi.org/10.4225/48/5539cf9cb63d6" target="_blank">10.4225/​48/​5539cf9cb63d6</a></td>
+                <td><a href="http://trove.nla.gov.au/version/211576465" target="_blank">http://trove.nla.gov.au/version/211576468</a></td>
+                <td><a href="http://petajakarta.org/banjir/en/data/pumps/" target="_blank">http://petajakarta.org/banjir/en/data/pumps/</a><BR><BR>
+                    <a href="http://petajakarta.org/banjir/en/data/floodgates/" target="_blank">http://petajakarta.org/banjir/en/data/floodgates/</a></td>
+              </tr>
+              <tr>
+                <td>Hydrological Infrastructure Network for Jakarta</td>
+                <td><a href="http://doi.org/10.4225/48/5539cf53518ae" target="_blank">10.4225/​48/​5539cf53518ae</a></td>
+                <td><a href="http://trove.nla.gov.au/version/211576467" target="_blank">http://trove.nla.gov.au/version/211576467</a></td>
+                <td>n/a</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <div class="panel-heading">
+        <div class="paper" style="font-size:14px;">[2] PetaJakarta.org MODC Dataset Information</p></div>
+      </div>
+  </div>
 
     </div><!--text column-->
 
