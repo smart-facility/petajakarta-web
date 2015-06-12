@@ -336,6 +336,23 @@ a:after {
   color: #999;
 }
 
+/*Squares*/
+.square {
+    float:left;
+    position: relative;
+    width: 48%;
+    padding-bottom: 48%; /* = width for a 1:1 aspect ratio */
+    margin:1%;
+    overflow:hidden;
+}
+
+.content {
+    position:absolute;
+    height:100%; /* = 100% - 2*10% padding */
+    width:100%; /* = 100% - 2*5% padding */
+    padding: 0% 0%;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 
