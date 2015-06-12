@@ -118,7 +118,19 @@
                     <a href="#2.1"><p>2.1 GeoSocial Intelligence</p></a>
                     <a href="#2.2"><p>2.2 CogniCity System Requirements & Design</p></a>
                     <a href="#2.3"><p>2.3 Technical Specifications</p></a>
+                  <a href="#3.0"><h3>3.0 Civic Co-Management: Citizen Perspectives</h3></a>
+                    <a href="#3.1"><p>3.1 User Experience & Interface</p></a>
+                    <a href="#3.2"><p>3.2 Methods of Engagement</p></a>
+                    <a href="#3.3"><p>3.3 Comunication Patterns: Overview</p></a>
+                    <a href="#3.4"><p>3.4 Tweet Typology</p></a>
+                    <a href="#3.5"><p>3.5 Summary & Recommendations</p></a>
                   <a href="#bib"><h3>References</h3></a>
+                  <a href="#appendicies"><h3>Appendicies</h3></a>
+                    <a href="#Appendix1"><p>Appendix I. CogniCity Software References</p></a>
+                    <a href="#Appendix2"><p>Appendix II. Listing of Tables in CogniCity Database</p></a>
+
+
+
                 </div>
               </div>
             </div>
@@ -247,7 +259,7 @@
         </div>
 
         <p class="subsection">1.2.2 Regional Perspectives on Flood Management</p>
-        <p class="paper">Cities are constantly evolving into more complex systems of interconnected infrastructure and people; as a consequence, many coastal cities become increasingly vulnerable to the impacts of severe weather events and global climate change (<a href="#Walsh2011">Walsh et al. 2011</a>). Insight into the resilience of these urban systems and the effects of failing infrastructure in such events is crucial to the understanding of a city’s ability to adapt to climate change (<a href="Rosenzweig2011">Rosenzweig 2011</a>). This knowledge is particularly significant in the developing nations of Southeast Asia, which are expected to experience the greatest impacts of climate change, yet are often unable to make informed, evidence-based decisions concerning infrastructure and urban planning due to a lack of resources and an absence of reliable or consistent data (<a href="#Paar2011">Paar & Rekittke 2011</a>).</p>
+        <p class="paper">Cities are constantly evolving into more complex systems of interconnected infrastructure and people; as a consequence, many coastal cities become increasingly vulnerable to the impacts of severe weather events and global climate change (<a href="#Walsh2011">Walsh et al. 2011</a>). Insight into the resilience of these urban systems and the effects of failing infrastructure in such events is crucial to the understanding of a city’s ability to adapt to climate change (<a href="Rosenzweig2011">Rosenzweig 2011</a>). This knowledge is particularly significant in the developing nations of Southeast Asia, which are expected to experience the greatest impacts of climate change (<a href="#IPCC2014">IPCC 2014</a>), yet are often unable to make informed, evidence-based decisions concerning infrastructure and urban planning due to a lack of resources and an absence of reliable or consistent data (<a href="#Paar2011">Paar & Rekittke 2011</a>).</p>
         <p class="subsection">1.2.3 Regional Perspectives on Social Media</p>
         <p class="paper">The rise of social media platforms has taken city planners by surprise because these technologies not only provide unprecedented volumes of data relevant to the analysis of urban systems, but, more fundamentally, they change the way residents interact with each other and with the city at large (<a href="Townsend2014">Townsend 2014</a>). As first adopters continue to expedite the uptake of social media in Asian megacities, it is imperative to understand how to best harness the power of networked communication technologies to overcome urban challenges that result from climate change. Because geospatial information derived from social media is especially valuable and actionable within dense urban environments with a high proportion of networked users, Asian megacities facing the combined challenge of rapid development and climate change are critical sites for the development of new OSS that can turn the noise of social media into intelligent, actionable insights for users and governments alike.</p>
 
@@ -327,7 +339,7 @@
               </table>
             </div>
          <div class="panel-footer">
-           Table 01. Results of System Testing for twenty-four hours from 5th February 2014 20:00 (local time).
+           <p style="font-size:14px;">Table 01. Results of System Testing for twenty-four hours from 5th February 2014 20:00 (local time).</p>
         </div>
       </div>
 
@@ -375,7 +387,7 @@
         <a id="2.3" class="anchor"></a>
         <h4>2.3 Technical Specifications</h4>
 
-        <p class="paper">CogniCity is organised into four components [<a href="#fig07">Fig. 07</a>]; the ‘Reports’ module is responsible for collecting data from Twitter and sending invitation tweets. The ‘Server’ module provides the real-time data API, and serves the third component, the ‘Client Interface’ (PetaJakarta.org), which provides access and visualisation to the data. The final component is the CogniCity database, which underpins the entire CogniCity software stack. The database runs on the open source PostgreSQL object-relational database management system and uses the PostGIS extension to support geospatial data, including the locations of Tweet reports. For the 2014/2015 monsoon season, the reports module, the server module, and the database were deployed operationally in the cloud using Amazon Web Services. All of the cloud instances were located in Amazon’s Singapore datacentre to reduce latency for the target audience located in Jakarta. The following section describes each of the modules and their technical specifications. Following this, Section 2.3.5 provides an overview of the corresponding metadata catalogue, and the PetaJakarta.org Major Open Data Collection from the data collected during the 2014/2015 monsoon season. References for CogniCity’s source code and documentation are included in Appendix I.</p>
+        <p class="paper">CogniCity is organised into four components [<a href="#fig07">Fig. 07</a>]; the ‘Reports’ module is responsible for collecting data from Twitter and sending invitation tweets. The ‘Server’ module provides the real-time data API, and serves the third component, the ‘Client Interface’ (PetaJakarta.org), which provides access and visualisation to the data. The final component is the CogniCity database, which underpins the entire CogniCity software stack. The database runs on the open source PostgreSQL object-relational database management system and uses the PostGIS extension to support geospatial data, including the locations of Tweet reports. For the 2014/2015 monsoon season, the reports module, the server module, and the database were deployed operationally in the cloud using Amazon Web Services. All of the cloud instances were located in Amazon’s Singapore datacentre to reduce latency for the target audience located in Jakarta. The following section describes each of the modules and their technical specifications. Following this, Section 2.3.5 provides an overview of the corresponding metadata catalogue, and the PetaJakarta.org Major Open Data Collection from the data collected during the 2014/2015 monsoon season. References for CogniCity’s source code and documentation are included in <a href="#appendix1">Appendix I</a>.</p>
 
         <!--Figure 07-->
         <a id="fig07" class="anchor"></a>
@@ -453,22 +465,22 @@
         <div class="thumbnail with-caption">
           <div class="square">
             <div class="content">
-              <a href="#responsive"><img class="img-responsive" style="border:1px solid gray;" src="/{{site.url-prefix}}/img/wp_fig12a.jpg" alt="Fig. 12 (a). Visualisation of the PetaJakarta.org Desktop User Interface at the City Scale"></a>
+              <a href="#responsive"><img class="img-responsive" style="border:1px solid gray;" src="/{{site.url-prefix}}/img/wp_fig12a.jpg" alt="Fig. 12 (a). Visualisation of the PetaJakarta.org Desktop User Interface at the City Scale."></a>
             </div>
           </div>
           <div class="square">
             <div class="content">
-              <a href="#responsive"><img class="img-responsive" style="border:1px solid gray;" src="/{{site.url-prefix}}/img/wp_fig12b.jpg" alt="Fig. 12 (b). Visualisation of the PetaJakarta.org Desktop User Interface at the District Scale"></a>
+              <a href="#responsive"><img class="img-responsive" style="border:1px solid gray;" src="/{{site.url-prefix}}/img/wp_fig12b.jpg" alt="Fig. 12 (b). Visualisation of the PetaJakarta.org Desktop User Interface at the District Scale."></a>
             </div>
           </div>
           <div class="square">
             <div class="content">
-              <a href="#responsive"><img class="img-responsive" style="border:1px solid gray;" src="/{{site.url-prefix}}/img/wp_fig12c.jpg" alt="Fig. 12 (c). Visualisation of the PetaJakarta.org Desktop User Interface at the Neighbourhood Scale"></a>
+              <a href="#responsive"><img class="img-responsive" style="border:1px solid gray;" src="/{{site.url-prefix}}/img/wp_fig12c.jpg" alt="Fig. 12 (c). Visualisation of the PetaJakarta.org Desktop User Interface at the Neighbourhood Scale."></a>
             </div>
           </div>
           <div class="square">
             <div class="content">
-              <a href="#responsive"><img class="img-responsive" style="border:1px solid gray;" src="/{{site.url-prefix}}/img/wp_fig12d.jpg" alt="Fig. 12 (d). Visualisation of the PetaJakarta.org Desktop User Interface at the Street Scale"></a>
+              <a href="#responsive"><img class="img-responsive" style="border:1px solid gray;" src="/{{site.url-prefix}}/img/wp_fig12d.jpg" alt="Fig. 12 (d). Visualisation of the PetaJakarta.org Desktop User Interface at the Street Scale."></a>
             </div>
           </div>
           <p class="paper">Fig. 12. Visualisation of the PetaJakarta.org Desktop User Interface, Showing the Map at the City, District, Neighbourhood and Street Scale.</p>
@@ -502,7 +514,7 @@
         <!--Figure 14.-->
         <a id="fig14" class="anchor"></a>
         <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
-          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig12.png" alt="Fig. 14. PetaJakarta.org Launch Event Invitation." style="width:100%"></img></a>
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig14.png" alt="Fig. 14. PetaJakarta.org Launch Event Invitation." style="width:100%"></img></a>
           <p>Fig. 14. PetaJakarta.org Launch Event Invitation.</p>
         </div>
 
@@ -510,92 +522,215 @@
         <h4>3.1 User Experience & Interface</h4>
 
         <p class="subsection">3.1.1 Branding</p>
-        <p class="paper">In developing the PetaJakarta.org brand as the public face of the project, it was important to ensure that the interface and map were presented as community-owned, rather than as a government product or academic research tool. This concern is directly related to the open source and open data ethos of the project; moreover, because the platform relied on public adoption, it needed to not only operate as a transparent, community-centric information sharing platform, but had to also feel like a community platform [Figs. 14 & 15].</p>
+        <p class="paper">In developing the PetaJakarta.org brand as the public face of the project, it was important to ensure that the interface and map were presented as community-owned, rather than as a government product or academic research tool. This concern is directly related to the open source and open data ethos of the project; moreover, because the platform relied on public adoption, it needed to not only operate as a transparent, community-centric information sharing platform, but had to also feel like a community platform [Figs. <a href="#fig14">14</a> & <a href="#fig15">15</a>].</p>
 
         <!--Figure 15-->
+        <a id="fig15" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig15.jpg" alt="Fig. 15. PetaJakarta.org Launch Poster." style="width:100%"></img></a>
+          <p>Fig. 15. PetaJakarta.org Launch Poster.</p>
+        </div>
 
-        <p class="paper">he design of community inclusion can be summarized effectively by three key objectives: (1) draw on existing platforms with similar crowd-sourced city engagement; (2) make compatible with the technology, OS, and resolutions most frequently used for web access; (3) enhance and highlight the crowd-sourced ‘ask’ for the users, and their incentives for participation. </p>
+        <p class="paper">The design of community inclusion can be summarized effectively by three key objectives: (1) draw on existing platforms with similar crowd-sourced city engagement; (2) make compatible with the technology, OS, and resolutions most frequently used for web access; (3) enhance and highlight the crowd-sourced ‘ask’ for the users, and their incentives for participation. </p>
         <ol>
           <li>From a user-experience perspective,  commercial, crowd-sourced traffic applications (eg. Waze) share a similar logic of public participation; these applications studied in order to understand the expectations of features and language of map-based crowd-sourced tools. </li>
           <li>As many of the users were connecting via mobile devices to access both the Twitter platform and the website—with the emphasis on those using mobile GNSS to geo-locate flood reports and check nearby flood reports—the site and its graphic elements were designed to load quickly and legibly at low bandwidth and low resolution.</li>
           <li>The community-participation aspect of the project was communicated in a concise, action-oriented form in all of the media produced for the public. “See a flood? Tell us,” is the basic message used to indicate how the public should best engage with the project. The ‘big crowdsourcing’ element of the project was also highlighted in language and visuals (eg. “The more people use Peta Jakarta, the better the map will be”), indicating a user-centric incentive that also encouraged users to share information about the project with their own social media network by retweeting messages from the @petajkt account.</li>
         </ol>
-        <p class="paper">This branding strategy towards community inclusion can also be traced through individual design decisions, including the use of language, color, graphics, and the map interface itself. Aiming to appeal to first adopters—the young, tech-savvy Twitter-public of Jakarta—the language used in all the outreach materials (Twitter replies, the outreach video, graphics, and print advertisements) was intentionally casual and concise. In these communications, a direct action was always emphasised, for example, ‘turn on your phone’s geolocation,’ ‘tell us about it,’ or ‘report a flood’. Because of the repeated recurrence of flood events during the monsoon, and the continuation of daily activities around and through these flood events, the messages were intentionally designed to be more like normal twitter chatter and less like public service announcements. Geolocation pins with speech bubbles were used in advertisements to indicate the connection between the map and community expression of concern. The graphic style and color choices were similarly light and youthful, connecting visually to sites used as part of everyday life rather than as emergency response. [Fig. 15] Graphics and colors were also selected to ensure they were easily identifiable even on a small mobile device screen. A clean, black and white map background with brightly colored report pins was selected as the map interface so that its legibility was optimized on all screen resolutions.</p>
+        <p class="paper">This branding strategy towards community inclusion can also be traced through individual design decisions, including the use of language, color, graphics, and the map interface itself. Aiming to appeal to first adopters—the young, tech-savvy Twitter-public of Jakarta—the language used in all the outreach materials (Twitter replies, the outreach video, graphics, and print advertisements) was intentionally casual and concise. In these communications, a direct action was always emphasised, for example, ‘turn on your phone’s geolocation,’ ‘tell us about it,’ or ‘report a flood’. Because of the repeated recurrence of flood events during the monsoon, and the continuation of daily activities around and through these flood events, the messages were intentionally designed to be more like normal twitter chatter and less like public service announcements. Geolocation pins with speech bubbles were used in advertisements to indicate the connection between the map and community expression of concern. The graphic style and color choices were similarly light and youthful, connecting visually to sites used as part of everyday life rather than as emergency response. [<a href="#fig15">Fig. 15</a>] Graphics and colors were also selected to ensure they were easily identifiable even on a small mobile device screen. A clean, black and white map background with brightly colored report pins was selected as the map interface so that its legibility was optimized on all screen resolutions.</p>
 
         <p class="subsection">3.1.2 Website</p>
-        <p class="paper">Although much of the public engagement with the project occurs through the Twitter platform, the PetaJakarta.org website hosts the map interface and information about the project. As explained in Section 2.2.2, the map is both a tool for government and public access to real-time flood reports. From the perspective of the citizen-user, the emphasis was to provide easy access to the map and direct information on how to engage with the project. Thus, the public engagement with the project is divided into two actions: first, “share flood information” and second, “view the map.” . The website indicates these two actions on the homepage [Fig. 16], allowing the user to easily navigate to via either of these concise instructions to learn how to share information or proceed directly to the map. The PetaJakarta.org home page also includes an embedded copy of the Outreach Video in Bahasa Indonesian and English. The default language of the website is Bahasa Indonesian, allow a main navigation tab allows users to switch the platform to English.</p>
-        <p class="paper">
+        <!--Video-->
+        <a id="video01" class="anchor"></a>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="flex-video widescreen"><iframe src="{{{header.video-url}}}?modestbranding=1&theme=light&controls=2&showinfo=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
+          </div>
+          <div class="panel-footer">
+            <p style="font-size:14px;">Video 01. PetaJakarta.org User Invitation Video.</p>
+         </div>
+       </div>
+        <p class="paper">Although much of the public engagement with the project occurs through the Twitter platform, the PetaJakarta.org website hosts the map interface and information about the project. As explained in Section 2.2.2, the map is both a tool for government and public access to real-time flood reports. From the perspective of the citizen-user, the emphasis was to provide easy access to the map and direct information on how to engage with the project. Thus, the public engagement with the project is divided into two actions: first, “share flood information” and second, “view the map.” . The website indicates these two actions on the homepage [<a href="#fig16">Fig. 16</a>], allowing the user to easily navigate to via either of these concise instructions to learn how to share information or proceed directly to the map. The PetaJakarta.org home page also includes an embedded copy of the Outreach Video in Bahasa Indonesian and English. The default language of the website is Bahasa Indonesian, allow a main navigation tab allows users to switch the platform to English.</p>
+
+        <!--Figure 16-->
+        <a id="fig16" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig16.png" alt="Fig. 16. Screenshot of user instructions from PetaJakarta.org." style="width:100%"></img></a>
+          <p>Fig. 16. Screenshot of user instructions from PetaJakarta.org.</p>
+        </div>
 
         <a id="3.2" class="anchor"></a>
         <h4>3.2 Methods of Engagement</h4>
 
         <p class="subsection">3.2.1 Twitter as a Platform</p>
-        <p class="paper">Jakarta has one of  the highest number of Twitter users of any city in the world (Semiocast 2012). Because of this high adoption rate, the platform was selected as the primary method of public engagement for the project. Twitter allows users to passively listen to other users, directly engage with single users, and broadcast to a set of self-selected users (followers). Twitter also enables additional functionality for public address, including Twitter Cards (programmatically attaching predetermined media based on terms included in a tweet) and Twitter Video Cards (programmatically attaching predetermined video based on terms included in a tweet). Promoted Tweets can also be used to purchase space on users feeds, although this feature was not used by PetaJakarta.org during the Joint Pilot Study. PetaJakarta.org used a variety of methods of public engagement to notify and incorporate the citizen-users into the project.</p>
+        <p class="paper">Jakarta has one of the highest number of Twitter users of any city in the world (<a href="#Semiocast2012">Semiocast 2012</a>). Because of this high adoption rate, the platform was selected as the primary method of public engagement for the project. Twitter allows users to passively listen to other users, directly engage with single users, and broadcast to a set of self-selected users (followers). Twitter also enables additional functionality for public address, including Twitter Cards (programmatically attaching predetermined media based on terms included in a tweet) and Twitter Video Cards (programmatically attaching predetermined video based on terms included in a tweet). Promoted Tweets can also be used to purchase space on users feeds, although this feature was not used by PetaJakarta.org during the Joint Pilot Study. PetaJakarta.org used a variety of methods of public engagement to notify and incorporate the citizen-users into the project.</p>
 
         <p class="subsection">3.2.2 Soliciting Civic Participation</p>
         <p class="paper">Public participation is critical to the project. There were several challenges to encouraging participation within Jakarta’s Twitter community; first, the flood events in the monsoon season are multiple and scattered throughout the city; there is not a single opportunity in the season when public attention is entirely focused on the floods. Because of this, developing strategies for capture public attention on Twitter at the time of impact was important. Second, because PetaJakarta is not a passive social-media scraping system, the public was asked to take action in order to participate. This call to action had to be made clear, yet appear unintrusive and incentivized.</p>
         <p class="paper">In response to these challenges, a series of low-contact strategies were used solicit public participation in the project. An Outreach Video was attached, via Twitter Video Cards, to any tweet containing the term ‘petajakarta.org.’ And, a series of low-threshold, opt-in requests were delivered via programmatic reply whenever users tweeted keywords (as described in 2.3.2).</p>
-        <p class="paper">The Outreach Video was the main method of public promotion. It is a simple, concise, one-minute video that describes the user experience of PetaJakarta.org and asks the public to participate. The video focuses on the call to action: tweet @petajkt with details when you see a flood, and the aggregate effect of this action:  ‘working together we can help everyone bypass flooded areas, saving time and avoiding danger.’ The video uses direct, clear language that is action-oriented. Since the video was accessed through Twitter, and potentially through the Twitter app, it was designed for maximum legibility on a small mobile screen and in noisy urban conditions. The graphics use flat, bright colors on a white background; there is no background music under the calm, direct spoken narrative.</p>
+        <p class="paper">The Outreach Video (<a href="#video01">Video 01</a>) was the main method of public promotion. It is a simple, concise, one-minute video that describes the user experience of PetaJakarta.org and asks the public to participate. The video focuses on the call to action: tweet @petajkt with details when you see a flood, and the aggregate effect of this action:  ‘working together we can help everyone bypass flooded areas, saving time and avoiding danger.’ The video uses direct, clear language that is action-oriented. Since the video was accessed through Twitter, and potentially through the Twitter app, it was designed for maximum legibility on a small mobile screen and in noisy urban conditions. The graphics use flat, bright colors on a white background; there is no background music under the calm, direct spoken narrative.</p>
         <p class="paper">It was important to design the user interaction with PetaJakarta.org to create a user experience that highlighted the community resource element of the project (again, similar to the Waze traffic app), rather than an emergency or information service. With this aim in mind, the graphics and language are casual and light in tone. In the video, auto-replies, and print advertisements, PetaJakarta.org never used alarmist or moralizing language; instead, the graphic identity is one of casual, opt-in, community participation. That is, the communication strategy is not to insist that users should participate, but instead offer users the opportunity to share information through a non-moralizing, opt-in approach.</p>
 
         <a id="3.3" class="anchor"></a>
         <h4>3.3 Communication Patterns: Overview</h4>
-        <p class="paper">During 2014-15 monsoon season, Jakarta residents participated in sharing real-time information about flooding in the city via @petajkt Twitter account, which was co-operated by a bot and a human project coordinator. Users immediately took @petajkt seriously (even before the account was Verified by Twitter) and started reporting about flood conditions around their homes, offices, and in traffic situations. The account gained significant number of impressions during flood events. In fact, it is clear when the flood events occurred just from viewing at the analytics bar of @petajkt Twitter account. Below is a summary of the tweet activity of @petajkt in the 90-day period from 2 December 2014 (public launch of PetaJakarta.org and the @petajkt Twitter account) to 1 March 2015.</p>
+        <p class="paper">During 2014-15 monsoon season, Jakarta residents participated in sharing real-time information about flooding in the city via @petajkt Twitter account, which was co-operated by the CogniCity Reports module and a human project coordinator. Users immediately took @petajkt seriously (even before the account was Verified by Twitter) and started reporting about flood conditions around their homes, offices, and in traffic situations. The account gained significant number of impressions during flood events. In fact, it is clear when the flood events occurred just from viewing at the analytics bar of @petajkt Twitter account. Below is a summary of the tweet activity of @petajkt in the 90-day period from 2 December 2014 (public launch of PetaJakarta.org and the @petajkt Twitter account) to 1 March 2015.</p>
 
         <!--Figure 17.-->
-
-
-
-        <p class="paper">As shown in Fig. 17, the highest bars indicate major flood events. The first event is 27 December 27 2014, which marks the first major flood in Jakarta during 2014-15 monsoon season [Fig. 18]. There were 100,494 organic impressions on that day.<sup>2</sup> The second flood event is 23 January 2015 [Fig. 19], an event that gained 83,748 organic impressions. The third event is 9 February 2015, which marked the peak of the flood events during 2014-15 monsoon season [Fig. 20]; on that day there were 541,754 impressions and the @petajkt Twitter account gained nearly 5,000 new followers. Flood events continued for several days and there was still a high number of impressions: on 10 February 2015 [Fig. 21] there were 331,151 impressions, and on 11 February 11 2015 [Fig. 22] there were an additional 132,683 impressions. </p>
+        <a id="fig17" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:1%; margin-right:1%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig17.jpg" alt="Fig. 17. Chart of Five Flood Main Events for 2014-15 Monsoon." style="width:100%"></img></a>
+          <p>Fig. 17. Chart of Five Flood Main Events for 2014-15 Monsoon.</p>
+        </div>
+        <p class="paper">As shown in <a href="#fig17">Fig. 17</a>, the highest bars indicate major flood events. The first event is 27 December 27 2014, which marks the first major flood in Jakarta during 2014-15 monsoon season [<a href="#fig18">Fig. 18</a>]. There were 100,494 organic impressions on that day.<sup>2</sup> The second flood event is 23 January 2015 [<a href="#fig18">Fig. 19</a>], an event that gained 83,748 organic impressions. The third event is 9 February 2015, which marked the peak of the flood events during 2014-15 monsoon season [<a href="#fig18">Fig. 20</a>]; on that day there were 541,754 impressions and the @petajkt Twitter account gained nearly 5,000 new followers. Flood events continued for several days and there was still a high number of impressions: on 10 February 2015 [<a href="#fig18">Fig. 21</a>] there were 331,151 impressions, and on 11 February 11 2015 [<a href="#fig22">Fig. 22</a>] there were an additional 132,683 impressions. </p>
         <!--footnote one-->
         <p class="paper" style="font-size:12px;"><sup>2</sup> Twitter defines impressions as: “Times a user is served a Tweet in timeline or search results.” https://support.twitter.com/articles/320043-tweet-activity-dashboard.</p>
 
-        <!--figure 18-->
-        <!--figure 19-->
-        <!--figure 20-->
-        <!--figure 21-->
-        <!--figure 22-->
+        <!--Figure 12-->
+        <a id="fig18" class="anchor"></a>
+        <div class="thumbnail with-caption" style="width:100%;">
+          <div class="square">
+            <div class="content">
+              <a href="#responsive"><img class="img-responsive" style="border:1px solid gray;" src="/{{site.url-prefix}}/img/wp_fig18.jpg" alt="Fig 18. ‘Banjir’ tweets / Kelurhan on 27 December 2014."></a>
+            </div>
+          </div>
+          <div class="square">
+            <div class="content">
+              <a href="#responsive"><img class="img-responsive" style="border:1px solid gray;" src="/{{site.url-prefix}}/img/wp_fig19.jpg" alt="Fig 19. ‘Banjir’ tweets / Kelurhan on 23 January 2015."></a>
+            </div>
+          </div>
+          <div class="square">
+            <div class="content">
+              <a href="#responsive"><img class="img-responsive" style="border:1px solid gray;" src="/{{site.url-prefix}}/img/wp_fig20.jpg" alt="Fig 20. ‘Banjir’ tweets / Kelurhan on 9 February 2015."></a>
+            </div>
+          </div>
+          <div class="square">
+            <div class="content">
+              <a href="#responsive"><img class="img-responsive" style="border:1px solid gray;" src="/{{site.url-prefix}}/img/wp_fig21.jpg" alt="Fig 21. ‘Banjir’ tweets / Kelurhan on 10 February 2015."></a>
+            </div>
+          </div>
+          <div class="square">
+            <div class="content">
+              <a href="#responsive"><img class="img-responsive" style="border:1px solid gray;" src="/{{site.url-prefix}}/img/wp_fig22.jpg" alt="Fig 22. ‘Banjir’ tweets / Kelurhan on 11 February 2015."></a>
+            </div>
+          </div>
+          <div class="square">
+            <div style="position:absolute; bottom:0;">
+              <p class="paper">Figs. 18-22. ‘Banjir’ tweets / Kelurhan on 27 December 2014 and 23 January, 9 February, 10 February, and 11 February 2015.</p>
+            </div>
+          </div>
+        </div>
 
         <a id="3.4" class="anchor"></a>
         <h4>3.4 Tweet Typology</h4>
-        <p class="paper">There are several important considerations when evaluating the tweets received by @petajkt during the 2014-15 monsoon. First, many users sent tweets without geo-location information on during flood events. However, these tweets nevertheless had valuable information about flood situations and there was location information in the the body of their tweets. Typically, tweets with valuable information such as these were manually re-tweeted because sharing this detailed, time-critical information was deemed valuable to other users, although it lacked precise geo-location data. Additionally, the bot would issue a tweet to the user which used a Twitter Media Card to include a picture explaining how to activate the geo-location function for the next report.</p>
+        <p class="paper">There are several important considerations when evaluating the tweets received by @petajkt during the 2014-15 monsoon. First, many users sent tweets without geo-location information on during flood events. However, these tweets nevertheless had valuable information about flood situations and there was location information in the the body of their tweets. Typically, tweets with valuable information such as these were manually re-tweeted because sharing this detailed, time-critical information was deemed valuable to other users, although it lacked precise geo-location data. Additionally, CogniCity would issue a tweet to the user which used a Twitter Media Card to include a picture explaining how to activate the geo-location function for the next report.</p>
         <p class="paper">Second, due to high number of Twitter users mentioning the term ‘banjir’ in the Jakarta bounding box, the @petajkt account sent a large volume of programmatic replies  containing the invitation to tweet @petajkt about flood reports. As noted in 2.0, the invitation is only sent once per user. As a result of these programmatic invitations, @petajkt hit the Twitter rate limit on several occasions. The first time was on 27 December 2014, during a period of heavy precipitation; the second occurrence was on23 January 2015. Consequently, on both occasions the @petajkt account needed to wait for one hour to be able to send addition tweets or re-tweets. However, once @petajkt was granted the status of a Verified Twitter account, this problem did not occur again.</p>
         <p class="paper">There were various types of flood reports addressed to @petajkt; in what follows, the three types of tweets received by @petajkt are classified, and this classification is clarified with example tweets.</p>
 
         <p class="subsection">3.4.1 Tweet Type A—Flood Reports</p>
-        <p class="paper">Flood reports came in several forms. First, flood reports with photos and detailed information, such as the name of the street, village, RT, RW, and the height of the flood, were received [Fig. 23]. In this type of report, flood height information was provided in meters, centimeters, or by the reference to the human body, such knee high, chest high, etc.</p>
+        <p class="paper">Flood reports came in several forms. First, flood reports with photos and detailed information, such as the name of the street, village, RT, RW, and the height of the flood, were received [<a href="#fig23">Fig. 23</a>]. In this type of report, flood height information was provided in meters, centimeters, or by the reference to the human body, such knee high, chest high, etc.</p>
 
         <!--figure 23-->
+        <a id="fig23" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig23.png" alt="Fig. 23. Sample tweet from user @OpickNiy." style="width:100%"></img></a>
+          <p>Fig. 23. Sample tweet from user @OpickNiy.</p>
+        </div>
 
-        <p class="paper">The @petajkt account also received flood reports with photos and information, such as the name of the street, village, RT, RW, and the height of the flood, as well as additional requests for needed evacuation supplies, such as portable pumps, boats, or food supplies [Fig. 24].</p>
+        <p class="paper">The @petajkt account also received flood reports with photos and information, such as the name of the street, village, RT, RW, and the height of the flood, as well as additional requests for needed evacuation supplies, such as portable pumps, boats, or food supplies [<a href="#fig24">Fig. 24</a>].</p>
 
-        <!--figure 24-->
+        <a id="fig24" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig24.png" alt="Fig. 24. Sample tweet from user @SuryaGuang." style="width:100%"></img></a>
+          <p>Fig. 24. Sample tweet from user @SuryaGuang.</p>
+        </div>
 
-        <p class="paper">Additionally, the @petajkt account received flood reports without photos, but with useful information such as the name of the street, village, RT, RW, and the height of the flood [Figs. 25 & 26] This type of flood report sometimes came from individual residents, as well as from organized communities who helped residents without cell phones or Twitter accounts to deliver flood information.</p>
+        <p class="paper">Additionally, the @petajkt account received flood reports without photos, but with useful information such as the name of the street, village, RT, RW, and the height of the flood [Figs. <a href="#fig25">25</a> & <a href="#fig26">26</a>] This type of flood report sometimes came from individual residents, as well as from organized communities who helped residents without cell phones or Twitter accounts to deliver flood information.</p>
 
-        <!--figure 25-->
+        <a id="fig25" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig25.png" alt="Fig. 25. Sample tweet from user @MuktaPutri." style="width:100%"></img></a>
+          <p>Fig. 25. Sample tweet from user @MuktaPutri.</p>
+        </div>
+
         <!--figure 26-->
+        <a id="fig26" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig26.png" alt="Fig. 26. Sample tweet from user @gugunmuhammad1." style="width:100%"></img></a>
+          <p>Fig. 26. Sample tweet from user @gugunmuhammad1.</p>
+        </div>
 
-        <p class="paper">The @petajkt account also received flood reports from outside the bounding box of  Jakarta [Figs. 27 & 28].</p>
+        <p class="paper">The @petajkt account also received flood reports from outside the bounding box of  Jakarta [Figs. <a href="#fig27">27</a> & <a href="#fig28">28</a>].</p>
+
         <!--figure 27-->
+        <a id="fig27" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig27.png" alt="Fig. 27. Sample tweet from user @AzizahKurniawa2." style="width:100%"></img></a>
+          <p>Fig. 27. Sample tweet from user @AzizahKurniawa2.</p>
+        </div>
+
         <!--figure 28-->
+        <a id="fig28" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig28.png" alt="Fig. 28. Sample tweet from user @bayuhartono289." style="width:100%"></img></a>
+          <p>Fig. 28. Sample tweet from user @bayuhartono289.</p>
+        </div>
 
         <p class="subsection">3.4.2 Tweet Type B—Help & Evacuation</p>
-        <p class="paper">The @petajkt account also received requests for help and evacuation support. These messages sometimes originated from government agencies and were addressed to affected residents. Usually, Dinas Sosial DKI (Social Services Agency) tweeted @petajkt to share what they were doing to help flood victims, such as delivering food, building common kitchens, etc. [Fig. 29]</p>
+        <p class="paper">The @petajkt account also received requests for help and evacuation support. These messages sometimes originated from government agencies and were addressed to affected residents. Usually, Dinas Sosial DKI (Social Services Agency) tweeted @petajkt to share what they were doing to help flood victims, such as delivering food, building common kitchens, etc. [<a href="#fig29">Fig. 29</a>]</p>
 
         <!--figure 29-->
-        <p class="paper">
-        <!--figure 30-->
-        <!--figure 31-->
+        <a id="fig29" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig29.png" alt="Fig. 29. Sample tweet from user @DinsosDKI1." style="width:100%"></img></a>
+          <p>Fig. 29. Sample tweet from user @DinsosDKI1.</p>
+        </div>
 
-        <p class="paper">Finally, the @petajkt account also helped to relay peer to peer information being shared public on Twitter platform by re-broadcasting relevant information once it was confirmed  [Figs. 32 & 33].</p>
+        <p class="paper">The @petajkt account also received from organized communities to residents [Figs. <a href="#fig30">30</a> & <a href="#fig31">31</a>].</p>
+
+        <!--figure 30-->
+        <a id="fig30" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig30.png" alt="Fig. 30. Sample tweet from user @inforelawan." style="width:100%"></img></a>
+          <p>Fig. 30. Sample tweet from user @inforelawan.</p>
+        </div>
+        <!--figure 31-->
+        <a id="fig31" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig31.png" alt="Fig. 31. Sample tweet from user @urbanpoor." style="width:100%"></img></a>
+          <p>Fig. 31. Sample tweet from user @urbanpoor.</p>
+        </div>
+
+        <p class="paper">Finally, the @petajkt account also helped to relay peer to peer information being shared public on Twitter platform by re-broadcasting relevant information once it was confirmed  [Figs. <a href="#fig32">32</a> & <a href="#fig33">33</a>].</p>
         <!--figure 32-->
+        <a id="fig32" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig32.png" alt="Fig. 32. Sample tweets from users @petajkt and @monictika." style="width:100%"></img></a>
+          <p>Fig. 32. Sample tweets from users @petajkt and  @monictika.</p>
+        </div>
+
         <!--figure 33-->
+        <a id="fig33" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig33.png" alt="Fig. 33. Sample tweet from user @petajkt to rebroadcast requests for shelter information." style="width:100%"></img></a>
+          <p>Fig. 33. Sample tweet from user @petajkt to rebroadcast requests for shelter information.</p>
+        </div>
 
         <p class="subsection">3.4.3 Tweet Type C—Reviews</p>
-        <p class="paper">Users also sent reviews and feedback regarding @petajkt and PetaJakarta.org, which helped to spread the word about the project to their followers and alert us to any problematic reports.</p>
+        <p class="paper">Users also sent reviews and feedback regarding @petajkt and PetaJakarta.org, which helped to spread the word about the project to their followers and alert us to any problematic reports [Figs. <a href="#fig34">34</a> & <a href="#fig35">35</a>].</p>
+
         <!--figure 34-->
+        <a id="fig34" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig34.png" alt="Fig. 34. Sample tweet from user @satyawinnie." style="width:100%"></img></a>
+          <p>Fig. 34. Sample tweet from user @satyawinnie.</p>
+        </div>
+
         <!--figure 35-->
+        <a id="fig35" class="anchor"></a>
+        <div class="thumbnail with-caption center-block img-responsive" style="margin-left:12.5%; margin-right:12.5%">
+          <a href="#responsive"><img src="/{{site.url-prefix}}/img/wp_fig35.png" alt="Fig. 35. Sample tweet from user @elisa_jkt." style="width:100%"></img></a>
+          <p>Fig. 35. Sample tweet from user @elisa_jkt.</p>
+        </div>
 
         <a id="3.5" class="anchor"></a>
         <h4>3.5 Summary & Recommendations </h4>
@@ -607,13 +742,13 @@
 
         <p class="subsection">3.5.2 Programmatic Reply Feature</p>
         <p class="paper">The most frequent complaint to the @petajkt account was regarding the programmatic reply feature. The existence of a so-called ‘bot’ on the Twitter platform led to various responses. Many replies to @petajkt about the programmatic replies used humor or ironic criticism to explain that they were not, in fact, in the vicinity of a flood event. However, @petajkt also received a number of positive responses and messages of gratitude from users who were not affected, but who still saw the value of the programmatic messaging.</p>
-        <p class="paper">The programmatic reply bot helps spread awareness about the existence of PetaJakarta.org to Twitter users, and is therefore a valuable asset to the project. Many people discovered PetaJakarta.org because they received a programmatic reply, and many of them tweeted back to report flood conditions after receiving this invitation. Importantly, the programmatic reply also allows PetaJakarta.org to contact many more Twitter users than any human administrator could hope to reach. During the 2014-15 monsoon season, the @petajkt sent approximately 90,000 programmatic replies.</p>
-        <p class="paper">Unfortunately, there are also several negative aspects that result from using the programmatic reply functionality. First, this function sends replies to all Twitter users within the Jakarta bounding box who mention the word “banjir” or “flood,” even though these term may not be related to a DRM context or a flood situation. Because it is not uncommon for Indonesians to use the word banjir figuratively, for example banjir air mata (flood of tears), banjir kenangan (flood of memories), etc., occasionally users will receive a programmatic reply even though they are not discussing a real flood event.</p>
-        <p class="paper">The second main weakness that is created by using a programmatic reply function has to do with usability on the Twitter platform itself. On mobile devices, auto-replies occupy the Tweets tab because tweets and replies are listed in a single tab. Because most users use their mobile device to check the @petajkt account, they can become frustrated that most of @petajkt tweets in the tab are programmatic invitations, not flood information. However, this is only the case for users who have not ‘followed’ @petajkt; for ‘followers,’ auto-replies are less significant because they would receive tweets from @petajkt in their timeline, which would exclude auto-reply messages. Notably, this is not a problem when people view @petajkt’s timeline from a desktop computer; however, this user experience is an important consideration in the development of the system.</p>
+        <p class="paper">The programmatic reply sent by CogniCity helpd to awareness about the existence of PetaJakarta.org to Twitter users, and was therefore a valuable asset to the project. Many people discovered PetaJakarta.org because they received a programmatic reply, and many of them tweeted back to report flood conditions after receiving an invitation. Importantly, the programmatic replies also allowed PetaJakarta.org to contact many more Twitter users than any human administrator could hope to reach. During the 2014-15 monsoon season, the @petajkt sent approximately 90,000 programmatic replies.</p>
+        <p class="paper">Unfortunately, there were also several negative aspects that resulted from using the programmatic reply functionality. First, the function sent replies to all Twitter users within the Jakarta bounding box who mentioned the word “banjir” or “flood,” even though these terms may not be related to a DRM context or a flood situation. Because it is not uncommon for Indonesians to use the word banjir figuratively, for example banjir air mata (flood of tears), banjir kenangan (flood of memories), etc., occasionally users received a programmatic reply even though they were not discussing a real flood event.</p>
+        <p class="paper">The second main weakness that was created by using a programmatic reply function has to do with usability on the Twitter platform itself. On mobile devices, auto-replies occupy the Tweets tab because tweets and replies are listed in a single tab. Because most users use their mobile device to check the @petajkt account, they can become frustrated that most of @petajkt tweets in the tab are programmatic invitations, not flood information. However, this is only the case for users who have not ‘followed’ @petajkt; for ‘followers,’ auto-replies are less significant because they would receive tweets from @petajkt in their timeline, which would exclude auto-reply messages. Notably, this is not a problem when people view @petajkt’s timeline from a desktop computer; however, this user experience is an important consideration in the development of the system.</p>
 
         <p class="subsection">3.5.3 Additional Improvements for Citizen-Users</p>
-        <p class="paper">Several critical improvements for citizen-users are anticipated for the next phase of software and platform development. First, PetaJakarta.org has already developed a graphic to explain to users how to activate geo-location on their mobile device; improving user understanding of how to activate this functionality is key to improving the geospatial data collected. Second, citizen-users have expressed their desire to see their photographs directly embedded on the PetaJakarta.org map, either as an embedded image or a pop-up that occurs when the cursor hovers over the tweet; during the operation phase in the 2014-15 monsoon, only the tweet text appeared on the map, even if users had included an image in their report. To see the complete tweet, users needed to click on the tweet, which re-directed them to the web-based tweet; however, to reach this image, users had to click through a “Download Twitter” pop-up ad, and usually another generic ad. Because of this interruptive advertising content, it is clear that embedding images and tweets directly would greatly improve the user experience and the efficiency for citizen-users trying to view multiple tweets.</p>
-        <p class="paper">Regarding the PetaJakarta.org website, one improvement would involve adding the date and time stamp on the flood map to assist users who take screenshots of the map and then post them on Twitter or other social media. Tweets with screenshots of the current situation received the highest number of impressions in February 2015, suggesting that users like this type of tweet, and that adding date and time details would help encourage further circulation of the images. Another improvement anticipated for future development is the addition of a time slider bar that would allow users to go back in time and view the map historically to see changes over time; this functionally would be difficult to achieve on a mobile device, although it can be quickly developed for desktop viewing. Finally, many users have asked for more detailed flood height information; such data can we integrated in several ways, including through the additional integration of a Digital Elevation Model in the base layers (see section 6.1.2), and by pushing flood-affected area data to the web from the Open API of the Disaster Information Management System (DIMS), currently used by BPBD DKI Jakarta (see section 6.1.1). Until May 2015, DIMS did not provide an open API; however, the Informatics Division of BPBD DKI Jakarta successfully advocated for this functionality, which is anticipated to dramatically improve data-sharing within the DRM information ecosystem in the coming 2015-16 monsoon season and beyond.</p>
+        <p class="paper">Several critical improvements for citizen-users are anticipated for the next phase of software and platform development. PetaJakarta.org has already developed a graphic to explain to users how to activate geo-location on their mobile device; improving user understanding of how to activate this functionality is key to improving the geospatial data collected. Second, citizen-users have expressed their desire to see their photographs directly embedded on the PetaJakarta.org map, either as an embedded image or a pop-up that occurs when the cursor hovers over the tweet; during the operation phase in the 2014-15 monsoon, only the tweet text appeared on the map, even if users had included an image in their report. To see the complete tweet, users needed to click on the tweet, which re-directed them to the web-based tweet; however, to reach this image, users had to click through a “Download Twitter” pop-up ad, and usually another generic ad. Because of this interruptive advertising content, it is clear that embedding images and tweets directly would greatly improve the user experience and the efficiency for citizen-users trying to view multiple tweets.</p>
+        <p class="paper">Regarding the PetaJakarta.org website, one improvement would involve adding the date and time stamp on the flood map to assist users who take screenshots of the map and then post them on Twitter or other social media. Tweets with screenshots of the current situation received the highest number of impressions in February 2015, suggesting that users like this type of tweet, and that adding date and time details would help encourage further circulation of the images. Another improvement anticipated for future development is the addition of a time slider bar that would allow users to go back in time and view the map historically to see changes over time; this functionally would be difficult to achieve on a mobile device, although it can be quickly developed for desktop viewing. Finally, many users have asked for more detailed flood height information; such data can we integrated in several ways, including through the additional integration of a Digital Elevation Model in the base layers of the map (see section 6.1.2), and by pushing flood-affected area data to the web from the Open API of the Disaster Information Management System (DIMS), currently used by BPBD DKI Jakarta (see section 6.1.1). Until May 2015, DIMS did not provide an open API; however, the Informatics Division of BPBD DKI Jakarta successfully advocated for this functionality, which is anticipated to dramatically improve data-sharing within the DRM information ecosystem in the coming 2015-16 monsoon season and beyond.</p>
 
         <!--refs-->
         <a id="bib" class="anchor"></a>
@@ -656,6 +791,124 @@
         <a id="Yanto2010" class="anchor"></a><p class="bib">Yanto, O. 2010. Mafia hukum: membongkar konspirasi dan manipulasi hukum di Indonesia. Jakarta: Raih Asa Sukses.</p>
         <!--Rosenzweig 2011-->
         <!--Townsend 2014 & 2013-->
+
+        <!--3.0-->
+        <a id="appendicies" class="anchor"></a>
+        <div class="page-header">
+        <h3>Appendicies</h3>
+        </div>
+        <a id="appendix1" class="anchor"></a>
+        <h4>Appendix I. CogniCity Software References</h4>
+        <p class="paper">The table below provides links to the source code and documentation for each of the components of CogniCity, as deployed for the 2014/2015 monsoon season in Jakarta. For further information see: <a href="http://cognicity.info/cognicity/" target="_blank">http://cognicity.info/cognicity/</a></p>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Module Name</th>
+                    <th>Source Code</th>
+                    <th>Documentation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>CogniCity Server</td>
+                    <td><a href="https://github.com/smart-facility/cognicity-server/tree/v1.0.3" target="_blank">https://github.com/smart-facility/cognicity-server/tree/v1.0.3</a></td>
+                    <td><a href="http://cognicity.info/cognicity/api-docs/cognicity-server/" target="_blank">http://cognicity.info/cognicity/api-docs/cognicity-server/</a></td>
+                  </tr>
+                  <tr>
+                    <td>CogniCity Reports</td>
+                    <td><a href="https://github.com/smart-facility/cognicity-reports-powertrack/tree/v1.0.3" target="_blank">https://github.com/smart-facility/cognicity-reports-powertrack/tree/v1.0.3</a></td>
+                    <td><a href="http://cognicity.info/cognicity/api-docs/cognicity-reports-powertrack/" target="_blank">http://cognicity.info/cognicity/api-docs/cognicity-reports-powertrack/</a></td>
+                  </tr>
+                  <tr>
+                    <td>CogniCity Database</td>
+                    <td><a href="https://github.com/smart-facility/cognicity-schema" target="_blank">https://github.com/smart-facility/cognicity-schema</a></td>
+                    <td><a href="https://github.com/smart-facility/cognicity-schema/blob/master/README.md" target="_blank">https://github.com/smart-facility/cognicity-schema/blob/master/README.md</a></td>
+                  </tr>
+                  <tr>
+                    <td>PetaJakarta.org</td>
+                    <td><a href="https://github.com/smart-facility/petajakarta-web" target="_blank">https://github.com/smart-facility/petajakarta-web</a></td>
+                    <td><a href="https://github.com/smart-facility/petajakarta-web/blob/master/README.md" target="_blank">https://github.com/smart-facility/petajakarta-web/blob/master/README.md</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+      </div>
+
+      <a id="appendix2" class="anchor"></a>
+      <h4>Appendix II. Listing of Tables in CogniCity Database</h4>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Table Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>tweet_reports</td>
+                  <td>Confirmed tweet reports of flooding</td>
+                </tr>
+                <tr>
+                  <td>tweet_reports_unconfirmed</td>
+                  <td>Unconfirmed tweet reports of flooding</td>
+                </tr>
+                <tr>
+                  <td>nonspatial_tweet_reports</td>
+                  <td>Confirmed tweet reports of flooding missing geolocation metadata</td>
+                </tr>
+                <tr>
+                  <td>all_users</td>
+                  <td>Encrypted hash of all related Twitter usernames</td>
+                </tr>
+                <tr>
+                  <td>tweet_users</td>
+                  <td>Encrypted hash of user names who have submitted confirmed reports</td>
+                </tr>
+                <tr>
+                  <td>tweet_invitees</td>
+                  <td>Encrypted hash of users have been been sent an invitation</td>
+                </tr>
+                <tr>
+                  <td>nonspatial_tweet_users</td>
+                  <td>Encrypted hash of users who have submitted confirmed reports missing geolocation metadata</td>
+                </tr>
+                <tr>
+                  <td>jkt_city_boundary</td>
+                  <td>Boundaries of Jakarta’s five municipalities</td>
+                </tr>
+                <tr>
+                  <td>jkt_subdistrict_boundary</td>
+                  <td>Boundaries of Jakarta’s municipal sub-districts (‘Kecamatan’)</td>
+                </tr>
+                <tr>
+                  <td>jkt_village_boundary</td>
+                  <td>Boundaries of Jakarta’s municipal villages (‘Kelurahan’)</td>
+                </tr>
+                <tr>
+                  <td>jkt_rw_boundary</td>
+                  <td>Municipal boundaries of Jakarta’s municipal RW districts (‘Rukun-Warga’)</td>
+                </tr>
+                <tr>
+                  <td>pumps</td>
+                  <td>Locations of water pumps in Jakarta</td>
+                </tr>
+                <tr>
+                  <td>floodgates</td>
+                  <td>Locations of floodgates in Jakarta</td>
+                </tr>
+                <tr>
+                  <td>waterways</td>
+                  <td>Locations of waterways in Jakarta</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+
     </div><!--text column-->
 
 
@@ -685,31 +938,7 @@
       ga('send', 'pageview');
     </script>
 
-    <!-- Video resize -->
-    <script>
-      'use strict';
-
-      $(function() {
-          // Figure out and save aspect ratio for each video
-          $('iframe[src^="//www.youtube.com"]').each(function() {
-              $(this).data('aspectRatio', this.height / this.width)
-                     .removeAttr('height')
-                     .removeAttr('width');
-          });
-
-          // When the window is resized
-          $(window).resize(function() {
-              // Resize all videos according to their own aspect ratio
-              $('iframe[src^="//www.youtube.com"]').each(function() {
-                  var $this = $(this);
-                  var newWidth = $this.parent().width();
-                  $this.width(newWidth)
-                     .height(newWidth * $this.data('aspectRatio'));
-              });
-          }).resize();
-      });
-    </script>
-
+    <!--Image Modal-->
     <script>
     $(document).ready(function(){
         $('.thumbnail img').on('click',function(){
