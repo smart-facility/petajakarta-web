@@ -391,6 +391,11 @@
         <p class="paper"><a href="#fig08">Fig. 08</a> shows an unconfirmed report, detected by the CogniCity Reports module, which then issues an automated invitation Tweet to the user. The invitation message aims to inform the user about the project and provide instructions on how to submit a confirmed report. The invitation Tweet is limited to 109 characters to allow for Twitter usernames in the reply; however, by using Twitter Cards, the automated Tweet could also contain a short embedded video which explained the project and how to participate. The design of the video is discussed further in Section 3.2.2. Invitation Tweets were either sent in English or Bahasa Indonesian depending on the language as defined in the metadata of the tweet (unconfirmed report) received by CogniCity:</p>
 
         <!--Auto message callouts x2-->
+        <blockquote>
+          <p class="paper">Test tweets</p>
+          <footer>A test tweet</footer>
+        </blockquote>
+
 
         <p class="paper">Fig. 08 also shows the user’s response to the programmatic invitation Tweet, in the form of a confirmed report containing a photo of the flood condition, approximate height of the flood waters, and user’s location by ‘Rukun-Warga’ (RW) and ‘Rukun-Warga’ (RT) municipal boundary numbers. Upon receipt of a confirmed report as shown in <a href="#fig08">Fig. 08</a>, the Reports module adds the Tweet, text, and geolocation metadata to the ‘tweet_reports’ database table, enabling the report to be plotted on the map at PetaJakarta.org. The hashed version of the username is then added to ‘tweet_users’ table. Finally, the CogniCity generates a thank you message confirming the receipt of the user’s report and directing them to PetaJakarta.org to see their contribution to the map. Fig. 09 shows the process of CogniCity managing incoming Tweets, classifying them as confirmed or unconfirmed, and issuing the required response.</p>
 
