@@ -292,6 +292,7 @@ a:after {
 .paper{
   font-size: 18px;
   text-align: justify;
+  color: #000;
 }
 
 .bib{
