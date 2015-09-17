@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /banjir/data/api/v1/
+Disallow: /banjir/data/api/v1/
