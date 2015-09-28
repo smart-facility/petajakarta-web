@@ -449,6 +449,12 @@ a:after {
 
 }
 
+/* Add some padding to compensate for the fixed navbar overlapping content */
+/*White Paper Title*/
+.top-navbar-padding {
+  padding-top: 70px;
+}
+
 /*Generic settings for in-page anchors*/
 /* Offset anchor links, to compensate for the sticky header */
 .anchor {
@@ -456,90 +462,4 @@ a:after {
     position: relative;
     top: -50px;
     visibility: hidden;
-}
-
-.leaflet-control-info-button,
-.leaflet-control-location-button {
-  box-shadow: 0 1px 5px rgba(0,0,0,.4);
-  background: #fff;
-  border-radius: 5px;
-  width: 36px;
-  height: 36px;
-  display: block;
-  background-size: 36px 36px;
-  text-display: none;
-  box-sizing: border-box;
-
-  /* Hide the text. */
-  text-indent: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.leaflet-control-reports-button {
-  box-shadow: 0 1px 5px rgba(0,0,0,.4);
-  background: #fff;
-  border-radius: 5px;
-  width: 36px;
-  height: 36px;
-  display: block;
-  background-size: 36px 36px;
-  /*text-display: none;*/
-  box-sizing: border-box;
-
-  /* Hide the text. */
-  /*text-indent: 150%;*/
-  /*white-space: nowrap;
-  overflow: hidden;*/
-}
-
-.leaflet-control-reports-button {
-  background-image: url(/banjir/img/reports.png);
-}
-
-.leaflet-control-reports-button .badge {
-  margin-left:80%;
-  vertical-align:middle;
-}
-
-.leaflet-retina .leaflet-control-reports-button {
-  background-image: url(/banjir/img/reports-2x.png);
-}
-
-.leaflet-control-info-button {
-  background-image: url(/banjir/img/info.png);
-}
-
-.leaflet-retina .leaflet-control-info-button {
-  background-image: url(/banjir/img/info-2x.png);
-}
-
-.leaflet-control-location-button {
-  background-image: url(/banjir/img/location-icon.png);
-}
-
-.leaflet-retina .leaflet-control-location-button {
-  background-image: url(/banjir/img/location-icon-2x.png);
-}
-
-.leaflet-touch .leaflet-control-reports-button,
-.leaflet-touch .leaflet-control-info-button,
-.leaflet-touch .leaflet-control-location-button {
-  width: 48px;
-  height: 44px;
-  background-position: center;
-  background-repeat: no-repeat;
-  border: 2px solid rgba(0,0,0,.2);
-  background-clip: padding-box;
-  box-shadow: none;
-}
-
-/*Custom parameters for analytics*/
-#static_map{
-  height:500px;
-  width:100%;
-}
-
-.leaflet-container {
-  background:#FFF
 }
