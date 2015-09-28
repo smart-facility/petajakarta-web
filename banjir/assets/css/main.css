@@ -7,7 +7,7 @@
  * URL: http://blacktie.co
  */
 
- /*Hack to support more menu items*/
+ /*Support for  menu items and page scaling*/
  @media (max-width: 991px) {
      .navbar-header {
          float: none;
@@ -46,16 +46,30 @@
      }
  }
 
+ /* move logo on small screens*/
+ @media screen and (max-width: 480px) {
+   .navbar-header img {
+     margin-left: -10px;
+   }
+ }
 
+
+ html,{
+   height: 100%;
+   /* The html and body elements cannot have any padding or margin for footer. */
+ }
+
+/*Body*/
 body {
+  height: 100%;
   background-color: #FFF;
-    font-family: 'Lato', sans-serif;
-    font-weight: 300;
-    font-size: 16px;
-    color: #555;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #555;
 
-    -webkit-font-smoothing: antialiased;
-    -webkit-overflow-scrolling: touch;
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Titles */
@@ -85,18 +99,6 @@ p {
     font-size: 24px;
     font-weight:300;
 }
-
-p .id {
-	color: #666;
-}
-p .en {
-	color: #222;
-}
-
-#sys_test {
-	padding-top:45px;
-}
-
 .centered {
     text-align: center;
 }
@@ -112,7 +114,6 @@ a {
     -o-transition: color 0.1s ease-in, background 0.1s ease-in;
     transition: color 0.1s ease-in, background 0.1s ease-in;
 }
-
 a:hover,
 a:focus {
     color: #7b7b7b;
@@ -128,7 +129,7 @@ a:after {
     -o-transition: color 0.1s ease-in, background 0.1s ease-in;
     transition: color 0.1s ease-in, background 0.1s ease-in;
 }
-
+/*Heading Row*/
  hr {
     display: block;
     height: 1px;
@@ -138,6 +139,7 @@ a:after {
     padding: 0;
 }
 
+/*Navbar*/
 .navbar-default {
 	background-color: #666;
 	border-color: transparent;
@@ -165,7 +167,6 @@ a:after {
 }
 
 /* Helpers */
-
 .mt {
 	margin-top: 40px;
 	margin-bottom: 40px;
@@ -182,7 +183,7 @@ a:after {
 	border-left: #666 2px solid;
 	padding-left: 12px;
 }
-
+/*Padding for sharing instructions on home page*/
 #sharing-instructions {
   margin-top: 30px;
 }
@@ -213,7 +214,7 @@ a:after {
 #headerwrap .jumbotron {
   margin-bottom: 0;
 }
-
+/*Scaling for header*/
 @media screen and (min-width: 480px) {
 	#headerwrap p {
 		font-size:28px;
@@ -245,7 +246,7 @@ a:after {
 		letter-spacing: 1px;
 	}
 }
-
+/*Custom font/typography for home page and research*/
 #privacy h1 {
 	font-size:28pt;
 }
@@ -284,6 +285,7 @@ a:after {
   color: #000;
 }
 
+/*Custom styling of elements for White Paper/Research Page*/
 .subsection{
   font-size:18px;
   font-style: italic;
@@ -312,6 +314,7 @@ a:after {
     content: "\e114";
     float: right;
 }
+
 .panel-heading a.collapsed:after {
     content: "\e080";
 }
@@ -337,7 +340,7 @@ a:after {
   color: #999;
 }
 
-/*Squares*/
+/*Squares for White Paper*/
 .square {
     float:left;
     position: relative;
@@ -354,8 +357,7 @@ a:after {
     padding: 0% 0%;
 }
 
-/*video - white paper*/
-
+/*video - White Paper*/
 .flex-video {
   position: relative;
   padding-top: 25px;
@@ -364,7 +366,6 @@ a:after {
   margin-bottom: 16px;
   overflow: hidden;
 }
-
 .flex-video.widescreen { padding-bottom: 57.25%; }
 .flex-video.vimeo { padding-top: 0; }
 
@@ -377,11 +378,12 @@ a:after {
   width: 100%;
   height: 100%;
 }
-
+/* Video scaling for White Paper*/
 @media only screen and (max-device-width: 800px), only screen and (device-width: 1024px) and (device-height: 600px), only screen and (width: 1280px) and (orientation: landscape), only screen and (device-width: 800px), only screen and (max-width: 767px) {
   .flex-video { padding-top: 0; }
 }
 
+/*Scroll up button - White Paper */
 #scrollUp {
   bottom: 20px;
   right: 20px;
@@ -391,32 +393,24 @@ a:after {
 }
 
 
-/* Sticky footer styles
--------------------------------------------------- */
-
-html,
-body {
-  height: 100%;
-  /* The html and body elements cannot have any padding or margin. */
-}
-
-/* Wrapper for page content to push down footer */
+/*Sticky footer styles*/
+/*Wrapper for page content to push down footer */
 #wrap {
   min-height: 100%;
   height: auto;
-  /* Negative indent footer by its height */
+  /*Negative indent footer by its height */
   margin: 0 auto -60px;
-  /* Pad bottom by footer height */
+  /*Pad bottom by footer height */
   padding: 0 0 60px;
 }
 
-/* Set the fixed height of the footer here */
+/*Set the fixed height of the footer here */
 #footer {
   height: 60px;
   background-color: #f5f5f5;
 }
 
-
+/*Default page element styles*/
 .jumbotron {
   padding-top: 0px;
   background-color: #00AAEE;
@@ -432,13 +426,6 @@ body {
   margin-top: 20px;
 }
 
-/* move image for small screens*/
-@media screen and (max-width: 480px) {
-  .navbar-header img {
-    margin-left: -10px;
-  }
-}
-
 .custom-masthead h2 {
   font-size: 40px;
 }
@@ -451,14 +438,7 @@ body {
   margin-bottom: 0px;
 }
 
-
-#logo {
-  margin-right:10px;
-  margin-left:-10px;
-}
-
 /* Report table */
-
 #modal-body {
   overflow:scroll;
 }
@@ -469,19 +449,13 @@ body {
 
 }
 
-/* Helpers */
-
+/*Generic settings for in-page anchors*/
 /* Offset anchor links, to compensate for the sticky header */
 .anchor {
     display: block;
     position: relative;
     top: -50px;
     visibility: hidden;
-}
-
-/* Add some padding to compensate for the fixed navbar overlapping content */
-.top-navbar-padding {
-  padding-top: 70px;
 }
 
 .leaflet-control-info-button,

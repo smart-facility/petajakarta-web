@@ -5,11 +5,6 @@ body {
   margin:0;
 }
 
-#logo {
-  margin-right:10px;
-  margin-left:-10px;
-}
-
 #page {
     min-height: 100%;
 }
