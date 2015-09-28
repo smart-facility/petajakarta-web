@@ -153,6 +153,10 @@ a:after {
 .navbar-default .navbar-nav > li > a {
 	color: white;
 }
+/*Color for collapsed nav menu button span elements on mobile devices*/
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #CCC;
+}
 
 .brand {
 	font-size:28px;
@@ -446,7 +450,14 @@ a:after {
 .navbar-right {
   margin-right:0px;
   font-size:18px;
+}
 
+/*Table formatting for logos*/
+#logos {
+  margin-top: 100px;
+  margin-bottom: 50px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 /* Add some padding to compensate for the fixed navbar overlapping content */
