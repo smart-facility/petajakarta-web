@@ -3,6 +3,7 @@
 /**
 *@file JavaScript to display analytics from cognicity server (PetaJakarta.org)
 *@copyright (c) Tomas Holderness & SMART Infrastructure Facility January 2014
+*@module analytics
 */
 
 /**

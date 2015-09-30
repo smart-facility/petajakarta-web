@@ -2,6 +2,7 @@
  * Generate a table based on the provided reports
  *@file JavaScript to display confirmed reports within map (PetaJakarta.org) via map.js
  *@copyright (c) Tomas Holderness & SMART Infrastructure Facility January 2014
+ *@module reports
  *
  * @param {object} reports - a GeoJSON object
  */
