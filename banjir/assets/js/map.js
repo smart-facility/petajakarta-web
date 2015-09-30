@@ -1,6 +1,11 @@
 //map.js - JavaScript for PetaJakarta web map
 
 /**
+*@file LeafletJS map to display data from cognicity server (PetaJakarta.org)
+*@copyright (c) Tomas Holderness & SMART Infrastructure Facility January 2014
+*/
+
+/**
 	Transforms a number into a formatted, comma separated string. e.g. `1234567`
 	becomes `"1,234,567"`.
 

@@ -1,4 +1,9 @@
-//map.js - JavaScript for PetaJakarta web map
+//analytics.js - JavaScript for PetaJakarta web map
+
+/**
+*@file JavaScript to display analytics from cognicity server (PetaJakarta.org)
+*@copyright (c) Tomas Holderness & SMART Infrastructure Facility January 2014
+*/
 
 /**
 	Transforms a number into a formatted, comma separated string. e.g. `1234567`

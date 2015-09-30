@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>JSDoc: Source: reports.js</title>
-    
+
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
     <!--[if lt IE 9]>
@@ -16,18 +16,21 @@
 <body>
 
 <div id="main">
-    
+
     <h1 class="page-title">Source: reports.js</h1>
+
     
-    
+
 
 
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>/**
+            <pre class="prettyprint source linenums"><code>/**
  * Generate a table based on the provided reports
- * 
+ *@file JavaScript to display confirmed reports within map (PetaJakarta.org) via map.js
+ *@copyright (c) Tomas Holderness &amp; SMART Infrastructure Facility January 2014
+ *
  * @param {object} reports - a GeoJSON object
  */
 function loadTable(reports) {
@@ -36,12 +39,18 @@ function loadTable(reports) {
 	rows = "";
 
 	for (var i=0;i&lt;reports.features.length;i++) {
-		rows +='&lt;tr>&lt;td>'+reports.features[i].properties.created_at.substring(11, 19)+'&lt;/td>&lt;td>&lt;a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+reports.features[i].properties.pkey+','+reports.features[i].geometry.coordinates[1]+','+reports.features[i].geometry.coordinates[0]+')">'+reports.features[i].properties.text+'&lt;/a>&lt;/td>&lt;/tr>';
+		var report = reports.features[i].properties;
+		var reportGeo = reports.features[i].geometry;
+
+		rows +='&lt;tr>';
+			rows += '&lt;td>' + report.created_at.substring(11, 19) + '&lt;/td>'; // Time
+			rows += '&lt;td>&lt;a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+report.pkey+','+reportGeo.coordinates[1]+','+reportGeo.coordinates[0]+')">'+report.text+'&lt;/a>&lt;/td>'; // Message
+		rows += '&lt;/tr>';
 	}
 	if (document.documentElement.lang == 'in') {
-		thead = '&lt;table class="table table-hover">&lt;thead>&lt;tr>&lt;th class="col-xs-2">Waktu&lt;/th>&lt;th class="col-xs-8">Sumber&lt;/th>&lt;/tr>&lt;/thead>';
+		thead = '&lt;table class="table table-hover">&lt;thead>&lt;tr>&lt;th class="col-xs-2">Waktu&lt;/th>&lt;th class="col-xs-6">Sumber&lt;/th>&lt;/tr>&lt;/thead>';
 	} else {
-		thead = '&lt;table class="table table-hover">&lt;thead>&lt;tr>&lt;th class="col-xs-2">Time&lt;/th>&lt;th class="col-xs-8">Message&lt;/th>&lt;/tr>&lt;/thead>';
+		thead = '&lt;table class="table table-hover">&lt;thead>&lt;tr>&lt;th class="col-xs-2">Time&lt;/th>&lt;th class="col-xs-6">Message&lt;/th>&lt;/tr>&lt;/thead>';
 	}
 	var tbody = '&lt;tbody>'+rows+'&lt;/tbody>&lt;/table>';
 	$("#modal-reports-body").append(thead+tbody);
@@ -56,13 +65,13 @@ function loadTable(reports) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Global</h3><ul><li><a href="global.html#centreMapOnPopup">centreMapOnPopup</a></li><li><a href="global.html#formatNumberAsString">formatNumberAsString</a></li><li><a href="global.html#getAggregates">getAggregates</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getOverlay">getOverlay</a></li><li><a href="global.html#getReports">getReports</a></li><li><a href="global.html#labelAggregates">labelAggregates</a></li><li><a href="global.html#loadAggregates">loadAggregates</a></li><li><a href="global.html#loadConfirmedPoints">loadConfirmedPoints</a></li><li><a href="global.html#loadTable">loadTable</a></li><li><a href="global.html#loadUnConfirmedPoints">loadUnConfirmedPoints</a></li><li><a href="global.html#markerPopup">markerPopup</a></li><li><a href="global.html#setViewJakarta">setViewJakarta</a></li><li><a href="global.html#styleAggregates">styleAggregates</a></li><li><a href="global.html#uncomfirmedMarkerPopup">uncomfirmedMarkerPopup</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#aggregateLayers">aggregateLayers</a></li><li><a href="global.html#centreMapOnPopup">centreMapOnPopup</a></li><li><a href="global.html#formatNumberAsString">formatNumberAsString</a></li><li><a href="global.html#getAggregates">getAggregates</a></li><li><a href="global.html#getColor">getColor</a></li><li><a href="global.html#getInfrastructure">getInfrastructure</a></li><li><a href="global.html#getReports">getReports</a></li><li><a href="global.html#highlightAggregate">highlightAggregate</a></li><li><a href="global.html#info">info</a></li><li><a href="global.html#infrastructureMarkerPopup">infrastructureMarkerPopup</a></li><li><a href="global.html#labelAggregates">labelAggregates</a></li><li><a href="global.html#legend">legend</a></li><li><a href="global.html#loadConfirmedPoints">loadConfirmedPoints</a></li><li><a href="global.html#loadInfrastructure">loadInfrastructure</a></li><li><a href="global.html#loadUnconfirmedPoints">loadUnconfirmedPoints</a></li><li><a href="global.html#markerPopup">markerPopup</a></li><li><a href="global.html#resetAggregate">resetAggregate</a></li><li><a href="global.html#setViewJakarta">setViewJakarta</a></li><li><a href="global.html#styleAggregates">styleAggregates</a></li><li><a href="global.html#uncomfirmedMarkerPopup">uncomfirmedMarkerPopup</a></li></ul>
 </nav>
 
-<br clear="both">
+<br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Thu Jun 12 2014 16:08:58 GMT+1000 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Wed Sep 30 2015 14:20:25 GMT+1000 (AEST)
 </footer>
 
 <script> prettyPrint(); </script>
