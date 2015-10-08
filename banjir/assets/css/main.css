@@ -454,10 +454,10 @@ a:after {
 
 /*Table formatting for logos*/
 #logos {
-  margin-top: 100px;
-  margin-bottom: 50px;
+  margin-top: 30px;
   margin-left: 0px;
   margin-right: 0px;
+  padding:0;
 }
 
 /* Add some padding to compensate for the fixed navbar overlapping content */
