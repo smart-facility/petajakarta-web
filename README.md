@@ -43,3 +43,12 @@ Generates documentation from the site's JavaScript files using [JSDoc](http://us
 ## Contribution Guidelines
 
 The site should be compiled with the `grunt` command before committing, this way there'll always be a pre-built, up to date version of the site included with the repo.
+
+### Release
+
+The release procedure is as follows:
+* Update the CHANGELOG.md file with the newly released version, date, and a high-level overview of changes. Commit the change.
+* Update JSDoc documentation if required (see above).
+* Create a tag in git from the current head of master. The tag version should be the same as the version specified in the package.json file - this is the release version.
+* Update the version in the package.json file and commit the change.
+* Further development is now on the updated version number until the release process begins again.
