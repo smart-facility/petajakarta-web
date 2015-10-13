@@ -21,6 +21,7 @@ module.exports = function(grunt) {
           'banjir/vendor/js/Chart.js',
           'banjir/vendor/js/jquery.growl.js',
           'banjir/vendor/js/jquery.scrollUp.min.js',
+          'banjir/vendor/js/url.min.js',
           'banjir/assets/js/reports.js'
         ],
         dest: 'build/banjir/js/application.js'
