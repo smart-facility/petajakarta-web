@@ -100,7 +100,26 @@ var getReports = function(type) {
 			}
 		});
 	});
+};
 
+/**
+	Get TopoJSON representing a single confirmed flooding report
+
+	@param {integer} id - the unique id of the confirmed report to get
+
+	Converts TopoJson to GeoJson using topojson
+*/
+var getReport = function(id) {
+	return new RSVP.Promise(function(resolve, reject){
+		jQuery.getJSON('/banjir/data/api/v2/reports/confirmed/'+id+'?format=topojson', function(data){
+			if (data.features !== null){
+				resolve(topojson.feature(data, data.objects.collection));
+			}
+				else {
+					resolve(null);
+				}
+		});
+	});
 };
 
 var aggregateHours = 1;
