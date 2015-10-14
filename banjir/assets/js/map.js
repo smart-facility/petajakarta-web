@@ -674,42 +674,17 @@ infoControl.addTo(map);
 reportsControl.addTo(map);
 locationControl.addTo(map);
 
-//Old Mapnik B&W rendering before aggregates layer was added
-//var base0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map);
-//Using stamen toner-lite
-var base0 = L.tileLayer('http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
-	//attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-	subdomains: 'abcd',
-	minZoom: 0,
-	maxZoom: 20
-}).addTo(map);
-var base1 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-
-var precip = L.tileLayer('http://{s}.tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png', {
-	attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>',
-	opacity: 0.5
-});
-
-var pressure = L.tileLayer('http://{s}.tile.openweathermap.org/map/pressure_cntr/{z}/{x}/{y}.png', {
-	attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>',
-	opacity: 0.5
-});
-
-var temp = L.tileLayer('http://{s}.tile.openweathermap.org/map/temp/{z}/{x}/{y}.png', {
-	attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>',
-	opacity: 0.5
-});
+// Basemaps
+var base1 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
 //Ancillary layers control
 if (document.documentElement.lang == 'in') {
 	var baseMaps = {
-		"Open Street Map": base0,
-		"Open Street Map (warna)":base1
+		"Open Street Map":base1
 	};
 } else {
 	var baseMaps = {
-    	"Open Street Map (B&W)": base0,
-			"Open Street Map (colour)": base1
+			"Open Street Map": base1
 		};
 	}
 
