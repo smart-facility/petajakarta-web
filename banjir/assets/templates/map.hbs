@@ -114,12 +114,6 @@
   <script src="/{{site.url-prefix}}/js/application.min.js"></script>
   <script src="/{{site.url-prefix}}/js/map.min.js"></script>
 
-  <script>
-  $.growl.notice({size: 'large', location:'tc' ,fixed: true, title: "{{{site.map-off-title}}}", message:"{{{site.map-off-text}}}"});
-
-  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-
-  </script>
 
   <!-- Google analytics -->
   <script>
@@ -134,7 +128,10 @@
   </script>
 
   <script>
-    console.log(getReport($.url('?report')));
+    var promise = getReport($.url('?report'));
+    promise.then(function(data){
+      console.log(data)
+    });
   </script>
 
 </body>

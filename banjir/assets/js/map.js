@@ -89,9 +89,7 @@ var infrastructureMarkerPopup = function(feature, layer){
 var getReports = function(type) {
 	return new RSVP.Promise(function(resolve, reject) {
 		// Use live data
-		jQuery.getJSON('/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
-		// Use fixture data
-		// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
+		jQuery.getJSON('/banjir/data/api/v2/reports/'+type+'?format=topojson', function(data) {
 			if (data.features !== null){
 				//Convert topojson back to geojson for Leaflet
 				resolve(topojson.feature(data, data.objects.collection));
@@ -107,13 +105,13 @@ var getReports = function(type) {
 
 	@param {integer} id - the unique id of the confirmed report to get
 
-	Converts TopoJson to GeoJson using topojson
+	For single point feature GeoJSON is smaller than TopoJSON
 */
 var getReport = function(id) {
 	return new RSVP.Promise(function(resolve, reject){
-		jQuery.getJSON('/banjir/data/api/v2/reports/confirmed/'+id+'?format=topojson', function(data){
+		jQuery.getJSON('/banjir/data/api/v2/reports/confirmed/'+id+'?format=geojson', function(data){
 			if (data.features !== null){
-				resolve(topojson.feature(data, data.objects.collection));
+				resolve(data);
 			}
 				else {
 					resolve(null);
@@ -770,9 +768,9 @@ else {
 var loadPrimaryLayers = function(layerControl) {
 	var layerPromises = {
 		confirmed: getReports('confirmed')
-			.then(loadConfirmedPoints),
-			unconfirmed: getReports('unconfirmed')
-				.then(loadUnconfirmedPoints)};
+			.then(loadConfirmedPoints)};//,
+			//unconfirmed: getReports('unconfirmed')
+			//	.then(loadUnconfirmedPoints)};
 
   if (!window.isTouch) {
     layerPromises.subdistrict = getAggregates('subdistrict')
@@ -783,10 +781,10 @@ var loadPrimaryLayers = function(layerControl) {
 
 	return new RSVP.Promise(function(resolve, reject) {
 		RSVP.hash(layerPromises).then(function(overlays) {
-
+			/*
       if (!window.isTouch) {
-        layerControl.addOverlay(overlays.subdistrict, layernames.subdistrict);
-        overlays.subdistrict.addTo(map);
+        //layerControl.addOverlay(overlays.subdistrict, layernames.subdistrict);
+        //overlays.subdistrict.addTo(map);
       }
 
 			else {
@@ -798,6 +796,10 @@ var loadPrimaryLayers = function(layerControl) {
 				overlays.confirmed.addTo(map);
 				overlays.unconfirmed.addTo(map);
 			}
+			*/
+
+			layerControl.addOverlay(overlays.confirmed, layernames.confirmed);
+			overlays.confirmed.addTo(map);
 
 			map.spin(false);
 
@@ -888,6 +890,7 @@ map.on('locationfound', onLocationFound);
 /**
 	Listen for map zoom events and load required layers [non-touch devices]
 */
+/*
 if (!window.isTouch) {
   map.on('zoomend', updateAggregateVisibility);
-}
+}*/
