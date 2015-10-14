@@ -159,6 +159,37 @@ var loadConfirmedPoints = function(reports) {
 };
 
 /**
+	If a unique ID is specified in the URL, zoom to this point, getting specified point if need.
+ 	@param {object} report - a GeoJSON object contiaing report location and metadata
+*/
+var showURLReport = function() {
+	//Test if URL parameter present
+	if ($.url('?report')){
+			//Check if Integer
+			var id = parseInt($.url('?report'));
+			var err;
+			if ( !validateNumberParameter(id,0) ) err = new Error( "'report id parameter is invalid" );
+			if (err) {
+				console.log(err);
+				return;
+			}
+			//Zoom to object if exists
+			if (markerMap.hasOwnProperty(id)){
+				centreMapOnPopup(id);
+			}
+
+			else {
+				//Else attempt to get from server
+				var promise = getReport(id);
+				promise.then(function(data){
+					window.confirmedPoints.addData(data);
+					centreMapOnPopup(id);
+					});
+				}
+			}
+};
+
+/**
 	Plots unconfirmed points on the map as circular markers
 
 	@param {object} reports - a GeoJSON object containing report locations
@@ -800,7 +831,6 @@ var loadPrimaryLayers = function(layerControl) {
 
 			layerControl.addOverlay(overlays.confirmed, layernames.confirmed);
 			overlays.confirmed.addTo(map);
-
 			map.spin(false);
 
 			resolve(layerControl);
@@ -860,7 +890,8 @@ var loadSecondaryLayers = function(layerControl) {
 $(function() {
 	map.spin(true);
 	window.layerControl = L.control.layers(baseMaps, {}, {position: 'bottomleft'}).addTo(map);
-	loadPrimaryLayers(window.layerControl).then(loadSecondaryLayers);
+	loadPrimaryLayers(window.layerControl).then(showURLReport);
+	//.then(loadSecondaryLayers);
 });
 
 
