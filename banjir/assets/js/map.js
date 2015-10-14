@@ -178,6 +178,8 @@ var showURLReport = function() {
 					});
 				}
 			}
+		//hack to return requirement for next promise in data load chain
+		return (window.layerControl);
 };
 
 /**
@@ -743,10 +745,10 @@ var loadPrimaryLayers = function(layerControl) {
 
 	return new RSVP.Promise(function(resolve, reject) {
 		RSVP.hash(layerPromises).then(function(overlays) {
-			/*
+
       if (!window.isTouch) {
-        //layerControl.addOverlay(overlays.subdistrict, layernames.subdistrict);
-        //overlays.subdistrict.addTo(map);
+        layerControl.addOverlay(overlays.subdistrict, layernames.subdistrict);
+        //overlays.subdistrict
       }
 
 			else {
@@ -756,10 +758,10 @@ var loadPrimaryLayers = function(layerControl) {
 				// Make overlays visible
 				overlays.confirmed.addTo(map);
 			}
-			*/
 
 			layerControl.addOverlay(overlays.confirmed, layernames.confirmed);
 			overlays.confirmed.addTo(map);
+
 			map.spin(false);
 
 			resolve(layerControl);
@@ -803,13 +805,6 @@ var loadSecondaryLayers = function(layerControl) {
 			layerControl.addOverlay(overlays.pumps, layernames.pumps);
 			layerControl.addOverlay(overlays.floodgates, layernames.floodgates);
 
-			// Make overlays visible unless of touch device
-			if (!window.isTouch){
-				overlays.waterways.addTo(map);
-				overlays.pumps.addTo(map);
-				overlays.floodgates.addTo(map);
-			}
-
       $('.control.aggregates button').prop('disabled', false);
 		});
 	});
@@ -819,8 +814,7 @@ var loadSecondaryLayers = function(layerControl) {
 $(function() {
 	map.spin(true);
 	window.layerControl = L.control.layers(baseMaps, {}, {position: 'bottomleft'}).addTo(map);
-	loadPrimaryLayers(window.layerControl).then(showURLReport);
-	//.then(loadSecondaryLayers);
+	loadPrimaryLayers(window.layerControl).then(showURLReport).then(loadSecondaryLayers);
 });
 
 
