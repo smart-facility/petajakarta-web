@@ -37,15 +37,6 @@ var markerPopup = function(feature, layer) {
 	@param {object} feature - a GeoJSON feature
 	@param {L.ILayer} layer - the layer to attach the popup to
 */
-var uncomfirmedMarkerPopup = function(feature, layer) {
-	if (feature.properties) {
-		if (document.documentElement.lang == 'in') {
-			layer.bindPopup('Laporan belum dikonfirmasi. Twit pesanmu dengan menyebutkan @petajkt #banjir');
-		} else {
-			layer.bindPopup('Unconfirmed report. To confirm tweet @petajkt #banjir');
-		}
-	}
-};
 
 /**
 	Get a map overlay layer from the geoserver
@@ -187,25 +178,6 @@ var showURLReport = function() {
 					});
 				}
 			}
-};
-
-/**
-	Plots unconfirmed points on the map as circular markers
-
-	@param {object} reports - a GeoJSON object containing report locations
-*/
-var loadUnconfirmedPoints = function(reports) {
-	if (reports) {
-		window.unconfirmedPoints = L.geoJson(reports, {
-			pointToLayer: function (feature, latlng) {
-					return L.circleMarker(latlng, styleUnconfirmed);
-			}, onEachFeature: uncomfirmedMarkerPopup
-		});
-	} else {
-		window.unconfirmedPoints = L.geoJson();
-	}
-
-	return window.unconfirmedPoints;
 };
 
 /**
@@ -516,10 +488,8 @@ var reloadAggregates = function() {
 };
 
 var hideReports = function (){
-	map.removeLayer(window.unconfirmedPoints);
 	map.removeLayer(window.confirmedPoints);
 
-	window.layerControl.removeLayer(window.unconfirmedPoints);
 	window.layerControl.removeLayer(window.confirmedPoints);
 };
 
@@ -578,11 +548,9 @@ var updateAggregateVisibility = function() {
 		}
 
 		// Add reports to legend at street level
-		layerControl.addOverlay(window.unconfirmedPoints, layernames.unconfirmed);
 		layerControl.addOverlay(window.confirmedPoints, layernames.confirmed);
 
 		// Turn reports on at street level
-		window.unconfirmedPoints.addTo(map);
 		window.confirmedPoints.addTo(map);
 
 	}
@@ -747,15 +715,7 @@ if (document.documentElement.lang == 'in') {
 
 var markerMap = {}; //Reference list of markers stored outside of Leaflet
 
-// Styles for confirmed and unconfirmed points
-var styleUnconfirmed = {
-    radius: 7,
-    fillColor: "#ff7800",
-    color: "#000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-};
+// Styles for confirmed points
 
 var styleConfirmed = {
     radius: 7,
@@ -777,7 +737,6 @@ var layernames = {};
 
 if (document.documentElement.lang == 'in'){
 	layernames.confirmed = 'Laporan dikonfirmasi';
-	layernames.unconfirmed = 'Laporan belum dikonfirmasi';
 	layernames.subdistrict = 'Laporan Kecamatan';
 	layernames.village = 'Laporan Desa';
 	layernames.neighbourhood = 'Laporan RW';
@@ -787,7 +746,6 @@ if (document.documentElement.lang == 'in'){
 }
 else {
 	layernames.confirmed = 'Confirmed Reports';
-	layernames.unconfirmed = 'Unconfirmed Reports';
 	layernames.subdistrict = 'Subdistrict Aggregates';
 	layernames.village = 'Village Aggregates';
 	layernames.neighbourhood = 'Neighbourhood Aggregates';
@@ -799,9 +757,7 @@ else {
 var loadPrimaryLayers = function(layerControl) {
 	var layerPromises = {
 		confirmed: getReports('confirmed')
-			.then(loadConfirmedPoints)};//,
-			//unconfirmed: getReports('unconfirmed')
-			//	.then(loadUnconfirmedPoints)};
+			.then(loadConfirmedPoints)};
 
   if (!window.isTouch) {
     layerPromises.subdistrict = getAggregates('subdistrict')
@@ -821,11 +777,9 @@ var loadPrimaryLayers = function(layerControl) {
 			else {
 				// Add overlays to the layers control
 				layerControl.addOverlay(overlays.confirmed, layernames.confirmed);
-				layerControl.addOverlay(overlays.unconfirmed, layernames.unconfirmed);
 
 				// Make overlays visible
 				overlays.confirmed.addTo(map);
-				overlays.unconfirmed.addTo(map);
 			}
 			*/
 
@@ -899,7 +853,7 @@ $(function() {
 if (document.documentElement.lang == 'in') {
 	$('.leaflet-control-layers-overlays').append('</div><label><div class=c></div><span>Laporan dikonfirmasi dari jam terakhir</span></label><label><div class=u></div><span>Laporan belum dikonfirmasi</span></label>');
 } else {
-	$('.leaflet-control-layers-overlays').append('<label><div class=c></div><span>Confirmed reports</span></label><label><div class=u></div><span>Unconfirmed reports</span></label>');
+	$('.leaflet-control-layers-overlays').append('<label><div class=c></div><span>Confirmed reports</span></label>');
 }
 
 
