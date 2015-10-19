@@ -507,25 +507,25 @@ var updateAggregateVisibility = function() {
 	var zoom  = map.getZoom();
 
 	if (zoom < 13) {
-		hideReports();
+		//hideReports();
 		hideAggregates();
 		aggregateLayers.subdistrict.addTo(map);
 		aggregateLayers.subdistrict.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.subdistrict, layernames.subdistrict);
+		window.layerControl.addBaseLayer(aggregateLayers.subdistrict, layernames.subdistrict);
 
 	} else if (zoom >= 13 && zoom <= 14) {
-		hideReports();
+		//hideReports();
 		hideAggregates();
 		aggregateLayers.village.addTo(map);
 		aggregateLayers.village.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.village, layernames.village);
+		window.layerControl.addBaseLayer(aggregateLayers.village, layernames.village);
 
 	} else if (zoom >= 15 && zoom < 16) {
-		hideReports();
+		//hideReports();
 		hideAggregates();
 		aggregateLayers.rw.addTo(map);
 		aggregateLayers.rw.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.rw, layernames.neighbourhood);
+		window.layerControl.addBaseLayer(aggregateLayers.rw, layernames.neighbourhood);
 
 		//Update legend boxes
 		info.update();
@@ -833,12 +833,17 @@ map.on('locationfound', onLocationFound);
 /**
 	Listen for map zoom events and load required layers [non-touch devices]
 */
-/*
-if (!window.isTouch) {
-  map.on('zoomend', updateAggregateVisibility);
-}*/
+if (!window.isTouch){
+	map.on('zoomend', function(){
+		if (map.hasLayer(window.confirmedPoints) === false ) {
+			updateAggregateVisibility();
+		}
+	});
+}
 
-//ask popups to render using Twitter embedded tweets
+/**
+	Ask popups to render using Twitter embedded tweets
+*/
 map.on('popupopen', function(){
 	twttr.widgets.load();
 });
