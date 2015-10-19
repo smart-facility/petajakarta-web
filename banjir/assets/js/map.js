@@ -496,32 +496,23 @@ var reloadAggregates = function() {
   return RSVP.hash(promises);
 };
 
-var hideReports = function (){
-	map.removeLayer(window.confirmedPoints);
-
-	window.layerControl.removeLayer(window.confirmedPoints);
-};
-
 // Turn layers on/off depending on zoom level
 var updateAggregateVisibility = function() {
 	var zoom  = map.getZoom();
 
 	if (zoom < 13) {
-		//hideReports();
 		hideAggregates();
 		aggregateLayers.subdistrict.addTo(map);
 		aggregateLayers.subdistrict.bringToBack();
 		window.layerControl.addBaseLayer(aggregateLayers.subdistrict, layernames.subdistrict);
 
 	} else if (zoom >= 13 && zoom <= 14) {
-		//hideReports();
 		hideAggregates();
 		aggregateLayers.village.addTo(map);
 		aggregateLayers.village.bringToBack();
 		window.layerControl.addBaseLayer(aggregateLayers.village, layernames.village);
 
 	} else if (zoom >= 15 && zoom < 16) {
-		//hideReports();
 		hideAggregates();
 		aggregateLayers.rw.addTo(map);
 		aggregateLayers.rw.bringToBack();
