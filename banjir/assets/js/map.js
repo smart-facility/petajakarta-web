@@ -557,10 +557,12 @@ var updateAggregateVisibility = function() {
 		}
 
 		// Add reports to legend at street level
-		layerControl.addOverlay(window.confirmedPoints, layernames.confirmed);
+		layerControl.addBaseLayer(window.confirmedPoints, layernames.confirmed);
 
 		// Turn reports on at street level
 		window.confirmedPoints.addTo(map);
+
+
 
 	}
 	else {
@@ -673,10 +675,10 @@ if ('geolocation' in navigator && window.isTouch) {
 info.addTo(map);
 
 //Add legend
-legend.addTo(map);
+//legend.addTo(map);
 
 //Add aggregates control
-aggregatesControl.addTo(map);
+//aggregatesControl.addTo(map);
 
 // Reports control
 infoControl.addTo(map);
@@ -685,17 +687,6 @@ locationControl.addTo(map);
 
 // Basemaps
 var base1 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-//Ancillary layers control
-if (document.documentElement.lang == 'in') {
-	var baseMaps = {
-		"Open Street Map":base1
-	};
-} else {
-	var baseMaps = {
-			"Open Street Map": base1
-		};
-	}
 
 var markerMap = {}; //Reference list of markers stored outside of Leaflet
 
@@ -754,19 +745,11 @@ var loadPrimaryLayers = function(layerControl) {
 		RSVP.hash(layerPromises).then(function(overlays) {
 
       if (!window.isTouch) {
-        layerControl.addOverlay(overlays.subdistrict, layernames.subdistrict);
+        layerControl.addBaseLayer(overlays.subdistrict, layernames.subdistrict);
         //overlays.subdistrict
       }
 
-			else {
-				// Add overlays to the layers control
-				layerControl.addOverlay(overlays.confirmed, layernames.confirmed);
-
-				// Make overlays visible
-				overlays.confirmed.addTo(map);
-			}
-
-			layerControl.addOverlay(overlays.confirmed, layernames.confirmed);
+			layerControl.addBaseLayer(overlays.confirmed, layernames.confirmed);
 			overlays.confirmed.addTo(map);
 			map.spin(false);
 
@@ -819,7 +802,7 @@ var loadSecondaryLayers = function(layerControl) {
 // Load reports
 $(function() {
 	map.spin(true);
-	window.layerControl = L.control.layers(baseMaps, {}, {position: 'bottomleft'}).addTo(map);
+	window.layerControl = L.control.layers({}, {}, {position: 'bottomleft'}).addTo(map);
 	loadPrimaryLayers(window.layerControl).then(showURLReport).then(loadSecondaryLayers);
 });
 
