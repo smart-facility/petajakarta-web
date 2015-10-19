@@ -26,8 +26,15 @@ var formatNumberAsString = function(x) {
 var markerPopup = function(feature, layer) {
 	if (feature.properties) {
 		markerMap[feature.properties.pkey] = layer;
-		//Create reference list of markers
-		layer.bindPopup(feature.properties.text.parseURL());
+
+		// Render as tweet
+		if (feature.properties.source == 'twitter'){
+			layer.bindPopup('<blockquote class="twitter-tweet"><a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'</a></blockquote>');
+		}
+		// Default to text rendering
+		else {
+			layer.bindPopup(feature.properties.text.parseURL());
+		}
 	}
 };
 
@@ -761,7 +768,6 @@ var loadPrimaryLayers = function(layerControl) {
 
 			layerControl.addOverlay(overlays.confirmed, layernames.confirmed);
 			overlays.confirmed.addTo(map);
-
 			map.spin(false);
 
 			resolve(layerControl);
@@ -848,3 +854,8 @@ map.on('locationfound', onLocationFound);
 if (!window.isTouch) {
   map.on('zoomend', updateAggregateVisibility);
 }*/
+
+//ask popups to render using Twitter embedded tweets
+map.on('popupopen', function(){
+	twttr.widgets.load();
+});
