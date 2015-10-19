@@ -531,7 +531,8 @@ var updateAggregateVisibility = function() {
 
 	} else if (zoom >= 16) {
 		//Turn aggregates off
-		hideAggregates();
+		//hideAggregates();
+		//map.removeLayer(aggregateLayers.rw);
 		//Update info box for street level
 		if (document.documentElement.lang == 'in') {
 			info._div.innerHTML = 'Jalan laporan dari jam terakhir';
