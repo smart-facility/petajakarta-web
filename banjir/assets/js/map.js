@@ -185,8 +185,6 @@ var showURLReport = function() {
 					});
 				}
 			}
-		//hack to return requirement for next promise in data load chain
-		return (window.layerControl);
 };
 
 /**
@@ -541,7 +539,7 @@ var updateAggregateVisibility = function() {
 		}
 		window.layerControl.addBaseLayer(aggregateLayers.village, layernames.village);
 
-	} else if (zoom >= 15 && zoom < 16) {
+	} else if (zoom >= 15) {
 		hideAggregates();
 		if (map.hasLayer(window.confirmedPoints) === false){
 			aggregateLayers.rw.addTo(map);
@@ -549,31 +547,11 @@ var updateAggregateVisibility = function() {
 		}
 		window.layerControl.addBaseLayer(aggregateLayers.rw, layernames.neighbourhood);
 
-	} else if (zoom >= 16) {
-		hideAggregates();
-		//aggregateLayers.rw.addTo(map);
-		//aggregateLayers.rw.bringToBack();
-		window.layerControl.addBaseLayer(aggregateLayers.rw, layernames.neighbourhood);
-
-		//Update info box for street level
-		if (document.documentElement.lang == 'in') {
-			info._div.innerHTML = 'Jalan laporan dari jam terakhir';
-		}
-		else {
-			info._div.innerHTML = 'Street level reports from last hour';
-		}
-
-		// Add reports to legend at street level
-		layerControl.addBaseLayer(window.confirmedPoints, layernames.confirmed);
-		// Turn reports on at street level
-		window.confirmedPoints.addTo(map);
-
 	}
 	else {
 		hideAggregates();
 
 	}
-
   activeAggregate = null;
 };
 
@@ -784,6 +762,7 @@ var loadSecondaryLayers = function(layerControl) {
 
 		RSVP.hash(secondaryPromises).then(function(overlays) {
 			// Add overlays to the layer control
+			showURLReport();
 			layerControl.addOverlay(overlays.waterways, layernames.waterways);
 			layerControl.addOverlay(overlays.pumps, layernames.pumps);
 			layerControl.addOverlay(overlays.floodgates, layernames.floodgates);
@@ -795,7 +774,7 @@ var loadSecondaryLayers = function(layerControl) {
 $(function() {
 	map.spin(true);
 	window.layerControl = L.control.layers({}, {}, {position: 'bottomleft'}).addTo(map);
-	loadPrimaryLayers(window.layerControl).then(showURLReport).then(loadSecondaryLayers);
+	loadPrimaryLayers(window.layerControl).then(loadSecondaryLayers);
 });
 
 // Hack in the symbols for reports
