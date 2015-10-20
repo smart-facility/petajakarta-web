@@ -153,7 +153,8 @@
   },
   "confirmed-reports": {
     "title": "Laporan dikonfirmasi dari jam terakhir",
-    "instructions": "Klik laporan untuk melihat lokasi pada peta"
+    "instructions": "Klik laporan untuk melihat lokasi pada peta",
+    "timetamp": ""
   },
   "map-information": {
     "title": "Peta Informasi",

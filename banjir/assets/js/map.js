@@ -762,8 +762,6 @@ var loadSecondaryLayers = function(layerControl) {
 			layerControl.addOverlay(overlays.waterways, layernames.waterways);
 			layerControl.addOverlay(overlays.pumps, layernames.pumps);
 			layerControl.addOverlay(overlays.floodgates, layernames.floodgates);
-
-      $('.control.aggregates button').prop('disabled', false);
 		});
 	});
 };
