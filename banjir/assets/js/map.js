@@ -7,17 +7,6 @@
 */
 
 /**
-	Transforms a number into a formatted, comma separated string. e.g. `1234567`
-	becomes `"1,234,567"`.
-
-	@function
-	@param {number} x the number to be formatted
-*/
-var formatNumberAsString = function(x) {
-	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
-
-/**
 	Add a popup to the provided layer based on the provided feature's text property
 
 	@param {object} feature - a GeoJSON feature
@@ -236,7 +225,6 @@ var loadInfrastructure = function(layer, infrastructure){
 };
 
 var styleInfrastructure = {
-
 	waterways:{
 		color:'#3960ac',
 		weight:2.5,
@@ -393,11 +381,14 @@ var setViewJakarta = function(position) {
 	}
 };
 
-/**
-	Timestamp box - either add or remove
-*/
+// Create timestamp control
 var timestamp = L.control({'position':'bottomright'});
 
+/**
+	Toggle timestamp on map based on checkbox behaviour
+
+	@param {Boolean} checkbox - true/false representation of checkbox state
+*/
 var toggle_timestamp = function(checkbox){
 
 	if (checkbox === true){
@@ -409,10 +400,8 @@ var toggle_timestamp = function(checkbox){
 		}
 	}
 };
-
-
+// Create timestamp text
 timestamp.onAdd = function(map){
-
 	var time = String(new Date()).slice(0,21);
 	this._div = L.DomUtil.create('div', 'info');
 	this._div.innerHTML = time;
