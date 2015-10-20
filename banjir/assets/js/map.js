@@ -681,8 +681,7 @@ reportsControl.addTo(map);
 locationControl.addTo(map);
 
 // Basemaps
-var base1 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
+var base = L.tileLayer('https://api.mapbox.com/v4/petajakarta.lcf40klb/{z}/{x}/{y}.png128?access_token=pk.eyJ1IjoicGV0YWpha2FydGEiLCJhIjoiTExKVVZ5TSJ9.IFf5jeFKz2iwMpBi5N3kUg').addTo(map);
 var markerMap = {}; //Reference list of markers stored outside of Leaflet
 
 // Styles for confirmed points
