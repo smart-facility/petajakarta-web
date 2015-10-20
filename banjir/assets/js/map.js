@@ -762,13 +762,6 @@ $(function() {
 	loadPrimaryLayers(window.layerControl).then(loadSecondaryLayers);
 });
 
-// Hack in the symbols for reports
-if (document.documentElement.lang == 'in') {
-	$('.leaflet-control-layers-overlays').append('</div><label><div class=c></div><span>Laporan dikonfirmasi dari jam terakhir</span></label><label><div class=u></div><span>Laporan belum dikonfirmasi</span></label>');
-} else {
-	$('.leaflet-control-layers-overlays').append('<label><div class=c></div><span>Confirmed reports</span></label>');
-}
-
 /**
 	Listen for map events and load required layers [non-touch devices]
 */
