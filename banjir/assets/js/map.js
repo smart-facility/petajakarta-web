@@ -524,17 +524,6 @@ var updateAggregateVisibility = function() {
 		}
 		window.layerControl.addBaseLayer(aggregateLayers.rw, layernames.neighbourhood);
 
-		//Update legend boxes
-		info.update();
-		if (!legend._map){
-			legend.addTo(map);
-		}
-		if (!aggregatesControl._map){
-			aggregatesControl.addTo(map);
-			$('.control.aggregates button').prop('disabled', false);
-		}
-
-
 	} else if (zoom >= 16) {
 		hideAggregates();
 		//aggregateLayers.rw.addTo(map);
@@ -834,7 +823,23 @@ if (!window.isTouch){
 	map.on('zoomend', function(){
 			updateAggregateVisibility();
 	});
+
+	map.on('layerremove', function(event){
+		if (event.layer == window.confirmedPoints){
+			//Update legend boxes
+			info.update();
+			if (!legend._map){
+				legend.addTo(map);
+			}
+			if (!aggregatesControl._map){
+				aggregatesControl.addTo(map);
+				$('.control.aggregates button').prop('disabled', false);
+			}
+		}
+	})
 }
+
+
 
 /**
 	Ask popups to render using Twitter embedded tweets
