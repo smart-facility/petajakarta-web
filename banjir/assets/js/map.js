@@ -408,7 +408,6 @@ info.onAdd = function(map){
 };
 
 //Update info box
-
 var hover_text;
 var reports_text;
 
@@ -538,13 +537,6 @@ var updateAggregateVisibility = function() {
 			info._div.innerHTML = 'Street level reports from last hour';
 		}
 
-		if (legend._map){
-			map.removeControl(legend);
-		}
-		if (aggregatesControl._map){
-			map.removeControl(aggregatesControl);
-		}
-
 		// Add reports to legend at street level
 		layerControl.addBaseLayer(window.confirmedPoints, layernames.confirmed);
 		// Turn reports on at street level
@@ -656,15 +648,6 @@ map.locate({setView:false});
 if ('geolocation' in navigator && window.isTouch) {
 	navigator.geolocation.getCurrentPosition(setViewJakarta);
 }
-
-//Add info box
-info.addTo(map);
-
-//Add legend
-//legend.addTo(map);
-
-//Add aggregates control
-//aggregatesControl.addTo(map);
 
 // Reports control
 infoControl.addTo(map);
@@ -792,14 +775,12 @@ $(function() {
 	loadPrimaryLayers(window.layerControl).then(showURLReport).then(loadSecondaryLayers);
 });
 
-
 // Hack in the symbols for reports
 if (document.documentElement.lang == 'in') {
 	$('.leaflet-control-layers-overlays').append('</div><label><div class=c></div><span>Laporan dikonfirmasi dari jam terakhir</span></label><label><div class=u></div><span>Laporan belum dikonfirmasi</span></label>');
 } else {
 	$('.leaflet-control-layers-overlays').append('<label><div class=c></div><span>Confirmed reports</span></label>');
 }
-
 
 /**
 Add user location (if in Jakarta) -> this logic moved to setViewJakarta()
@@ -815,19 +796,35 @@ function onLocationFound(e) {
 map.on('locationfound', onLocationFound);
 */
 
-
 /**
-	Listen for map zoom events and load required layers [non-touch devices]
+	Listen for map events and load required layers [non-touch devices]
 */
 if (!window.isTouch){
+	//Update aggregates by zoom level
 	map.on('zoomend', function(){
 			updateAggregateVisibility();
 	});
 
-	map.on('layerremove', function(event){
+	//Toggle Aggregate legend
+	map.on('baselayerchange', function(event){
 		if (event.layer == window.confirmedPoints){
+			if (info._map){
+				map.removeControl(info);
+			}
+			if (legend._map){
+				map.removeControl(legend);
+			}
+			if (aggregatesControl._map){
+				map.removeControl(aggregatesControl);
+			}
+		}
+		else {
 			//Update legend boxes
-			info.update();
+			if (!info._map){
+				info.addTo(map);
+				info.update();
+			}
+
 			if (!legend._map){
 				legend.addTo(map);
 			}
@@ -836,10 +833,8 @@ if (!window.isTouch){
 				$('.control.aggregates button').prop('disabled', false);
 			}
 		}
-	})
+	});
 }
-
-
 
 /**
 	Ask popups to render using Twitter embedded tweets
