@@ -363,8 +363,9 @@ var centreMapOnPopup = function(pkey,lat,lon) {
 
 /**
 	Center the map on the user's location if they're in jakarta & add a pin to show location
+	See http://leafletjs.com/examples/mobile.html for reference implementation.
 
-	@param {Position} position - the user's position
+	@param {Position} position - the user's position as provided by client browser
 */
 var setViewJakarta = function(position) {
 	if (position.coords.latitude >= -6.4354 && position.coords.latitude <= -5.9029 &&
@@ -767,20 +768,6 @@ if (document.documentElement.lang == 'in') {
 } else {
 	$('.leaflet-control-layers-overlays').append('<label><div class=c></div><span>Confirmed reports</span></label>');
 }
-
-/**
-Add user location (if in Jakarta) -> this logic moved to setViewJakarta()
--left in for reference.
-*/
-/*
-function onLocationFound(e) {
-	var radius = e.accuracy / 2;
-
-	L.circle(e.latlng, radius).addTo(map);
-}
-
-map.on('locationfound', onLocationFound);
-*/
 
 /**
 	Listen for map events and load required layers [non-touch devices]
