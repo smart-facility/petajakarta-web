@@ -643,12 +643,16 @@ infoControl.addTo(map);
 reportsControl.addTo(map);
 locationControl.addTo(map);
 
-// Basemaps
-var base = L.tileLayer('https://api.mapbox.com/v4/petajakarta.lcf40klb/{z}/{x}/{y}.png128?access_token=pk.eyJ1IjoicGV0YWpha2FydGEiLCJhIjoiTExKVVZ5TSJ9.IFf5jeFKz2iwMpBi5N3kUg').addTo(map);
+// Basemap - check for HD/Retina display
+// See: http://www.robertprice.co.uk/robblog/2011/05/detecting_retina_displays_from_javascript_and_css-shtml/
+var tileformat = '.png128';
+if (window.devicePixelRatio > 1) {
+	tileformat = '@2x.png128';
+}
+var base = L.tileLayer('https://api.mapbox.com/v4/petajakarta.lcf40klb/{z}/{x}/{y}'+tileformat+'?access_token=pk.eyJ1IjoicGV0YWpha2FydGEiLCJhIjoiTExKVVZ5TSJ9.IFf5jeFKz2iwMpBi5N3kUg').addTo(map);
 var markerMap = {}; //Reference list of markers stored outside of Leaflet
 
 // Styles for confirmed points
-
 var styleConfirmed = {
     radius: 7,
     fillColor: "blue",
