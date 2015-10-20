@@ -155,7 +155,7 @@
   "confirmed-reports": {
     "title": "Confirmed reports from the last hour",
     "instructions": "Click to a report to see its location on the map",
-    "timestamp": "menunjukkan waktu saat ini di peta"
+    "timestamp": " show the current time on the map"
   },
   "map-information": {
     "title": "Map information",

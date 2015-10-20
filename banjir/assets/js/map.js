@@ -396,6 +396,32 @@ var setViewJakarta = function(position) {
 };
 
 /**
+	Timestamp box - either add or remove
+*/
+var timestamp = L.control({'position':'bottomright'});
+
+var toggle_timestamp = function(checkbox){
+
+	if (checkbox === true){
+		timestamp.addTo(map);
+	}
+	else {
+		if (timestamp._map){
+			map.removeControl(timestamp);
+		}
+	}
+};
+
+
+timestamp.onAdd = function(map){
+
+	var time = String(new Date()).slice(0,21);
+	this._div = L.DomUtil.create('div', 'info');
+	this._div.innerHTML = time;
+	return this._div;
+};
+
+/**
 	Information box for aggregate details
 */
 var info = L.control({'position':'topright'});
