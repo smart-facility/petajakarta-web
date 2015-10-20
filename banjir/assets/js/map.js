@@ -502,20 +502,26 @@ var updateAggregateVisibility = function() {
 
 	if (zoom < 13) {
 		hideAggregates();
-		aggregateLayers.subdistrict.addTo(map);
-		aggregateLayers.subdistrict.bringToBack();
+		if (map.hasLayer(window.confirmedPoints) === false){
+			aggregateLayers.subdistrict.addTo(map);
+			aggregateLayers.subdistrict.bringToBack();
+		}
 		window.layerControl.addBaseLayer(aggregateLayers.subdistrict, layernames.subdistrict);
 
 	} else if (zoom >= 13 && zoom <= 14) {
 		hideAggregates();
-		aggregateLayers.village.addTo(map);
-		aggregateLayers.village.bringToBack();
+		if (map.hasLayer(window.confirmedPoints) === false){
+			aggregateLayers.village.addTo(map);
+			aggregateLayers.village.bringToBack();
+		}
 		window.layerControl.addBaseLayer(aggregateLayers.village, layernames.village);
 
 	} else if (zoom >= 15 && zoom < 16) {
 		hideAggregates();
-		aggregateLayers.rw.addTo(map);
-		aggregateLayers.rw.bringToBack();
+		if (map.hasLayer(window.confirmedPoints) === false){
+			aggregateLayers.rw.addTo(map);
+			aggregateLayers.rw.bringToBack();
+		}
 		window.layerControl.addBaseLayer(aggregateLayers.rw, layernames.neighbourhood);
 
 		//Update legend boxes
@@ -530,9 +536,11 @@ var updateAggregateVisibility = function() {
 
 
 	} else if (zoom >= 16) {
-		//Turn aggregates off
-		//hideAggregates();
-		//map.removeLayer(aggregateLayers.rw);
+		hideAggregates();
+		//aggregateLayers.rw.addTo(map);
+		//aggregateLayers.rw.bringToBack();
+		window.layerControl.addBaseLayer(aggregateLayers.rw, layernames.neighbourhood);
+
 		//Update info box for street level
 		if (document.documentElement.lang == 'in') {
 			info._div.innerHTML = 'Jalan laporan dari jam terakhir';
@@ -550,11 +558,8 @@ var updateAggregateVisibility = function() {
 
 		// Add reports to legend at street level
 		layerControl.addBaseLayer(window.confirmedPoints, layernames.confirmed);
-
 		// Turn reports on at street level
 		window.confirmedPoints.addTo(map);
-
-
 
 	}
 	else {
@@ -827,9 +832,7 @@ map.on('locationfound', onLocationFound);
 */
 if (!window.isTouch){
 	map.on('zoomend', function(){
-		if (map.hasLayer(window.confirmedPoints) === false ) {
 			updateAggregateVisibility();
-		}
 	});
 }
 
