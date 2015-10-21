@@ -7,6 +7,25 @@
 */
 
 /**
+	Format popup with an embedded tweet
+
+	@param {object} feature - a GeoJSON feature representing a report
+*/
+var tweetPopup = function(feature){
+	var popup = '<div id="tweet-container" style="width:250px; height:300px; overflow-y:scroll"><blockquote class="twitter-tweet"><a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'</a></blockquote></div>';
+	return popup;
+};
+/**
+	Format popup with a Detik report
+
+	@param {object} feature - a GeoJSON feature representing a report
+*/
+var detikPopup = function(feature){
+	var popup = 'detik';
+	return popup;
+};
+
+/**
 	Add a popup to the provided layer based on the provided feature's text property
 
 	@param {object} feature - a GeoJSON feature
@@ -15,10 +34,13 @@
 var markerPopup = function(feature, layer) {
 	if (feature.properties) {
 		markerMap[feature.properties.pkey] = layer;
-
 		// Render as tweet
 		if (feature.properties.source == 'twitter'){
-			layer.bindPopup('<blockquote class="twitter-tweet"><a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'</a></blockquote>');
+			layer.bindPopup(tweetPopup(feature));
+		}
+		// Render as Detik report
+		else if (feature.properties.source == 'detik'){
+			layer.bindPopup(detikPopup(feature));
 		}
 		// Default to text rendering
 		else {
@@ -809,6 +831,8 @@ if (!window.isTouch){
 /**
 	Ask popups to render using Twitter embedded tweets
 */
-map.on('popupopen', function(){
-	twttr.widgets.load();
+map.on('popupopen', function(popup){
+	if ($('tweet-container')){
+			twttr.widgets.load($('.leaflet-popup-content'));
+		}
 });
