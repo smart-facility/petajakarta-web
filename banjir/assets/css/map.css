@@ -222,3 +222,16 @@ body {
 label {
   font-weight: 300;
 }
+
+/*Remove rounded corners of Leaflet elements*/
+.leaflet-popup-content-wrapper,.leaflet-popup-content
+{
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+   border-radius: 0 !important;
+
+}
+
+.leaflet-popup-content-wrapper {
+  background-color:rgba(255, 255, 255, 0.8);
+}
