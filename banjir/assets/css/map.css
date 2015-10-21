@@ -223,8 +223,8 @@ label {
   font-weight: 300;
 }
 
-/*Remove rounded corners of Leaflet elements*/
-.leaflet-popup-content-wrapper,.leaflet-popup-content, .leaflet-control
+/*Remove rounded corners of control elements*/
+.leaflet-popup-content-wrapper,.leaflet-popup-content,
 {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
@@ -232,4 +232,8 @@ label {
 
    background-color:rgba(255, 255, 255, 0.8);
 
+}
+/*Remove rounded corners of leaflet legend and buttons*/
+.leaflet-control, .btn, .modal-content {
+  border-radius: 0px; !important
 }

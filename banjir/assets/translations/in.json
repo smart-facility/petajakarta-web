@@ -154,7 +154,7 @@
   "confirmed-reports": {
     "title": "Laporan dikonfirmasi dari jam terakhir",
     "instructions": "Klik laporan untuk melihat lokasi pada peta",
-    "timetamp": " menunjukkan waktu saat ini di peta"
+    "timestamp": " menunjukkan waktu saat ini di peta"
   },
   "map-information": {
     "title": "Peta Informasi",
