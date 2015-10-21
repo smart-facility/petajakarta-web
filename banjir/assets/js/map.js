@@ -825,6 +825,7 @@ if (!window.isTouch){
 				aggregatesControl.addTo(map);
 				$('.control.aggregates button').prop('disabled', false);
 			}
+			event.layer.bringToBack();
 		}
 	});
 }
