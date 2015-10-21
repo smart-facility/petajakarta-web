@@ -372,13 +372,19 @@ function zoomToFeature(e) {
 }
 
 /**
-	Centre the map on a given location and open a popup's text box
+	Centre the map on a given location and open a popup's text box.
+
+	Turn on point layer if required.
 
 	@param {string} pkey - the key of the marker to display
 	@param {number} lat - latitude to center on
 	@param {number} lon - longitude to center on
 */
 var centreMapOnPopup = function(pkey,lat,lon) {
+	if (map.hasLayer(window.confirmedPoints) === false){
+		window.confirmedPoints.addTo(map);
+	}
+
 	var m = markerMap[pkey];
 	map.setView(m._latlng, 17);
 	m.openPopup();
