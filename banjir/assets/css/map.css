@@ -223,17 +223,18 @@ label {
   font-weight: 300;
 }
 
-/*Remove rounded corners of control elements*/
-.leaflet-popup-content-wrapper,.leaflet-popup-content,
+/*Remove rounded corners of popups*/
+.leaflet-popup-content-wrapper,.leaflet-popup-content
 {
+  background-color:rgba(255, 255, 255, 0.8);
+
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
    border-radius: 0 !important;
-
-   background-color:rgba(255, 255, 255, 0.8);
-
 }
 /*Remove rounded corners of leaflet legend and buttons*/
 .leaflet-control, .btn, .modal-content {
-  border-radius: 0px; !important
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+   border-radius: 0 !important;
 }
