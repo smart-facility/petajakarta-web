@@ -21,7 +21,7 @@ var tweetPopup = function(feature){
 	@param {object} feature - a GeoJSON feature representing a report
 */
 var detikPopup = function(feature){
-	var popup = '<div id="detik-container" style="width:250px; height:300px; overflow:auto"><div class="media"><a class="pull-left" href="#"><img class="media-object" src="https://pasangmata.detik.com/assets/fe/img/logo_detik.png" height="22"></a><div class="media-body"><h4 class="media-heading">LAPORKAN</h4></div></div><h5>Penampakan Kawasan Kampus USU Medan yang Dipenuhi Air</h5><img class="img-responsive" src="http://usimages.detik.com/community/pasma/2015/10/20/14452986131613201900.jpg" width="230"/><h5>Diguyur hujan, USU Medan kebanjiran.</h5><a href="https://pasangmata.detik.com/contribution/168698" target="_blank">https://pasangmata.detik.com/contribution/168698</a></div>';
+	var popup = '<div id="detik-container" style="width:250px; height:300px; overflow:auto"><div class="media"><a class="pull-left" href="#"><img class="media-object" src="https://pasangmata.detik.com/assets/fe/img/logo_detik.png" height="22"></a><div class="media-body"><h4 class="media-heading">PASANGMATA.COM</h4></div></div><h5>Penampakan Kawasan Kampus USU Medan yang Dipenuhi Air</h5><img class="img-responsive" src="http://usimages.detik.com/community/pasma/2015/10/20/14452986131613201900.jpg" width="230"/><h5>Diguyur hujan, USU Medan kebanjiran.</h5><h5>20/10/2015 07:06 WIB</h5><a href="https://pasangmata.detik.com/contribution/168698" target="_blank">https://pasangmata.detik.com/contribution/168698</a></div>';
 
 
 
