@@ -2,7 +2,7 @@
   "site": {
     "name": "PetaJakarta.org &middot; Banjir",
     "url-prefix": "banjir",
-    "locale-url-prefix": "in",
+    "locale-url-prefix": "id",
     "other-locale-url-prefix": "en",
     "map-off-title": "PetaJakarta.org sedang tidak<BR>aktif saat ini",
     "map-off-text": "<BR>Kami akan mulai kembali pemetaan banjir pada bulan Desember 2015. Terima kasih kepada semua pihak yang telah berpartisipasi!<BR><BR><a href='https://twitter.com/petajkt' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @petajkt</a><a href='https://twitter.com/BPBDJakarta' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @BPBDJakarta </a>"
