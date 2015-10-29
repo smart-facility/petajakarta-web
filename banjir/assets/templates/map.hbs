@@ -35,7 +35,7 @@
         <div class="navbar navbar-default navbar-fixed-top">
           <div class="container">
             <div class="navbar-header">
-              <img src="/{{site.url-prefix}}/img/petajakarta.png" width="252" height="48" alt=""/>
+              <img src="/{{site.url-prefix}}/img/petajakarta.png" width="252" height="48" alt=""/>-
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar" style="background-color:#CCC;"></span>
@@ -69,6 +69,7 @@
               <div class="modal-body" id="modal-reports-body" style="height:300px; overflow:scroll;">
               </div>
               <div class="modal-footer">
+                <div class="pull-left"><label><input type="checkbox" autocomplete="off" onclick="toggle_timestamp(this.checked);">{{{confirmed-reports.timestamp}}}</label></div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div><!-- /.modal-content -->
@@ -110,10 +111,9 @@
       L_PREFER_CANVAS = true; //Leaflet canvas rendering
     }
   </script>
-
+  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script src="/{{site.url-prefix}}/js/application.min.js"></script>
   <script src="/{{site.url-prefix}}/js/map.min.js"></script>
-
 
   <!-- Google analytics -->
   <script>
@@ -124,14 +124,6 @@
 
     ga('create', 'UA-46996603-1', 'petajakarta.org');
     ga('send', 'pageview');
-
-  </script>
-
-  <script>
-    //var promise = getReport($.url('?report'));
-    //promise.then(function(data){
-    //  loadSinglePoint(data);
-    //});
   </script>
 
 </body>

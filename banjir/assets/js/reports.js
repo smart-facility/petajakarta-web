@@ -15,15 +15,24 @@ function loadTable(reports) {
 		var report = reports.features[i].properties;
 		var reportGeo = reports.features[i].geometry;
 
+		var logo = "";
+		if (report.source == 'detik'){
+			logo = '<img class="media-object" src="https://pasangmata.detik.com/assets/fe/img/logo_detik.png" height="22">';
+		}
+		else if (report.source == 'twitter'){
+			logo = '<img class="media-object" src="/banjir/img/twitter_logo_blue.png" height="22">';
+		}
+
 		rows +='<tr>';
 			rows += '<td>' + report.created_at.substring(11, 19) + '</td>'; // Time
+			rows += '<td>' + logo + '</td>';
 			rows += '<td><a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+report.pkey+','+reportGeo.coordinates[1]+','+reportGeo.coordinates[0]+')">'+report.text+'</a></td>'; // Message
 		rows += '</tr>';
 	}
 	if (document.documentElement.lang == 'in') {
-		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Waktu</th><th class="col-xs-6">Sumber</th></tr></thead>';
+		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Waktu</th><th class="col-xs-2">Sumber</th><th class="col-xs-6">Laporkan</th></tr></thead>';
 	} else {
-		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Time</th><th class="col-xs-6">Message</th></tr></thead>';
+		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Time</th><th class="col-xs-2">Source</th><th class="col-xs-6">Message</th></tr></thead>';
 	}
 	var tbody = '<tbody>'+rows+'</tbody></table>';
 	$("#modal-reports-body").append(thead+tbody);

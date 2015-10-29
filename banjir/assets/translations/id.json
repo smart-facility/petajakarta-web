@@ -1,8 +1,8 @@
 {
   "site": {
-    "name": "Peta Jakarta &middot; Banjir",
+    "name": "PetaJakarta.org &middot; Banjir",
     "url-prefix": "banjir",
-    "locale-url-prefix": "in",
+    "locale-url-prefix": "id",
     "other-locale-url-prefix": "en",
     "map-off-title": "PetaJakarta.org sedang tidak<BR>aktif saat ini",
     "map-off-text": "<BR>Kami akan mulai kembali pemetaan banjir pada bulan Desember 2015. Terima kasih kepada semua pihak yang telah berpartisipasi!<BR><BR><a href='https://twitter.com/petajkt' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @petajkt</a><a href='https://twitter.com/BPBDJakarta' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @BPBDJakarta </a>"
@@ -153,11 +153,12 @@
   },
   "confirmed-reports": {
     "title": "Laporan dikonfirmasi dari jam terakhir",
-    "instructions": "Klik laporan untuk melihat lokasi pada peta"
+    "instructions": "Klik laporan untuk melihat lokasi pada peta",
+    "timestamp": " menunjukkan waktu saat ini di peta"
   },
   "map-information": {
     "title": "Peta Informasi",
-    "acknowledgements": "Peta ini memperlihatkan keadaan terkini (<i>real time</i>) melalui twit anda tentang keadaan banjir di Jakarta. <BR>Untuk menambahkan laporan anda silahkan twit menggunakan #banjir dan <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a><BR><h4>Peta dasar</h4>\nPeta ubin dengan <a href=\"http://stamen.com\">Stamen Design</a>, & <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>.<BR>Data oleh <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, & <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Data infrastruktur</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Laporan</h4>\nDari <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> data\n<h4>Perangkat lunak</h4>\nSebuah kerangka Pengetahuan GeoSosial: <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nPeta: <a href=\"http://leafletjs.com\">Leaflet</a>"
+    "acknowledgements": "Peta ini memperlihatkan keadaan terkini (<i>real time</i>) melalui twit anda tentang keadaan banjir di Jakarta. <BR>Untuk menambahkan laporan anda silahkan twit menggunakan #banjir dan <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a><BR><h4>Peta dasar</h4>\nPeta ubin dengan © <a href='https://www.mapbox.com/map-feedback/'>Mapbox</a>.<BR>Data oleh <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, & <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Data infrastruktur</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Laporan</h4>\nDari <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> data\n<h4>Perangkat lunak</h4>\nSebuah kerangka Pengetahuan GeoSosial: <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nPeta: <a href=\"http://leafletjs.com\">Leaflet</a>"
   },
 
 "aggregates": {
