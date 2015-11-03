@@ -142,7 +142,7 @@
   },
   "about": {
     "title": "About us",
-    "intro": "<p><b>petajakarta.org</b> is an applied research project led by the SMART Infrastructure Facility, in collaboration with BPBD DKI Jakarta and Twitter Inc. <a href='http://petajakarta.org'>PetaJakarta.org</a> harnesses the power of social media to gather, sort, and display information about flooding for Jakarta residents in real time.</p><p>The platform runs on the open source software known as <a href=\"http://cognicity.info\" target=\"_blank\">CogniCity</a>. This GeoSocial Intelligence framework allows data to be collected and disseminated by community members through their location-enabled mobile devices to map information about flooding and water infrastructure in real-time.</p><p>To read more about the project background, structure, and objectives, please visit <a href='http://info.petajakarta.org'>info.petajakarta.org</a>.</p>",
+    "intro": "<p><b>petajakarta.org</b> is an applied research project led by the SMART Infrastructure Facility, in collaboration with BPBD DKI Jakarta and Twitter Inc. <a href='https://petajakarta.org/'>PetaJakarta.org</a> harnesses the power of social media to gather, sort, and display information about flooding for Jakarta residents in real time.</p><p>The platform runs on the open source software known as <a href=\"http://cognicity.info\" target=\"_blank\">CogniCity</a>. This GeoSocial Intelligence framework allows data to be collected and disseminated by community members through their location-enabled mobile devices to map information about flooding and water infrastructure in real-time.</p><p>To read more about the project background, structure, and objectives, please visit <a href='http://info.petajakarta.org'>info.petajakarta.org</a>.</p>",
     "privacy": {
       "title": "Privacy",
       "content": "We do not store any information about users; all information derived from location-enabled mobile devices is stored and displayed anonymously."
@@ -363,7 +363,7 @@
             "MethodName": "confirmed",
             "Synopsis": "Get confirmed flood reports from the last hour in point form",
             "HTTPMethod": "GET",
-            "URI": "http://petajakarta.org/banjir/data/api/v1/reports/confirmed",
+            "URI": "https://petajakarta.org/banjir/data/api/v1/reports/confirmed",
             "RequiresOAuth": "N",
             "parameters": [
               {
@@ -380,7 +380,7 @@
             "MethodName": "unconfirmed",
             "Synopsis": "Get unconfirmed flood reports from the last hour in point form",
             "HTTPMethod": "GET",
-            "URI": "http://petajakarta.org/banjir/data/api/v1/reports/unconfirmed",
+            "URI": "https://petajakarta.org/banjir/data/api/v1/reports/unconfirmed",
             "parameters": [
               {
                 "Name": "format",
@@ -402,7 +402,7 @@
             "MethodName": "live",
             "Synopsis": "Get a real-time count of flood reports from the past hour",
             "HTTPMethod": "GET",
-            "URI": "http://petajakarta.org/banjir/data/api/v1/aggregates/live",
+            "URI": "https://petajakarta.org/banjir/data/api/v1/aggregates/live",
             "RequiresOAuth": "N",
             "parameters": [
               {
@@ -435,7 +435,7 @@
             "MethodName": "archive",
             "Synopsis": "Access historical counts of flood reports per RW are in 1 hour blocks",
             "HTTPMethod": "GET",
-            "URI": "http://petajakarta.org/banjir/data/api/v1/aggregates/archive",
+            "URI": "https://petajakarta.org/banjir/data/api/v1/aggregates/archive",
             "RequiresOAuth": "N",
             "parameters": [
               {
@@ -464,21 +464,21 @@
             "MethodName": "floodgates",
             "Synopsis": "Floodgates in Jakarta represented by point geometry",
             "HTTPMethod": "GET",
-            "URI": "http://petajakarta.org/banjir/data/api/v1/infrastructure/floodgates",
+            "URI": "https://petajakarta.org/banjir/data/api/v1/infrastructure/floodgates",
             "RequiresOAuth": "N"
           },
           {
             "MethodName": "pumps",
             "Synopsis": "Pump stations in Jakarta represented by point geometry",
             "HTTPMethod": "GET",
-            "URI": "http://petajakarta.org/banjir/data/api/v1/infrastructure/pumps",
+            "URI": "https://petajakarta.org/banjir/data/api/v1/infrastructure/pumps",
             "RequiresOAuth": "N"
           },
           {
             "MethodName": "waterways",
             "Synopsis": "Rivers and canals in Jakarta represented by line geometry",
             "HTTPMethod": "GET",
-            "URI": "http://petajakarta.org/banjir/data/api/v1/infrastructure/waterways",
+            "URI": "https://petajakarta.org/banjir/data/api/v1/infrastructure/waterways",
             "RequiresOAuth": "N"
           }
         ]
