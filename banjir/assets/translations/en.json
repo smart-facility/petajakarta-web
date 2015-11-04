@@ -357,14 +357,14 @@
   "api": {
     "endpoints": [
       {
-        "name": "data/api/v1/reports",
+        "name": "data/api/v2/reports",
         "short": "reports",
         "methods": [
           {
             "MethodName": "confirmed",
             "Synopsis": "Get confirmed flood reports from the last hour in point form",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/reports/confirmed",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/reports/confirmed",
             "RequiresOAuth": "N",
             "parameters": [
               {
@@ -381,7 +381,7 @@
             "MethodName": "unconfirmed",
             "Synopsis": "Get unconfirmed flood reports from the last hour in point form",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/reports/unconfirmed",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/reports/unconfirmed",
             "parameters": [
               {
                 "Name": "format",
@@ -396,14 +396,14 @@
         ]
       },
       {
-        "name": "/data/api/v1/aggregates",
+        "name": "/data/api/v2/aggregates",
         "short": "aggregates",
         "methods": [
           {
             "MethodName": "live",
             "Synopsis": "Get a real-time count of flood reports from the past hour",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/aggregates/live",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/aggregates/live",
             "RequiresOAuth": "N",
             "parameters": [
               {
@@ -436,7 +436,7 @@
             "MethodName": "archive",
             "Synopsis": "Access historical counts of flood reports per RW are in 1 hour blocks",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/aggregates/archive",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/aggregates/archive",
             "RequiresOAuth": "N",
             "parameters": [
               {
@@ -458,28 +458,28 @@
         ]
       },
       {
-        "name": "/data/api/v1/infrastructure",
+        "name": "/data/api/v2/infrastructure",
         "short": "infrastructure",
         "methods": [
           {
             "MethodName": "floodgates",
             "Synopsis": "Floodgates in Jakarta represented by point geometry",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/infrastructure/floodgates",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/floodgates",
             "RequiresOAuth": "N"
           },
           {
             "MethodName": "pumps",
             "Synopsis": "Pump stations in Jakarta represented by point geometry",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/infrastructure/pumps",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/pumps",
             "RequiresOAuth": "N"
           },
           {
             "MethodName": "waterways",
             "Synopsis": "Rivers and canals in Jakarta represented by line geometry",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/infrastructure/waterways",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/waterways",
             "RequiresOAuth": "N"
           }
         ]

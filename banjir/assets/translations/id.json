@@ -352,14 +352,14 @@
 "api": {
   "endpoints": [
     {
-      "name": "data/api/v1/reports",
+      "name": "data/api/v2/reports",
       "short": "reports",
       "methods": [
         {
           "MethodName": "confirmed",
           "Synopsis": "Dapatkan data banjir yang sudah terkonfirmasi selama satu jam terakhir dalam bentuk poin",
           "HTTPMethod": "GET",
-          "URI": "https://petajakarta.org/banjir/data/api/v1/reports/confirmed",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/reports/confirmed",
           "RequiresOAuth": "N",
           "parameters": [
             {
@@ -376,7 +376,7 @@
           "MethodName": "unconfirmed",
           "Synopsis": "Dapatkan laporan banjir yang belum terkonfirmasi selama satu jam terakhir dalam format poin",
           "HTTPMethod": "GET",
-          "URI": "https://petajakarta.org/banjir/data/api/v1/reports/unconfirmed",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/reports/unconfirmed",
           "parameters": [
             {
               "Name": "format",
@@ -391,14 +391,14 @@
       ]
     },
     {
-      "name": "/data/api/v1/aggregates",
+      "name": "/data/api/v2/aggregates",
       "short": "aggregates",
       "methods": [
         {
           "MethodName": "live",
           "Synopsis": "Dapatkan hitungan terkini laporan banjir selama satu jam terakhir",
           "HTTPMethod": "GET",
-          "URI": "https://petajakarta.org/banjir/data/api/v1/aggregates/live",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/aggregates/live",
           "RequiresOAuth": "N",
           "parameters": [
             {
@@ -431,7 +431,7 @@
           "MethodName": "archive",
           "Synopsis": "Akses hitungan historis laporan banjir per area dalam blok per 1 jam",
           "HTTPMethod": "GET",
-          "URI": "https://petajakarta.org/banjir/data/api/v1/aggregates/archive",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/aggregates/archive",
           "RequiresOAuth": "N",
           "parameters": [
             {
@@ -453,28 +453,28 @@
       ]
     },
     {
-      "name": "/data/api/v1/infrastructure",
+      "name": "/data/api/v2/infrastructure",
       "short": "infrastructure",
       "methods": [
         {
           "MethodName": "floodgates",
           "Synopsis": "Pintu air di Jakarta direpresentasikan oleh simbol titik",
           "HTTPMethod": "GET",
-          "URI": "https://petajakarta.org/banjir/data/api/v1/infrastructure/floodgates",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/floodgates",
           "RequiresOAuth": "N"
         },
         {
           "MethodName": "pumps",
           "Synopsis": "Rumah pompa di Jakarta direpresentasikan oleh simbol titik",
           "HTTPMethod": "GET",
-          "URI": "https://petajakarta.org/banjir/data/api/v1/infrastructure/pumps",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/pumps",
           "RequiresOAuth": "N"
         },
         {
           "MethodName": "waterways",
           "Synopsis": "Sungai dan kanal di Jakarta direpresentasikan oleh simbol garis",
           "HTTPMethod": "GET",
-          "URI": "https://petajakarta.org/banjir/data/api/v1/infrastructure/waterways",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/waterways",
           "RequiresOAuth": "N"
         }
       ]
