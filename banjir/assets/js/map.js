@@ -7,14 +7,23 @@
 */
 
 /**
-	Transforms a number into a formatted, comma separated string. e.g. `1234567`
-	becomes `"1,234,567"`.
+	Format popup with an embedded tweet
 
-	@function
-	@param {number} x the number to be formatted
+	@param {object} feature - a GeoJSON feature representing a report
 */
-var formatNumberAsString = function(x) {
-	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+var tweetPopup = function(feature){
+	var popup = '<div id="tweet-container" style="width:250px; height:300px; overflow-y:scroll"><blockquote class="twitter-tweet"><a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'</a></blockquote></div>';
+	return popup;
+};
+/**
+	Format popup with a Detik report
+
+	@param {object} feature - a GeoJSON feature representing a report
+*/
+var detikPopup = function(feature){
+	var popup = '<div id="detik-container" style="width:250px; height:300px; overflow:auto; background-color:white;"><div class="media"><a class="pull-left" href="#"><img class="media-object" src="https://pasangmata.detik.com/assets/fe/img/logo_detik.png" height="22"></a><div class="media-body"><h4 class="media-heading">PASANGMATA.COM</h4></div></div><p class="lead" style="margin:0;">'+feature.properties.title+'</p><img class="img-responsive" src="'+feature.properties.image_url+'" width="230"/><h5>'+feature.properties.text+'</h5><h5>'+feature.properties.created_at+'</h5><a href="'+feature.properties.url+'" target="_blank">'+feature.properties.url+'</a></div>';
+
+	return popup;
 };
 
 /**
@@ -26,8 +35,18 @@ var formatNumberAsString = function(x) {
 var markerPopup = function(feature, layer) {
 	if (feature.properties) {
 		markerMap[feature.properties.pkey] = layer;
-		//Create reference list of markers
-		layer.bindPopup(feature.properties.text.parseURL());
+		// Render as tweet
+		if (feature.properties.source == 'twitter'){
+			layer.bindPopup(tweetPopup(feature));
+		}
+		// Render as Detik report
+		else if (feature.properties.source == 'detik'){
+			layer.bindPopup(detikPopup(feature));
+		}
+		// Default to text rendering
+		else {
+			layer.bindPopup(feature.properties.text.parseURL());
+		}
 	}
 };
 
@@ -37,15 +56,6 @@ var markerPopup = function(feature, layer) {
 	@param {object} feature - a GeoJSON feature
 	@param {L.ILayer} layer - the layer to attach the popup to
 */
-var uncomfirmedMarkerPopup = function(feature, layer) {
-	if (feature.properties) {
-		if (document.documentElement.lang == 'in') {
-			layer.bindPopup('Laporan belum dikonfirmasi. Twit pesanmu dengan menyebutkan @petajkt #banjir');
-		} else {
-			layer.bindPopup('Unconfirmed report. To confirm tweet @petajkt #banjir');
-		}
-	}
-};
 
 /**
 	Get a map overlay layer from the geoserver
@@ -56,7 +66,7 @@ var uncomfirmedMarkerPopup = function(feature, layer) {
 var getInfrastructure = function(layer) {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
-		jQuery.getJSON("/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
+		jQuery.getJSON("/banjir/data/api/v2/infrastructure/"+layer+"?format=topojson", function(data){
 				if (data.features !== null){
 					resolve(topojson.feature(data, data.objects.collection));
 				} else {
@@ -89,9 +99,7 @@ var infrastructureMarkerPopup = function(feature, layer){
 var getReports = function(type) {
 	return new RSVP.Promise(function(resolve, reject) {
 		// Use live data
-		jQuery.getJSON('/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
-		// Use fixture data
-		// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
+		jQuery.getJSON('/banjir/data/api/v2/reports/'+type+'?format=topojson', function(data) {
 			if (data.features !== null){
 				//Convert topojson back to geojson for Leaflet
 				resolve(topojson.feature(data, data.objects.collection));
@@ -107,13 +115,13 @@ var getReports = function(type) {
 
 	@param {integer} id - the unique id of the confirmed report to get
 
-	Converts TopoJson to GeoJson using topojson
+	For single point feature GeoJSON is smaller than TopoJSON
 */
 var getReport = function(id) {
 	return new RSVP.Promise(function(resolve, reject){
-		jQuery.getJSON('/banjir/data/api/v2/reports/confirmed/'+id+'?format=topojson', function(data){
+		jQuery.getJSON('/banjir/data/api/v2/reports/confirmed/'+id+'?format=geojson', function(data){
 			if (data.features !== null){
-				resolve(topojson.feature(data, data.objects.collection));
+				resolve(data);
 			}
 				else {
 					resolve(null);
@@ -131,7 +139,7 @@ var aggregateHours = 1;
 */
 var getAggregates = function(level) {
 	return new RSVP.Promise(function(resolve, reject) {
-		jQuery.getJSON('/banjir/data/api/v1/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
+		jQuery.getJSON('/banjir/data/api/v2/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
 			resolve(topojson.feature(data, data.objects.collection));
 		});
 	});
@@ -161,22 +169,34 @@ var loadConfirmedPoints = function(reports) {
 };
 
 /**
-	Plots unconfirmed points on the map as circular markers
-
-	@param {object} reports - a GeoJSON object containing report locations
+	If a unique ID is specified in the URL, zoom to this point, getting specified point if need.
+ 	@param {object} report - a GeoJSON object contiaing report location and metadata
 */
-var loadUnconfirmedPoints = function(reports) {
-	if (reports) {
-		window.unconfirmedPoints = L.geoJson(reports, {
-			pointToLayer: function (feature, latlng) {
-					return L.circleMarker(latlng, styleUnconfirmed);
-			}, onEachFeature: uncomfirmedMarkerPopup
-		});
-	} else {
-		window.unconfirmedPoints = L.geoJson();
-	}
+var showURLReport = function() {
+	//Test if URL parameter present
+	if ($.url('?report')){
+			//Check if Integer
+			var id = parseInt($.url('?report'));
+			var err;
+			if ( !validateNumberParameter(id,0) ) err = new Error( "'report id parameter is invalid" );
+			if (err) {
+				console.log(err);
+				return;
+			}
+			//Zoom to object if exists
+			if (markerMap.hasOwnProperty(id)){
+				centreMapOnPopup(id);
+			}
 
-	return window.unconfirmedPoints;
+			else {
+				//Else attempt to get from server
+				var promise = getReport(id);
+				promise.then(function(data){
+					window.confirmedPoints.addData(data);
+					centreMapOnPopup(id);
+					});
+				}
+			}
 };
 
 /**
@@ -228,7 +248,6 @@ var loadInfrastructure = function(layer, infrastructure){
 };
 
 var styleInfrastructure = {
-
 	waterways:{
 		color:'#3960ac',
 		weight:2.5,
@@ -353,13 +372,19 @@ function zoomToFeature(e) {
 }
 
 /**
-	Centre the map on a given location and open a popup's text box
+	Centre the map on a given location and open a popup's text box.
+
+	Turn on point layer if required.
 
 	@param {string} pkey - the key of the marker to display
 	@param {number} lat - latitude to center on
 	@param {number} lon - longitude to center on
 */
 var centreMapOnPopup = function(pkey,lat,lon) {
+	if (map.hasLayer(window.confirmedPoints) === false){
+		window.confirmedPoints.addTo(map);
+	}
+
 	var m = markerMap[pkey];
 	map.setView(m._latlng, 17);
 	m.openPopup();
@@ -367,8 +392,9 @@ var centreMapOnPopup = function(pkey,lat,lon) {
 
 /**
 	Center the map on the user's location if they're in jakarta & add a pin to show location
+	See http://leafletjs.com/examples/mobile.html for reference implementation.
 
-	@param {Position} position - the user's position
+	@param {Position} position - the user's position as provided by client browser
 */
 var setViewJakarta = function(position) {
 	if (position.coords.latitude >= -6.4354 && position.coords.latitude <= -5.9029 &&
@@ -385,6 +411,33 @@ var setViewJakarta = function(position) {
 	}
 };
 
+// Create timestamp control
+var timestamp = L.control({'position':'bottomright'});
+
+/**
+	Toggle timestamp on map based on checkbox behaviour
+
+	@param {Boolean} checkbox - true/false representation of checkbox state
+*/
+var toggle_timestamp = function(checkbox){
+
+	if (checkbox === true){
+		timestamp.addTo(map);
+	}
+	else {
+		if (timestamp._map){
+			map.removeControl(timestamp);
+		}
+	}
+};
+// Create timestamp text
+timestamp.onAdd = function(map){
+	var time = String(new Date()).slice(0,21);
+	this._div = L.DomUtil.create('div', 'info');
+	this._div.innerHTML = time;
+	return this._div;
+};
+
 /**
 	Information box for aggregate details
 */
@@ -398,7 +451,6 @@ info.onAdd = function(map){
 };
 
 //Update info box
-
 var hover_text;
 var reports_text;
 
@@ -486,82 +538,39 @@ var reloadAggregates = function() {
   return RSVP.hash(promises);
 };
 
-var hideReports = function (){
-	map.removeLayer(window.unconfirmedPoints);
-	map.removeLayer(window.confirmedPoints);
-
-	window.layerControl.removeLayer(window.unconfirmedPoints);
-	window.layerControl.removeLayer(window.confirmedPoints);
-};
-
 // Turn layers on/off depending on zoom level
 var updateAggregateVisibility = function() {
 	var zoom  = map.getZoom();
 
 	if (zoom < 13) {
-		hideReports();
 		hideAggregates();
-		aggregateLayers.subdistrict.addTo(map);
-		aggregateLayers.subdistrict.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.subdistrict, layernames.subdistrict);
+		if (map.hasLayer(window.confirmedPoints) === false){
+			aggregateLayers.subdistrict.addTo(map);
+			aggregateLayers.subdistrict.bringToBack();
+		}
+		window.layerControl.addBaseLayer(aggregateLayers.subdistrict, layernames.subdistrict);
 
 	} else if (zoom >= 13 && zoom <= 14) {
-		hideReports();
 		hideAggregates();
-		aggregateLayers.village.addTo(map);
-		aggregateLayers.village.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.village, layernames.village);
+		if (map.hasLayer(window.confirmedPoints) === false){
+			aggregateLayers.village.addTo(map);
+			aggregateLayers.village.bringToBack();
+		}
+		window.layerControl.addBaseLayer(aggregateLayers.village, layernames.village);
 
-	} else if (zoom >= 15 && zoom < 16) {
-		hideReports();
+	} else if (zoom >= 15) {
 		hideAggregates();
-		aggregateLayers.rw.addTo(map);
-		aggregateLayers.rw.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.rw, layernames.neighbourhood);
-
-		//Update legend boxes
-		info.update();
-		if (!legend._map){
-			legend.addTo(map);
+		if (map.hasLayer(window.confirmedPoints) === false){
+			aggregateLayers.rw.addTo(map);
+			aggregateLayers.rw.bringToBack();
 		}
-		if (!aggregatesControl._map){
-			aggregatesControl.addTo(map);
-			$('.control.aggregates button').prop('disabled', false);
-		}
-
-
-	} else if (zoom >= 16) {
-		//Turn aggregates off
-		hideAggregates();
-		//Update info box for street level
-		if (document.documentElement.lang == 'in') {
-			info._div.innerHTML = 'Jalan laporan dari jam terakhir';
-		}
-		else {
-			info._div.innerHTML = 'Street level reports from last hour';
-		}
-
-		if (legend._map){
-			map.removeControl(legend);
-		}
-		if (aggregatesControl._map){
-			map.removeControl(aggregatesControl);
-		}
-
-		// Add reports to legend at street level
-		layerControl.addOverlay(window.unconfirmedPoints, layernames.unconfirmed);
-		layerControl.addOverlay(window.confirmedPoints, layernames.confirmed);
-
-		// Turn reports on at street level
-		window.unconfirmedPoints.addTo(map);
-		window.confirmedPoints.addTo(map);
+		window.layerControl.addBaseLayer(aggregateLayers.rw, layernames.neighbourhood);
 
 	}
 	else {
 		hideAggregates();
 
 	}
-
   activeAggregate = null;
 };
 
@@ -607,17 +616,12 @@ var reportsControl = L.control({position:'bottomleft'});
 reportsControl.onAdd = function(map) {
   var div = L.DomUtil.create('div', 'leaflet-control');
 
-	//var reportsBadge = L.DomUtil.create('span', 'badge', div);
-	//reportsBadge.textContent = "4";
-
   var reportsLink = L.DomUtil.create('a', 'leaflet-control-reports-button', div);
   //reportsLink.textContent = "<span class='badge'>4</span>";
   reportsLink.setAttribute('data-toggle', 'modal');
   reportsLink.setAttribute('href', '#reportsModal');
 
 	window.reportsBadge = L.DomUtil.create('span', 'badge progress-bar-danger', reportsLink);
-	//reportsBadge.textContent = "4";
-	//console.log(reports.features.length);
 
   return div;
 };
@@ -660,71 +664,21 @@ if ('geolocation' in navigator && window.isTouch) {
 	navigator.geolocation.getCurrentPosition(setViewJakarta);
 }
 
-//Add info box
-info.addTo(map);
-
-//Add legend
-legend.addTo(map);
-
-//Add aggregates control
-aggregatesControl.addTo(map);
-
 // Reports control
 infoControl.addTo(map);
 reportsControl.addTo(map);
 locationControl.addTo(map);
 
-//Old Mapnik B&W rendering before aggregates layer was added
-//var base0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map);
-//Using stamen toner-lite
-var base0 = L.tileLayer('http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
-	//attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-	subdomains: 'abcd',
-	minZoom: 0,
-	maxZoom: 20
-}).addTo(map);
-var base1 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-
-var precip = L.tileLayer('http://{s}.tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png', {
-	attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>',
-	opacity: 0.5
-});
-
-var pressure = L.tileLayer('http://{s}.tile.openweathermap.org/map/pressure_cntr/{z}/{x}/{y}.png', {
-	attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>',
-	opacity: 0.5
-});
-
-var temp = L.tileLayer('http://{s}.tile.openweathermap.org/map/temp/{z}/{x}/{y}.png', {
-	attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>',
-	opacity: 0.5
-});
-
-//Ancillary layers control
-if (document.documentElement.lang == 'in') {
-	var baseMaps = {
-		"Open Street Map": base0,
-		"Open Street Map (warna)":base1
-	};
-} else {
-	var baseMaps = {
-    	"Open Street Map (B&W)": base0,
-			"Open Street Map (colour)": base1
-		};
-	}
-
+// Basemap - check for HD/Retina display
+// See: http://www.robertprice.co.uk/robblog/2011/05/detecting_retina_displays_from_javascript_and_css-shtml/
+var tileformat = '.png128';
+if (window.devicePixelRatio > 1) {
+	tileformat = '@2x.png128';
+}
+var base = L.tileLayer('https://api.mapbox.com/v4/petajakarta.lcf40klb/{z}/{x}/{y}'+tileformat+'?access_token=pk.eyJ1IjoicGV0YWpha2FydGEiLCJhIjoiTExKVVZ5TSJ9.IFf5jeFKz2iwMpBi5N3kUg').addTo(map);
 var markerMap = {}; //Reference list of markers stored outside of Leaflet
 
-// Styles for confirmed and unconfirmed points
-var styleUnconfirmed = {
-    radius: 7,
-    fillColor: "#ff7800",
-    color: "#000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-};
-
+// Styles for confirmed points
 var styleConfirmed = {
     radius: 7,
     fillColor: "blue",
@@ -745,7 +699,6 @@ var layernames = {};
 
 if (document.documentElement.lang == 'in'){
 	layernames.confirmed = 'Laporan dikonfirmasi';
-	layernames.unconfirmed = 'Laporan belum dikonfirmasi';
 	layernames.subdistrict = 'Laporan Kecamatan';
 	layernames.village = 'Laporan Desa';
 	layernames.neighbourhood = 'Laporan RW';
@@ -755,7 +708,6 @@ if (document.documentElement.lang == 'in'){
 }
 else {
 	layernames.confirmed = 'Confirmed Reports';
-	layernames.unconfirmed = 'Unconfirmed Reports';
 	layernames.subdistrict = 'Subdistrict Aggregates';
 	layernames.village = 'Village Aggregates';
 	layernames.neighbourhood = 'Neighbourhood Aggregates';
@@ -767,9 +719,7 @@ else {
 var loadPrimaryLayers = function(layerControl) {
 	var layerPromises = {
 		confirmed: getReports('confirmed')
-			.then(loadConfirmedPoints),
-			unconfirmed: getReports('unconfirmed')
-				.then(loadUnconfirmedPoints)};
+			.then(loadConfirmedPoints)};
 
   if (!window.isTouch) {
     layerPromises.subdistrict = getAggregates('subdistrict')
@@ -782,20 +732,12 @@ var loadPrimaryLayers = function(layerControl) {
 		RSVP.hash(layerPromises).then(function(overlays) {
 
       if (!window.isTouch) {
-        layerControl.addOverlay(overlays.subdistrict, layernames.subdistrict);
-        overlays.subdistrict.addTo(map);
+        layerControl.addBaseLayer(overlays.subdistrict, layernames.subdistrict);
+        //overlays.subdistrict
       }
 
-			else {
-				// Add overlays to the layers control
-				layerControl.addOverlay(overlays.confirmed, layernames.confirmed);
-				layerControl.addOverlay(overlays.unconfirmed, layernames.unconfirmed);
-
-				// Make overlays visible
-				overlays.confirmed.addTo(map);
-				overlays.unconfirmed.addTo(map);
-			}
-
+			layerControl.addBaseLayer(overlays.confirmed, layernames.confirmed);
+			overlays.confirmed.addTo(map);
 			map.spin(false);
 
 			resolve(layerControl);
@@ -835,18 +777,10 @@ var loadSecondaryLayers = function(layerControl) {
 
 		RSVP.hash(secondaryPromises).then(function(overlays) {
 			// Add overlays to the layer control
+			showURLReport();
 			layerControl.addOverlay(overlays.waterways, layernames.waterways);
 			layerControl.addOverlay(overlays.pumps, layernames.pumps);
 			layerControl.addOverlay(overlays.floodgates, layernames.floodgates);
-
-			// Make overlays visible unless of touch device
-			if (!window.isTouch){
-				overlays.waterways.addTo(map);
-				overlays.pumps.addTo(map);
-				overlays.floodgates.addTo(map);
-			}
-
-      $('.control.aggregates button').prop('disabled', false);
 		});
 	});
 };
@@ -854,37 +788,56 @@ var loadSecondaryLayers = function(layerControl) {
 // Load reports
 $(function() {
 	map.spin(true);
-	window.layerControl = L.control.layers(baseMaps, {}, {position: 'bottomleft'}).addTo(map);
+	window.layerControl = L.control.layers({}, {}, {position: 'bottomleft'}).addTo(map);
 	loadPrimaryLayers(window.layerControl).then(loadSecondaryLayers);
 });
 
+/**
+	Listen for map events and load required layers [non-touch devices]
+*/
+if (!window.isTouch){
+	//Update aggregates by zoom level
+	map.on('zoomend', function(){
+			updateAggregateVisibility();
+	});
 
-// Hack in the symbols for reports
-if (document.documentElement.lang == 'in') {
-	$('.leaflet-control-layers-overlays').append('</div><label><div class=c></div><span>Laporan dikonfirmasi dari jam terakhir</span></label><label><div class=u></div><span>Laporan belum dikonfirmasi</span></label>');
-} else {
-	$('.leaflet-control-layers-overlays').append('<label><div class=c></div><span>Confirmed reports</span></label><label><div class=u></div><span>Unconfirmed reports</span></label>');
+	//Toggle Aggregate legend
+	map.on('baselayerchange', function(event){
+		if (event.layer == window.confirmedPoints){
+			if (info._map){
+				map.removeControl(info);
+			}
+			if (legend._map){
+				map.removeControl(legend);
+			}
+			if (aggregatesControl._map){
+				map.removeControl(aggregatesControl);
+			}
+		}
+		else {
+			//Update legend boxes
+			if (!info._map){
+				info.addTo(map);
+				info.update();
+			}
+
+			if (!legend._map){
+				legend.addTo(map);
+			}
+			if (!aggregatesControl._map){
+				aggregatesControl.addTo(map);
+				$('.control.aggregates button').prop('disabled', false);
+			}
+			event.layer.bringToBack();
+		}
+	});
 }
-
 
 /**
-Add user location (if in Jakarta) -> this logic moved to setViewJakarta()
--left in for reference.
+	Ask popups to render using Twitter embedded tweets
 */
-/*
-function onLocationFound(e) {
-	var radius = e.accuracy / 2;
-
-	L.circle(e.latlng, radius).addTo(map);
-}
-
-map.on('locationfound', onLocationFound);
-*/
-
-
-/**
-	Listen for map zoom events and load required layers [non-touch devices]
-*/
-if (!window.isTouch) {
-  map.on('zoomend', updateAggregateVisibility);
-}
+map.on('popupopen', function(popup){
+	if ($('tweet-container')){
+			twttr.widgets.load($('.leaflet-popup-content'));
+		}
+});

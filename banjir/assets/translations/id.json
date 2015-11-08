@@ -1,8 +1,8 @@
 {
   "site": {
-    "name": "Peta Jakarta &middot; Banjir",
+    "name": "PetaJakarta.org &middot; Banjir",
     "url-prefix": "banjir",
-    "locale-url-prefix": "in",
+    "locale-url-prefix": "id",
     "other-locale-url-prefix": "en",
     "map-off-title": "PetaJakarta.org sedang tidak<BR>aktif saat ini",
     "map-off-text": "<BR>Kami akan mulai kembali pemetaan banjir pada bulan Desember 2015. Terima kasih kepada semua pihak yang telah berpartisipasi!<BR><BR><a href='https://twitter.com/petajkt' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @petajkt</a><a href='https://twitter.com/BPBDJakarta' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @BPBDJakarta </a>"
@@ -153,11 +153,12 @@
   },
   "confirmed-reports": {
     "title": "Laporan dikonfirmasi dari jam terakhir",
-    "instructions": "Klik laporan untuk melihat lokasi pada peta"
+    "instructions": "Klik laporan untuk melihat lokasi pada peta",
+    "timestamp": " menunjukkan waktu saat ini di peta"
   },
   "map-information": {
     "title": "Peta Informasi",
-    "acknowledgements": "Peta ini memperlihatkan keadaan terkini (<i>real time</i>) melalui twit anda tentang keadaan banjir di Jakarta. <BR>Untuk menambahkan laporan anda silahkan twit menggunakan #banjir dan <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a><BR><h4>Peta dasar</h4>\nPeta ubin dengan <a href=\"http://stamen.com\">Stamen Design</a>, & <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>.<BR>Data oleh <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, & <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Data infrastruktur</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Laporan</h4>\nDari <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> data\n<h4>Perangkat lunak</h4>\nSebuah kerangka Pengetahuan GeoSosial: <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nPeta: <a href=\"http://leafletjs.com\">Leaflet</a>"
+    "acknowledgements": "Peta ini memperlihatkan keadaan terkini (<i>real time</i>) melalui twit anda tentang keadaan banjir di Jakarta. <BR>Untuk menambahkan laporan anda silahkan twit menggunakan #banjir dan <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a><BR><h4>Peta dasar</h4>\nPeta ubin dengan © <a href='https://www.mapbox.com/map-feedback/'>Mapbox</a>.<BR>Data oleh <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, & <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Data infrastruktur</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Laporan</h4>\nDari <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> data\n<h4>Perangkat lunak</h4>\nSebuah kerangka Pengetahuan GeoSosial: <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nPeta: <a href=\"http://leafletjs.com\">Leaflet</a>"
   },
 
 "aggregates": {
@@ -351,14 +352,14 @@
 "api": {
   "endpoints": [
     {
-      "name": "data/api/v1/reports",
+      "name": "data/api/v2/reports",
       "short": "reports",
       "methods": [
         {
           "MethodName": "confirmed",
           "Synopsis": "Dapatkan data banjir yang sudah terkonfirmasi selama satu jam terakhir dalam bentuk poin",
           "HTTPMethod": "GET",
-          "URI": "http://petajakarta.org/banjir/data/api/v1/reports/confirmed",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/reports/confirmed",
           "RequiresOAuth": "N",
           "parameters": [
             {
@@ -375,7 +376,7 @@
           "MethodName": "unconfirmed",
           "Synopsis": "Dapatkan laporan banjir yang belum terkonfirmasi selama satu jam terakhir dalam format poin",
           "HTTPMethod": "GET",
-          "URI": "http://petajakarta.org/banjir/data/api/v1/reports/unconfirmed",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/reports/unconfirmed",
           "parameters": [
             {
               "Name": "format",
@@ -390,14 +391,14 @@
       ]
     },
     {
-      "name": "/data/api/v1/aggregates",
+      "name": "/data/api/v2/aggregates",
       "short": "aggregates",
       "methods": [
         {
           "MethodName": "live",
           "Synopsis": "Dapatkan hitungan terkini laporan banjir selama satu jam terakhir",
           "HTTPMethod": "GET",
-          "URI": "http://petajakarta.org/banjir/data/api/v1/aggregates/live",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/aggregates/live",
           "RequiresOAuth": "N",
           "parameters": [
             {
@@ -430,7 +431,7 @@
           "MethodName": "archive",
           "Synopsis": "Akses hitungan historis laporan banjir per area dalam blok per 1 jam",
           "HTTPMethod": "GET",
-          "URI": "http://petajakarta.org/banjir/data/api/v1/aggregates/archive",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/aggregates/archive",
           "RequiresOAuth": "N",
           "parameters": [
             {
@@ -452,28 +453,28 @@
       ]
     },
     {
-      "name": "/data/api/v1/infrastructure",
+      "name": "/data/api/v2/infrastructure",
       "short": "infrastructure",
       "methods": [
         {
           "MethodName": "floodgates",
           "Synopsis": "Pintu air di Jakarta direpresentasikan oleh simbol titik",
           "HTTPMethod": "GET",
-          "URI": "http://petajakarta.org/banjir/data/api/v1/infrastructure/floodgates",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/floodgates",
           "RequiresOAuth": "N"
         },
         {
           "MethodName": "pumps",
           "Synopsis": "Rumah pompa di Jakarta direpresentasikan oleh simbol titik",
           "HTTPMethod": "GET",
-          "URI": "http://petajakarta.org/banjir/data/api/v1/infrastructure/pumps",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/pumps",
           "RequiresOAuth": "N"
         },
         {
           "MethodName": "waterways",
           "Synopsis": "Sungai dan kanal di Jakarta direpresentasikan oleh simbol garis",
           "HTTPMethod": "GET",
-          "URI": "http://petajakarta.org/banjir/data/api/v1/infrastructure/waterways",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/waterways",
           "RequiresOAuth": "N"
         }
       ]

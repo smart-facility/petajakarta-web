@@ -26,7 +26,7 @@ var aggregateHours = 24;
 */
 var getAggregates = function(level) {
 
-		jQuery.getJSON('/banjir/data/api/v1/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
+		jQuery.getJSON('/banjir/data/api/v2/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
 
 			var array = {};
 			for (var i=0;i<data.objects.collection.geometries.length;i++){
@@ -107,7 +107,7 @@ var loadTimeseries = function(data){
 };
 
 var getTimeseries = function(){
-	jQuery.getJSON('/banjir/data/api/v1/reports/timeseries', function(data) {
+	jQuery.getJSON('/banjir/data/api/v2/reports/timeseries', function(data) {
 		var array = {};
 		for (var i=0;i<data.data.length;i++){
 			array[i] = data.data[i];
@@ -236,7 +236,7 @@ getAggregates('city');
 legend.addTo(map);
 
 //Count of reports
-jQuery.getJSON("/banjir/data/api/v1/reports/count?hours=24", function(data){
+jQuery.getJSON("/banjir/data/api/v2/reports/count?hours=24", function(data){
 	$("#c_count").append(' '+data.data.c_count);
 	$("#uc_count").append(' '+data.data.uc_count);
 });
