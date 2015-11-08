@@ -597,10 +597,7 @@ aggregatesControl.onAdd = function(map) {
     buttons[i].textContent = labels[i];
     buttons[i].addEventListener("click", clickCallback);
   }
-
   L.DomUtil.addClass(buttons[Math.round(aggregateHours/3)], 'active');
-	console.log(Math.round(aggregateHours/3));
-	console.log(aggregateHours);
 
   return div;
 };
