@@ -593,9 +593,11 @@ aggregatesControl.onAdd = function(map) {
     this.className += " active";
     aggregateHours = parseInt(this.getAttribute('value'), 10);
     aggregateLayers.subdistrict.foo = "bar";
+		map.spin(true);
     hideAggregates();
     reloadAggregates().then(function() {
       updateAggregateVisibility();
+			map.spin(false);
     });
   };
 
