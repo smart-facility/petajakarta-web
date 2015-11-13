@@ -3,7 +3,7 @@ petajakarta.org/banjir
 
 Travis build status: [![Travis Build Status](https://travis-ci.org/smart-facility/petajakarta-web.svg)](https://travis-ci.org/smart-facility/petajakarta-web)
 
-DOI for current stable release [v1.0.1](https://github.com/smart-facility/petajakarta-web/tree/v1.0.1): [![DOI](https://zenodo.org/badge/19201/smart-facility/petajakarta-web.svg)](https://zenodo.org/badge/latestdoi/19201/smart-facility/petajakarta-web)
+DOI for current stable release [v1.0.1](https://github.com/smart-facility/petajakarta-web/releases/tag/v1.0.1): [![DOI](https://zenodo.org/badge/19201/smart-facility/petajakarta-web.svg)](https://zenodo.org/badge/latestdoi/19201/smart-facility/petajakarta-web)
 
 **petajakarta.org/banjir** is an open source, community-led platform to collect and disseminate information about flooding and critical water infrastructure in Jakarta.
 
