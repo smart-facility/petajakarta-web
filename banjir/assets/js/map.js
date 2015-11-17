@@ -37,15 +37,15 @@ var markerPopup = function(feature, layer) {
 		markerMap[feature.properties.pkey] = layer;
 		// Render as tweet
 		if (feature.properties.source == 'twitter'){
-			layer.bindPopup(tweetPopup(feature));
+			layer.bindPopup(tweetPopup(feature), {autoPanPadding:([0,60])});
 		}
 		// Render as Detik report
 		else if (feature.properties.source == 'detik'){
-			layer.bindPopup(detikPopup(feature));
+			layer.bindPopup(detikPopup(feature), {autoPanPadding:([0,60])});
 		}
 		// Default to text rendering
 		else {
-			layer.bindPopup(feature.properties.text.parseURL());
+			layer.bindPopup(feature.properties.text.parseURL, {autoPanPadding:([0,60])});
 		}
 	}
 };
@@ -155,7 +155,7 @@ var loadConfirmedPoints = function(reports) {
 		// badge reports button
 		window.reportsBadge.textContent = reports.features.length;
 		// create div Icon
-		var myicon = L.divIcon({className: 'div-icon', html:'<p><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></p>'});
+		var myicon = L.divIcon({className: 'div-icon', html:'<p><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></p>',popupAnchor:[5,0]});
 		window.confirmedPoints = L.geoJson(reports, {
 			pointToLayer: function(feature, latlng) {
 				return  L.marker(latlng, {icon:myicon}); //L.circleMarker(latlng, styleConfirmed);
@@ -388,7 +388,6 @@ var centreMapOnPopup = function(pkey,lat,lon) {
 
 	var m = markerMap[pkey];
 	map.setView(m._latlng, 17);
-	map.panBy([0,-80]);
 	m.openPopup();
 };
 
@@ -844,6 +843,7 @@ if (!window.isTouch){
 	Ask popups to render using Twitter embedded tweets
 */
 map.on('popupopen', function(popup){
+
 	if ($('tweet-container')){
 			twttr.widgets.load($('.leaflet-popup-content'));
 		}
