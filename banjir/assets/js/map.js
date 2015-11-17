@@ -399,8 +399,7 @@ var centreMapOnPopup = function(pkey,lat,lon) {
 var setViewJakarta = function(position) {
 	if (position.coords.latitude >= -6.4354 && position.coords.latitude <= -5.9029 &&
 		  position.coords.longitude >= 106.5894 && position.coords.longitude <= 107.0782) {
-				map.setView(L.latLng(position.coords.latitude,position.coords.longitude), 17); // Set to the users current view
-
+				map.setView(L.latLng(position.coords.latitude,position.coords.longitude), 17, {animate:true}); // Set to the users current view
 				// Color the user location button as feedback
 				$('.leaflet-control-location-button').css("background-image", "url(/banjir/img/location-icon-blue.png)");
 				$('.leaflet-retina .leaflet-control-location-button').css("background-image", "url(/banjir/img/location-icon-2x-blue.png)");
