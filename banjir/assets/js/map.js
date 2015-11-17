@@ -154,10 +154,10 @@ var loadConfirmedPoints = function(reports) {
 		loadTable(reports); //sneaky loadTable function.
 
 		window.reportsBadge.textContent = reports.features.length;
-
+		var myicon = L.divIcon({className: 'div-icon', html:'<p><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></p>'});
 		window.confirmedPoints = L.geoJson(reports, {
 			pointToLayer: function(feature, latlng) {
-				return L.circleMarker(latlng, styleConfirmed);
+				return  L.marker(latlng, {icon:myicon}); //L.circleMarker(latlng, styleConfirmed);
 			},
 			onEachFeature: markerPopup
 		});

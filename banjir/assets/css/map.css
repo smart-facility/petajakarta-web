@@ -240,3 +240,7 @@ label {
 .leaflet-bar {
   border-radius: 0 !important;
 }
+
+.div-icon {
+  color: #08519c;
+}
