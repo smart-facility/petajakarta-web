@@ -152,8 +152,9 @@ var getAggregates = function(level) {
 var loadConfirmedPoints = function(reports) {
 	if (reports) {
 		loadTable(reports); //sneaky loadTable function.
-
+		// badge reports button
 		window.reportsBadge.textContent = reports.features.length;
+		// create div Icon
 		var myicon = L.divIcon({className: 'div-icon', html:'<p><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></p>'});
 		window.confirmedPoints = L.geoJson(reports, {
 			pointToLayer: function(feature, latlng) {
@@ -387,6 +388,7 @@ var centreMapOnPopup = function(pkey,lat,lon) {
 
 	var m = markerMap[pkey];
 	map.setView(m._latlng, 17);
+	map.panBy([0,-80]);
 	m.openPopup();
 };
 
