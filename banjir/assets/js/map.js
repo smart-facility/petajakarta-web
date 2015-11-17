@@ -51,13 +51,6 @@ var markerPopup = function(feature, layer) {
 };
 
 /**
-	Add a text popup to the provided layer
-
-	@param {object} feature - a GeoJSON feature
-	@param {L.ILayer} layer - the layer to attach the popup to
-*/
-
-/**
 	Get a map overlay layer from the geoserver
 
 	@param {string} layer - the layer to be fetched
@@ -155,10 +148,11 @@ var loadConfirmedPoints = function(reports) {
 		// badge reports button
 		window.reportsBadge.textContent = reports.features.length;
 		// create div Icon
-		var myicon = L.divIcon({className: 'div-icon', html:'<p><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></p>',popupAnchor:[5,0]});
+		var myicon = L.divIcon({className: 'div-icon', html:'<p><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></p>', popupAnchor:[5,0]});
+		// create points
 		window.confirmedPoints = L.geoJson(reports, {
 			pointToLayer: function(feature, latlng) {
-				return  L.marker(latlng, {icon:myicon}); //L.circleMarker(latlng, styleConfirmed);
+				return  L.marker(latlng, {icon:myicon});
 			},
 			onEachFeature: markerPopup
 		});
@@ -684,15 +678,6 @@ if (window.devicePixelRatio > 1) {
 var base = L.tileLayer('https://api.mapbox.com/v4/petajakarta.lcf40klb/{z}/{x}/{y}'+tileformat+'?access_token=pk.eyJ1IjoicGV0YWpha2FydGEiLCJhIjoiTExKVVZ5TSJ9.IFf5jeFKz2iwMpBi5N3kUg').addTo(map);
 var markerMap = {}; //Reference list of markers stored outside of Leaflet
 
-// Styles for confirmed points
-var styleConfirmed = {
-    radius: 7,
-    fillColor: "blue",
-    color: "#000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-};
 
 // URL replacement in tweets
 String.prototype.parseURL = function() {
