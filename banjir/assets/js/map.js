@@ -401,6 +401,10 @@ var setViewJakarta = function(position) {
 		  position.coords.longitude >= 106.5894 && position.coords.longitude <= 107.0782) {
 				map.setView(L.latLng(position.coords.latitude,position.coords.longitude), 17); // Set to the users current view
 
+				// Color the user location button as feedback
+				$('.leaflet-control-location-button').css("background-image", "url(/banjir/img/location-icon-blue.png)");
+				$('.leaflet-retina .leaflet-control-location-button').css("background-image", "url(/banjir/img/location-icon-2x-blue.png)");
+
 				//Remove existing marker if present
 				if (window.bluedot){
 					map.removeLayer(window.bluedot);
