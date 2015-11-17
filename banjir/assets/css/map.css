@@ -17,9 +17,8 @@ body {
     height: auto;
     width: 100%;
     position: absolute;
-    top: 50px;
+    top: 0px;
     bottom: 0;
-
 }
 
 .leaflet-control-attribution {

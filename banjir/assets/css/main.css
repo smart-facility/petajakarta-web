@@ -153,7 +153,7 @@ a:after {
 
 /*Navbar*/
 .navbar-default {
-	background-color: #666;
+	background-color:rgba(100,100,100,0.9);
 	border-color: transparent;
 	padding-left: 15px;
   min-height: auto !important;
