@@ -55,8 +55,8 @@
      width: auto;
    }
 
-   #content {
-     top:30px !important;
+   .main{
+      margin-top:32px !important;
    }
 
   .navbar-toggle {
@@ -64,9 +64,7 @@
     margin-top: 4px;
     margin-bottom: 4px;
   }
-
 }
-
 
  html,{
    height: 100%;
@@ -437,12 +435,18 @@ a:after {
   text-align: center;
 }
 
+.main {
+    margin-top:50px;
+    background-color:transparent;
+}
+
 .a {
   text-decoration:none;
 }
 
 .container .text-muted {
   margin-top: 20px;
+
 }
 
 .custom-masthead h2 {
