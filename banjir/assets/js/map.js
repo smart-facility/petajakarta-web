@@ -245,19 +245,19 @@ var loadInfrastructure = function(layer, infrastructure){
 var styleInfrastructure = {
 	waterways:{
 		color:'#3960ac',
-		weight:2.5,
+		weight:0.9,
 		opacity:1,
 	},
 	pumps:L.icon({
 		iconUrl: '/banjir/img/pump.svg',
-		iconSize: [28,28],
-		iconAnchor: [14, 14],
+		iconSize: [22,22],
+		iconAnchor: [11, 11],
 		popupAnchor: [0, 0],
 	}),
 	floodgates:L.icon({
 		iconUrl: '/banjir/img/floodgate.svg',
-		iconSize: [28,28],
-		iconAnchor: [14, 14],
+		iconSize: [22,22],
+		iconAnchor: [11, 11],
 		popupAnchor: [0, 0],
 	})
 };
