@@ -17,10 +17,13 @@ function loadTable(reports) {
 
 		var logo = "";
 		if (report.source == 'detik'){
-			logo = '<img class="media-object" src="https://pasangmata.detik.com/assets/fe/img/logo_detik.png" height="22">';
+			logo = '<img src="https://pasangmata.detik.com/assets/fe/img/logo_detik.png" height="22">';
 		}
 		else if (report.source == 'twitter'){
-			logo = '<img class="media-object" src="/banjir/img/twitter_logo_blue.png" height="22">';
+			logo = '<img src="/banjir/img/twitter_logo_blue.png" height="22">';
+		}
+		if (report.status == 'verified'){
+			logo+= ' <img src="/banjir/img/bpbd_dki.png" height="22">';
 		}
 
 		rows +='<tr>';

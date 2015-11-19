@@ -13,6 +13,9 @@
 */
 var tweetPopup = function(feature){
 	var popup = '<div id="tweet-container" style="width:250px; height:300px; overflow-y:scroll"><blockquote class="twitter-tweet"><a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'</a></blockquote></div>';
+	if (feature.properties.status == 'verified'){
+		popup = '<div style="padding:5px"><img src="/banjir/img/bpbd_dki.png" height="35px;"> @BPBDJakarta <i>Retweeted</i></div><div id="tweet-container" style="width:250px; height:300px; overflow-y:scroll;"><blockquote class="twitter-tweet"><a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'</a></blockquote></div>';
+	}
 	return popup;
 };
 /**
@@ -138,6 +141,19 @@ var getAggregates = function(level) {
 	});
 };
 
+/** Style confirmed reports
+		@param {object} feature - geojson report feature
+*/
+var iconConfirmedReports = function(feature){
+	//default confirmed style
+	var myicon = L.divIcon({className: 'div-icon-confirmed', html:'<p><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></p>', popupAnchor:[5,0]});
+	//else return verified style
+	if (feature.properties.status == 'verified'){
+		myicon = L.divIcon({className: 'div-icon-verified', html:'<p><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></p>', popupAnchor:[5,0]});
+	}
+	return (myicon);
+};
+
 /**
 	Plots confirmed points on the map as circular markers
 	@param {object} reports - a GeoJSON object containing report locations
@@ -147,12 +163,11 @@ var loadConfirmedPoints = function(reports) {
 		loadTable(reports); //sneaky loadTable function.
 		// badge reports button
 		window.reportsBadge.textContent = reports.features.length;
-		// create div Icon
-		var myicon = L.divIcon({className: 'div-icon', html:'<p><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></p>', popupAnchor:[5,0]});
+
 		// create points
 		window.confirmedPoints = L.geoJson(reports, {
 			pointToLayer: function(feature, latlng) {
-				return  L.marker(latlng, {icon:myicon});
+				return  L.marker(latlng, {icon:iconConfirmedReports(feature)});
 			},
 			onEachFeature: markerPopup
 		});

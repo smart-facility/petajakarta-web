@@ -224,7 +224,7 @@ label {
 /*Remove rounded corners of popups*/
 .leaflet-popup-content-wrapper,.leaflet-popup-content
 {
-  background-color:rgba(255, 255, 255, 0.9);
+  background-color:rgba(255, 255, 255, 1);
 
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
@@ -241,6 +241,10 @@ label {
   border-radius: 0 !important;
 }
 
-.div-icon {
+.div-icon-confirmed {
   color: #08519c;
+}
+
+.div-icon-verified{
+  color: #EF4C23;
 }
