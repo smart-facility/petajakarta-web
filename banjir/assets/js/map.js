@@ -130,7 +130,6 @@ var aggregateHours = 1;
 
 /**
 	Get GeoJSON representing counts of reports in RW polygons
-	@param {function} callback - a function to be called when data is finished loading
 	@param {level} string - administrative boundary level to load. Can be 'rw' or 'village', also passed to load function for identification
 */
 var getAggregates = function(level) {
@@ -139,6 +138,42 @@ var getAggregates = function(level) {
 			resolve(topojson.feature(data, data.objects.collection));
 		});
 	});
+};
+
+/**
+	Get GeoJSON representing current flooding
+	@param {function} callback - a function to be called when data is finished loading
+*/
+var getREM = function(callback) {
+	jQuery.getJSON('/banjir/dims_flooded.geojson', function(data){
+		callback(data);
+	});
+};
+
+/**
+	Load GeoJSON representing current flooding
+	@param {object} data - geojson polygon representation of affected areas
+*/
+var loadREM = function(data){
+
+	L.geoJson(data, {style:function(feature){
+		switch (feature.properties.affected) {
+			case 1: return {fillColor:"#2b8cbe",weight:0,fillOpacity: 0.8};
+			case 2: return {fillColor:"#a6bddb",weight:0,fillOpacity: 0.8};
+			case 3: return {fillColor:"#d0d1e6",weight:0,fillOpacity: 0.8};
+			case 4: return {fillColor:"yellow", weight:0,fillOpacity:0.5};
+
+			//default: return {color:"rgba(0,0,0,0)",weight:0,fillOpacity:0};
+		}
+	}}).addTo(map).bringToBack();
+
+	L.geoJson(data,{style:function(feature){
+		switch (feature.properties.affected){
+			case 4: return {weight:0, color:'yellow',fillOpacity:0};
+			default: return {weight:1.5, color:'red', opacity:1, fillOpacity:0};
+		}
+	}
+}).addTo(map);
 };
 
 /** Style confirmed reports
@@ -392,7 +427,7 @@ function zoomToFeature(e) {
 */
 var centreMapOnPopup = function(pkey,lat,lon) {
 	if (map.hasLayer(window.confirmedPoints) === false){
-		window.confirmedPoints.addTo(map);
+		window.confirmedPoints.addTo(map).bringToFront();
 	}
 
 	var m = markerMap[pkey];
@@ -848,3 +883,5 @@ map.on('popupopen', function(popup){
 			twttr.widgets.load($('.leaflet-popup-content'));
 		}
 });
+
+getREM(loadREM);
