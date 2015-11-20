@@ -6,6 +6,31 @@
 *@module map
 */
 
+/*
+* Specify layernames
+*/
+var layernames = {};
+if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
+	layernames.confirmed = 'Laporan dikonfirmasi';
+	layernames.waterways = 'Aliran Air';
+	layernames.pumps = 'Pompa Air';
+	layernames.floodgates = 'Pintu Air';
+	layernames.floodheights = {
+		title:'Tinggi Banjir',
+		tentative_areas:'Hati-Hati'
+	};
+}
+else {
+	layernames.confirmed = 'Confirmed Reports';
+	layernames.waterways = 'Waterways';
+	layernames.pumps = 'Pumps';
+	layernames.floodgates = 'Floodgates';
+	layernames.floodheights = {
+		title:'Flood Heights',
+		tentative_areas:'Use Caution'
+		};
+}
+
 /**
 	Format popup with an embedded tweet
 
@@ -161,7 +186,6 @@ var loadREM = function(data){
 			//default: return {color:"rgba(0,0,0,0)",weight:0,fillOpacity:0};
 		}
 	}}).addTo(map).bringToBack();
-
 	heightsLegend.addTo(map);
 	layerControl.addOverlay(window.floodheights, layernames.floodheights.title);
 };
@@ -378,7 +402,6 @@ legend.onAdd = function(map) {
 		div.innerHTML += '<span class="number">'+grades[i]+'</span>';
 	}
 	div.innerHTML +='<span class="number" style="margin-left:1px;">'+grades[grades.length-1]+'+</span>';
-	//div.innerHTML +='+';
 
 	return div;
 };
@@ -462,29 +485,6 @@ if (window.devicePixelRatio > 1) {
 }
 var base = L.tileLayer('https://api.mapbox.com/v4/petajakarta.lcf40klb/{z}/{x}/{y}'+tileformat+'?access_token=pk.eyJ1IjoicGV0YWpha2FydGEiLCJhIjoiTExKVVZ5TSJ9.IFf5jeFKz2iwMpBi5N3kUg').addTo(map);
 var markerMap = {}; //Reference list of markers stored outside of Leaflet
-
-var layernames = {};
-if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
-	layernames.confirmed = 'Laporan dikonfirmasi';
-	layernames.waterways = 'Aliran Air';
-	layernames.pumps = 'Pompa Air';
-	layernames.floodgates = 'Pintu Air';
-	layernames.floodheights = {
-		title:'Tinggi Banjir',
-		tentative_areas:'Hati-Hati'
-	};
-}
-else {
-	layernames.confirmed = 'Confirmed Reports';
-	layernames.floodheights = 'Flood Heights';
-	layernames.waterways = 'Waterways';
-	layernames.pumps = 'Pumps';
-	layernames.floodgates = 'Floodgates';
-	layernames.floodheights = {
-		title:'Flood Heights',
-		tentative_areas:'Use Caution'
-	};
-}
 
 var loadPrimaryLayers = function(layerControl) {
 	var layerPromises = {

@@ -211,7 +211,6 @@ body {
 .leaflet-touch .leaflet-control-zoom,
 .leaflet-touch .leaflet-control-attribution,
 .leaflet-touch .leaflet-control.aggregates,
-.leaflet-touch .leaflet-control.info.legend,
 .leaflet-touch .leaflet-top.leaflet-right .leaflet-control.info {
   display: none;
 }
