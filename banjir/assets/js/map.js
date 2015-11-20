@@ -162,9 +162,8 @@ var loadREM = function(data){
 		}
 	}}).addTo(map).bringToBack();
 
-heightsLegend.addTo(map);
-layerControl.addOverlay(window.floodheights, layernames.floodheights);
-
+	heightsLegend.addTo(map);
+	layerControl.addOverlay(window.floodheights, layernames.floodheights.title);
 };
 
 /** Style confirmed reports
@@ -363,7 +362,7 @@ legend.onAdd = function(map) {
 	grades = [0,1, 5, 10, 15, 20, 25, 30],
 	labels = [];
   // label for legend
-	if (document.documentElement.lang == 'in') {
+	if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id') {
 		div.innerHTML+='Jumlah laporan<BR>';
 	}
 	else {
@@ -389,11 +388,11 @@ var heightsLegend = L.control({position:'bottomright'});
 
 heightsLegend.onAdd = function(map) {
 	var div = L.DomUtil.create('div', 'info legend');
-	div.innerHTML += 'Flood Heights<BR>';
+	div.innerHTML += layernames.floodheights.title+'<BR>';
 	div.innerHTML += '<i class="color" style="background:#2b8cbe"></i><span>&nbsp;>140cm </span><BR>';
 	div.innerHTML += '<i class="color" style="background:#a6bddb"></i><span>&nbsp;>70cm </span><BR>';
 	div.innerHTML += '<i class="color" style="background:#d0d1e6"></i><span>&nbsp;>0cm </span><BR>';
-	div.innerHTML += '<i class="color" style="background:yellow"></i><span>&nbsp;Use Caution</span>';
+	div.innerHTML += '<i class="color" style="background:yellow"></i><span>&nbsp;'+layernames.floodheights.tentative_areas+'</span>';
 	return div;
 };
 
@@ -465,13 +464,15 @@ var base = L.tileLayer('https://api.mapbox.com/v4/petajakarta.lcf40klb/{z}/{x}/{
 var markerMap = {}; //Reference list of markers stored outside of Leaflet
 
 var layernames = {};
-
-if (document.documentElement.lang == 'in'){
+if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
 	layernames.confirmed = 'Laporan dikonfirmasi';
-	layernames.floodheights = 'Tinggi Banjir';
 	layernames.waterways = 'Aliran Air';
 	layernames.pumps = 'Pompa Air';
 	layernames.floodgates = 'Pintu Air';
+	layernames.floodheights = {
+		title:'Tinggi Banjir',
+		tentative_areas:'Hati-Hati'
+	};
 }
 else {
 	layernames.confirmed = 'Confirmed Reports';
@@ -479,6 +480,10 @@ else {
 	layernames.waterways = 'Waterways';
 	layernames.pumps = 'Pumps';
 	layernames.floodgates = 'Floodgates';
+	layernames.floodheights = {
+		title:'Flood Heights',
+		tentative_areas:'Use Caution'
+	};
 }
 
 var loadPrimaryLayers = function(layerControl) {
