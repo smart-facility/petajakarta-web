@@ -155,7 +155,7 @@ var loadREM = function(data){
 		switch (feature.properties.affected) {
 			case 1: return {fillColor:"#2b8cbe",weight:1.5,color:'red',opacity:1,fillOpacity: 0.8};
 			case 2: return {fillColor:"#a6bddb",weight:1.5,color:'red',opacity:1,fillOpacity: 0.8};
-			case 3: return {fillColor:"#d0d1e6",weight:1.5,color:'red',opacity:1,fillOpacity: 0.8};
+			case 3: return {fillColor:"#ece7f2",weight:1.5,color:'red',opacity:1,fillOpacity: 0.8};
 			case 4: return {fillColor:"yellow", weight:0,fillOpacity:0.5};
 
 			//default: return {color:"rgba(0,0,0,0)",weight:0,fillOpacity:0};
@@ -391,7 +391,7 @@ heightsLegend.onAdd = function(map) {
 	div.innerHTML += layernames.floodheights.title+'<BR>';
 	div.innerHTML += '<i class="color" style="background:#2b8cbe"></i><span>&nbsp;>140cm </span><BR>';
 	div.innerHTML += '<i class="color" style="background:#a6bddb"></i><span>&nbsp;>70cm </span><BR>';
-	div.innerHTML += '<i class="color" style="background:#d0d1e6"></i><span>&nbsp;>0cm </span><BR>';
+	div.innerHTML += '<i class="color" style="background:#ece7f2"></i><span>&nbsp;>0cm </span><BR>';
 	div.innerHTML += '<i class="color" style="background:yellow"></i><span>&nbsp;'+layernames.floodheights.tentative_areas+'</span>';
 	return div;
 };
