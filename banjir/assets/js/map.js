@@ -53,6 +53,13 @@ var markerPopup = function(feature, layer) {
 	}
 };
 
+// URL replacement in tweets
+String.prototype.parseURL = function() {
+	return this.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function(url) {
+		return "<a target='_blank' href='"+url+"'>"+url+"</a>";
+	});
+};
+
 /**
 	Get a map overlay layer from the geoserver
 
@@ -126,20 +133,6 @@ var getReport = function(id) {
 	});
 };
 
-var aggregateHours = 1;
-
-/**
-	Get GeoJSON representing counts of reports in RW polygons
-	@param {level} string - administrative boundary level to load. Can be 'rw' or 'village', also passed to load function for identification
-*/
-var getAggregates = function(level) {
-	return new RSVP.Promise(function(resolve, reject) {
-		jQuery.getJSON('/banjir/data/api/v2/aggregates/live?format=topojson&level='+level+'&hours='+aggregateHours, function(data) {
-			resolve(topojson.feature(data, data.objects.collection));
-		});
-	});
-};
-
 /**
 	Get GeoJSON representing current flooding
 	@param {function} callback - a function to be called when data is finished loading
@@ -169,8 +162,8 @@ var loadREM = function(data){
 		}
 	}}).addTo(map).bringToBack();
 
-heights.addTo(map);
-layerControl.addOverlay(window.floodheights, 'Flood Heights');
+heightsLegend.addTo(map);
+layerControl.addOverlay(window.floodheights, layernames.floodheights);
 
 };
 
@@ -243,26 +236,6 @@ var showURLReport = function() {
 };
 
 /**
-	Plots counts of reports in RW polygons
-
-	@param {string} level - string - administrative boundary level to load. Can be 'rw' or 'village', should be passed from getfunction
-	@param {object} aggregates - a GeoJSON object containing polygon features
-*/
-
-var aggregateLayers = {};
-var aggregateVersions = {};
-var aggregateInc = 0;
-
-var loadAggregates = function(level, aggregates){
-	var aggregateLayer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates});
-	aggregateLayers[level] = aggregateLayer;
-	aggregateLayers[level].version = aggregateInc;
-  aggregateVersions[level] = aggregateInc;
-  aggregateInc += 1;
-	return aggregateLayers[level];
-};
-
-/**
 	Plots hydrological infrastructure on map
 
 	@param {string} layer - string - name of infrastructure layer to load
@@ -309,110 +282,6 @@ var styleInfrastructure = {
 		popupAnchor: [0, 0],
 	})
 };
-
-/**
-	Styles counts of reports in RW polygons
-
-	@param {object} feature - individual Leaflet/GeoJSON feature object
-	*/
-function styleAggregates(feature) {
-    return {
-        fillColor: getColor(feature.properties.count),
-        weight: 0,
-				//disabled polygon borders for clarity
-        //opacity: 1,
-        //color: 'white',
-        //dashArray: '3',
-        fillOpacity: 0.7
-    };
-}
-
-/**
-	Return a colour based on input number - based on Color Brewer
-
-	@param {integer} d - number representing some attribute (e.g. count)
-
-*/
-function getColor(d) {
-    return d > 30 ? '#800026' :
-           d > 25  ? '#BD0026' :
-           d > 20  ? '#E31A1C' :
-           d > 15  ? '#FC4E2A' :
-           d > 10   ? '#FD8D3C' :
-           d > 5   ? '#FEB24C' :
-           d > 1   ? '#FED976' :
-					 d > 0	?	'#FFEDA0' :
-                      '#FFEDA0';
-}
-
-/**
-	Set a popup label for an aggregate poplygon based on it's count attribute
-
-	@param {object} feature - individual Leaflet/GeoJSON object
-	@param {object}	layer - leaflet layer object
-*/
-function labelAggregates(feature, layer) {
-		// commented pop up label as working on touch/info box
-    // does this feature have a property named count?
-  	/*if (feature.properties && feature.properties.count && feature.properties.level_name) {
-        layer.bindPopup(JSON.stringify(feature.properties.level_name+': '+feature.properties.count+' reports'));
-    }*/
-		layer.on({
-			mouseover: highlightAggregate,
-			mouseout: resetAggregate,
-      click: highlightAggregate,
-			dblclick: zoomToFeature
-		});
-}
-
-var activeAggregate = null;
-
-/**
-	Visual highlighting of polygon when hovered over with the mouse
-
-	@param {object} event - leaflet event object
-*/
-function highlightAggregate(e) {
-  var layer = e.target;
-
-  if (activeAggregate !== null) {
-    activeAggregate.setStyle(styleAggregates(activeAggregate.feature));
-    activeAggregate.bringToBack();
-  }
-
-  layer.setStyle({
-    weight: 5,
-    color: '#333',
-    opacity:1,
-    dashArray: '',
-    fillOpacity: 0.7
-  });
-
-  layer.bringToFront(); //buggy?
-
-  info.update(layer.feature.properties);
-
-  activeAggregate = layer;
-}
-/**
-	Reset style of aggregate after hover over
-
-	@param {object} event - leaflet event object
-*/
-function resetAggregate(e){
-	var layer = e.target;
-
-	layer.setStyle(styleAggregates(layer.feature));
-	layer.bringToBack();
-
-	info.update();
-}
-
-
-function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
-		//pan to
-}
 
 /**
 	Centre the map on a given location and open a popup's text box.
@@ -485,42 +354,11 @@ timestamp.onAdd = function(map){
 };
 
 /**
-	Information box for aggregate details
-*/
-var info = L.control({'position':'topright'});
-//Create info box
-info.onAdd = function(map){
-	this.flag = 1;
-	this._div = L.DomUtil.create('div', 'info'); // Create a div with class info
-	this.update();
-	return this._div;
-};
-
-//Update info box
-var hover_text;
-var reports_text;
-
-if (document.documentElement.lang == 'in'){
-	hover_text = 'Arahkan ke area';
-	reports_text = 'laporan';
-}
-else {
-	hover_text = 'Hover over an area';
-	reports_text = 'reports';
-}
-
-info.update = function(properties){
-
-		this._div.innerHTML = (properties ? properties.level_name+': '+properties.count+' '+reports_text : hover_text);
-};
-
-/**
 	Legend box
 */
 var legend = L.control({position:'bottomright'});
 
 legend.onAdd = function(map) {
-
 	var div = L.DomUtil.create('div', 'info legend'),
 	grades = [0,1, 5, 10, 15, 20, 25, 30],
 	labels = [];
@@ -547,9 +385,9 @@ legend.onAdd = function(map) {
 };
 
 //flood heights scale
-var heights = L.control({position:'bottomright'});
+var heightsLegend = L.control({position:'bottomright'});
 
-heights.onAdd = function(map) {
+heightsLegend.onAdd = function(map) {
 	var div = L.DomUtil.create('div', 'info legend');
 	div.innerHTML += 'Flood Heights<BR>';
 	div.innerHTML += '<i class="color" style="background:#2b8cbe"></i><span>&nbsp;>140cm </span><BR>';
@@ -557,119 +395,6 @@ heights.onAdd = function(map) {
 	div.innerHTML += '<i class="color" style="background:#d0d1e6"></i><span>&nbsp;>0cm </span><BR>';
 	div.innerHTML += '<i class="color" style="background:yellow"></i><span>&nbsp;Use Caution</span>';
 	return div;
-};
-
-var aggregatesControl = L.control({position:'bottomright'});
-
-var hideAggregates = function() {
-  if (aggregateLayers) {
-    if (aggregateLayers.subdistrict) {
-      map.removeLayer(aggregateLayers.subdistrict);
-      window.layerControl.removeLayer(aggregateLayers.subdistrict);
-    }
-    if (aggregateLayers.village) {
-      map.removeLayer(aggregateLayers.village);
-      window.layerControl.removeLayer(aggregateLayers.village);
-    }
-    if (aggregateLayers.rw) {
-      map.removeLayer(aggregateLayers.rw);
-      window.layerControl.removeLayer(aggregateLayers.rw);
-    }
-  }
-};
-
-var reloadAggregates = function() {
-  var promises = {
-    subdistrict: getAggregates('subdistrict')
-				.then(function(aggregates) {
-					return loadAggregates('subdistrict', aggregates);
-				}),
-    village: getAggregates('village')
-				.then(function(aggregates) {
-					return loadAggregates('village', aggregates);
-				}),
-    rw: getAggregates('rw')
-				.then(function(aggregates) {
-					return loadAggregates('rw', aggregates);
-				})
-  };
-
-  return RSVP.hash(promises);
-};
-
-// Turn layers on/off depending on zoom level
-var updateAggregateVisibility = function() {
-	var zoom  = map.getZoom();
-
-	if (zoom < 13) {
-		hideAggregates();
-		if (map.hasLayer(window.confirmedPoints) === false){
-			aggregateLayers.subdistrict.addTo(map);
-			aggregateLayers.subdistrict.bringToBack();
-		}
-		window.layerControl.addBaseLayer(aggregateLayers.subdistrict, layernames.subdistrict);
-
-	} else if (zoom >= 13 && zoom <= 14) {
-		hideAggregates();
-		if (map.hasLayer(window.confirmedPoints) === false){
-			aggregateLayers.village.addTo(map);
-			aggregateLayers.village.bringToBack();
-		}
-		window.layerControl.addBaseLayer(aggregateLayers.village, layernames.village);
-
-	} else if (zoom >= 15) {
-		hideAggregates();
-		if (map.hasLayer(window.confirmedPoints) === false){
-			aggregateLayers.rw.addTo(map);
-			aggregateLayers.rw.bringToBack();
-		}
-		window.layerControl.addBaseLayer(aggregateLayers.rw, layernames.neighbourhood);
-
-	}
-	else {
-		hideAggregates();
-
-	}
-  activeAggregate = null;
-};
-
-aggregatesControl.onAdd = function(map) {
-	var div = L.DomUtil.create('div', 'info control aggregates');
-
-  var buttonGroup = L.DomUtil.create('div', 'btn-group', div);
-  var buttons = [];
-	var labels = [];
-	if (document.documentElement.lang == 'in'){
-		labels = ['1 jam', '3 jam', '6 jam'];
-	}
-	else {
-  	labels = ['1hr', '3hrs', '6hrs'];
-	}
-  var values = [1, 3, 6];
-
-  var clickCallback = function() {
-    $('.control.aggregates button.active').removeClass('active');
-    this.className += " active";
-    aggregateHours = parseInt(this.getAttribute('value'), 10);
-    aggregateLayers.subdistrict.foo = "bar";
-		map.spin(true);
-    hideAggregates();
-    reloadAggregates().then(function() {
-      updateAggregateVisibility();
-			map.spin(false);
-    });
-  };
-
-  for (var i = 0; i < 3; i++) {
-    buttons[i] = L.DomUtil.create('button', 'btn btn-default', buttonGroup);
-    buttons[i].setAttribute('value', values[i]);
-    buttons[i].setAttribute('disabled', true);
-    buttons[i].textContent = labels[i];
-    buttons[i].addEventListener("click", clickCallback);
-  }
-  L.DomUtil.addClass(buttons[Math.round(aggregateHours/3)], 'active');
-
-  return div;
 };
 
 var reportsControl = L.control({position:'bottomleft'});
@@ -739,30 +464,18 @@ if (window.devicePixelRatio > 1) {
 var base = L.tileLayer('https://api.mapbox.com/v4/petajakarta.lcf40klb/{z}/{x}/{y}'+tileformat+'?access_token=pk.eyJ1IjoicGV0YWpha2FydGEiLCJhIjoiTExKVVZ5TSJ9.IFf5jeFKz2iwMpBi5N3kUg').addTo(map);
 var markerMap = {}; //Reference list of markers stored outside of Leaflet
 
-
-// URL replacement in tweets
-String.prototype.parseURL = function() {
-	return this.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function(url) {
-		return "<a target='_blank' href='"+url+"'>"+url+"</a>";
-	});
-};
-
 var layernames = {};
 
 if (document.documentElement.lang == 'in'){
 	layernames.confirmed = 'Laporan dikonfirmasi';
-	layernames.subdistrict = 'Laporan Kecamatan';
-	layernames.village = 'Laporan Desa';
-	layernames.neighbourhood = 'Laporan RW';
+	layernames.floodheights = 'Tinggi Banjir';
 	layernames.waterways = 'Aliran Air';
 	layernames.pumps = 'Pompa Air';
 	layernames.floodgates = 'Pintu Air';
 }
 else {
 	layernames.confirmed = 'Confirmed Reports';
-	layernames.subdistrict = 'Subdistrict Aggregates';
-	layernames.village = 'Village Aggregates';
-	layernames.neighbourhood = 'Neighbourhood Aggregates';
+	layernames.floodheights = 'Flood Heights';
 	layernames.waterways = 'Waterways';
 	layernames.pumps = 'Pumps';
 	layernames.floodgates = 'Floodgates';
@@ -773,21 +486,8 @@ var loadPrimaryLayers = function(layerControl) {
 		confirmed: getReports('confirmed')
 			.then(loadConfirmedPoints)};
 
-  if (!window.isTouch) {
-    layerPromises.subdistrict = getAggregates('subdistrict')
-      .then(function(aggregates) {
-        return loadAggregates('subdistrict', aggregates);
-      });
-  }
-
 	return new RSVP.Promise(function(resolve, reject) {
 		RSVP.hash(layerPromises).then(function(overlays) {
-
-      if (!window.isTouch) {
-        layerControl.addBaseLayer(overlays.subdistrict, layernames.subdistrict);
-        //overlays.subdistrict
-      }
-
 			layerControl.addBaseLayer(overlays.confirmed, layernames.confirmed);
 			overlays.confirmed.addTo(map);
 			map.spin(false);
@@ -814,22 +514,9 @@ var loadSecondaryLayers = function(layerControl) {
 				})
 		};
 
-    if (!window.isTouch) {
-      _.extend(secondaryPromises, {
-      village: getAggregates('village')
-				.then(function(aggregates) {
-					return loadAggregates('village', aggregates);
-				}),
-      rw: getAggregates('rw')
-				.then(function(aggregates) {
-					return loadAggregates('rw', aggregates);
-				})
-      });
-    }
-
 		RSVP.hash(secondaryPromises).then(function(overlays) {
 			// Add overlays to the layer control
-			showURLReport();
+			showURLReport(); //once point layers loaded zoom to report specified in URL
 			layerControl.addOverlay(overlays.waterways, layernames.waterways);
 			layerControl.addOverlay(overlays.pumps, layernames.pumps);
 			layerControl.addOverlay(overlays.floodgates, layernames.floodgates);
@@ -842,60 +529,23 @@ $(function() {
 	map.spin(true);
 	window.layerControl = L.control.layers({}, {}, {position: 'bottomleft'}).addTo(map);
 	loadPrimaryLayers(window.layerControl).then(loadSecondaryLayers);
+	getREM(loadREM);
 });
 
 /**
-	Listen for map events and load required layers [non-touch devices]
+	Listen for map events and load required layers
 */
-if (!window.isTouch){
-	//Update aggregates by zoom level
-	map.on('zoomend', function(){
-			updateAggregateVisibility();
-	});
+map.on('overlayremove', function(event){
+	if (event.layer == window.floodheights){
+		map.removeControl(heightsLegend);
+	}
+});
 
-	map.on('overlayremove', function(event){
-		if (event.layer == window.floodheights){
-			map.removeControl(heights);
-		}
-	});
-
-	map.on('overlayadd', function(event){
-		if (event.layer == window.floodheights){
-			heights.addTo(map);
-		}
-	});
-
-	//Toggle Aggregate legend
-	map.on('baselayerchange', function(event){
-		if (event.layer == window.confirmedPoints){
-			if (info._map){
-				map.removeControl(info);
-			}
-			if (legend._map){
-				map.removeControl(legend);
-			}
-			if (aggregatesControl._map){
-				map.removeControl(aggregatesControl);
-			}
-		}
-		else {
-			//Update legend boxes
-			if (!info._map){
-				info.addTo(map);
-				info.update();
-			}
-
-			if (!legend._map){
-				legend.addTo(map);
-			}
-			if (!aggregatesControl._map){
-				aggregatesControl.addTo(map);
-				$('.control.aggregates button').prop('disabled', false);
-			}
-			event.layer.bringToBack();
-		}
-	});
-}
+map.on('overlayadd', function(event){
+	if (event.layer == window.floodheights){
+		heightsLegend.addTo(map);
+	}
+});
 
 /**
 	Ask popups to render using Twitter embedded tweets
@@ -906,5 +556,3 @@ map.on('popupopen', function(popup){
 			twttr.widgets.load($('.leaflet-popup-content'));
 		}
 });
-
-getREM(loadREM);
