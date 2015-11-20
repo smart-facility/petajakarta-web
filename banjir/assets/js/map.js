@@ -147,6 +147,9 @@ var getAggregates = function(level) {
 var getREM = function(callback) {
 	jQuery.getJSON('/banjir/dims_flooded.geojson', function(data){
 		callback(data);
+	})
+	.fail(function(){
+		console.log('getREM(): Error fetching REM data');
 	});
 };
 
@@ -155,25 +158,20 @@ var getREM = function(callback) {
 	@param {object} data - geojson polygon representation of affected areas
 */
 var loadREM = function(data){
-
-	L.geoJson(data, {style:function(feature){
+	window.floodheights = L.geoJson(data, {style:function(feature){
 		switch (feature.properties.affected) {
-			case 1: return {fillColor:"#2b8cbe",weight:0,fillOpacity: 0.8};
-			case 2: return {fillColor:"#a6bddb",weight:0,fillOpacity: 0.8};
-			case 3: return {fillColor:"#d0d1e6",weight:0,fillOpacity: 0.8};
+			case 1: return {fillColor:"#2b8cbe",weight:1.5,color:'red',opacity:1,fillOpacity: 0.8};
+			case 2: return {fillColor:"#a6bddb",weight:1.5,color:'red',opacity:1,fillOpacity: 0.8};
+			case 3: return {fillColor:"#d0d1e6",weight:1.5,color:'red',opacity:1,fillOpacity: 0.8};
 			case 4: return {fillColor:"yellow", weight:0,fillOpacity:0.5};
 
 			//default: return {color:"rgba(0,0,0,0)",weight:0,fillOpacity:0};
 		}
 	}}).addTo(map).bringToBack();
 
-	L.geoJson(data,{style:function(feature){
-		switch (feature.properties.affected){
-			case 4: return {weight:0, color:'yellow',fillOpacity:0};
-			default: return {weight:1.5, color:'red', opacity:1, fillOpacity:0};
-		}
-	}
-}).addTo(map);
+heights.addTo(map);
+layerControl.addOverlay(window.floodheights, 'Flood Heights');
+
 };
 
 /** Style confirmed reports
@@ -548,6 +546,19 @@ legend.onAdd = function(map) {
 	return div;
 };
 
+//flood heights scale
+var heights = L.control({position:'bottomright'});
+
+heights.onAdd = function(map) {
+	var div = L.DomUtil.create('div', 'info legend');
+	div.innerHTML += 'Flood Heights<BR>';
+	div.innerHTML += '<i class="color" style="background:#2b8cbe"></i><span>&nbsp;>140cm </span><BR>';
+	div.innerHTML += '<i class="color" style="background:#a6bddb"></i><span>&nbsp;>70cm </span><BR>';
+	div.innerHTML += '<i class="color" style="background:#d0d1e6"></i><span>&nbsp;>0cm </span><BR>';
+	div.innerHTML += '<i class="color" style="background:yellow"></i><span>&nbsp;Use Caution</span>';
+	return div;
+};
+
 var aggregatesControl = L.control({position:'bottomright'});
 
 var hideAggregates = function() {
@@ -840,6 +851,18 @@ if (!window.isTouch){
 	//Update aggregates by zoom level
 	map.on('zoomend', function(){
 			updateAggregateVisibility();
+	});
+
+	map.on('overlayremove', function(event){
+		if (event.layer == window.floodheights){
+			map.removeControl(heights);
+		}
+	});
+
+	map.on('overlayadd', function(event){
+		if (event.layer == window.floodheights){
+			heights.addTo(map);
+		}
 	});
 
 	//Toggle Aggregate legend
