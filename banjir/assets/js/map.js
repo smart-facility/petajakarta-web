@@ -216,7 +216,9 @@ var loadConfirmedPoints = function(reports) {
 		// create points
 		window.confirmedPoints = L.geoJson(reports, {
 			pointToLayer: function(feature, latlng) {
-				return  L.marker(latlng, {icon:iconConfirmedReports(feature)});
+				var zIndexOffset = 0;
+				if (feature.properties.status == 'verified') zIndexOffset = 1000;
+				return  L.marker(latlng, {icon:iconConfirmedReports(feature), zIndexOffset: zIndexOffset});
 			},
 			onEachFeature: markerPopup
 		});
