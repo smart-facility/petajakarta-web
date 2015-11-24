@@ -247,3 +247,7 @@ label {
 .div-icon-verified{
   color: #EF4C23;
 }
+/*add space for banner around zoom control*/
+.leaflet-control-zoom {
+  margin-top:55px !important;
+}
