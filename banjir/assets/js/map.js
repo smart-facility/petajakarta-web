@@ -352,7 +352,7 @@ var setViewJakarta = function(position) {
 };
 
 // Create timestamp control
-var timestamp = L.control({'position':'bottomright'});
+var timestamp = L.control({'position':'topright'});
 
 /**
 	Toggle timestamp on map based on checkbox behaviour
@@ -372,8 +372,8 @@ var toggle_timestamp = function(checkbox){
 };
 // Create timestamp text
 timestamp.onAdd = function(map){
-	var time = String(new Date()).slice(0,21);
-	this._div = L.DomUtil.create('div', 'info');
+	var time = String(new Date()).slice(4,21);
+	this._div = L.DomUtil.create('div', 'info timestamp');
 	this._div.innerHTML = time;
 	return this._div;
 };
@@ -383,7 +383,7 @@ var heightsLegend = L.control({position:'bottomright'});
 
 heightsLegend.onAdd = function(map) {
 	var div = L.DomUtil.create('div', 'info legend');
-	div.innerHTML += layernames.floodheights.title+'<BR>';
+	div.innerHTML += '<div style="line-height:1.6">'+layernames.floodheights.title+'</div>';
 	div.innerHTML += '<i class="color" style="background:#2b8cbe"></i><span>&nbsp;>140cm </span><BR>';
 	div.innerHTML += '<i class="color" style="background:#a6bddb"></i><span>&nbsp;>70cm </span><BR>';
 	div.innerHTML += '<i class="color" style="background:#ece7f2"></i><span>&nbsp;>0cm </span><BR>';

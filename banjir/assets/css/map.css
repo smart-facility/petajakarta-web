@@ -25,15 +25,20 @@ body {
   font-size:18px !important;
   background: rgba(255, 255, 255, 0.9) !important;
 }
+
+/*add space for banner around zoom control*/
+.leaflet-control-zoom, .timestamp {
+  margin-top:55px !important;
+}
+
 /* move image for small screens*/
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 480px), screen and (max-device-width: 480px) {
   .navbar-header img {
     margin-left: -10px;
   }
-  .leaflet-control-attribution {
-    font-size:11px !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    }
+  .timestamp, .leaflet-control-zoom{
+     margin-top: 38px !important;
+  }
 }
 
 #map {
@@ -246,8 +251,4 @@ label {
 
 .div-icon-verified{
   color: #EF4C23;
-}
-/*add space for banner around zoom control*/
-.leaflet-control-zoom {
-  margin-top:55px !important;
 }
