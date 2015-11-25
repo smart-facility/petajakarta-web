@@ -37,9 +37,9 @@ else {
 	@param {object} feature - a GeoJSON feature representing a report
 */
 var tweetPopup = function(feature){
-	var popup = '<div id="tweet-container" style="width:250px; height:300px; overflow-y:scroll"><blockquote class="twitter-tweet"><a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'</a></blockquote></div>';
+	var popup = '<div id="tweet-container" style="width:220px; height:auto; max-height:220px; overflow-y:scroll"><blockquote class="twitter-tweet"><a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'</a></blockquote></div>';
 	if (feature.properties.status == 'verified'){
-		popup = '<div style="padding:5px"><img src="/banjir/img/bpbd_dki.png" height="35px;"> @BPBDJakarta <i>Retweeted</i></div><div id="tweet-container" style="width:250px; height:300px; overflow-y:scroll;"><blockquote class="twitter-tweet"><a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'</a></blockquote></div>';
+		popup = '<div style="padding:5px"><img src="/banjir/img/bpbd_dki.png" height="35px;"> @BPBDJakarta <i>Retweeted</i></div><div id="tweet-container" style="width:220px; height:auto; max-height:220px; overflow-y:scroll;"><blockquote class="twitter-tweet"><a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'</a></blockquote></div>';
 	}
 	return popup;
 };
@@ -49,7 +49,7 @@ var tweetPopup = function(feature){
 	@param {object} feature - a GeoJSON feature representing a report
 */
 var detikPopup = function(feature){
-	var popup = '<div id="detik-container" style="width:250px; height:300px; overflow:auto; background-color:white;"><div class="media"><a class="pull-left" href="#"><img class="media-object" src="https://pasangmata.detik.com/assets/fe/img/logo_detik.png" height="22"></a><div class="media-body"><h4 class="media-heading">PASANGMATA.COM</h4></div></div><p class="lead" style="margin:0;">'+feature.properties.title+'</p><img class="img-responsive" src="'+feature.properties.image_url+'" width="230"/><h5>'+feature.properties.text+'</h5><h5>'+feature.properties.created_at+'</h5><a href="'+feature.properties.url+'" target="_blank">'+feature.properties.url+'</a></div>';
+	var popup = '<div id="detik-container" style="width:220px; height:220px; overflow:auto; background-color:white;"><div class="media"><a class="pull-left" href="#"><img class="media-object" src="https://pasangmata.detik.com/assets/fe/img/logo_detik.png" height="22"></a><div class="media-body"><h4 style="font-size:18px; line-height:1.2;" class="media-heading">PASANGMATA.COM</h4></div></div><p class="lead" style="margin:4px;font-size:16px;">'+feature.properties.title+'</p><img class="img-responsive" src="'+feature.properties.image_url+'" width="210"/><h5>'+feature.properties.text+'</h5><h5>'+feature.properties.created_at+'</h5><a href="'+feature.properties.url+'" target="_blank">'+feature.properties.url+'</a></div>';
 
 	return popup;
 };
@@ -65,7 +65,7 @@ var markerPopup = function(feature, layer) {
 		markerMap[feature.properties.pkey] = layer;
 		// Render as tweet
 		if (feature.properties.source == 'twitter'){
-			layer.bindPopup(tweetPopup(feature), {autoPanPadding:([0,60])});
+			layer.bindPopup(tweetPopup(feature), {autoPanPadding:([0,140])});
 		}
 		// Render as Detik report
 		else if (feature.properties.source == 'detik'){

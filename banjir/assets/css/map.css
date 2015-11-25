@@ -252,3 +252,7 @@ label {
 .div-icon-verified{
   color: #EF4C23;
 }
+
+.twitter-tweet-rendered{
+  width:60% !important;
+}
