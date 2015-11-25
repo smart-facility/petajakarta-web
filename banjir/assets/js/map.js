@@ -378,36 +378,6 @@ timestamp.onAdd = function(map){
 	return this._div;
 };
 
-/**
-	Legend box
-*/
-var legend = L.control({position:'bottomright'});
-
-legend.onAdd = function(map) {
-	var div = L.DomUtil.create('div', 'info legend'),
-	grades = [0,1, 5, 10, 15, 20, 25, 30],
-	labels = [];
-  // label for legend
-	if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id') {
-		div.innerHTML+='Jumlah laporan<BR>';
-	}
-	else {
-		div.innerHTML+='Number of reports<BR>';
-	}
-	// loop through density intervals and generate label with coloured square
-	for (var i=0; i <grades.length; i++) {
-		div.innerHTML += '<i class="color" style="background:'+getColor(grades[i]+1) + '"></i>';
-	}
-  div.innerHTML += '<br>';
-	// loop through density intervals and generate label with coloured square
-	for (i=0; i <grades.length-1; i++) {
-		div.innerHTML += '<span class="number">'+grades[i]+'</span>';
-	}
-	div.innerHTML +='<span class="number" style="margin-left:1px;">'+grades[grades.length-1]+'+</span>';
-
-	return div;
-};
-
 //flood heights scale
 var heightsLegend = L.control({position:'bottomright'});
 
