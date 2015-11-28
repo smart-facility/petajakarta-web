@@ -22,14 +22,25 @@ function loadTable(reports) {
 		else if (report.source == 'twitter'){
 			logo = '<img src="/banjir/img/twitter_logo_blue.png" height="22">';
 		}
+		else if (report.source == 'qlue'){
+			logo = '<img src="/banjir/img/logo_qlue.png" height="22">';
+		}
 		if (report.status == 'verified'){
 			logo+= ' <img src="/banjir/img/bpbd_dki.png" height="22">';
+		}
+
+		//Catch those reports that have no text, only a title
+		var text = report.text;
+		console.log(text.length);
+		if (report.text.length < 1){
+			console.log('length: '+text);
+			text += report.title;
 		}
 
 		rows +='<tr>';
 			rows += '<td>' + report.created_at.substring(11, 19) + '</td>'; // Time
 			rows += '<td>' + logo + '</td>';
-			rows += '<td><a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+report.pkey+','+reportGeo.coordinates[1]+','+reportGeo.coordinates[0]+')">'+report.text+'</a></td>'; // Message
+			rows += '<td><a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+report.pkey+','+reportGeo.coordinates[1]+','+reportGeo.coordinates[0]+')">'+text+'</a></td>'; // Message
 		rows += '</tr>';
 	}
 	if (document.documentElement.lang == 'in') {
