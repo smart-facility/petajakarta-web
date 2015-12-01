@@ -1,7 +1,7 @@
 petajakarta.org/banjir
 ======================
 
-Travis build status: [![Travis Build Status](https://travis-ci.org/smart-facility/petajakarta-web.svg)](https://travis-ci.org/smart-facility/petajakarta-web)
+Travis build status: [![Travis Build Status](https://travis-ci.org/smart-facility/petajakarta-web.svg?branch=2.0.x)](https://travis-ci.org/smart-facility/petajakarta-web)
 
 **petajakarta.org/banjir** is an open source, community-led platform to collect and disseminate information about flooding and critical water infrastructure in Jakarta.
 
