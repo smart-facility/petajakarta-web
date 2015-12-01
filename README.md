@@ -1,7 +1,7 @@
 petajakarta.org/banjir
 ======================
 
-Travis build status: [![Travis Build Status](https://travis-ci.org/smart-facility/petajakarta-web.svg)](https://travis-ci.org/smart-facility/petajakarta-web)
+Travis build status: [![Travis Build Status](https://travis-ci.org/smart-facility/petajakarta-web.svg?branch=master)](https://travis-ci.org/smart-facility/petajakarta-web)
 
 DOI for current stable release [v1.0.1](https://github.com/smart-facility/petajakarta-web/releases/tag/v1.0.1): [![DOI](https://zenodo.org/badge/19201/smart-facility/petajakarta-web.svg)](https://zenodo.org/badge/latestdoi/19201/smart-facility/petajakarta-web)
 
