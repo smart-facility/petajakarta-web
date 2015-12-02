@@ -23,7 +23,8 @@ module.exports = function(grunt) {
           'banjir/vendor/js/jquery.scrollUp.min.js',
           'banjir/vendor/js/url.min.js',
           'banjir/assets/js/reports.js',
-          'banjir/assets/js/validation.js'
+          'banjir/assets/js/validation.js',
+          'banjir/assets/js/chart.lines.extend.js'
         ],
         dest: 'build/banjir/js/application.js'
       },

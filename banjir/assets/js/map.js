@@ -92,7 +92,6 @@ var markerPopup = function(feature, layer) {
 		}
 
 		// Render as Qlue
-		//<div class="media-body"><p class="lead" style="margin:4px;font-size:16px;">'+feature.properties.title+'</p><img class="img-responsive" src="'+feature.properties.image_url+'" width="210"/><h5>'+feature.properties.text+'</h5><h5>'+feature.properties.created_at+'</h5></div>
 		else if (feature.properties.source == 'qlue'){
 			layer.bindPopup(qluePopoup(feature), {autoPanPadding:([0,60])});
 		}
@@ -144,15 +143,59 @@ var infrastructureMarkerPopup = function(feature, layer){
 };
 
 /**
+	Returns floodgauge icon and color based on siaga (alert) level
+
+	@param {level} integer - the alert level (1-4)
+*/
+var getSiagaLevelIconography = function(level){
+	switch (level) {
+		case 1:
+			return {'color':'#FC6769','icon':'floodgauge_1.svg'};
+		case 2:
+			return {'color':'#FECB2E','icon':'floodgauge_2.svg'};
+		case 3:
+			return {'color':'#EBE968','icon':'floodgauge_3.svg'};
+		default:
+			return {'color':'#95FD6F','icon':'floodgauge.svg'};
+	}
+};
+
+/**
+	Format popup with a floodgauge report
+
+	@param {object} feature - a GeoJSON feature representing a report
+*/
+var floodgaugePopoup = function(feature){
+
+	var label = 'Water Depth (cm)';
+	if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
+			label = 'Kedalaman air (cm)';
+	}
+	var popup = '';
+	if (feature.properties !== null){
+		popup = '<div id="floodgauge-container" style="width:220px; height:220px;"><div class="media"><img class="media-object pull-left" src="/banjir/img/dki_jayaraya.png" height="22"/><img class="media-object pull-left" src="/banjir/img/bpbd_dki.png" height="22"/><h4 style="font-size:18px; line-height:1.2;" class="media-heading pull-left">'+feature.properties.gaugenameid+'</h4></div>'+label+'&nbsp;&nbsp|&nbsp;&nbsp;<span style="color:black; background-color:'+getSiagaLevelIconography(feature.properties.observations[feature.properties.observations.length-1].warninglevel).color+'">'+feature.properties.observations[feature.properties.observations.length-1].warningnameid+'</span><canvas id="gaugeChart" class="chart" width="210" height="190"></canvas></div>';
+	}
+	else {
+		popup = 'Data not available | Tidak ada data';
+	}
+	return popup;
+};
+
+/**
 	Add a text popup to the floodgauge layer
 
 	@param {object} feature - a GeoJSON feature
 	@param {L.ILayer} layer - the layer to attach the popup to
 */
-var floodgaugeMarkerPopup = function(feature, layer){
+var floodgaugeMarker = function(feature, layer){
 	if (feature.properties){
-		layer.bindPopup(feature.properties.gaugenameid);
+		layer.bindPopup(floodgaugePopoup(feature),{autoPanPadding:([0,60])});
 	}
+};
+
+var qluePopoup = function(feature){
+	var popup = '<div id="qlue-container" style="width:220px; height:220px; overflow-y:scroll; background-color:white;"><div class="media"><a class="pull-left" href="#"><img class="media-object" src="/banjir/img/logo_qlue.png" height="32"></a></div><p class="lead" style="margin-bottom:4px;margin-top:4px;font-size:16px;">'+feature.properties.title+'</p><img class="img-responsive" src="'+feature.properties.image_url+'" width="210"/><h5>'+feature.properties.text+'</h5><h5>'+feature.properties.created_at+'</div>';
+	return popup;
 };
 
 /**
@@ -312,10 +355,16 @@ var loadInfrastructure = function(layer, infrastructure){
 			window[layer] = L.geoJson(infrastructure, {style:styleInfrastructure[layer]});
 		}
 		else if (layer == 'floodgauges'){
+
 			window[layer] = L.geoJson(infrastructure, {
 				pointToLayer: function(feature, latlng) {
-					return L.marker(latlng, {icon: styleInfrastructure[layer]});
-				}, onEachFeature: floodgaugeMarkerPopup
+					return L.marker(latlng, {icon: L.icon(
+																			{iconUrl:'/banjir/img/'+getSiagaLevelIconography(feature.properties.observations[feature.properties.observations.length-1].warninglevel).icon,
+																				iconSize: [22,22],
+																				iconAnchor: [11, 11],
+																				popupAnchor: [0, 0], }
+																			)});
+				}, onEachFeature: floodgaugeMarker
 			});
 		}
 		else {
@@ -346,12 +395,6 @@ var styleInfrastructure = {
 		popupAnchor: [0, 0],
 	}),
 	floodgates:L.icon({
-		iconUrl: '/banjir/img/floodgate.svg',
-		iconSize: [22,22],
-		iconAnchor: [11, 11],
-		popupAnchor: [0, 0],
-	}),
-	floodgauges:L.icon({
 		iconUrl: '/banjir/img/floodgate.svg',
 		iconSize: [22,22],
 		iconAnchor: [11, 11],
@@ -587,5 +630,29 @@ map.on('popupopen', function(popup){
 
 	if ($('tweet-container')){
 			twttr.widgets.load($('.leaflet-popup-content'));
+		}
+	if ($('floodgauge-container')){
+		if (popup.popup._source.feature.properties !== null){
+				var properties = popup.popup._source.feature.properties;
+				var ctx = $("#gaugeChart").get(0).getContext("2d");
+				var data = {
+					labels : [],
+					datasets : [{
+						label: "",
+						fillColor: "rgba(151,187,205,0.2)",
+						strokeColor: "rgba(151,187,205,1)",
+						pointColor: "rgba(151,187,205,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(151,187,205,1)",
+						data: []
+					}]
+				};
+				for (var i = 0; i < properties.observations.length; i++){
+					data.labels.push(properties.observations[i].measuredatetime.slice(10,16));
+					data.datasets[0].data.push(properties.observations[i].depth);
+				}
+				var gaugeChart = new Chart(ctx).Line(data, {bezierCurve:true});
+			}
 		}
 });
