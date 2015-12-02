@@ -26,6 +26,7 @@ if (document.documentElement.lang == 'in' || document.documentElement.lang == 'i
 		title:'Tinggi Banjir',
 		tentative_areas:'Hati-Hati'
 	};
+	layernames.floodgauges = 'Pengukur Banjir';
 }
 else {
 	layernames.confirmed = 'Confirmed Reports';
@@ -36,6 +37,8 @@ else {
 		title:'Flood Heights',
 		tentative_areas:'Use Caution'
 		};
+	layernames.floodgauges = 'Flood Gauges';
+
 }
 
 /**
@@ -137,6 +140,18 @@ var getInfrastructure = function(layer) {
 var infrastructureMarkerPopup = function(feature, layer){
 	if (feature.properties){
 		layer.bindPopup(feature.properties.name);
+	}
+};
+
+/**
+	Add a text popup to the floodgauge layer
+
+	@param {object} feature - a GeoJSON feature
+	@param {L.ILayer} layer - the layer to attach the popup to
+*/
+var floodgaugeMarkerPopup = function(feature, layer){
+	if (feature.properties){
+		layer.bindPopup(feature.properties.gaugenameid);
 	}
 };
 
@@ -296,8 +311,14 @@ var loadInfrastructure = function(layer, infrastructure){
 		if (layer == 'waterways'){
 			window[layer] = L.geoJson(infrastructure, {style:styleInfrastructure[layer]});
 		}
+		else if (layer == 'floodgauges'){
+			window[layer] = L.geoJson(infrastructure, {
+				pointToLayer: function(feature, latlng) {
+					return L.marker(latlng, {icon: styleInfrastructure[layer]});
+				}, onEachFeature: floodgaugeMarkerPopup
+			});
+		}
 		else {
-
 			window[layer] = L.geoJson(infrastructure, {
 				pointToLayer: function(feature, latlng) {
 					return L.marker(latlng, {icon: styleInfrastructure[layer]});
@@ -325,6 +346,12 @@ var styleInfrastructure = {
 		popupAnchor: [0, 0],
 	}),
 	floodgates:L.icon({
+		iconUrl: '/banjir/img/floodgate.svg',
+		iconSize: [22,22],
+		iconAnchor: [11, 11],
+		popupAnchor: [0, 0],
+	}),
+	floodgauges:L.icon({
 		iconUrl: '/banjir/img/floodgate.svg',
 		iconSize: [22,22],
 		iconAnchor: [11, 11],
@@ -512,12 +539,17 @@ var loadSecondaryLayers = function(layerControl) {
 			floodgates: getInfrastructure('floodgates')
 				.then(function(floodgates){
 					return loadInfrastructure('floodgates', floodgates);
+				}),
+			floodgauges: getInfrastructure('floodgauges')
+				.then(function(floodgauges){
+					return loadInfrastructure('floodgauges', floodgauges);
 				})
 		};
 
 		RSVP.hash(secondaryPromises).then(function(overlays) {
 			// Add overlays to the layer control
 			showURLReport(); //once point layers loaded zoom to report specified in URL
+			layerControl.addOverlay(overlays.floodgauges, layernames.floodgauges);
 			layerControl.addOverlay(overlays.waterways, layernames.waterways);
 			layerControl.addOverlay(overlays.pumps, layernames.pumps);
 			layerControl.addOverlay(overlays.floodgates, layernames.floodgates);

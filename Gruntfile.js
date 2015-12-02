@@ -18,7 +18,7 @@ module.exports = function(grunt) {
           'banjir/vendor/js/topojson.js',
           'banjir/vendor/js/rsvp.js',
           'banjir/vendor/js/underscore-min.js',
-          'banjir/vendor/js/Chart.js',
+          'banjir/vendor/js/Chart.min.js',
           'banjir/vendor/js/jquery.growl.js',
           'banjir/vendor/js/jquery.scrollUp.min.js',
           'banjir/vendor/js/url.min.js',

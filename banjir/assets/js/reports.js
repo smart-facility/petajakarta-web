@@ -31,9 +31,7 @@ function loadTable(reports) {
 
 		//Catch those reports that have no text, only a title
 		var text = report.text;
-		console.log(text.length);
 		if (report.text.length < 1){
-			console.log('length: '+text);
 			text += report.title;
 		}
 
