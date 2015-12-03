@@ -18,15 +18,16 @@ String.prototype.parseURL = function() {
 */
 var layernames = {};
 if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
-	layernames.confirmed = 'Laporan dikonfirmasi';
-	layernames.waterways = 'Aliran Air';
-	layernames.pumps = 'Pompa Air';
-	layernames.floodgates = 'Pintu Air';
+	layernames.confirmed = '<span class="div-icon-confirmed glyphicon glyphicon-tint" aria-hidden="true" style="font-size:10px; margin-left:4px;"></span>&mdash;Laporan dikonfirmasi';
+	layernames.waterways = '<span style="background-color:#3960ac; font-size:6px; padding-top:8px;margin-left:8px;margin-right:5px;">&nbsp;</span>&mdash;Aliran Air';
+	layernames.pumps = '<img src="/banjir/img/pump.svg" height="16px;" width="auto" />&mdash;Pompa Air';
+	layernames.floodgates = '<img src="/banjir/img/floodgate.svg" height="16px;" width="auto" />&mdash;Pintu Air';
 	layernames.floodheights = {
 		title:'Tinggi Banjir',
-		tentative_areas:'Hati-Hati'
+		tentative_areas:'Hati-Hati',
+		layerControl: '&nbsp;<span style="background-color:#2b8cbe; font-size:10px; padding-right:8px;">&nbsp;</span><span style="background-color:#a6bddb; font-size:10px; padding-right:8px;">&nbsp;</span><span style="background-color:#ece7f2; font-size:10px; padding-right:8px;">&nbsp;</span><span style="background-color:yellow; font-size:10px; padding-right:8px;"> &nbsp;</span>&mdash;Tinggi Banjir'
 	};
-	layernames.floodgauges = 'Pengukur Banjir';
+	layernames.floodgauges = '<span style="margin-left:2px;"></span><img src="/banjir/img/floodgauge.svg" height="13px;" width="auto"/>&mdash;Pengukur Banjir';
 }
 else {
 	layernames.confirmed = 'Confirmed Reports';
@@ -269,7 +270,7 @@ var loadREM = function(data){
 		}
 	}}).addTo(map).bringToBack();
 	heightsLegend.addTo(map);
-	layerControl.addOverlay(window.floodheights, layernames.floodheights.title);
+	layerControl.addOverlay(window.floodheights, layernames.floodheights.layerControl);
 };
 
 /** Style confirmed reports
