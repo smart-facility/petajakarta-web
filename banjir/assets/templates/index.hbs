@@ -41,7 +41,7 @@
     <link rel="shortcut icon" href="/{{site.url-prefix}}/img/petajakarta_icon_32x32.png">
 
     <!-- Fonts from Google Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:100,300,400,900' rel='stylesheet' type='text/css'>
 
     <!-- Site stylesheet -->
     <link href="/{{site.url-prefix}}/css/application.min.css" rel="stylesheet">
@@ -51,98 +51,117 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+
   </head>
   <body>
-    <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/"><img src="/{{site.url-prefix}}/img/petajakarta_border_top.png" width="252" height="48" alt="" margin-top="2px"/></a>
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+    <div style="margin-top:0px; background: url('../img/zte_bw_cropped_light.jpg') no-repeat center top; background-size:cover;">
+
+      <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+              <a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/"><img src="/{{site.url-prefix}}/img/petajakarta_white_pixel_top.png" width="auto" height="48" alt=""/></a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar" style="background-color:#CCC;"></span>
+              <span class="icon-bar" style="background-color:#CCC;"></span>
+              <span class="icon-bar" style="background-color:#CCC;"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/">{{{navbar.home}}}</a></li>
+              <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/map">{{{navbar.map}}}</a></li>
+              <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/research">{{{navbar.research}}}</a></li>
+              <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/analytics">{{{navbar.analytics}}}</a></li>
+              <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data">{{{navbar.data}}}</a></li>
+              <li><a href="/{{site.url-prefix}}/{{site.other-locale-url-prefix}}/">[{{{navbar.other-locale}}}]</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/">{{{navbar.home}}}</a></li>
-            <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/map/">{{{navbar.map}}}</a></li>
-            <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/research/">{{{navbar.research}}}</a></li>
-            <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/analytics/">{{{navbar.analytics}}}</a></li>
-            <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/">{{{navbar.data}}}</a></li>
-            <li><a href="/{{site.url-prefix}}/{{site.other-locale-url-prefix}}/">[{{{navbar.other-locale}}}]</a></li>
-          </ul>
-        </div>
       </div>
-    </div>
-    <div class="container">
-    <!--Logos at top of page at request of Gov. Ahok-->
-    <!--Margins left/right fix bootstrap bug https://github.com/twbs/bootstrap/issues/10711-->
-    <div class="row" id="logos">
-      <div class="col-xs-3">
-        <a href="http://smart.uow.edu.au" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/smart_australia.png" width="100" alt=""/></a>
-      </div>
-      <div class="col-xs-3">
-        <a href="http://www.jakarta.go.id/" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/dki_jayaraya.png" width="100" alt=""/></a>
-      </div>
-      <div class="col-xs-3">
-        <a href="http://bpbd.jakarta.go.id/" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/bpbd_dki.png" width="100" alt=""/></a>
-      </div>
-      <div class="col-xs-3">
-        <a href="https://twitter.com/" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/twitter_logo_blue.png" width="100" alt=""/></a>
-      </div>
-    </div>
-  </div>
-    <!-- Jumbotron -->
-    <div id="headerwrap">
-      <div class="container">
-        <div class="jumbotron">
-          {{{header.title}}}
-          <p class="lead">{{{header.lead}}}</p>
-          <div id="video">
-            <iframe width="560" height="315" src="{{{header.video-url}}}?modestbranding=1&theme=light&controls=2&showinfo=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+      <div class="main container">
+        <!--Header-->
+        <div class="jumbotron" style="background-color:transparent;">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 style="text-align: left; font-family:Montserrat;">Open Source <BR>Flood Map</h1>
+              <h3 style="text-align: left; color:#FFF;">Share real-time flood information using social media</h3>
+            </div>
+          </div>
+          <!--Action buttons-->
+          <div class="row" style="margin-top:4%; margin-left:-5px;">
+              <a href="./map" class="btn btn-info btn-lg pull-left" style="margin:5px;"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Open Map</a>
+              <a href="#video-anchor" class="btn btn-default btn-lg pull-left" style="margin:5px;"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Watch Video</a>
+          </div>
+          <!--Logos at top of page at request of Gov. Ahok-->
+          <!--Margins left/right fix bootstrap bug https://github.com/twbs/bootstrap/issues/10711-->
+          <div class="row" id="logos" style="margin-left:-12px; margin-right:0px; padding:0;">
+              <div class="col-md-7" style="padding:0; margin-left:0;">
+                <div class="col-xs-3">
+                  <a href="http://smart.uow.edu.au" target="_blank"><img class="img-responsive center-block" src="/banjir/img/smart_white.png" width="120" alt=""/></a>
+                </div>
+                <div class="col-xs-3">
+                  <a href="http://www.jakarta.go.id/" target="_blank"><img class="img-responsive center-block" src="/banjir/img/dki_jayaraya.png" width="100" alt=""/></a>
+                </div>
+                <div class="col-xs-3">
+                  <a href="http://bpbd.jakarta.go.id/" target="_blank"><img class="img-responsive center-block" src="/banjir/img/bpbd_dki.png" width="100" alt=""/></a>
+                </div>
+                <div class="col-xs-3 ">
+                  <a href="https://twitter.com/" target="_blank"><img class="img-responsive" src="/banjir/img/twitter_logo_blue.png" width="110" alt=""/></a>
+                </div>
+              </div>
           </div>
         </div>
       </div>
     </div>
-
     <!-- Main page body -->
     <div class="container">
-      <!-- Links -->
-      <div class="row">
-        <div class="col-md-4 col-md-offset-2 centered">
-          <a href="#sharing-instructions-anchor"><img src="/{{site.url-prefix}}/img/submit.png" alt="">
-            <h3>{{{intro.share.title}}}</h3>
-            <p>{{{intro.share.content}}}</p>
-          </a>
-          <a class="btn btn-default" href="#sharing-instructions-anchor">{{{intro.share.button-title}}} »</a>
+      <!-- Video -->
+      <div class="anchor" id="video-anchor"></div>
+          <div class="col-md-12">
+            <div class="video" style="margin-top:20px;">
+              <iframe width="560" height="315" src="{{{header.video-url}}}?modestbranding=1&theme=light&controls=2&showinfo=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <!-- Links -->
+        <div class="row">
+          <div class="col-md-4 col-md-offset-2 centered">
+            <a href="#sharing-instructions-anchor"><img src="/{{site.url-prefix}}/img/submit.png" alt="">
+              <h3>{{{intro.share.title}}}</h3>
+              <p>{{{intro.share.content}}}</p>
+            </a>
+            <a class="btn btn-default" href="#sharing-instructions-anchor">{{{intro.share.button-title}}} »</a>
+          </div>
+          <div class="col-md-4 centered">
+            <a href="./map">
+              <img src="/{{site.url-prefix}}/img/map.png" alt="Map">
+              <h3>{{{intro.map.title}}}</h3>
+              <p>{{{intro.map.content}}}</p>
+            </a>
+            <a class="btn btn-default" href="./map">{{{intro.map.button-title}}} »</a>
+          </div>
         </div>
-        <div class="col-md-4 centered">
-          <a href="./map">
-            <img src="/{{site.url-prefix}}/img/map.png" alt="Map">
-            <h3>{{{intro.map.title}}}</h3>
-            <p>{{{intro.map.content}}}</p>
-          </a>
-          <a class="btn btn-default" href="./map">{{{intro.map.button-title}}} »</a>
-        </div>
-      </div>
 
       <!-- Sharing instructions -->
       <div class="row" id="sharing-instructions">
         <a id="sharing-instructions-anchor" class="anchor"></a>
         <div class="col-md-12 centered">
           <hr>
-          <h1>{{{sharing-instructions.title}}}</h1>
+          <h1 style="text-align: left; font-family:Montserrat;">{{{sharing-instructions.title}}}</h1>
         </div>
-        <div class="col-md-8 col-md-offset-1">
+
+        <div class="col-md-8">
           {{#each sharing-instructions.steps}}
             <h3>{{{title}}}</h3>
             <p>{{{content}}}</p>
           {{/each}}
         </div>
-        <div class="col-md-3">
+
+        <div class="col-md-4">
           <blockquote class="twitter-tweet" lang="en"><p>Tweet info <a href="https://twitter.com/hashtag/banjir?src=hash">#banjir</a> ke <a href="https://twitter.com/petajkt">@petajkt</a> &amp; follow <a href="https://twitter.com/BPBDJakarta">@BPBDJakarta</a> untuk info resmi terkini terkait kondisi banjir. <a href="https://t.co/VYShDqRB1f">pic.twitter.com/VYShDqRB1f</a></p>&mdash; BPBDJakarta (@BPBDJakarta) <a href="https://twitter.com/BPBDJakarta/status/542471254142615552">December 10, 2014</a></blockquote>
           <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
@@ -152,9 +171,9 @@
       <div class="row">
         <div class="col-md-12 centered">
           <hr>
-          <h1>{{{about.title}}}</h1>
+          <h1 style="text-align: left; font-family:Montserrat;">{{{about.title}}}</h1><BR>
         </div>
-        <div class="col-md-8 col-md-offset-1">
+        <div class="col-md-8">
           {{{about.intro}}}
           <h3>{{{about.privacy.title}}}</h3>
           <p>{{{about.privacy.content}}}</p>
@@ -162,12 +181,30 @@
           <p>E-mail <a href="mailto:info@petajakarta.org">info@petajakarta.org</a></p>
           <p>{{{about.contact.follow-us}}} <a href="https://twitter.com/petajkt" target="_blank">Twitter</a></p>
         </div>
-        <div class="col-md-3">
+
+        <div class="col-md-4">
           <blockquote class="twitter-tweet" lang="en"><p>Selamat Tahun Baru 2015 dari <a href="https://t.co/GauT6N9nFH">https://t.co/GauT6N9nFH</a>! Jangan lupa follow dan tweet situasi <a href="https://twitter.com/hashtag/banjir?src=hash">#banjir</a> ke <a href="https://twitter.com/petajkt">@petajkt</a> :) <a href="https://t.co/NirE7h9VF1">pic.twitter.com/NirE7h9VF1</a></p>&mdash; PetaJakarta.org (@petajkt) <a href="https://twitter.com/petajkt/status/552386097079390210">January 6, 2015</a></blockquote>
           <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
       </div>
-    </div>
+      <h3>Media</h3>
+      <div class="row" style="margin-left:0px; margin-right:0px;">
+        <div class="col-sm-3" style="margin-top:30px;">
+          <a href="http://blogs.wsj.com/indonesiarealtime/2014/12/03/in-jakarta-a-new-way-to-warn-about-a-flood/" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/wsj.png" width="300" alt=""/></a>
+        </div>
+        <div class="col-sm-2">
+          <a href="http://nationalgeographic.co.id/berita/2014/12/kini-masyarakat-jakarta-bisa-mengetahui-lokasi-banjir#" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/ngi.jpg" width="100" alt=""/></a>
+        </div>
+        <div class="col-sm-2" style="margin-top:30px;">
+          <a href="http://www.thejakartapost.com/news/2015/02/04/peta-jakarta-gets-netizens-report-floods.html" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/jak_post.jpg" width="250" alt=""/></a>
+        </div>
+        <div class="col-sm-2">
+          <a href="http://www.cnnindonesia.com/teknologi/20141202180741-185-15349/banjir-jakarta-bisa-dipantau-dari-petajakartaorg/" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/cnn.png" width="100" alt=""/></a>
+        </div>
+        <div class="col-sm-2" style="margin-top:30px;">
+          <a href="http://www.bbc.com/indonesia/berita_indonesia/2015/02/150209_trensosial_banjir" target="_blank"><img class="img-responsive center-block" src="/{{site.url-prefix}}/img/bbc.png" width="100" alt=""/></a>
+        </div>
+      </div>
 
     <!-- Page footer -->
     <div class="container" id="page-foot">
