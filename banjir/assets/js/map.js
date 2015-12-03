@@ -533,9 +533,11 @@ map.attributionControl.setPrefix('');
 L.Icon.Default.imagePath = '/banjir/css/images/';
 
 //Check user location and alter map view accordingly
-map.locate({setView:false});
-if ('geolocation' in navigator && window.isTouch) {
-	navigator.geolocation.getCurrentPosition(setViewJakarta);
+if (window.isTouch){
+	map.locate({setView:false});
+	if ('geolocation' in navigator) {
+		navigator.geolocation.getCurrentPosition(setViewJakarta);
+	}
 }
 
 // Reports control
