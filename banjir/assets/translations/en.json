@@ -1,9 +1,9 @@
 {
   "site": {
-    "name": "Peta Jakarta &middot; Banjir",
+    "name": "PetaJakarta.org &middot; Banjir",
     "url-prefix": "banjir",
     "locale-url-prefix": "en",
-    "other-locale-url-prefix": "in",
+    "other-locale-url-prefix": "id",
     "map-off-title": "PetaJakarta.org is currently offline",
     "map-off-text": "<BR>We will begin flood mapping again in December 2015. Thank you to everyone who participated to make the map a success!<BR><BR><a href='https://twitter.com/petajkt' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @petajkt</a><a href='https://twitter.com/BPBDJakarta' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @BPBDJakarta </a>"
   },
@@ -18,7 +18,7 @@
   "header": {
     "title": "<p class='lead'>Our White Paper — <a href='/banjir/en/research' style='color:white; text-decoration:underline'><cite>PetaJakarta.org: Assessing the Role of Social Media for Civic Co-Management During Monsoon Flooding in Jakarta, Indonesia</cite></a> — is now online.</p>",
     "lead": "PetaJakarta.org/banjir is an open source, community-led platform to collect and disseminate information about flooding and critical water infrastructure in Jakarta.",
-    "video-url": "//www.youtube.com/embed/fDlaGHjFtAY"
+    "video-url": "//www.youtube.com/embed/fDlaGHjFtAY/"
   },
   "twitter-card" : {
     "title":"PetaJakarta.org is a free and open source real-time flood map.",
@@ -154,11 +154,12 @@
   },
   "confirmed-reports": {
     "title": "Confirmed reports from the last hour",
-    "instructions": "Click to a report to see its location on the map"
+    "instructions": "Click to a report to see its location on the map",
+    "timestamp": " show the current time on the map"
   },
   "map-information": {
     "title": "Map information",
-    "acknowledgements": "This map displays real-time tweets about flooding in Jakarta from the past hour.<BR>To add your flood report, tweet #banjir <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a><BR><h4>Base maps</h4>\nMap tiles by <a href=\"http://stamen.com\">Stamen Design</a>, under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>.<BR>Data by <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Infrastructure data</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Reports</h4>\nDerived from <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> data\n<h4>Software</h4>\nPowered by <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nMaps created using <a href=\"http://leafletjs.com\">Leaflet</a>"
+    "acknowledgements": "This map displays real-time tweets about flooding in Jakarta from the past hour.<BR>To add your flood report, tweet #banjir <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a><BR><h4>Base maps</h4>\nMap tiles © <a href='https://www.mapbox.com/map-feedback/'>Mapbox</a>.<BR>Data by <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Infrastructure data</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Reports</h4>\nDerived from <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> and <a href=\"http://pasangmata.detik.com/\" target=\"_blank\">Detik</a> data\n<h4>Software</h4>\nPowered by <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nMaps created using <a href=\"http://leafletjs.com\">Leaflet</a>"
   },
   "tutorial":{
     "title": "Accessing the data API using QGIS",
@@ -356,14 +357,14 @@
   "api": {
     "endpoints": [
       {
-        "name": "data/api/v1/reports",
+        "name": "data/api/v2/reports",
         "short": "reports",
         "methods": [
           {
             "MethodName": "confirmed",
             "Synopsis": "Get confirmed flood reports from the last hour in point form",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/reports/confirmed",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/reports/confirmed",
             "RequiresOAuth": "N",
             "parameters": [
               {
@@ -380,7 +381,7 @@
             "MethodName": "unconfirmed",
             "Synopsis": "Get unconfirmed flood reports from the last hour in point form",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/reports/unconfirmed",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/reports/unconfirmed",
             "parameters": [
               {
                 "Name": "format",
@@ -395,14 +396,14 @@
         ]
       },
       {
-        "name": "/data/api/v1/aggregates",
+        "name": "/data/api/v2/aggregates",
         "short": "aggregates",
         "methods": [
           {
             "MethodName": "live",
             "Synopsis": "Get a real-time count of flood reports from the past hour",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/aggregates/live",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/aggregates/live",
             "RequiresOAuth": "N",
             "parameters": [
               {
@@ -435,7 +436,7 @@
             "MethodName": "archive",
             "Synopsis": "Access historical counts of flood reports per RW are in 1 hour blocks",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/aggregates/archive",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/aggregates/archive",
             "RequiresOAuth": "N",
             "parameters": [
               {
@@ -457,28 +458,28 @@
         ]
       },
       {
-        "name": "/data/api/v1/infrastructure",
+        "name": "/data/api/v2/infrastructure",
         "short": "infrastructure",
         "methods": [
           {
             "MethodName": "floodgates",
             "Synopsis": "Floodgates in Jakarta represented by point geometry",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/infrastructure/floodgates",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/floodgates",
             "RequiresOAuth": "N"
           },
           {
             "MethodName": "pumps",
             "Synopsis": "Pump stations in Jakarta represented by point geometry",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/infrastructure/pumps",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/pumps",
             "RequiresOAuth": "N"
           },
           {
             "MethodName": "waterways",
             "Synopsis": "Rivers and canals in Jakarta represented by line geometry",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v1/infrastructure/waterways",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/waterways",
             "RequiresOAuth": "N"
           }
         ]

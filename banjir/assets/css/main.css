@@ -14,6 +14,7 @@
      }
      .navbar-toggle {
          display: block;
+         border-radius: 0 !important;
      }
      .navbar-collapse {
          border-top: 1px solid transparent;
@@ -46,13 +47,38 @@
      }
  }
 
- /* move logo on small screens*/
- @media screen and (max-width: 480px) {
-   .navbar-header img {
-     margin-left: -10px;
-   }
+/*Scaling for header*/
+ @media screen and (min-width: 480px) {
+ 	#headerwrap p {
+ 		font-size:28px;
+ 	}
  }
 
+ /* rescale on small screens*/
+ @media screen and (max-width: 480px), screen and (max-device-width:480px) {
+   .navbar-header img {
+     margin-left: -10px;
+     height:28px;
+     width: auto;
+   }
+
+   .navbar {
+     min-height:32px;
+   }
+
+   .main{
+      margin-top:33px !important;
+   }
+
+  .navbar-toggle {
+    padding:4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+  .jumbotron h1{
+    margin-top:10px;
+  }
+}
 
  html,{
    height: 100%;
@@ -141,9 +167,10 @@ a:after {
 
 /*Navbar*/
 .navbar-default {
-	background-color: #666;
+	background-color:rgba(100,100,100,0.9);
 	border-color: transparent;
 	padding-left: 15px;
+  min-height: auto !important;
 }
 
 .navbar-default .navbar-brand {
@@ -218,38 +245,7 @@ a:after {
 #headerwrap .jumbotron {
   margin-bottom: 0;
 }
-/*Scaling for header*/
-@media screen and (min-width: 480px) {
-	#headerwrap p {
-		font-size:28px;
-	}
-}
 
-@media screen and (max-width: 480px) {
-	#headerwrap h1 {
-		margin-top: 5px;
-		margin-bottom: 15px;
-		margin-left:-25px;
-		color: white;
-		font-size: 28px;
-		font-weight: 300;
-		letter-spacing: 1px;
-	}
-	#headerwrap p {
-		color:white;
-		font-size: 20px;
-	}
-}
-@media screen and (max-width: 680px) and (min-width: 480px) {
-		#headerwrap h1 {
-		margin-top: 40px;
-		margin-bottom: 15px;
-		color: white;
-		font-size: 42px;
-		font-weight: 300;
-		letter-spacing: 1px;
-	}
-}
 /*Custom font/typography for home page and research*/
 #privacy h1 {
 	font-size:28pt;
@@ -422,12 +418,18 @@ a:after {
   text-align: center;
 }
 
+.main {
+    margin-top:51px;
+    background-color:transparent;
+}
+
 .a {
   text-decoration:none;
 }
 
 .container .text-muted {
   margin-top: 20px;
+
 }
 
 .custom-masthead h2 {
@@ -454,10 +456,10 @@ a:after {
 
 /*Table formatting for logos*/
 #logos {
-  margin-top: 100px;
-  margin-bottom: 50px;
+  margin-top: 30px;
   margin-left: 0px;
   margin-right: 0px;
+  padding:0;
 }
 
 /* Add some padding to compensate for the fixed navbar overlapping content */
