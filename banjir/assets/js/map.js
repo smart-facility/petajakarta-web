@@ -258,7 +258,7 @@ var getREM = function(callback) {
 	@param {object} data - geojson polygon representation of affected areas
 */
 var loadREM = function(data){
-	window.floodheights = L.geoJson(data, {style:function(feature){
+	window.floodheights = L.geoJson(data, {clickable: false, style:function(feature){
 		switch (feature.properties.affected) {
 			case 1: return {fillColor:"#2b8cbe",weight:1.5,color:'red',opacity:1,fillOpacity: 0.8};
 			case 2: return {fillColor:"#a6bddb",weight:1.5,color:'red',opacity:1,fillOpacity: 0.8};
