@@ -481,7 +481,7 @@ var mapLegend = L.control({position:'bottomright'});
 
 mapLegend.onAdd = function(map) {
 	var div = L.DomUtil.create('div', 'info legend');
-	div.innerHTML += '<div id="legendbox"><div class="sublegend"><div><span class="div-icon-confirmed-legend glyphicon glyphicon-tint" aria-hidden="true"></span>&nbsp;'+layernames.confirmed+'</div><div><span class="div-icon-verified-legend glyphicon glyphicon-tint" aria-hidden="true"></span>&nbsp;'+layernames.verified+'</div></div></div>';
+	div.innerHTML += '<div id="legendbox"><div class="sublegend"><div><span class="div-icon-confirmed-legend glyphicon glyphicon-tint" aria-hidden="true" style="margin-left:1px;"></span>&nbsp;'+layernames.confirmed+'</div><div><span class="div-icon-verified-legend glyphicon glyphicon-tint" aria-hidden="true" style="margin-right:1px;"></span>'+layernames.verified+'</div></div></div>';
 	return div;
 };
 
