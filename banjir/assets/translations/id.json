@@ -154,11 +154,11 @@
   "confirmed-reports": {
     "title": "Laporan dikonfirmasi dari jam terakhir",
     "instructions": "Klik laporan untuk melihat lokasi pada peta",
-    "timestamp": " menunjukkan waktu saat ini di peta"
+    "timestamp": " tunjukkan waktu saat ini di peta"
   },
   "map-information": {
     "title": "Peta Informasi",
-    "acknowledgements": "Peta ini memperlihatkan keadaan terkini (<i>real time</i>) melalui twit anda tentang keadaan banjir di Jakarta. <BR>Untuk menambahkan laporan anda silahkan twit menggunakan #banjir dan <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a><BR><h4>Peta dasar</h4>\nPeta ubin dengan © <a href='https://www.mapbox.com/map-feedback/'>Mapbox</a>.<BR>Data oleh <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, & <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Data infrastruktur</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Laporan</h4>\nDari <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> dan <a href=\"http://pasangmata.detik.com/\" target=\"_blank\">Detik</a> data\n<h4>Perangkat lunak</h4>\nSebuah kerangka Pengetahuan GeoSosial: <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nPeta: <a href=\"http://leafletjs.com\">Leaflet</a>"
+    "acknowledgements": "Peta ini memperlihatkan situasi banjir terkini di Jakarta (<i>real time</i>) melalui laporan Anda. <BR>Untuk menambahkan laporan anda silahkan twit menggunakan #banjir dan <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a><BR><h4>Peta dasar</h4>\nPeta ubin dengan © <a href='https://www.mapbox.com/map-feedback/'>Mapbox</a>.<BR>Data oleh <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, & <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Data infrastruktur</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Laporan</h4>\nDari <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a>,  <a href=\"http://pasangmata.detik.com/\" target=\"_blank\">Detik</a> dan <a href=\"http://qluein.com/\" target=\"_blank\">Qlue</a> data\n<h4>Tinggi Muka Air</h4>\nAtas izin dari<a href=\"http://bpbd.jakarta.go.id/\" target=\"_blank\">BPBD DKI Jakarta</a>\n<h4>Tinggi Banjir</h4>\nDari <a href=\"http://cognicity.info\" target=\"_blank\">CogniCity</a> berkolaborasi dengan <a href=\"http://bpbd.jakarta.go.id/\" target=\"_blank\">BPBD DKI Jakarta</a>\n<h4>Perangkat lunak</h4>\nSebuah kerangka Pengetahuan GeoSosial: <a href=\"http://cognicity.info\">CogniCity</a><br>\nPeta: <a href=\"http://leafletjs.com\">Leaflet</a>"
   },
 
 "aggregates": {

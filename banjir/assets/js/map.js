@@ -18,7 +18,7 @@ String.prototype.parseURL = function() {
 */
 var layernames = {};
 if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
-	layernames.confirmed = 'Laporan dikonfirmasi';
+	layernames.confirmed = 'Laporan Banjir';
 	layernames.verified = 'Laporan BPBD';
 	layernames.waterways = 'Aliran Air';
 	layernames.pumps = 'Pompa Air';
@@ -27,10 +27,10 @@ if (document.documentElement.lang == 'in' || document.documentElement.lang == 'i
 		title:'Tinggi Banjir',
 		tentative_areas:'Hati-Hati'
 	};
-	layernames.floodgauges = 'Pengukur Banjir';
+	layernames.floodgauges = 'Tinggi Muka Air';
 }
 else {
-	layernames.confirmed = 'Confirmed Reports';
+	layernames.confirmed = 'Flood Reports';
 	layernames.verified = 'BPBD Reports';
 	layernames.waterways = 'Waterways';
 	layernames.pumps = 'Pumps';
@@ -39,7 +39,7 @@ else {
 		title:'Flood Heights',
 		tentative_areas:'Use Caution'
 		};
-	layernames.floodgauges = 'Flood Gauges';
+	layernames.floodgauges = 'River Gauges';
 
 }
 
@@ -169,9 +169,9 @@ var getSiagaLevelIconography = function(level){
 */
 var floodgaugePopoup = function(feature){
 
-	var label = 'Water Depth (cm)';
+	var label = 'Water Level (cm)';
 	if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
-			label = 'Kedalaman air (cm)';
+			label = 'Tinggi Muka Air (cm)';
 	}
 	var popup = '';
 	if (feature.properties !== null){
@@ -506,7 +506,7 @@ var gaugesLegend = '<div id="gaugesLegend"><div class="sublegend"><div style="fo
 
 //infrastructure legend items
 var pumpsLegend = '<div id="pumpsLegend"><div class="sublegend"><div><img src="/banjir/img/pump.svg" height="18px;" width="auto" /><span>&nbsp;'+layernames.pumps+'</span></div></div>';
-var floodgatesLegend =  '<div id="floodgatesLegend"><div class="sublegend"><div><img src="/banjir/img/pump.svg" height="18px;" width="auto" /><span>&nbsp;'+layernames.floodgates+'</span></div></div>';
+var floodgatesLegend =  '<div id="floodgatesLegend"><div class="sublegend"><div><img src="/banjir/img/floodgate.svg" height="18px;" width="auto" /><span>&nbsp;'+layernames.floodgates+'</span></div></div>';
 var waterwaysLegend = '<div id="waterwaysLegend"><div class="sublegend"><div><span style="background-color:#3960ac; font-size:6px;padding-top:8px;margin-left:8px;margin-right:5px;">&nbsp;</span><span>&nbsp;'+layernames.waterways+'</span></div></div>';
 
 // Reports control
