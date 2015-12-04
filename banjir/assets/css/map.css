@@ -11,31 +11,34 @@ body {
 
 #header {
     height: 40px;
-    background-color: red;
 }
 
 #content {
     height: auto;
     width: 100%;
     position: absolute;
-    top: 50px;
+    top: 0px;
     bottom: 0;
-
 }
 
 .leaflet-control-attribution {
   font-size:18px !important;
   background: rgba(255, 255, 255, 0.9) !important;
 }
+
+/*add space for banner around zoom control*/
+.leaflet-control-zoom, .timestamp {
+  margin-top:55px !important;
+}
+
 /* move image for small screens*/
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 480px), screen and (max-device-width: 480px) {
   .navbar-header img {
     margin-left: -10px;
   }
-  .leaflet-control-attribution {
-    font-size:11px !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    }
+  .timestamp, .leaflet-control-zoom{
+     margin-top: 38px !important;
+  }
 }
 
 #map {
@@ -127,7 +130,7 @@ body {
 .leaflet-control-location-button {
   box-shadow: 0 1px 5px rgba(0,0,0,.4);
   background: #fff;
-  border-radius: 5px;
+  border-radius: 0px;
   width: 36px;
   height: 36px;
   display: block;
@@ -144,7 +147,7 @@ body {
 .leaflet-control-reports-button {
   box-shadow: 0 1px 5px rgba(0,0,0,.4);
   background: #fff;
-  border-radius: 5px;
+  border-radius: 0px;
   width: 36px;
   height: 36px;
   display: block;
@@ -213,7 +216,43 @@ body {
 .leaflet-touch .leaflet-control-zoom,
 .leaflet-touch .leaflet-control-attribution,
 .leaflet-touch .leaflet-control.aggregates,
-.leaflet-touch .leaflet-control.info.legend,
 .leaflet-touch .leaflet-top.leaflet-right .leaflet-control.info {
   display: none;
+}
+
+/*Custom label text for repots modal checkbox*/
+label {
+  font-weight: 300;
+}
+
+/*Remove rounded corners of popups*/
+.leaflet-popup-content-wrapper,.leaflet-popup-content
+{
+  background-color:rgba(255, 255, 255, 1);
+
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+   border-radius: 0 !important;
+}
+/*Remove rounded corners of leaflet legend and buttons*/
+.leaflet-control, .btn, .modal-content {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+   border-radius: 0 !important;
+}
+
+.leaflet-bar {
+  border-radius: 0 !important;
+}
+
+.div-icon-confirmed {
+  color: #08519c;
+}
+
+.div-icon-verified{
+  color: #EF4C23;
+}
+
+.twitter-tweet-rendered{
+  width:60% !important;
 }
