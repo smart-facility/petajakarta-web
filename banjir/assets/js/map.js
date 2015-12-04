@@ -366,7 +366,7 @@ var loadInfrastructure = function(layer, infrastructure){
 																				popupAnchor: [0, 0], }
 																			)});
 				}, onEachFeature: floodgaugeMarker
-			});
+			}).addTo(map);
 		}
 		else {
 			window[layer] = L.geoJson(infrastructure, {
@@ -596,9 +596,9 @@ var loadSecondaryLayers = function(layerControl) {
 			// Add overlays to the layer control
 			showURLReport(); //once point layers loaded zoom to report specified in URL
 			layerControl.addOverlay(overlays.floodgauges, layernames.floodgauges);
-			layerControl.addOverlay(overlays.waterways, layernames.waterways);
 			layerControl.addOverlay(overlays.pumps, layernames.pumps);
 			layerControl.addOverlay(overlays.floodgates, layernames.floodgates);
+			layerControl.addOverlay(overlays.waterways, layernames.waterways);
 		});
 	});
 };
