@@ -14,40 +14,33 @@ String.prototype.parseURL = function() {
 };
 
 /*
-* Specify layernames and icons
+* Specify layernames
 */
-var layernames = {
-	confirmed : '<span class="div-icon-confirmed glyphicon glyphicon-tint" aria-hidden="true" style="font-size:10px; margin-left:4px;"></span>&mdash;',
-	waterways : '<span style="background-color:#3960ac; font-size:6px; padding-top:8px;margin-left:8px;margin-right:5px;">&nbsp;</span>&mdash;',
-	pumps : '<img src="/banjir/img/pump.svg" height="16px;" width="auto" />&mdash;',
-	floodgates : '<img src="/banjir/img/floodgate.svg" height="16px;" width="auto" />&mdash;',
-	floodheights : {
-		title:'',
-		tentative_areas:'',
-		layerControl: '&nbsp;<span style="background-color:#2b8cbe; font-size:10px; padding-right:8px;">&nbsp;</span><span style="background-color:#a6bddb; font-size:10px; padding-right:8px;">&nbsp;</span><span style="background-color:#ece7f2; font-size:10px; padding-right:8px;">&nbsp;</span><span style="background-color:yellow; font-size:10px; padding-right:8px;"> &nbsp;</span>&mdash;',
-	},
-	floodgauges : '<span style="margin-left:2px;"></span><img src="/banjir/img/floodgauge.svg" height="13px;" width="auto"/>&mdash;'
-};
-
+var layernames = {};
 if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
-	layernames.confirmed += 'Laporan dikonfirmasi';
-	layernames.waterways += 'Aliran Air';
-	layernames.pumps += 'Pompa Air';
-	layernames.floodgates += 'Pintu Air';
-	layernames.floodheights.title += 'Tinggi Banjir';
-	layernames.floodheights.tentative_areas += 'Hati-Hati';
-	layernames.floodheights.layerControl += 'Tinggi Banjir';
-	layernames.floodgauges += 'Pengukur Banjir';
+	layernames.confirmed = 'Laporan dikonfirmasi';
+	layernames.verified = 'Laporan BPBD';
+	layernames.waterways = 'Aliran Air';
+	layernames.pumps = 'Pompa Air';
+	layernames.floodgates = 'Pintu Air';
+	layernames.floodheights = {
+		title:'Tinggi Banjir',
+		tentative_areas:'Hati-Hati'
+	};
+	layernames.floodgauges = 'Pengukur Banjir';
 }
 else {
-	layernames.confirmed += 'Confirmed Reports';
-	layernames.waterways += 'Waterways';
-	layernames.pumps += 'Pumps';
-	layernames.floodgates += 'Floodgates';
-	layernames.floodheights.title += 'Flood Heights';
-	layernames.floodheights.tentative_areas += 'Use Caution';
-	layernames.floodheights.layerControl += 'Flood Heights';
-	layernames.floodgauges += 'Flood Gauges';
+	layernames.confirmed = 'Confirmed Reports';
+	layernames.verified = 'BPBD Reports';
+	layernames.waterways = 'Waterways';
+	layernames.pumps = 'Pumps';
+	layernames.floodgates = 'Floodgates';
+	layernames.floodheights = {
+		title:'Flood Heights',
+		tentative_areas:'Use Caution'
+		};
+	layernames.floodgauges = 'Flood Gauges';
+
 }
 
 /**
@@ -277,8 +270,9 @@ var loadREM = function(data){
 			//default: return {color:"rgba(0,0,0,0)",weight:0,fillOpacity:0};
 		}
 	}}).addTo(map).bringToBack();
-	heightsLegend.addTo(map);
-	layerControl.addOverlay(window.floodheights, layernames.floodheights.layerControl);
+	//heightsLegend.addTo(map);
+	$('#legendbox').append(heightsLegend);
+	layerControl.addOverlay(window.floodheights, layernames.floodheights.title);
 };
 
 /** Style confirmed reports
@@ -375,6 +369,7 @@ var loadInfrastructure = function(layer, infrastructure){
 																			)});
 				}, onEachFeature: floodgaugeMarker
 			}).addTo(map);
+			$('#legendbox').append(gaugesLegend);
 		}
 		else {
 			window[layer] = L.geoJson(infrastructure, {
@@ -481,21 +476,42 @@ timestamp.onAdd = function(map){
 	return this._div;
 };
 
-//flood heights scale
-var heightsLegend = L.control({position:'bottomright'});
+// map legend
+var mapLegend = L.control({position:'bottomright'});
 
-heightsLegend.onAdd = function(map) {
+mapLegend.onAdd = function(map) {
 	var div = L.DomUtil.create('div', 'info legend');
-	div.innerHTML += '<div style="line-height:1.6">'+layernames.floodheights.title+'</div>';
-	div.innerHTML += '<i class="color" style="background:#2b8cbe"></i><span>&nbsp;>140cm </span><BR>';
-	div.innerHTML += '<i class="color" style="background:#a6bddb"></i><span>&nbsp;>70cm </span><BR>';
-	div.innerHTML += '<i class="color" style="background:#ece7f2"></i><span>&nbsp;>0cm </span><BR>';
-	div.innerHTML += '<i class="color" style="background:yellow"></i><span>&nbsp;'+layernames.floodheights.tentative_areas+'</span>';
+	div.innerHTML += '<div id="legendbox"><div class="sublegend"><div><span class="div-icon-confirmed-legend glyphicon glyphicon-tint" aria-hidden="true"></span>&nbsp;'+layernames.confirmed+'</div><div><span class="div-icon-verified-legend glyphicon glyphicon-tint" aria-hidden="true"></span>&nbsp;'+layernames.verified+'</div></div></div>';
 	return div;
 };
 
-var reportsControl = L.control({position:'bottomleft'});
+//flood heights scale
+var heightsLegend = '<div id="heightsLegend"><div class="sublegend"><div>'+layernames.floodheights.title+'</div><div><i class="color" style="background:#2b8cbe;"></i><span>&nbsp;>140cm</span></div><div><i class="color" style="background:#a6bddb"></i><span>&nbsp;>70cm </span></div><div><i class="color" style="background:#ece7f2"></i><span>&nbsp;>0cm </span></div><i class="color" style="background:yellow"></i><span>&nbsp;'+layernames.floodheights.tentative_areas+'</span></div></div>';
 
+//flood gauges legend
+
+var siagaNames = {};
+if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
+	siagaNames[1] = 'Siaga I';
+	siagaNames[2] = 'Siaga II';
+	siagaNames[3] = 'Siaga III';
+	siagaNames[4] = 'Siaga IV';
+}
+else {
+		siagaNames[1] = 'Alert Level 1';
+		siagaNames[2] = 'Alert Level 2';
+		siagaNames[3] = 'Alert Level 3';
+		siagaNames[4] = 'Alert Level 4';
+}
+var gaugesLegend = '<div id="gaugesLegend"><div class="sublegend"><div>'+layernames.floodgauges+'</div><div><img src="/banjir/img/floodgauge_1.svg" height="18px;" width="auto" /><span>&nbsp;'+siagaNames[1]+'</span></div><div><img src="/banjir/img/floodgauge_2.svg" height="18px;" width="auto" /><span>&nbsp;'+siagaNames[2]+'</span></div><div><img src="/banjir/img/floodgauge_3.svg" height="18px;" width="auto" /><span>&nbsp;'+siagaNames[3]+'</span></div><div><img src="/banjir/img/floodgauge.svg" height="18px;" width="auto" /><span>&nbsp;'+siagaNames[4]+'</span></div></div>';
+
+//infrastructure legend items
+var pumpsLegend = '<div id="pumpsLegend"><div class="sublegend"><div><img src="/banjir/img/pump.svg" height="18px;" width="auto" /><span>&nbsp;'+layernames.pumps+'</span></div></div>';
+var floodgatesLegend =  '<div id="floodgatesLegend"><div class="sublegend"><div><img src="/banjir/img/pump.svg" height="18px;" width="auto" /><span>&nbsp;'+layernames.floodgates+'</span></div></div>';
+var waterwaysLegend = '<div id="waterwaysLegend"><div class="sublegend"><div><span style="background-color:#3960ac; font-size:6px;padding-top:8px;margin-left:8px;margin-right:5px;">&nbsp;</span><span>&nbsp;'+layernames.waterways+'</span></div></div>';
+
+// Reports control
+var reportsControl = L.control({position:'bottomleft'});
 reportsControl.onAdd = function(map) {
   var div = L.DomUtil.create('div', 'leaflet-control');
 
@@ -624,13 +640,38 @@ $(function() {
 */
 map.on('overlayremove', function(event){
 	if (event.layer == window.floodheights){
-		map.removeControl(heightsLegend);
+		$('#heightsLegend').remove();
+	}
+	else if (event.layer == window.floodgauges){
+		$('#gaugesLegend').remove();
+	}
+	else if (event.layer == window.pumps){
+		$('#pumpsLegend').remove();
+	}
+	else if (event.layer == window.waterways){
+		$('#waterwaysLegend').remove();
+	}
+	else if (event.layer == window.floodgates){
+		$('#floodgatesLegend').remove();
 	}
 });
 
 map.on('overlayadd', function(event){
 	if (event.layer == window.floodheights){
-		heightsLegend.addTo(map);
+		//heightsLegend.addTo(map);
+		$('#legendbox').append(heightsLegend);
+	}
+	else if (event.layer == window.floodgauges) {
+		$('#legendbox').append(gaugesLegend);
+	}
+	else if (event.layer == window.pumps) {
+		$('#legendbox').append(pumpsLegend);
+	}
+	else if (event.layer == window.waterways) {
+		$('#legendbox').append(waterwaysLegend);
+	}
+	else if (event.layer == window.floodgates) {
+		$('#legendbox').append(floodgatesLegend);
 	}
 });
 
@@ -667,3 +708,6 @@ map.on('popupopen', function(popup){
 			}
 		}
 });
+
+// Finally, add the legend
+mapLegend.addTo(map);
