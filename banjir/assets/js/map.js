@@ -14,31 +14,40 @@ String.prototype.parseURL = function() {
 };
 
 /*
-* Specify layernames
+* Specify layernames and icons
 */
-var layernames = {};
+var layernames = {
+	confirmed : '<span class="div-icon-confirmed glyphicon glyphicon-tint" aria-hidden="true" style="font-size:10px; margin-left:4px;"></span>&mdash;',
+	waterways : '<span style="background-color:#3960ac; font-size:6px; padding-top:8px;margin-left:8px;margin-right:5px;">&nbsp;</span>&mdash;',
+	pumps : '<img src="/banjir/img/pump.svg" height="16px;" width="auto" />&mdash;',
+	floodgates : '<img src="/banjir/img/floodgate.svg" height="16px;" width="auto" />&mdash;',
+	floodheights : {
+		title:'',
+		tentative_areas:'',
+		layerControl: '&nbsp;<span style="background-color:#2b8cbe; font-size:10px; padding-right:8px;">&nbsp;</span><span style="background-color:#a6bddb; font-size:10px; padding-right:8px;">&nbsp;</span><span style="background-color:#ece7f2; font-size:10px; padding-right:8px;">&nbsp;</span><span style="background-color:yellow; font-size:10px; padding-right:8px;"> &nbsp;</span>&mdash;',
+	},
+	floodgauges : '<span style="margin-left:2px;"></span><img src="/banjir/img/floodgauge.svg" height="13px;" width="auto"/>&mdash;'
+};
+
 if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
-	layernames.confirmed = 'Laporan dikonfirmasi';
-	layernames.waterways = 'Aliran Air';
-	layernames.pumps = 'Pompa Air';
-	layernames.floodgates = 'Pintu Air';
-	layernames.floodheights = {
-		title:'Tinggi Banjir',
-		tentative_areas:'Hati-Hati'
-	};
-	layernames.floodgauges = 'Pengukur Banjir';
+	layernames.confirmed += 'Laporan dikonfirmasi';
+	layernames.waterways += 'Aliran Air';
+	layernames.pumps += 'Pompa Air';
+	layernames.floodgates += 'Pintu Air';
+	layernames.floodheights.title += 'Tinggi Banjir';
+	layernames.floodheights.tentative_areas += 'Hati-Hati';
+	layernames.floodheights.layerControl += 'Tinggi Banjir';
+	layernames.floodgauges += 'Pengukur Banjir';
 }
 else {
-	layernames.confirmed = 'Confirmed Reports';
-	layernames.waterways = 'Waterways';
-	layernames.pumps = 'Pumps';
-	layernames.floodgates = 'Floodgates';
-	layernames.floodheights = {
-		title:'Flood Heights',
-		tentative_areas:'Use Caution'
-		};
-	layernames.floodgauges = 'Flood Gauges';
-
+	layernames.confirmed += 'Confirmed Reports';
+	layernames.waterways += 'Waterways';
+	layernames.pumps += 'Pumps';
+	layernames.floodgates += 'Floodgates';
+	layernames.floodheights.title += 'Flood Heights';
+	layernames.floodheights.tentative_areas += 'Use Caution';
+	layernames.floodheights.layerControl += 'Flood Heights';
+	layernames.floodgauges += 'Flood Gauges';
 }
 
 /**
@@ -269,7 +278,7 @@ var loadREM = function(data){
 		}
 	}}).addTo(map).bringToBack();
 	heightsLegend.addTo(map);
-	layerControl.addOverlay(window.floodheights, layernames.floodheights.title);
+	layerControl.addOverlay(window.floodheights, layernames.floodheights.layerControl);
 };
 
 /** Style confirmed reports
@@ -365,7 +374,7 @@ var loadInfrastructure = function(layer, infrastructure){
 																				popupAnchor: [0, 0], }
 																			)});
 				}, onEachFeature: floodgaugeMarker
-			});
+			}).addTo(map);
 		}
 		else {
 			window[layer] = L.geoJson(infrastructure, {
@@ -595,9 +604,9 @@ var loadSecondaryLayers = function(layerControl) {
 			// Add overlays to the layer control
 			showURLReport(); //once point layers loaded zoom to report specified in URL
 			layerControl.addOverlay(overlays.floodgauges, layernames.floodgauges);
-			layerControl.addOverlay(overlays.waterways, layernames.waterways);
 			layerControl.addOverlay(overlays.pumps, layernames.pumps);
 			layerControl.addOverlay(overlays.floodgates, layernames.floodgates);
+			layerControl.addOverlay(overlays.waterways, layernames.waterways);
 		});
 	});
 };
