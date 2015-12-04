@@ -75,7 +75,7 @@
               <li class="active"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/">{{{navbar.home}}}</a></li>
               <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/map">{{{navbar.map}}}</a></li>
               <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/research">{{{navbar.research}}}</a></li>
-              <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/analytics">{{{navbar.analytics}}}</a></li>
+              <!--<li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/analytics">{{{navbar.analytics}}}</a></li>-->
               <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data">{{{navbar.data}}}</a></li>
               <li><a href="/{{site.url-prefix}}/{{site.other-locale-url-prefix}}/">[{{{navbar.other-locale}}}]</a></li>
             </ul>
@@ -87,13 +87,13 @@
         <div class="jumbotron" style="background-color:transparent;">
           <div class="row">
             <div class="col-md-12">
-              <h1 style="text-align: left; font-family:Montserrat;">Open Source <BR>Flood Map</h1>
-              <h3 style="text-align: left; color:#FFF;">Share real-time flood information using social media</h3>
+              <h1 style="text-align: left; font-family:Lato;">Open Source <BR>Flood Map</h1>
+              <h3 style="text-align: left; color:#FFF; font-family:Lato; font-weight:300">Share real-time flood information using social media</h3>
             </div>
           </div>
           <!--Action buttons-->
           <div class="row" style="margin-top:4%; margin-left:-5px;">
-              <a href="./map" class="btn btn-info btn-lg pull-left" style="margin:5px;"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Open Map</a>
+              <a href="./map" class="btn btn-default btn-lg pull-left" style="margin:5px;"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Open Map</a>
               <a href="#video-anchor" class="btn btn-default btn-lg pull-left" style="margin:5px;"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> Watch Video</a>
           </div>
           <!--Logos at top of page at request of Gov. Ahok-->
@@ -122,8 +122,8 @@
       <!-- Video -->
       <div class="anchor" id="video-anchor"></div>
           <div class="col-md-12">
-            <div class="video" style="margin-top:20px;">
-              <iframe width="560" height="315" src="{{{header.video-url}}}?modestbranding=1&theme=light&controls=2&showinfo=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <div class="video" style="margin-top:20px; margin-left:60px; margin-right:60px;">
+              <iframe style="border-style:solid; border-width:1px;" width="1280" height="720" src="{{{header.video-url}}}?modestbranding=1&theme=light&controls=2&showinfo=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             </div>
           </div>
 

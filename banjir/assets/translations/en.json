@@ -18,8 +18,8 @@
   "header": {
     "title": "<p class='lead'>Our White Paper — <a href='/banjir/en/research' style='color:white; text-decoration:underline'><cite>PetaJakarta.org: Assessing the Role of Social Media for Civic Co-Management During Monsoon Flooding in Jakarta, Indonesia</cite></a> — is now online.</p>",
     "lead": "PetaJakarta.org/banjir is an open source, community-led platform to collect and disseminate information about flooding and critical water infrastructure in Jakarta.",
-    "video-url": "//www.youtube.com/embed/fDlaGHjFtAY/"
-  },
+    "video-url": "//www.youtube.com/embed/JHqTD8QoyPw?hd=1"
+    },
   "twitter-card" : {
     "title":"PetaJakarta.org is a free and open source real-time flood map.",
     "description":"PetaJakarta.org maps flood tweets and displays real-time information for navigation, safety, and response. Tweet #banjir with your geolocation enabled @petajkt to add your report to the map.",
@@ -159,7 +159,7 @@
   },
   "map-information": {
     "title": "Map information",
-    "acknowledgements": "This map displays real-time tweets about flooding in Jakarta from the past hour.<BR>To add your flood report, tweet #banjir <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a><BR><h4>Base maps</h4>\nMap tiles © <a href='https://www.mapbox.com/map-feedback/'>Mapbox</a>.<BR>Data by <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Infrastructure data</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Reports</h4>\nDerived from <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a> and <a href=\"http://pasangmata.detik.com/\" target=\"_blank\">Detik</a> data\n<h4>Software</h4>\nPowered by <a href=\"http://github.com/smart-facility/\">CogniCity</a><br>\nMaps created using <a href=\"http://leafletjs.com\">Leaflet</a>"
+    "acknowledgements": "This map displays real-time reports about flooding in Jakarta from the past hour.<BR>To add your flood report, tweet #banjir <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a><BR><h4>Base maps</h4>\nMap tiles © <a href='https://www.mapbox.com/map-feedback/'>Mapbox</a>.<BR>Data by <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Infrastructure data</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Reports</h4>\nDerived from <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a>, <a href=\"http://pasangmata.detik.com/\" target=\"_blank\">Detik</a> and <a href=\"http://qluein.com/\" target=\"_blank\">Qlue</a> data\n<h4>River Gauges</h4>\nCourtesy of <a href=\"http://bpbd.jakarta.go.id/\" target=\"_blank\">BPBD DKI Jakarta</a>\n<h4>Flood Depths</h4>\nFrom <a href=\"http://cognicity.info\" target=\"_blank\">CogniCity</a> in collaboration with <a href=\"http://bpbd.jakarta.go.id/\" target=\"_blank\">BPBD DKI Jakarta</a>\n<h4>Software</h4>\nPowered by <a href=\"http://cognicity.info\" target=\"_blank\">CogniCity</a><br>\nMaps created using <a href=\"http://leafletjs.com\">Leaflet</a>"
   },
   "tutorial":{
     "title": "Accessing the data API using QGIS",

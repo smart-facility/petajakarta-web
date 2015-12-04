@@ -68,8 +68,25 @@ body {
 
 .legend {
      color: #555;
-     line-height: 18px;
-     padding-top:5px;
+     font-size: 9px;
+     line-height: normal;
+     font-family: Lato:100;
+     margin:0px;
+     padding:5px;
+}
+
+.sublegend {
+  margin:3px;
+  line-height: 18px;
+}
+
+.sublegend img {
+  margin:1px;
+}
+
+.legend hr {
+  margin-top:0px;
+  margin-bottom:0px;
 }
 .legend i.color {
       width: 24px;
@@ -77,6 +94,7 @@ body {
       float: left;
       margin-right: 0;
       opacity: 0.7;
+      margin-bottom:0;
 }
 .legend .number {
       width: 24px;
@@ -85,6 +103,7 @@ body {
       text-align: center;
       margin-right: 0;
       opacity: 0.7;
+      line-height: 2;
 }
 .u {
     width: 18px;
@@ -246,11 +265,31 @@ label {
 }
 
 .div-icon-confirmed {
-  color: #08519c;
+  color: white;
+  text-shadow: -2px 0 #00b8e6, 0 2px #00b8e6, 2px 0 #00b8e6, 0 -2px #00b8e6;
+}
+
+.div-icon-confirmed-legend {
+  color: white;
+  text-shadow: -1px 0 #00b8e6, 0 1px #00b8e6, 1px 0 #00b8e6, 0 -1px #00b8e6;
 }
 
 .div-icon-verified{
-  color: #EF4C23;
+  color: #00CCFF;
+  text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
+}
+
+.div-icon-verified-legend{
+  color: #00CCFF;
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+  font-size:11px;
+}
+
+.icon-stack {
+    position: relative;
+}
+.icon-stack .glyphicon {
+    position: absolute;
 }
 
 .twitter-tweet-rendered{
