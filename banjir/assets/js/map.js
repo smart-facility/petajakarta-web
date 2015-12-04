@@ -152,13 +152,13 @@ var infrastructureMarkerPopup = function(feature, layer){
 var getSiagaLevelIconography = function(level){
 	switch (level) {
 		case 1:
-			return {'color':'#FC6769','icon':'floodgauge_1.svg'};
+			return {'color':'#FF4000','icon':'floodgauge_1.svg'};
 		case 2:
-			return {'color':'#FECB2E','icon':'floodgauge_2.svg'};
+			return {'color':'#FF8000','icon':'floodgauge_2.svg'};
 		case 3:
-			return {'color':'#EBE968','icon':'floodgauge_3.svg'};
+			return {'color':'#F7D358','icon':'floodgauge_3.svg'};
 		default:
-			return {'color':'#95FD6F','icon':'floodgauge.svg'};
+			return {'color':'#01DF01','icon':'floodgauge.svg'};
 	}
 };
 
@@ -262,10 +262,10 @@ var getREM = function(callback) {
 var loadREM = function(data){
 	window.floodheights = L.geoJson(data, {clickable: false, style:function(feature){
 		switch (feature.properties.affected) {
-			case 1: return {fillColor:"#2b8cbe",weight:1.5,color:'red',opacity:1,fillOpacity: 0.8};
-			case 2: return {fillColor:"#a6bddb",weight:1.5,color:'red',opacity:1,fillOpacity: 0.8};
-			case 3: return {fillColor:"#ece7f2",weight:1.5,color:'red',opacity:1,fillOpacity: 0.8};
-			case 4: return {fillColor:"yellow", weight:0,fillOpacity:0.5};
+			case 1: return {fillColor:"#045a8d",weight:1,color:"#045a8d", opacity:0.8,fillOpacity: 0.8};
+			case 2: return {fillColor:"#3399FF",weight:1,color:"#3399FF", opacity:0.8,fillOpacity: 0.7};
+			case 3: return {fillColor:"#9fd2f2",weight:1,color:"#9fd2f2", opacity:0.8,fillOpacity: 0.8};
+			case 4: return {fillColor:"yellow", weight:0,fillOpacity:0.6};
 
 			//default: return {color:"rgba(0,0,0,0)",weight:0,fillOpacity:0};
 		}
@@ -486,10 +486,9 @@ mapLegend.onAdd = function(map) {
 };
 
 //flood heights scale
-var heightsLegend = '<div id="heightsLegend"><div class="sublegend"><div>'+layernames.floodheights.title+'</div><div><i class="color" style="background:#2b8cbe;"></i><span>&nbsp;>140cm</span></div><div><i class="color" style="background:#a6bddb"></i><span>&nbsp;>70cm </span></div><div><i class="color" style="background:#ece7f2"></i><span>&nbsp;>0cm </span></div><i class="color" style="background:yellow"></i><span>&nbsp;'+layernames.floodheights.tentative_areas+'</span></div></div>';
+var heightsLegend = '<div id="heightsLegend"><div class="sublegend"><div style="font-weight:bold">'+layernames.floodheights.title+'</div><div><i class="color" style="background:#045a8d;"></i><span>&nbsp;>140cm</span></div><div><i class="color" style="background:#3399FF"></i><span>&nbsp;>70cm </span></div><div><i class="color" style="background:#9fd2f2"></i><span>&nbsp;>0cm </span></div><i class="color" style="background:yellow"></i><span>&nbsp;'+layernames.floodheights.tentative_areas+'</span></div></div>';
 
 //flood gauges legend
-
 var siagaNames = {};
 if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
 	siagaNames[1] = 'Siaga I';
@@ -503,7 +502,7 @@ else {
 		siagaNames[3] = 'Alert Level 3';
 		siagaNames[4] = 'Alert Level 4';
 }
-var gaugesLegend = '<div id="gaugesLegend"><div class="sublegend"><div>'+layernames.floodgauges+'</div><div><img src="/banjir/img/floodgauge_1.svg" height="18px;" width="auto" /><span>&nbsp;'+siagaNames[1]+'</span></div><div><img src="/banjir/img/floodgauge_2.svg" height="18px;" width="auto" /><span>&nbsp;'+siagaNames[2]+'</span></div><div><img src="/banjir/img/floodgauge_3.svg" height="18px;" width="auto" /><span>&nbsp;'+siagaNames[3]+'</span></div><div><img src="/banjir/img/floodgauge.svg" height="18px;" width="auto" /><span>&nbsp;'+siagaNames[4]+'</span></div></div>';
+var gaugesLegend = '<div id="gaugesLegend"><div class="sublegend"><div style="font-weight:bold">'+layernames.floodgauges+'</div><div><img src="/banjir/img/floodgauge_1.svg" height="18px;" width="auto" /><span>&nbsp;'+siagaNames[1]+'</span></div><div><img src="/banjir/img/floodgauge_2.svg" height="18px;" width="auto" /><span>&nbsp;'+siagaNames[2]+'</span></div><div><img src="/banjir/img/floodgauge_3.svg" height="18px;" width="auto" /><span>&nbsp;'+siagaNames[3]+'</span></div><div><img src="/banjir/img/floodgauge.svg" height="18px;" width="auto" /><span>&nbsp;'+siagaNames[4]+'</span></div></div>';
 
 //infrastructure legend items
 var pumpsLegend = '<div id="pumpsLegend"><div class="sublegend"><div><img src="/banjir/img/pump.svg" height="18px;" width="auto" /><span>&nbsp;'+layernames.pumps+'</span></div></div>';
