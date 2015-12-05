@@ -32,12 +32,12 @@
   "intro": {
     "share": {
       "title": "Share flood information",
-      "content": "See a flood? Share it on the Community Map",
+      "content": "See a flood? Share your report on the open source map",
       "button-title": "Share"
     },
     "map": {
       "title": "View the map",
-      "content": "See where the floods are right now",
+      "content": "Check the map to see where the floods are right now",
       "button-title": "Map"
     }
   },
@@ -123,22 +123,26 @@
     "title": "Share flood information",
     "steps": [
       {
-        "title": "1. Launch your Twitter App",
-        "content": "use your twitter account to post to the community flood map"
+        "title": "1. Launch your Twitter app",
+        "content": "use your Twitter account to post to the open source flood map"
       },
       {
-        "title": "2. Enable Geolocation",
-        "content": "geolocation helps us flag the flood on the map"
+        "title": "2. Enable geolocation",
+        "content": "geolocation pinpoints your report on the map"
       },
       {
-        "title": "3. Tweet your message @petajkt #banjir",
-        "content": "tweet it at us, and we'll put it on the map!"
+        "title": "3. Tweet your report to the map",
+        "content": "tweet your report to @petajkt with #banjir"
       },
       {
-        "title": "4. Follow BPBD Jakarta for official information",
+        "title": "4. Follow @BPBDJakarta for official information",
         "content": "get the latest info from the Jakarta Disaster Management Agency"
       }
-    ]
+    ],
+    "data_partners":{
+        "title": "5. Data partners",
+        "content": "The open source flood map also accepts reports from these data partners"
+    }
   },
   "about": {
     "title": "About us",
