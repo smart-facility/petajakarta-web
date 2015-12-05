@@ -3,9 +3,7 @@
     "name": "PetaJakarta.org &middot; Banjir",
     "url-prefix": "banjir",
     "locale-url-prefix": "en",
-    "other-locale-url-prefix": "id",
-    "map-off-title": "PetaJakarta.org is currently offline",
-    "map-off-text": "<BR>We will begin flood mapping again in December 2015. Thank you to everyone who participated to make the map a success!<BR><BR><a href='https://twitter.com/petajkt' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @petajkt</a><a href='https://twitter.com/BPBDJakarta' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @BPBDJakarta </a>"
+    "other-locale-url-prefix": "id"
   },
   "navbar": {
     "home": "Home",
@@ -16,14 +14,16 @@
     "other-locale": "Bahasa Indonesian"
   },
   "header": {
-    "title": "<p class='lead'>Our White Paper — <a href='/banjir/en/research' style='color:white; text-decoration:underline'><cite>PetaJakarta.org: Assessing the Role of Social Media for Civic Co-Management During Monsoon Flooding in Jakarta, Indonesia</cite></a> — is now online.</p>",
-    "lead": "PetaJakarta.org/banjir is an open source, community-led platform to collect and disseminate information about flooding and critical water infrastructure in Jakarta.",
-    "video-url": "//www.youtube.com/embed/JHqTD8QoyPw?hd=1"
+    "title": "Open Source <BR>Flood Map",
+    "lead": "share real-time flood information using social media",
+    "video-url": "//www.youtube.com/embed/JHqTD8QoyPw",
+    "btn-map": "Open Map",
+    "btn-video": "Watch Video"
     },
   "twitter-card" : {
     "title":"PetaJakarta.org is a free and open source real-time flood map.",
     "description":"PetaJakarta.org maps flood tweets and displays real-time information for navigation, safety, and response. Tweet #banjir with your geolocation enabled @petajkt to add your report to the map.",
-    "youtube-video-id":"fDlaGHjFtAY"
+    "youtube-video-id":"JHqTD8QoyPw"
   },
   "twitter-card-research" : {
     "title":"Report on social media for disaster response published",
@@ -140,20 +140,24 @@
       }
     ],
     "data_partners":{
-        "title": "5. Data partners",
-        "content": "The open source flood map also accepts reports from these data partners"
+        "title": "Data partners",
+        "content": "the open source flood map also accepts reports from these data partners"
     }
   },
   "about": {
-    "title": "About us",
-    "intro": "<p><b>petajakarta.org</b> is an applied research project led by the SMART Infrastructure Facility, in collaboration with BPBD DKI Jakarta and Twitter Inc. <a href='https://petajakarta.org/'>PetaJakarta.org</a> harnesses the power of social media to gather, sort, and display information about flooding for Jakarta residents in real time.</p><p>The platform runs on the open source software known as <a href=\"http://cognicity.info\" target=\"_blank\">CogniCity</a>. This GeoSocial Intelligence framework allows data to be collected and disseminated by community members through their location-enabled mobile devices to map information about flooding and water infrastructure in real-time.</p><p>To read more about the project background, structure, and objectives, please visit <a href='http://info.petajakarta.org'>info.petajakarta.org</a>.</p>",
+    "title": "About",
+    "intro": "<p>PetaJakarta.org is an applied research project led by the SMART Infrastructure Facility, in collaboration with BPBD DKI Jakarta and Twitter Inc. Additional data is supplied by Detik.com via <a href='http://pasangmata.detik.com/' target='_blank'>Pasang Mata</a> and SmartCity Jakarta via the <a href='http://qluein.com/' target='_blank'>Qlue</a> application.</p><p>PetaJakarta.org</a> harnesses the power of social media to gather, sort, and display information about flooding for Jakarta residents in real time.</p><p>The platform runs on the open source software <a href=\"http://cognicity.info\" target=\"_blank\">CogniCity</a>. This geosocial intelligence framework allows data to be collected and disseminated by residents  through their location-enabled mobile devices to map flooding and water infrastructure in real-time.</p><p>To read more about the project background, structure, and objectives, please visit <a href='http://info.petajakarta.org'>info.petajakarta.org</a>.</p>",
     "privacy": {
       "title": "Privacy",
-      "content": "We do not store any information about users; all information derived from location-enabled mobile devices is stored and displayed anonymously."
+      "content": "We do not store any information about users. Information derived from location-enabled mobile devices is mapped in real-time; this information is available through an <a herf='/banjir/en/data/'>open API</a> for additional applications."
     },
     "contact": {
       "title": "Contact",
       "follow-us": "Follow us on"
+    },
+    "funding" : {
+      "title": "Funding",
+      "content": "PetaJakarta.org is supported by the University of Wollongong Global Challenges Program, DMInnovation, and the Department of Foreign Affairs and Trade of the Government of Australia. The Australian National Data Service supports the development and maintenance of the open data and open source software."
     }
   },
   "confirmed-reports": {

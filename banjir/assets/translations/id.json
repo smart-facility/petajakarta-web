@@ -3,10 +3,8 @@
     "name": "PetaJakarta.org &middot; Banjir",
     "url-prefix": "banjir",
     "locale-url-prefix": "id",
-    "other-locale-url-prefix": "en",
-    "map-off-title": "PetaJakarta.org sedang tidak<BR>aktif saat ini",
-    "map-off-text": "<BR>Kami akan mulai kembali pemetaan banjir pada bulan Desember 2015. Terima kasih kepada semua pihak yang telah berpartisipasi!<BR><BR><a href='https://twitter.com/petajkt' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @petajkt</a><a href='https://twitter.com/BPBDJakarta' class='twitter-follow-button' data-show-count='false' data-size='large'>Follow @BPBDJakarta </a>"
-  },
+    "other-locale-url-prefix": "en"
+    },
   "navbar": {
     "home": "Beranda",
     "map": "Peta",
@@ -16,14 +14,16 @@
     "other-locale": "English"
   },
   "header": {
-    "title": "<h1 id='title'>PetaJakarta.org/banjir</h1>",
-    "lead": "<b>petajakarta.org/banjir</b> adalah platform <i>open source</i> berbasis masyarakat untuk mengumpulkan dan menyebarkan informasi tentang banjir dan infrastruktur air utama di Jakarta",
-    "video-url": "//www.youtube.com/embed/PY1gOAGfPzY"
+    "title": "Open Source Flood Map",
+    "lead": "share real-time flood information using social media",
+    "video-url": "//www.youtube.com/embed/PY1gOAGfPzY",
+    "btn-map": "Open Map",
+    "btn-video": "Watch Video"
   },
   "twitter-card" : {
     "title":"PetaJakarta.org adalah hasil pemetaan banjir pada waktu terkini.",
     "description":"PetaJakarta.org memetakan banjir melalui tweet dan menampilkan informasi terkininya untuk navigasi, keamanan, respon. Aktifkan geolokasi, tweet #banjir ke @petajkt untuk menambahkan info Anda di peta.",
-    "youtube-video-id":"IzjDqjFcYzc"
+    "youtube-video-id":"PY1gOAGfPzY"
   },
   "twitter-card-research" : {
     "title":"Report on social media for disaster response published",
