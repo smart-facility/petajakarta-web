@@ -14,11 +14,11 @@
     "other-locale": "English"
   },
   "header": {
-    "title": "Open Source Flood Map",
-    "lead": "share real-time flood information using social media",
+    "title": "Peta Banjir <BR>Open Source",
+    "lead": "berbagi informasi banjir terkini lewat media sosial ",
     "video-url": "//www.youtube.com/embed/PY1gOAGfPzY",
-    "btn-map": "Open Map",
-    "btn-video": "Watch Video"
+    "btn-map": "Lihat Peta",
+    "btn-video": "Tonton Video"
   },
   "twitter-card" : {
     "title":"PetaJakarta.org adalah hasil pemetaan banjir pada waktu terkini.",
@@ -32,12 +32,12 @@
   "intro": {
     "share": {
       "title": "Berbagi informasi banjir",
-      "content": "Ada banjir? Ceritakan di Peta Warga",
-      "button-title": "Ceritakan"
+      "content": "Kena banjir? Bagikan laporan Anda ke dalam peta <i>open source</i>",
+      "button-title": "Berbagi"
     },
     "map": {
       "title": "Lihat Peta",
-      "content": "Lihat lokasi banjir <br>sekarang",
+      "content": "Periksa peta untuk melihat lokasi banjir saat ini",
       "button-title": "Peta"
     }
   },
@@ -119,36 +119,44 @@
     "ucount_text": "Jumlah laporan yang belum dikonfirmasi:"
   },
   "sharing-instructions": {
-    "title": "Instruksi",
+    "title": "Berbagi informasi banjir",
     "steps": [
       {
-        "title": "1. Luncurkan aplikasi Twitter",
-        "content": "gunakan akun twitter Anda untuk mengepos ke peta warga"
+        "title": "1. Buka aplikasi Twitter Anda",
+        "content": "gunakan akun Twitter Anda untuk mengirim laporan ke peta <i>open source</i>"
       },
       {
         "title": "2. Aktifkan Geolokasi",
-        "content": "geolokasi menolong kami menandai lokasi banjir di peta"
+        "content": "geolokasi membantu kami menandai lokasi laporan Anda di peta"
       },
       {
-        "title": "3. Twit pesanmu dengan menyebutkan @petajkt #banjir",
-        "content": "Twitkan ke kami, dan kami akan menampilkannya di peta!"
+        "title": "3. Tweet laporan Anda ke dalam peta",
+        "content": "Tweet laporan Anda ke @petajkt dengan tagar #banjir"
       },
       {
         "title": "4. Ikuti BPBD Jakarta untuk informasi resmi",
         "content": "dapatkan info terbaru dari Badan Penanggulangan Bencana Daerah"
       }
-    ]
+    ],
+    "data_partners":{
+        "title": "Partner data",
+        "content": "peta <i>open source</i> ini juga menerima laporan dari partner-partner berikut"
+    }
   },
   "about": {
     "title": "Tentang Kami",
-    "intro": "<p><b>petajakarta.org</b> adalah sebuah proyek penelitian terapan yang dipimpin oleh Fasilitas Infrastruktur SMART, bekerjasama dengan BPBD DKI Jakarta dan Twitter Inc. <a href='petajakarta.org'>PetaJakarta.org</a> memanfaatkan kekuatan media sosial dengan mengumpulkan, memilah, dan menyajikan informasi terkait banjir untuk warga Jakarta secara <i>real time</i>.</p><p>Platform ini menggunakan perangkat lunak <i>open source</i> bernama <a href=\"http://cognicity.info\" target=\"_blank\">CogniCity</a>, sebuah kerangka Pengetahuan GeoSosial, yang memungkinkan pengumpulan dan penyebaran oleh anggota masyarakat melalui perangkat seluler bergeolokasi.</p><p>Untuk mengetahui lebih lanjut mengenai latar belakang, struktur organisasi, dan tujuan, silakan kunjungi <a href='http://info.petajakarta.org'>info.petajakarta.org</a></p>",
+    "intro": "<p>PetaJakarta.org adalah sebuah proyek penelitian terapan yang dipimpin oleh SMART Infrastructure Facility, bekerja sama dengan BPBD DKI Jakarta dan Twitter Inc. Data tambahan juga ditampilkan atas perkenan Detik.com via <a href='http://pasangmata.detik.com/' target='_blank'>Pasang Mata</a> dan Jakarta SmartCity via aplikasi <a href='http://qluein.com/' target='_blank'>Qlue</a>.</p><p>PetaJakarta.org memanfaatkan kekuatan media sosial dengan mengumpulkan, memilah, dan menyajikan informasi terkait banjir untuk warga Jakarta secara <i>real time</i>.</p><p>Platform ini menggunakan perangkat lunak open source bernama <a href='http://cognicity.info' target='_blank'>CogniCity</a>. Kerangka pengetahuan GeoSosial ini memungkinkan pengumpulan dan penyebaran data oleh masyarakat lewat perangkat seluler bergeolokasi untuk memetakan banjir dan infrastruktur air secara <i>real time</i>.</p><p>Untuk mengetahui lebih lanjut mengenai latar belakang, struktur, dan tujuan proyek ini, silakan kunjungi <a href='http://info.petajakarta.org'>info.petajakarta.org</a></p>",
     "privacy": {
       "title": "Kebijakan Privasi",
-      "content": "Kami tidak menyimpan informasi tentang pengguna. Semua informasi yang berasal dari perangkat seluler bergeolokasi disimpan dan ditampilkan secara anonim."
+      "content": "Kami tidak menyimpan informasi tentang pengguna. Semua informasi yang berasal dari perangkat seluler bergeolokasi dipetakan secara <i>real time</i>; informasi ini dapat dilihat lewat API terbuka untuk aplikasi lain."
     },
     "contact": {
-      "title": "Menghubungi",
-      "follow-us": "Twitter"
+      "title": "Kontak",
+      "follow-us": "Ikuti kami di "
+    },
+    "funding" : {
+      "title": "Pendanaan",
+      "content": "PetaJakarta.org didukung oleh University of Wollongong Global Challenges Program, DMInnovation, dan Department of Foreign Affairs and Trade of the Government of Australia.  Australian National Data Service mendukung pengembangan dan pemeliharaan data terbuka dan perangkat lunak terbuka."
     }
   },
   "confirmed-reports": {
@@ -158,7 +166,7 @@
   },
   "map-information": {
     "title": "Peta Informasi",
-    "acknowledgements": "Peta ini memperlihatkan situasi banjir terkini di Jakarta (<i>real time</i>) melalui laporan Anda. Untuk menambahkan laporan anda silahkan twit menggunakan #banjir dan <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a><BR><h4>Peta dasar</h4>\nPeta ubin dengan © <a href='https://www.mapbox.com/map-feedback/'>Mapbox</a>.<BR>Data oleh <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, & <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Data infrastruktur</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Laporan</h4>\nDari <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a>,  <a href=\"http://pasangmata.detik.com/\" target=\"_blank\">Detik</a> dan <a href=\"http://qluein.com/\" target=\"_blank\">Qlue</a> data\n<h4>Tinggi Muka Air</h4>\nAtas izin dari<a href=\"http://bpbd.jakarta.go.id/\" target=\"_blank\">BPBD DKI Jakarta</a>\n<h4>Tinggi Banjir</h4>\nDari <a href=\"http://cognicity.info\" target=\"_blank\">CogniCity</a> berkolaborasi dengan <a href=\"http://bpbd.jakarta.go.id/\" target=\"_blank\">BPBD DKI Jakarta</a>\n<h4>Perangkat lunak</h4>\nSebuah kerangka Pengetahuan GeoSosial: <a href=\"http://cognicity.info\">CogniCity</a><br>\nPeta: <a href=\"http://leafletjs.com\">Leaflet</a>"
+    "acknowledgements": "Peta ini memperlihatkan situasi banjir terkini di Jakarta (<i>real time</i>) melalui laporan Anda. Untuk menambahkan laporan anda silahkan twit menggunakan #banjir dan <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a><BR><h4>Peta dasar</h4>\nPeta ubin dengan © <a href='https://www.mapbox.com/map-feedback/'>Mapbox</a>.<BR>Data oleh <a href=\"http://openstreetmap.org\">OpenStreetMap</a>, & <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.\n<h4>Data infrastruktur</h4>\n&copy; <a href=\"http://smart.uow.edu.au\">SMART Infrastructure Facility, University of Wollongong</a>\n<h4>Laporan</h4>\nDari <a href=\"http://twitter.com\" target=\"_blank\">Twitter</a>,  <a href=\"http://pasangmata.detik.com/\" target=\"_blank\">Detik</a> dan <a href=\"http://qluein.com/\" target=\"_blank\">Qlue</a> data\n<h4>Tinggi Muka Air</h4>\nAtas perkenan <a href=\"http://bpbd.jakarta.go.id/\" target=\"_blank\">BPBD DKI Jakarta</a>\n<h4>Tinggi Banjir</h4>\nDari <a href=\"http://cognicity.info\" target=\"_blank\">CogniCity</a> bekerja sama dengan <a href=\"http://bpbd.jakarta.go.id/\" target=\"_blank\">BPBD DKI Jakarta</a>\n<h4>Perangkat lunak</h4>\nSebuah kerangka Pengetahuan GeoSosial: <a href=\"http://cognicity.info\">CogniCity</a><br>\nPeta: <a href=\"http://leafletjs.com\">Leaflet</a>"
   },
 
 "aggregates": {
