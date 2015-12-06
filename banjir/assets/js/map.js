@@ -703,7 +703,7 @@ map.on('popupopen', function(popup){
 					data.labels.push(properties.observations[i].measuredatetime.slice(10,16));
 					data.datasets[0].data.push(properties.observations[i].depth);
 				}
-				var gaugeChart = new Chart(ctx).Line(data, {bezierCurve:true});
+				var gaugeChart = new Chart(ctx).Line(data, {bezierCurve:true, scaleLabel: "<%= ' ' + value%>"});
 			}
 		}
 });
