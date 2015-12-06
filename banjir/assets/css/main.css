@@ -184,6 +184,9 @@ a:after {
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #CCC;
 }
+.navbar {
+    margin-bottom: 0px;
+}
 
 .brand {
 	font-size:28px;
