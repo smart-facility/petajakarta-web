@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="/{{site.url-prefix}}/img/petajakarta_icon_32x32.png">
 
     <!-- Fonts from Google Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,900' rel='stylesheet' type='text/css'>
 
     <!-- Site stylesheet -->
     <link href="/{{site.url-prefix}}/css/application.min.css" rel="stylesheet">
@@ -35,7 +35,7 @@
         <div class="navbar navbar-default navbar-fixed-top">
           <div class="container">
             <div class="navbar-header">
-              <img src="/{{site.url-prefix}}/img/petajakarta.png" width="252" height="48" alt=""/>
+              <a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/"><img src="/{{site.url-prefix}}/img/petajakarta_white_pixel_top.png" width="auto" height="48" alt=""/></a>
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar" style="background-color:#CCC;"></span>
@@ -48,7 +48,7 @@
                 <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/">{{{navbar.home}}}</a></li>
                 <li class="active"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/map/">{{{navbar.map}}}</a></li>
                 <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/research/">{{{navbar.research}}}</a></li>
-                <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/analytics/">{{{navbar.analytics}}}</a></li>
+                <!--<li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/analytics/">{{{navbar.analytics}}}</a></li>-->
                 <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/data/">Data</a></li>
                 <li><a href="/{{site.url-prefix}}/{{site.other-locale-url-prefix}}/map/">[{{{navbar.other-locale}}}]</a></li>
               </ul>
@@ -69,6 +69,7 @@
               <div class="modal-body" id="modal-reports-body" style="height:300px; overflow:scroll;">
               </div>
               <div class="modal-footer">
+                <div class="pull-left"><label><input type="checkbox" autocomplete="off" onclick="toggle_timestamp(this.checked);">{{{confirmed-reports.timestamp}}}</label></div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div><!-- /.modal-content -->
@@ -110,18 +111,9 @@
       L_PREFER_CANVAS = true; //Leaflet canvas rendering
     }
   </script>
-
+  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script src="/{{site.url-prefix}}/js/application.min.js"></script>
   <script src="/{{site.url-prefix}}/js/map.min.js"></script>
-
-  <script>
-
-    //$.growl.notice({size: 'large', location:'tc' ,fixed: true, title: "{{{site.map-off-title}}}", message:"{{{site.map-off-text}}}"});
--->
-
-    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-
-  </script>
 
   <!-- Google analytics -->
   <script>
@@ -132,7 +124,6 @@
 
     ga('create', 'UA-46996603-1', 'petajakarta.org');
     ga('send', 'pageview');
-
   </script>
 
 </body>

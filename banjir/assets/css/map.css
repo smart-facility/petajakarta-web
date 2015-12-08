@@ -11,31 +11,34 @@ body {
 
 #header {
     height: 40px;
-    background-color: red;
 }
 
 #content {
     height: auto;
     width: 100%;
     position: absolute;
-    top: 50px;
+    top: 0px;
     bottom: 0;
-
 }
 
 .leaflet-control-attribution {
   font-size:18px !important;
   background: rgba(255, 255, 255, 0.9) !important;
 }
+
+/*add space for banner around zoom control*/
+.leaflet-control-zoom, .timestamp {
+  margin-top:55px !important;
+}
+
 /* move image for small screens*/
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 480px), screen and (max-device-width: 480px) {
   .navbar-header img {
     margin-left: -10px;
   }
-  .leaflet-control-attribution {
-    font-size:11px !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    }
+  .timestamp, .leaflet-control-zoom{
+     margin-top: 38px !important;
+  }
 }
 
 #map {
@@ -65,8 +68,25 @@ body {
 
 .legend {
      color: #555;
-     line-height: 18px;
-     padding-top:5px;
+     font-size: 9px;
+     line-height: normal;
+     font-family: Lato:100;
+     margin:0px;
+     padding:5px;
+}
+
+.sublegend {
+  margin:3px;
+  line-height: 18px;
+}
+
+.sublegend img {
+  margin:1px;
+}
+
+.legend hr {
+  margin-top:0px;
+  margin-bottom:0px;
 }
 .legend i.color {
       width: 24px;
@@ -74,6 +94,7 @@ body {
       float: left;
       margin-right: 0;
       opacity: 0.7;
+      margin-bottom:0;
 }
 .legend .number {
       width: 24px;
@@ -82,6 +103,7 @@ body {
       text-align: center;
       margin-right: 0;
       opacity: 0.7;
+      line-height: 2;
 }
 .u {
     width: 18px;
@@ -127,7 +149,7 @@ body {
 .leaflet-control-location-button {
   box-shadow: 0 1px 5px rgba(0,0,0,.4);
   background: #fff;
-  border-radius: 5px;
+  border-radius: 0px;
   width: 36px;
   height: 36px;
   display: block;
@@ -144,7 +166,7 @@ body {
 .leaflet-control-reports-button {
   box-shadow: 0 1px 5px rgba(0,0,0,.4);
   background: #fff;
-  border-radius: 5px;
+  border-radius: 0px;
   width: 36px;
   height: 36px;
   display: block;
@@ -210,10 +232,63 @@ body {
 }
 
 /** Hide certain controls on touch enabled devices */
-.leaflet-touch .leaflet-control-zoom,
-.leaflet-touch .leaflet-control-attribution,
-.leaflet-touch .leaflet-control.aggregates,
-.leaflet-touch .leaflet-control.info.legend,
-.leaflet-touch .leaflet-top.leaflet-right .leaflet-control.info {
+.leaflet-touch .leaflet-control-zoom{
   display: none;
+}
+
+/*Custom label text for repots modal checkbox*/
+label {
+  font-weight: 300;
+}
+
+/*Remove rounded corners of popups*/
+.leaflet-popup-content-wrapper,.leaflet-popup-content
+{
+  background-color:rgba(255, 255, 255, 1);
+
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+   border-radius: 0 !important;
+}
+/*Remove rounded corners of leaflet legend and buttons*/
+.leaflet-control, .btn, .modal-content {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+   border-radius: 0 !important;
+}
+
+.leaflet-bar {
+  border-radius: 0 !important;
+}
+
+.div-icon-confirmed {
+  color: white;
+  text-shadow: -2px 0 #00b8e6, 0 2px #00b8e6, 2px 0 #00b8e6, 0 -2px #00b8e6;
+}
+
+.div-icon-confirmed-legend {
+  color: white;
+  text-shadow: -1px 0 #00b8e6, 0 1px #00b8e6, 1px 0 #00b8e6, 0 -1px #00b8e6;
+}
+
+.div-icon-verified{
+  color: #00CCFF;
+  text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
+}
+
+.div-icon-verified-legend{
+  color: #00CCFF;
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+  font-size:11px;
+}
+
+.icon-stack {
+    position: relative;
+}
+.icon-stack .glyphicon {
+    position: absolute;
+}
+
+.twitter-tweet-rendered{
+  width:60% !important;
 }
