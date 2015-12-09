@@ -696,7 +696,7 @@ map.on('popupopen', function(popup){
 					}]
 				};
 				for (var i = 0; i < properties.observations.length; i++){
-					data.labels.push(properties.observations[i].measuredatetime.slice(10,16));
+					data.labels.push(properties.observations[i].measuredatetime.slice(11,16));
 					data.datasets[0].data.push(properties.observations[i].depth);
 				}
 				var gaugeChart = new Chart(ctx).Line(data, {bezierCurve:true, scaleLabel: "<%= ' ' + value%>"});
