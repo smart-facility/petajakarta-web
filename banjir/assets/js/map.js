@@ -70,7 +70,8 @@ var detikPopup = function(feature){
 
 	@param {object} feature - a GeoJSON feature representing a report
 */
-var qluePopoup = function(feature){
+
+var qluePopup = function(feature){
 	var popup = '<div id="qlue-container" style="width:220px; height:220px; overflow-y:scroll; background-color:white;"><div class="media"><a class="pull-left" href="#"><img class="media-object" src="/banjir/img/logo_qlue.png" height="32"></a></div><p class="lead" style="margin-bottom:4px;margin-top:4px;font-size:16px;">'+feature.properties.title+'</p><img class="img-responsive" src="'+feature.properties.image_url+'" width="210"/><h5>'+feature.properties.text+'</h5><h5>'+feature.properties.created_at.replace('T',' ')+'</div>';
 	return popup;
 };
@@ -95,7 +96,7 @@ var markerPopup = function(feature, layer) {
 
 		// Render as Qlue
 		else if (feature.properties.source == 'qlue'){
-			layer.bindPopup(qluePopoup(feature), {autoPanPadding:([0,60])});
+			layer.bindPopup(qluePopup(feature), {autoPanPadding:([0,60])});
 		}
 
 		// Default to text rendering
@@ -193,11 +194,6 @@ var floodgaugeMarker = function(feature, layer){
 	if (feature.properties){
 		layer.bindPopup(floodgaugePopoup(feature),{autoPanPadding:([0,60])});
 	}
-};
-
-var qluePopoup = function(feature){
-	var popup = '<div id="qlue-container" style="width:220px; height:220px; overflow-y:scroll; background-color:white;"><div class="media"><a class="pull-left" href="#"><img class="media-object" src="/banjir/img/logo_qlue.png" height="32"></a></div><p class="lead" style="margin-bottom:4px;margin-top:4px;font-size:16px;">'+feature.properties.title+'</p><img class="img-responsive" src="'+feature.properties.image_url+'" width="210"/><h5>'+feature.properties.text+'</h5><h5>'+feature.properties.created_at.replace('T',' ')+'</div>';
-	return popup;
 };
 
 /**
