@@ -304,7 +304,14 @@ var loadConfirmedPoints = function(reports) {
 			onEachFeature: markerPopup
 		});
   } else {
-		window.confirmedPoints = L.geoJson();
+		window.confirmedPoints = L.geoJson(null, {
+			pointToLayer: function(feature, latlng) {
+				var zIndexOffset = 0;
+				if (feature.properties.status == 'verified') zIndexOffset = 1000;
+				return  L.marker(latlng, {icon:iconConfirmedReports(feature), zIndexOffset: zIndexOffset});
+			},
+			onEachFeature: markerPopup
+		});
 	}
 
 	return window.confirmedPoints;
