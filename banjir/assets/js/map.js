@@ -335,6 +335,7 @@ var showURLReport = function() {
 			//Zoom to object if exists
 			if (markerMap.hasOwnProperty(id)){
 				centreMapOnPopup(id);
+
 			}
 
 			else {
@@ -620,11 +621,11 @@ var loadSecondaryLayers = function(layerControl) {
 
 		RSVP.hash(secondaryPromises).then(function(overlays) {
 			// Add overlays to the layer control
-			showURLReport(); //once point layers loaded zoom to report specified in URL
 			layerControl.addOverlay(overlays.floodgauges, layernames.floodgauges);
 			layerControl.addOverlay(overlays.pumps, layernames.pumps);
 			layerControl.addOverlay(overlays.floodgates, layernames.floodgates);
 			layerControl.addOverlay(overlays.waterways, layernames.waterways);
+			showURLReport(); //once point layers loaded zoom to report specified in URL
 		});
 	});
 };
