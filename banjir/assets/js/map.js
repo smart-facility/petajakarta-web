@@ -327,7 +327,7 @@ var showURLReport = function() {
 			//Check if Integer
 			var id = parseInt($.url('?report'));
 			var err;
-			if ( !validateNumberParameter(id,0) ) err = new Error( "'report id parameter is invalid" );
+			if ( !validateNumberParameter(id,1) ) err = new Error( "'report id parameter is invalid" );
 			if (err) {
 				console.log(err);
 				return;
