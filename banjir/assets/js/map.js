@@ -556,6 +556,7 @@ locationControl.onAdd = function(map){
 var latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
 var map = L.map('map', {zoomControl:true}).setView(latlon, 12); // Initialise map
 map.attributionControl.setPrefix('');
+L.control.scale({'position':'bottomright', 'imperial':false, 'maxWidth':200}).addTo(map);
 
 //Specify default image path for Leaflet
 L.Icon.Default.imagePath = '/banjir/css/images/';
