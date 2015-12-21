@@ -43,7 +43,6 @@ module.exports = function(grunt) {
       build: {
         files :[
           {src: 'build/banjir/js/application.js', dest: 'build/banjir/js/application.min.js'},
-          {src: "banjir/assets/js/analytics.js", dest: "build/banjir/js/analytics.min.js"},
           {src: "banjir/assets/js/map.js", dest: "build/banjir/js/map.min.js"}
         ]
       }
