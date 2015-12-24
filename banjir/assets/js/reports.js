@@ -41,7 +41,7 @@ function loadTable(reports) {
 			rows += '<td><a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+report.pkey+','+reportGeo.coordinates[1]+','+reportGeo.coordinates[0]+')">'+text+'</a></td>'; // Message
 		rows += '</tr>';
 	}
-	if (document.documentElement.lang == 'in') {
+	if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id') {
 		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Waktu</th><th class="col-xs-2">Sumber</th><th class="col-xs-6">Laporkan</th></tr></thead>';
 	} else {
 		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Time</th><th class="col-xs-2">Source</th><th class="col-xs-6">Message</th></tr></thead>';
