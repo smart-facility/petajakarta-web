@@ -243,7 +243,7 @@ var getReport = function(id) {
 	@param {function} callback - a function to be called when data is finished loading
 */
 var getREM = function(callback) {
-	jQuery.getJSON('/banjir/dims_flooded.geojson', function(data){
+	jQuery.getJSON('https://rem.petajakarta.org/banjir/data/api/v2/rem/floooded', function(data){
 		callback(data);
 	})
 	.fail(function(){
