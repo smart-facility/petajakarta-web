@@ -243,7 +243,7 @@ var getReport = function(id) {
 	@param {function} callback - a function to be called when data is finished loading
 */
 var getREM = function(callback) {
-	jQuery.getJSON('https://rem.petajakarta.org/banjir/data/api/v2/rem/floooded', function(data){
+	jQuery.getJSON('https://rem.petajakarta.org/banjir/data/api/v2/rem/flooded', function(data){
 		callback(data);
 	})
 	.fail(function(){
@@ -257,16 +257,15 @@ var getREM = function(callback) {
 */
 var loadREM = function(data){
 	window.floodheights = L.geoJson(data, {clickable: false, style:function(feature){
-		switch (feature.properties.affected) {
-			case 1: return {fillColor:"#045a8d",weight:1,color:"#045a8d", opacity:0.8,fillOpacity: 0.8};
-			case 2: return {fillColor:"#3399FF",weight:1,color:"#3399FF", opacity:0.8,fillOpacity: 0.7};
-			case 3: return {fillColor:"#9fd2f2",weight:1,color:"#9fd2f2", opacity:0.8,fillOpacity: 0.8};
-			case 4: return {fillColor:"yellow", weight:0,fillOpacity:0.6};
-
-			//default: return {color:"rgba(0,0,0,0)",weight:0,fillOpacity:0};
+		switch (feature.properties.state) {
+			case 4: return {fillColor:"#045a8d",weight:1,color:"#045a8d", opacity:0.8,fillOpacity: 0.8};
+			case 3: return {fillColor:"#3399FF",weight:1,color:"#3399FF", opacity:0.8,fillOpacity: 0.7};
+			case 2: return {fillColor:"#9fd2f2",weight:1,color:"#9fd2f2", opacity:0.8,fillOpacity: 0.8};
+			case 1: return {fillColor:"yellow", weight:0,fillOpacity:0.6};
+			default: return {color:"rgba(0,0,0,0)",weight:0,fillOpacity:0};
 		}
 	}}).addTo(map).bringToBack();
-	//heightsLegend.addTo(map);
+
 	$('#legendbox').append(heightsLegend);
 	layerControl.addOverlay(window.floodheights, layernames.floodheights.title);
 };
@@ -661,7 +660,6 @@ map.on('overlayremove', function(event){
 
 map.on('overlayadd', function(event){
 	if (event.layer == window.floodheights){
-		//heightsLegend.addTo(map);
 		$('#legendbox').append(heightsLegend);
 	}
 	else if (event.layer == window.floodgauges) {
