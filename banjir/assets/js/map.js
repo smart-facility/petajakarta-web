@@ -259,9 +259,9 @@ var loadREM = function(data){
 	window.floodheights = L.geoJson(data, {clickable: false, style:function(feature){
 		switch (feature.properties.state) {
 			case 4: return {fillColor:"#CC2A41",weight:1,color:"#CC2A41", opacity:0.8,fillOpacity: 0.8};
-			case 3: return {fillColor:"#FF8300",weight:1,color:"#FF8300", opacity:0.8,fillOpacity: 0.7};
+			case 3: return {fillColor:"#FF8300",weight:1,color:"#FF8300", opacity:0.8,fillOpacity: 0.8};
 			case 2: return {fillColor:"#FFFF00",weight:1,color:"#FFFF00", opacity:0.8,fillOpacity: 0.8};
-			case 1: return {fillColor:"#A0A9F7", weight:0,fillOpacity:0.6};
+			case 1: return {fillColor:"#A0A9F7", weight:1,color:"#A0A9F7",opacity:0.8,fillOpacity: 0.8};
 			default: return {color:"rgba(0,0,0,0)",weight:0,fillOpacity:0};
 		}
 	}}).addTo(map).bringToBack();
@@ -489,7 +489,7 @@ mapLegend.onAdd = function(map) {
 };
 
 //flood heights scale
-var heightsLegend = '<div id="heightsLegend"><div class="sublegend"><div style="font-weight:bold">'+layernames.floodheights.title+'</div><div><i class="color" style="background:#045a8d;"></i><span>&gt; 151 cm +</span></div><div><i class="color" style="background:#3399FF"></i><span>&nbsp;71 cm &ndash; 150 cm </span></div><div><i class="color" style="background:#9fd2f2"></i><span>&nbsp;10 cm &ndash; 70 cm</span></div><i class="color" style="background:yellow"></i><span>&nbsp;'+layernames.floodheights.tentative_areas+'</span></div></div>';
+var heightsLegend = '<div id="heightsLegend"><div class="sublegend"><div style="font-weight:bold">'+layernames.floodheights.title+'</div><div><i class="color" style="background:#CC2A41;"></i><span>&nbsp;&gt; 150 cm</span></div><div><i class="color" style="background:#FF8300"></i><span>&nbsp;71 cm &ndash; 150 cm </span></div><div><i class="color" style="background:#FFFF00"></i><span>&nbsp;10 cm &ndash; 70 cm</span></div><i class="color" style="background:#A0A9F7"></i><span>&nbsp;'+layernames.floodheights.tentative_areas+'</span></div></div>';
 //flood gauges legend
 var siagaNames = {};
 if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
