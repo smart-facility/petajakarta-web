@@ -489,7 +489,7 @@ mapLegend.onAdd = function(map) {
 };
 
 //flood heights scale
-var heightsLegend = '<div id="heightsLegend"><div class="sublegend"><div style="font-weight:bold">'+layernames.floodheights.title+'</div><div><i class="color" style="background:#045a8d;"></i><span>&nbsp;151cm +</span></div><div><i class="color" style="background:#3399FF"></i><span>&nbsp;71cm&ndash;150cm </span></div><div><i class="color" style="background:#9fd2f2"></i><span>&nbsp;10cm&ndash;70cm</span></div><i class="color" style="background:yellow"></i><span>&nbsp;'+layernames.floodheights.tentative_areas+'</span></div></div>';
+var heightsLegend = '<div id="heightsLegend"><div class="sublegend"><div style="font-weight:bold">'+layernames.floodheights.title+'</div><div><i class="color" style="background:#045a8d;"></i><span>&gt; 151 cm +</span></div><div><i class="color" style="background:#3399FF"></i><span>&nbsp;71 cm &ndash; 150 cm </span></div><div><i class="color" style="background:#9fd2f2"></i><span>&nbsp;10 cm &ndash; 70 cm</span></div><i class="color" style="background:yellow"></i><span>&nbsp;'+layernames.floodheights.tentative_areas+'</span></div></div>';
 //flood gauges legend
 var siagaNames = {};
 if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
