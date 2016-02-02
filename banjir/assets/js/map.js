@@ -258,10 +258,10 @@ var getREM = function(callback) {
 var loadREM = function(data){
 	window.floodheights = L.geoJson(data, {clickable: false, style:function(feature){
 		switch (feature.properties.state) {
-			case 4: return {fillColor:"#045a8d",weight:1,color:"#045a8d", opacity:0.8,fillOpacity: 0.8};
-			case 3: return {fillColor:"#3399FF",weight:1,color:"#3399FF", opacity:0.8,fillOpacity: 0.7};
-			case 2: return {fillColor:"#9fd2f2",weight:1,color:"#9fd2f2", opacity:0.8,fillOpacity: 0.8};
-			case 1: return {fillColor:"yellow", weight:0,fillOpacity:0.6};
+			case 4: return {fillColor:"#CC2A41",weight:1,color:"#CC2A41", opacity:0.8,fillOpacity: 0.8};
+			case 3: return {fillColor:"#FF8300",weight:1,color:"#FF8300", opacity:0.8,fillOpacity: 0.7};
+			case 2: return {fillColor:"#FFFF00",weight:1,color:"#FFFF00", opacity:0.8,fillOpacity: 0.8};
+			case 1: return {fillColor:"#A0A9F7", weight:0,fillOpacity:0.6};
 			default: return {color:"rgba(0,0,0,0)",weight:0,fillOpacity:0};
 		}
 	}}).addTo(map).bringToBack();
