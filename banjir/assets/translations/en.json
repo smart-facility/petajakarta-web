@@ -108,6 +108,70 @@
       "catalog": "SMART Metadata Catalogue"
     }
   },
+  "v2":{
+    "title": "Open Data Collection",
+    "lead": "The data from PetaJakarta.org is available for project partners and other researchers under an open license. If you'd like to use our data then please <a href='#contact'>contact us</a>.<BR>Details of the data archive from the 2014/2015 monsoon are available <a href='banjir/en/data'>here</a>",
+    "available": "Available data (2015/2016 monsoon season)",
+    "tblData": [
+      {
+        "hName":"Name",
+        "hDescription": "Description",
+        "hType": "Type",
+        "fields": [
+          {
+            "name": "PetaJakarta.org flood reports",
+            "url": "#",
+            "description": "Confirmed locations of flooding as reported by Jakarta residents using Twitter, Qlue and Detik (pasangmata.com)",
+            "type": "Geosocial"
+          },
+          {
+            "name": "FloodWatch",
+            "url": "#",
+            "description": "PetaJakarta.org flood reports, organised by city",
+            "type": "Geosocial"
+          },
+          {
+            "name": "Flood affected areas",
+            "url": "#",
+            "description": "RW districts currently affected by flooding, as published by the Jakarta Emergency Management Agency (BPBD DKI). Includes water depth where available.",
+            "type": "Geospatial"
+          },
+          {
+            "name": "River Gauges",
+            "url": "#",
+            "description": "Current river heights at gauges as published by the Jakarta Emergency Management Agency (BPBD DKI).",
+            "type": "Infrastructure"
+          },
+          {
+            "name": "Waterways",
+            "url": "#",
+            "description": "Line geometries representing the river and canal network in Jakarta",
+            "type": "Infrastructure"
+          },
+          {
+            "name":  "Pumps",
+            "url": "#",
+            "description": "Point geometries representing the location of pump stations in Jakarta",
+            "type": "Infrastructure"
+          },
+          {
+            "name": "Floodgates",
+            "url": "#",
+            "description": "Point geometries representing the location of floodgates in Jakarta",
+            "type": "Infrastructure"
+          }
+        ]
+      }
+    ],
+    "privacy": {
+      "title": "Privacy",
+      "text": "PetaJakarta.org maps publically available user-contributed reports of flooding, as provided by data providers. PetaJakarta.org does not store information about individual users."
+    },
+    "licensing":{
+      "title": "Licensing",
+      "text":"Data is licensed under a <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc/4.0/\">Creative Commons Attribution-NonCommercial 4.0 International License</a>."
+    }
+  },
   "analytics": {
     "title": "Analytics",
     "lead": "Flood reports from past 24 hours",
