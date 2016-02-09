@@ -219,7 +219,7 @@ var getReports = function(type) {
 };
 
 /**
-	Get TopoJSON representing a single confirmed flooding report
+	Get GeoJSON representing a single confirmed flooding report
 
 	@param {integer} id - the unique id of the confirmed report to get
 
@@ -243,8 +243,13 @@ var getReport = function(id) {
 	@param {function} callback - a function to be called when data is finished loading
 */
 var getREM = function(callback) {
-	jQuery.getJSON('https://rem.petajakarta.org/banjir/data/api/v2/rem/flooded', function(data){
-		callback(data);
+	jQuery.getJSON('https://rem.petajakarta.org/banjir/data/api/v2/rem/flooded?format=topojson', function(data){
+		if (data.features !== null){
+			callback(topojson.feature(data, data.objects.collection));
+		}
+		else {
+			callback(null);
+		}
 	})
 	.fail(function(){
 		console.log('getREM(): Error fetching REM data');
