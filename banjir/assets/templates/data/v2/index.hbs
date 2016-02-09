@@ -62,13 +62,15 @@
             {{#each data.v2.tblData}}
             <tr>
               <th>{{hName}}</th>
+              <th>{{hAPI}}</th>
               <th>{{hDescription}}</th>
             </tr>
           </thead>
           <tbody>
               {{#each fields}}
               <tr>
-                <td><a href="{{url}}">{{name}}</a></td>
+                <td>{{name}}</td>
+                <td><a href="{{url}}">{{api}}</a></td>
                 <td>{{description}}</td>
               </tr>
               {{/each}}

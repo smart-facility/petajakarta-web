@@ -111,43 +111,49 @@
         {
           "hName":"Name",
           "hDescription": "Description",
-          "hType": "Type",
+          "hAPI": "API endpoint",
           "fields": [
             {
               "name": "PetaJakarta.org flood reports",
               "url": "#reports",
-              "description": "Confirmed locations of flooding as reported by Jakarta residents using Twitter, Qlue and Detik (pasangmata.com)"
-
+              "description": "Confirmed locations of flooding as reported by Jakarta residents using Twitter, Qlue and Detik (pasangmata.com)",
+              "api": "data/api/v2/reports/confirmed"
             },
             {
               "name": "FloodWatch",
               "url": "#floodwatch",
-              "description": "PetaJakarta.org flood reports, organised by city"
+              "description": "PetaJakarta.org flood reports, organised by city",
+              "api": "data/api/v2/reports/floodwatch"
             },
             {
               "name": "Flood affected areas",
               "url": "#flooded",
-              "description": "RW districts currently affected by flooding, as published by the Jakarta Emergency Management Agency (BPBD DKI). Includes water depth where available."
+              "description": "RW districts currently affected by flooding, as published by the Jakarta Emergency Management Agency (BPBD DKI). Includes water depth where available",
+              "api": "https://rem.petajakarta.org/banjir/data/api/v2/rem/flooded"
             },
             {
               "name": "River Gauges",
               "url": "#floodgauges",
-              "description": "Current river heights at 'flood gauges' as published by the Jakarta Emergency Management Agency (BPBD DKI)."
+              "description": "Current river heights at 'flood gauges' as published by the Jakarta Emergency Management Agency (BPBD DKI)",
+              "api": "data/api/v2/infrastructure/floodgauges"
             },
             {
               "name": "Waterways",
               "url": "#waterways",
-              "description": "Line geometries representing the river and canal network in Jakarta"
+              "description": "Line geometries representing the river and canal network in Jakarta",
+              "api": "data/api/v2/infrastructure/waterways"
             },
             {
               "name":  "Pumps",
               "url": "#pumps",
-              "description": "Point geometries representing the location of pump stations in Jakarta"
+              "description": "Point geometries representing the location of pump stations in Jakarta",
+              "api": "data/api/v2/infrastructure/pumps"
             },
             {
               "name": "Floodgates",
               "url": "#floodgates",
-              "description": "Point geometries representing the location of floodgates in Jakarta"
+              "description": "Point geometries representing the location of floodgates in Jakarta",
+              "api": "data/api/v2/infrastructure/floodgates"
             }
           ]
         }
@@ -580,7 +586,7 @@
         ]
       },
       {
-        "name": "/data/api/v2/reports/floodwatch",
+        "name": "data/api/v2/reports/floodwatch",
         "short": "floodwatch",
         "methods": [
           {
@@ -690,7 +696,7 @@
         ]
       },
       {
-        "name": "/data/api/v2/infrastructure",
+        "name": "data/api/v2/infrastructure",
         "short": "infrastructure",
         "methods": [
           {
