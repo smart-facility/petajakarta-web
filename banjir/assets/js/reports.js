@@ -23,7 +23,7 @@ function loadTable(reports) {
 			logo = '<img src="/banjir/img/twitter_logo_blue.png" height="22">';
 		}
 		else if (report.source == 'qlue'){
-			logo = '<img src="/banjir/img/logo_qlue.png" height="22">';
+			logo = '<img src="/banjir/img/logo_qlue_height_22.png" height="22">';
 		}
 		if (report.status == 'verified'){
 			logo+= ' <img src="/banjir/img/bpbd_dki.png" height="22">';
