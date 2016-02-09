@@ -581,6 +581,60 @@
                 "Type": "enumerated",
                 "EnumeratedList": "[\"geojson\",\"topojson\"]"
               }
+            ],
+            "tblAttributes": [
+              {
+                "hField": "Field",
+                "hDescription": "Description",
+                "hType": "Type",
+                "fields": [
+                  {
+                    "field": "pkey",
+                    "description": "Unique Identifier",
+                    "type": "Integer"
+                  },
+                  {
+                    "field": "geometry",
+                    "description": "Geographical representation of floodgate location",
+                    "type": "Point / WGS84 (EPSG 4326)"
+                  },
+                  {
+                    "field": "created_at",
+                    "description": "Report creation time",
+                    "type": "String (ISO 8601 datetime)"
+                  },
+                  {
+                    "field": "source",
+                    "description": "Data source {Twitter | Qlue | Detik}",
+                    "type": "String"
+                  },
+                  {
+                    "field": "status",
+                    "description": "Report status {Confirmed | Verified (by BPBD DKI)}",
+                    "type": "String"
+                  },
+                  {
+                    "field": "url",
+                    "description": "URL to report source, if available",
+                    "type": "String"
+                  },
+                  {
+                    "field": "image_url",
+                    "description": "URL to images in report, if available",
+                    "type": "String"
+                  },
+                  {
+                    "field": "title",
+                    "description": "Title of report, if available",
+                    "type": "String"
+                  },
+                  {
+                    "field": "text",
+                    "description": "Body of report, if available",
+                    "type": "String"
+                  }
+                ]
+              }
             ]
           }
         ]
@@ -603,6 +657,60 @@
                 "Type": "enumerated",
                 "EnumeratedList": "[\"geojson\",\"topojson\"]"
               }
+            ],
+            "tblAttributes": [
+              {
+                "hField": "Field",
+                "hDescription": "Description",
+                "hType": "Type",
+                "fields": [
+                  {
+                    "field": "pkey",
+                    "description": "Unique Identifier",
+                    "type": "Integer"
+                  },
+                  {
+                    "field": "geometry",
+                    "description": "Geographical representation of flood report location",
+                    "type": "Point / WGS84 (EPSG 4326)"
+                  },
+                  {
+                    "field": "created_at",
+                    "description": "Report creation time",
+                    "type": "String (ISO 8601 datetime)"
+                  },
+                  {
+                    "field": "source",
+                    "description": "Data source {Twitter | Qlue | Detik}",
+                    "type": "String"
+                  },
+                  {
+                    "field": "status",
+                    "description": "Report status {Confirmed | Verified (by BPBD DKI)}",
+                    "type": "String"
+                  },
+                  {
+                    "field": "url",
+                    "description": "URL to report source, if available",
+                    "type": "String"
+                  },
+                  {
+                    "field": "image_url",
+                    "description": "URL to images in report, if available",
+                    "type": "String"
+                  },
+                  {
+                    "field": "title",
+                    "description": "Title of report, if available",
+                    "type": "String"
+                  },
+                  {
+                    "field": "text",
+                    "description": "Body of report, if available",
+                    "type": "String"
+                  }
+                ]
+              }
             ]
           }
         ]
@@ -612,7 +720,6 @@
         "short": "floodwatch",
         "methods": [
           {
-            "MethodName": "live",
             "Synopsis": "Confirmed flood reports with name of city containing location of report",
             "HTTPMethod": "GET",
             "URI": "https://petajakarta.org/banjir/data/api/v2/floodwatch/reports?area_name=JAKARTA%20SELATAN",
@@ -634,6 +741,35 @@
                 "Type": "enumerated",
                 "EnumeratedList": "[\"JAKARTA PUSAT\",\"JAKARTA TIMUR\",\"JAKARTA SELATAN\",\"JAKARTA UTARA\",\"JAKARTA BARAT\"]"
               }
+            ],
+            "tblAttributes": [
+              {
+                "hField": "Field",
+                "hDescription": "Description",
+                "hType": "Type",
+                "fields": [
+                  {
+                    "field": "pkey",
+                    "description": "Unique Identifier",
+                    "type": "Integer"
+                  },
+                  {
+                    "field": "st_asgeojson",
+                    "description": "Geographical representation of floodgate location",
+                    "type": "Point / WGS84 (EPSG 4326)"
+                  },
+                  {
+                    "field": "created_at",
+                    "description": "Report creation time",
+                    "type": "String (ISO 8601 datetime)"
+                  },
+                  {
+                    "field": "area_name",
+                    "description": "City containing report",
+                    "type": "String"
+                  }
+                ]
+              }
             ]
           }
         ]
@@ -643,7 +779,6 @@
         "short": "flooded areas",
         "methods": [
           {
-            "MethodName": "live",
             "Synopsis": "Flood affected areas",
             "HTTPMethod": "GET",
             "URI": "https://rem.petajakarta.org/banjir/data/api/v2/rem/flooded",
@@ -656,6 +791,35 @@
                 "Default": "geojson",
                 "Type": "enumerated",
                 "EnumeratedList": "[\"geojson\",\"topojson\"]"
+              }
+            ],
+            "tblAttributes": [
+              {
+                "hField": "Field",
+                "hDescription": "Description",
+                "hType": "Type",
+                "fields": [
+                  {
+                    "field": "pkey",
+                    "description": "Unique Region Identifier",
+                    "type": "Integer"
+                  },
+                  {
+                    "field": "geometry",
+                    "description": "Polygon of affected area",
+                    "type": "Polygon / WGS84 (EPSG 4326)"
+                  },
+                  {
+                    "field": "level_name",
+                    "description": "Name of affected area polygon",
+                    "type": "String"
+                  },
+                  {
+                    "field": "state",
+                    "description": "Flood state / height (cm) {0: No flooding, 1: Use caution, 2: 10-70, 3: 71-150, 4: 150>}",
+                    "type": "Integer"
+                  }
+                ]
               }
             ]
           }
@@ -680,6 +844,45 @@
                 "Type": "enumerated",
                 "EnumeratedList": "[\"geojson\",\"topojson\"]"
               }
+            ],
+            "tblAttributes": [
+              {
+                "hField": "Field",
+                "hDescription": "Description",
+                "hType": "Type",
+                "fields": [
+                  {
+                    "field": "gaugeid",
+                    "description": "Unique Gauge Identifier",
+                    "type": "String"
+                  },
+                  {
+                    "field": "gaugenameid",
+                    "description": "Gauge name (Bahasa Indonesian)",
+                    "type": "String"
+                  },
+                  {
+                    "field": "measuredatetime",
+                    "description": "Timestamp of observation (WIB)",
+                    "type": "String (ISO 8601 datetime)"
+                  },
+                  {
+                    "field": "depth",
+                    "description": "Water height (cm)",
+                    "type": "Integer"
+                  },
+                  {
+                    "field": "warninglevel",
+                    "description": "Warning level",
+                    "type": "Integer"
+                  },
+                  {
+                    "field": "warninglevelid",
+                    "description": "Warning level name (Bahasa Indonesian)",
+                    "type": "String"
+                  }
+                ]
+              }
             ]
           },
           {
@@ -696,6 +899,25 @@
                 "Default": "geojson",
                 "Type": "enumerated",
                 "EnumeratedList": "[\"geojson\",\"topojson\"]"
+              }
+            ],
+            "tblAttributes": [
+              {
+                "hField": "Field",
+                "hDescription": "Description",
+                "hType": "Type",
+                "fields": [
+                  {
+                    "field": "name",
+                    "description": "Name of floodgate",
+                    "type": "String"
+                  },
+                  {
+                    "field": "geometry",
+                    "description": "Geographical representation of floodgate location",
+                    "type": "Point / WGS84 (EPSG 4326)"
+                  }
+                ]
               }
             ]
           },
@@ -714,6 +936,24 @@
                 "Type": "enumerated",
                 "EnumeratedList": "[\"geojson\",\"topojson\"]"
               }
+            ],"tblAttributes": [
+              {
+                "hField": "Field",
+                "hDescription": "Description",
+                "hType": "Type",
+                "fields": [
+                  {
+                    "field": "name",
+                    "description": "Name of pump",
+                    "type": "String"
+                  },
+                  {
+                    "field": "geometry",
+                    "description": "Geographical representation of pump location",
+                    "type": "Point / WGS84 (EPSG 4326)"
+                  }
+                ]
+              }
             ]
           },
           {
@@ -730,6 +970,25 @@
                 "Default": "geojson",
                 "Type": "enumerated",
                 "EnumeratedList": "[\"geojson\",\"topojson\"]"
+              }
+            ],
+            "tblAttributes": [
+              {
+                "hField": "Field",
+                "hDescription": "Description",
+                "hType": "Type",
+                "fields": [
+                  {
+                    "field": "name",
+                    "description": "Name of waterway",
+                    "type": "String"
+                  },
+                  {
+                    "field": "geometry",
+                    "description": "Geographical representation of waterway location",
+                    "type": "LineString / WGS84 (EPSG 4326)"
+                  }
+                ]
               }
             ]
           }

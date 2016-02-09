@@ -104,6 +104,9 @@
             <h2>{{name}}</h2>
 
             {{#each methods}}
+              {{#if MethodName}}
+                <h3>{{MethodName}}</h3>
+              {{/if}}
               <p class="lead">{{Synopsis}}</p>
               <p><pre><strong>{{HTTPMethod}}</strong> <a href={{URI}} target="_blank">{{URI}}</a></pre></p>
 
@@ -136,6 +139,27 @@
                   </tbody>
                 </table>
               {{/if}}
+              <h4>Results</h4>
+              <table class="table table-responsive table-hover">
+              {{#each tblAttributes}}
+              <thead>
+                <tr>
+                  <th>{{hField}}</th>
+                  <th>{{hDescription}}</th>
+                  <th>{{hType}}</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{#each fields}}
+                <td>{{field}}</td>
+                <td>{{description}}</td>
+                <td>{{type}}</td>
+              </tr>
+              {{/each}}
+              </tbody>
+            {{/each}}
+            </table>
+            <hr>
             {{/each}}
           {{/each}}
         </div>
