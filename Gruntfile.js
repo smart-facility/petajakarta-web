@@ -64,7 +64,12 @@ module.exports = function(grunt) {
       },
 
       en_data: {
-        files: {'build/banjir/en/data/*.html': 'banjir/assets/templates/data/*/*.hbs'},
+        files: {'build/banjir/en/data/*.html': 'banjir/assets/templates/data/*.hbs'},
+        options: {json: 'banjir/assets/translations/en.json'}
+      },
+
+      en_data_v2: {
+        files: {'build/banjir/en/data/v2/*.html': 'banjir/assets/templates/data/v2/*.hbs'},
         options: {json: 'banjir/assets/translations/en.json'}
       },
 
@@ -72,7 +77,6 @@ module.exports = function(grunt) {
         files: {'build/banjir/en/research*.html': 'banjir/assets/templates/research/*.hbs'},
         options: {json: 'banjir/assets/translations/en.json'}
       },
-
       in: {
         files: { 'build/banjir/in/*.html': 'banjir/assets/templates/*.hbs'},
         options: { json: 'banjir/assets/translations/id.json' }
@@ -85,7 +89,6 @@ module.exports = function(grunt) {
         files: {'build/banjir/in/research*.html': 'banjir/assets/templates/research/*.hbs'},
         options: {json: 'banjir/assets/translations/id.json'}
       },
-
       id: {
         files: { 'build/banjir/id/*.html': 'banjir/assets/templates/*.hbs'},
         options: { json: 'banjir/assets/translations/id.json' }
@@ -93,6 +96,10 @@ module.exports = function(grunt) {
       id_data: {
         files: {'build/banjir/id/data/*.html': 'banjir/assets/templates/data/*.hbs'},
         options: {json: 'banjir/assets/translations/id.json'}
+      },
+      id_data_v2: {
+        files: {'build/banjir/id/data/v2/*.html': 'banjir/assets/templates/data/v2/*.hbs'},
+        options: {json: 'banjir/assets/translations/en.json'}
       },
       id_research: {
         files: {'build/banjir/id/research*.html': 'banjir/assets/templates/research/*.hbs'},
@@ -167,7 +174,7 @@ module.exports = function(grunt) {
 
   // Tasks
   grunt.registerTask('assets', ['jshint', 'concat:js', 'uglify:build', 'concat:css', 'cssmin:build', 'copy:images']);
-  grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in', 'staticHandlebars:id', 'staticHandlebars:en_data', 'staticHandlebars:in_data', 'staticHandlebars:id_data', 'staticHandlebars:en_research', 'staticHandlebars:in_research', 'staticHandlebars:id_research']);
+  grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in', 'staticHandlebars:id', 'staticHandlebars:en_data', 'staticHandlebars:en_data_v2', 'staticHandlebars:in_data', 'staticHandlebars:id_data','staticHandlebars:id_data_v2', 'staticHandlebars:en_research', 'staticHandlebars:in_research', 'staticHandlebars:id_research']);
   grunt.registerTask('server', ['assets', 'site', 'concurrent:server']);
   grunt.registerTask('default', ['assets', 'site']);
   grunt.registerTask('docs', ['jsdoc:dist'])
