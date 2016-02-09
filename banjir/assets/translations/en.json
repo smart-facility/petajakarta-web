@@ -158,7 +158,7 @@
       },
       "archive": {
         "title": "Archive",
-        "text": "<a href='banjir/en/data'>PetaJakarta.org v1.0 (2014/2015)</a>"
+        "text": "<a href='/banjir/en/data'>PetaJakarta.org v1.0 (2014/2015)</a>"
       },
       "licensing":{
         "title": "License",
@@ -212,7 +212,7 @@
     "intro": "<p>PetaJakarta.org is an applied research project led by the SMART Infrastructure Facility, in collaboration with BPBD DKI Jakarta and Twitter Inc. Additional data is supplied by Detik.com via <a href='http://pasangmata.detik.com/' target='_blank'>Pasang Mata</a> and Jakarta SmartCity via the <a href='http://qluein.com/' target='_blank'>Qlue</a> application.</p><p>PetaJakarta.org</a> harnesses the power of social media to gather, sort, and display information about flooding for Jakarta residents in real time.</p><p>The platform runs on the open source software <a href=\"http://cognicity.info\" target=\"_blank\">CogniCity</a>. This geosocial intelligence framework allows data to be collected and disseminated by residents  through their location-enabled mobile devices to map flooding and water infrastructure in real-time.</p><p>To read more about the project background, structure, and objectives, please visit <a href='http://info.petajakarta.org'>info.petajakarta.org</a>.</p>",
     "privacy": {
       "title": "Privacy",
-      "content": "We do not store any information about users. Information derived from location-enabled mobile devices is mapped in real-time; this information is available through an <a herf='/banjir/en/data/'>open API</a> for additional applications."
+      "content": "We do not store any information about users. Information derived from location-enabled mobile devices is mapped in real-time; this information is available through an <a href='/banjir/en/data/v2'>open API</a> for additional applications."
     },
     "contact": {
       "title": "Contact",
@@ -424,138 +424,6 @@
       }
     ],
     "api_ref":"API Referensi"
-  },
-  "api": {
-    "endpoints": [
-      {
-        "name": "data/api/v2/reports",
-        "short": "reports",
-        "methods": [
-          {
-            "MethodName": "confirmed",
-            "Synopsis": "Get confirmed flood reports from the last hour in point form",
-            "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v2/reports/confirmed",
-            "RequiresOAuth": "N",
-            "parameters": [
-              {
-                "Name": "format",
-                "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
-                "Required": "N",
-                "Default": "geojson",
-                "Type": "enumerated",
-                "EnumeratedList": "[\"geojson\",\"topojson\"]"
-              }
-            ]
-          },
-          {
-            "MethodName": "unconfirmed",
-            "Synopsis": "Get unconfirmed flood reports from the last hour in point form",
-            "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v2/reports/unconfirmed",
-            "parameters": [
-              {
-                "Name": "format",
-                "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
-                "Required": "N",
-                "Default": "geojson",
-                "Type": "enumerated",
-                "EnumeratedList": "[\"geojson\",\"topojson\"]"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "/data/api/v2/aggregates",
-        "short": "aggregates",
-        "methods": [
-          {
-            "MethodName": "live",
-            "Synopsis": "Get a real-time count of flood reports from the past hour",
-            "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v2/aggregates/live",
-            "RequiresOAuth": "N",
-            "parameters": [
-              {
-                "Name": "format",
-                "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
-                "Required": "N",
-                "Default": "geojson",
-                "Type": "enumerated",
-                "EnumeratedList": "[\"geojson\",\"topojson\"]"
-              },
-              {
-                "Name": "level",
-                "Description": "Specifies area for the counts (e.g. country, state, city etc.). If unspecified defaults to Jakarta \"subdistrict\" level.",
-                "Required": "N",
-                "Default": "subdistrict",
-                "Type": "enumerated",
-                "EnumeratedList": "[\"subdistrict\",\"village\",\"rw\"]"
-              },
-              {
-                "Name": "hours",
-                "Description": "Specifies the duration of the count, hours={1|3|6}. If unspecified defaults to past 1 hour.",
-                "Required": "N",
-                "Default": "1",
-                "Type": "enumerated",
-                "EnumeratedList": "[1,3,6]"
-              }
-            ]
-          },
-          {
-            "MethodName": "archive",
-            "Synopsis": "Access historical counts of flood reports per RW are in 1 hour blocks",
-            "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v2/aggregates/archive",
-            "RequiresOAuth": "N",
-            "parameters": [
-              {
-                "Name": "start_time",
-                "Description": "The date and time of the start of the aggregate period as an ISO8601 string, representing a time from 1970-01-01T00:00:00Z until now. Note that basic form cannot be used and extended form (with hyphens and colons) must be used.",
-                "Required": "N",
-                "Default": "time of request",
-                "Type": "ISO8601 String"
-              },
-              {
-                "Name": "blocks",
-                "Description": "The number of 1-hour blocks to return, starting at 'start_time'.",
-                "Required": "N",
-                "Default": "6",
-                "Type": "integer"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "/data/api/v2/infrastructure",
-        "short": "infrastructure",
-        "methods": [
-          {
-            "MethodName": "floodgates",
-            "Synopsis": "Floodgates in Jakarta represented by point geometry",
-            "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/floodgates",
-            "RequiresOAuth": "N"
-          },
-          {
-            "MethodName": "pumps",
-            "Synopsis": "Pump stations in Jakarta represented by point geometry",
-            "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/pumps",
-            "RequiresOAuth": "N"
-          },
-          {
-            "MethodName": "waterways",
-            "Synopsis": "Rivers and canals in Jakarta represented by line geometry",
-            "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/waterways",
-            "RequiresOAuth": "N"
-          }
-        ]
-      }
-    ]
   },
   "api_v2": {
     "endpoints": [
