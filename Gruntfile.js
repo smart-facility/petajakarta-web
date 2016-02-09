@@ -64,7 +64,7 @@ module.exports = function(grunt) {
       },
 
       en_data: {
-        files: {'build/banjir/en/data/*.html': 'banjir/assets/templates/data/*.hbs'},
+        files: {'build/banjir/en/data/*.html': 'banjir/assets/templates/data/*/*.hbs'},
         options: {json: 'banjir/assets/translations/en.json'}
       },
 
