@@ -100,11 +100,12 @@
           <h1>{{{data.v2.api.title}}}</h1>
           <p class="lead">{{{data.v2.api.description}}}</p>
           {{#each api_v2.endpoints}}
-            <a name="{{short}}" style="padding-top: 40px; margin-top: -40px;"></a>
+            <a name="{{short}}" class="anchor"></a>
             <h2>{{name}}</h2>
 
             {{#each methods}}
               {{#if MethodName}}
+              <a name="{{MethodName}}" class="anchor"></a>
                 <h3>{{MethodName}}</h3>
               {{/if}}
               <p class="lead">{{Synopsis}}</p>

@@ -119,38 +119,38 @@
           "fields": [
             {
               "name": "PetaJakarta.org flood reports",
-              "url": "#",
+              "url": "#reports",
               "description": "Confirmed locations of flooding as reported by Jakarta residents using Twitter, Qlue and Detik (pasangmata.com)"
 
             },
             {
               "name": "FloodWatch",
-              "url": "#",
+              "url": "#floodwatch",
               "description": "PetaJakarta.org flood reports, organised by city"
             },
             {
               "name": "Flood affected areas",
-              "url": "#",
+              "url": "#flooded",
               "description": "RW districts currently affected by flooding, as published by the Jakarta Emergency Management Agency (BPBD DKI). Includes water depth where available."
             },
             {
               "name": "River Gauges",
-              "url": "#",
-              "description": "Current river heights at gauges as published by the Jakarta Emergency Management Agency (BPBD DKI)."
+              "url": "#floodgauges",
+              "description": "Current river heights at 'flood gauges' as published by the Jakarta Emergency Management Agency (BPBD DKI)."
             },
             {
               "name": "Waterways",
-              "url": "#",
+              "url": "#waterways",
               "description": "Line geometries representing the river and canal network in Jakarta"
             },
             {
               "name":  "Pumps",
-              "url": "#",
+              "url": "#pumps",
               "description": "Point geometries representing the location of pump stations in Jakarta"
             },
             {
               "name": "Floodgates",
-              "url": "#",
+              "url": "#floodgates",
               "description": "Point geometries representing the location of floodgates in Jakarta"
             }
           ]
@@ -565,7 +565,7 @@
     "endpoints": [
       {
         "name": "data/api/v2/reports/confirmed",
-        "short": "confirmed reports",
+        "short": "reports",
         "methods": [
           {
             "Synopsis": "Confirmed flood reports",
@@ -641,7 +641,7 @@
       },
       {
         "name": "data/api/v2/reports/confirmed/:id",
-        "short": "confirmed report",
+        "short": "report",
         "methods": [
           {
             "Synopsis": "Confirmed flood report specified by numeric id",
@@ -755,7 +755,7 @@
                   },
                   {
                     "field": "st_asgeojson",
-                    "description": "Geographical representation of floodgate location",
+                    "description": "Geographical representation of flood report location",
                     "type": "Point / WGS84 (EPSG 4326)"
                   },
                   {
@@ -776,7 +776,7 @@
       },
       {
         "name": "https://rem.petajakarta.org/banjir/data/api/v2/rem/flooded",
-        "short": "flooded areas",
+        "short": "flooded",
         "methods": [
           {
             "Synopsis": "Flood affected areas",
@@ -831,9 +831,9 @@
         "methods": [
           {
             "MethodName": "floodgauges",
-            "Synopsis": "Locations of floodgauges and current water levels",
+            "Synopsis": "Locations of floodgauges (river gauges) and current water levels",
             "HTTPMethod": "GET",
-            "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/floodgates",
+            "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/floodgauges",
             "RequiresOAuth": "N",
             "parameters": [
               {
