@@ -129,7 +129,7 @@
               "name": "Flood affected areas",
               "url": "#flooded",
               "description": "RW districts currently affected by flooding, as published by the Jakarta Emergency Management Agency (BPBD DKI). Includes water depth where available",
-              "api": "https://rem.petajakarta.org/banjir/data/api/v2/rem/flooded"
+              "api": "https://rem.petajakarta.org/<BR>banjir/data/api/v2/rem/flooded"
             },
             {
               "name": "River Gauges",
