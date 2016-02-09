@@ -688,6 +688,11 @@
                     "field": "state",
                     "description": "Flood state / height (cm) {0: No flooding, 1: Use caution, 2: 10-70, 3: 71-150, 4: 150>}",
                     "type": "Integer"
+                  },
+                  {
+                    "field": "QueryTime",
+                    "description": "The QueryTime parameter represents the time that the data was retrieved from the server, represented as an ISO 8601 string. In absence of other timestamps in the returned data, such as with live data from the REM flooded API, the QueryTime can be interpreted as the timestamp attributed to that data. That is, the data returned reflects the conditions/measurements at the time represented by the QueryTime parameter.",
+                    "type": "String (ISO 8601 datetime)"
                   }
                 ]
               }
