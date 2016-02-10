@@ -609,7 +609,7 @@
                 "Required": "N",
                 "Default": "subdistrict",
                 "Type": "enumerated",
-                "EnumeratedList": "[\"JAKARTA PUSAT\",\"JAKARTA TIMUR\",\"JAKARTA SELATAN\",\"JAKARTA UTARA\",\"JAKARTA BARAT\"]"
+                "EnumeratedList": "[\"JAKARTA PUSAT\",\"JAKARTA TIMUR\",<BR>\"JAKARTA SELATAN\",\"JAKARTA UTARA\",\"JAKARTA BARAT\"]"
               }
             ],
             "tblAttributes": [
