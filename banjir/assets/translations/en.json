@@ -234,7 +234,7 @@
     "card":{
       "image":"https://petajakarta.org/banjir/img/geocard_EN.png",
       "title":"Enable geolocation to report flooding",
-      "description":"Follow these steps to enable geolocoation and add your flood report to the map"
+      "description":"Follow these steps to enable geolocation and add your flood report to the map"
       },
     "step1": {
       "image":"step1_EN.png",
