@@ -232,7 +232,7 @@
   "twttr_geo": {
     "title": "Enable Twitter geolocation",
     "card":{
-      "image":"https://petajakarta.org/banjir/img/geocard_EN.png",
+      "image":"https://petajakarta.org/banjir/img/geocard_EN.jpg",
       "title":"Enable geolocation to report flooding",
       "description":"Follow these steps to enable geolocation and add your flood report to the map"
       },
