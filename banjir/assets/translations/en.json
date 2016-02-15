@@ -229,6 +229,30 @@
       "content": "PetaJakarta.org is supported by the University of Wollongong Global Challenges Program, DMInnovation, and the Department of Foreign Affairs and Trade of the Government of Australia. The Australian National Data Service supports the development and maintenance of the open data and open source software."
     }
   },
+  "twttr_geo": {
+    "title": "Enable Twitter geolocation",
+    "card":{
+      "image":"https://petajakarta.org/banjir/img/geocard_EN.png",
+      "title":"Enable geolocation to report flooding",
+      "description":"Follow these steps to enable geolocoation and add your flood report to the map"
+      },
+    "step1": {
+      "image":"step1_EN.png",
+      "text":"1. Tap location marker"
+    },
+    "step2": {
+      "image":"step2_EN.png",
+      "text":"2. Toggle on ‘share precise location’ button"
+    },
+    "step3": {
+      "image":"step3_EN.png",
+      "text":"3. Tap ‘done’"
+    },
+    "step4": {
+      "image":"step4_EN.png",
+      "text":"4. Tweet report"
+    }
+  },
   "confirmed-reports": {
     "title": "Confirmed reports from the last hour",
     "instructions": "Click to a report to see its location on the map",

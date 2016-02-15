@@ -159,6 +159,30 @@
       "content": "PetaJakarta.org didukung oleh University of Wollongong Global Challenges Program, DMInnovation, dan Department of Foreign Affairs and Trade of the Government of Australia.  Australian National Data Service mendukung pengembangan dan pemeliharaan data terbuka dan perangkat lunak terbuka."
     }
   },
+  "twttr_geo": {
+    "title": "Aktifkan Twitter geolokasi",
+    "card":{
+      "image":"https://petajakarta.org/banjir/img/geocard_BI.jpg",
+      "title":"Aktifkan geolocation dan laporan banjir",
+      "description":"Ikuti langkah-langkah untuk menambahkan laporan banjir Anda ke peta"
+      },
+    "step1": {
+      "image":"step1_BI.png",
+      "text":"1. Sentuh penanda lokasi"
+    },
+    "step2": {
+      "image":"step2_BI.png",
+      "text":"2. Aktifkan 'sebarkan lokasi yang tepat'"
+    },
+    "step3": {
+      "image":"step3_BI.png",
+      "text":"3. Sentuh 'selesai'"
+    },
+    "step4": {
+      "image":"step4_BI.png",
+      "text":"4. Tweet laporan"
+    }
+  },
   "confirmed-reports": {
     "title": "Laporan dikonfirmasi dari jam terakhir",
     "instructions": "Klik laporan untuk melihat lokasi pada peta",
