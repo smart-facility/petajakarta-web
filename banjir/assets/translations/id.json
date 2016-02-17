@@ -464,7 +464,7 @@
       "methods": [
         {
           "Synopsis": "Laporan banjir terkonfirmasi",
-          "Results": "Results",
+          "Results": "Hasil",
           "HTTPMethod": "GET",
           "URI": "https://petajakarta.org/banjir/data/api/v2/reports/confirmed",
           "RequiresOAuth": "N",
@@ -489,7 +489,7 @@
           ],
           "tblAttributes": [
             {
-              "hField": "Nama",
+              "hField": "Isian",
               "hDescription": "Deskripsi",
               "hType": "Tipe",
               "fields": [
@@ -549,79 +549,79 @@
       "short": "report",
       "methods": [
         {
-          "Synopsis": "Confirmed flood report specified by numeric id",
-          "Results": "Results",
+          "Synopsis": "Laporan banjir terkonfirmasi yang dispesifikasi oleh id numerik",
+          "Results": "Hasil",
           "HTTPMethod": "GET",
           "URI": "https://petajakarta.org/banjir/data/api/v2/reports/confirmed/22",
           "RequiresOAuth": "N",
           "tblParameters":[
             {
-              "hName": "Field",
-              "hDescription": "Description",
-              "hRequired": "Required",
-              "hType": "Type",
-              "hOptions": "Options"
+              "hName": "Nama",
+              "hDescription": "Deskripsi",
+              "hRequired": "Syarat",
+              "hType": "Tipe",
+              "hOptions": "Pilihan"
             }
           ],
           "parameters": [
             {
               "Name": "format",
-              "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
               "Required": "N",
               "Default": "geojson",
-              "Type": "enumerated",
+              "Type": "enumerasi",
               "EnumeratedList": "[\"geojson\",\"topojson\"]"
             }
           ],
           "tblAttributes": [
             {
-              "hField": "Field",
-              "hDescription": "Description",
-              "hType": "Type",
+              "hField": "Isian",
+              "hDescription": "Deskripsi",
+              "hType": "Tipe",
               "fields": [
                 {
                   "field": "pkey",
-                  "description": "Unique Identifier",
-                  "type": "Integer"
+                  "description": "Penanda unik",
+                  "type": "Bilangan bulat"
                 },
                 {
                   "field": "geometry",
-                  "description": "Geographical representation of flood report location",
-                  "type": "Point / WGS84 (EPSG 4326)"
+                  "description": "Representasi geografis lokasi laporan banjir",
+                  "type": "Poin / WGS84 (EPSG 4326)"
                 },
                 {
                   "field": "created_at",
-                  "description": "Report creation time",
+                  "description": "Waktu pembuatan laporan",
                   "type": "String (ISO 8601 datetime)"
                 },
                 {
                   "field": "source",
-                  "description": "Data source {Twitter | Qlue | Detik}",
+                  "description": "Sumber data {Twitter | Qlue | Detik}",
                   "type": "String"
                 },
                 {
                   "field": "status",
-                  "description": "Report status {Confirmed | Verified (by BPBD DKI)}",
+                  "description": "Status laporan {Terkonfirmasi | Diverifikasi (oleh BPBD DKI)}",
                   "type": "String"
                 },
                 {
                   "field": "url",
-                  "description": "URL to report source, if available",
+                  "description": "URL ke sumber laporan, jika tersedia",
                   "type": "String"
                 },
                 {
                   "field": "image_url",
-                  "description": "URL to images in report, if available",
+                  "description": "URL ke foto dalam laporan, jika tersedia",
                   "type": "String"
                 },
                 {
                   "field": "title",
-                  "description": "Title of report, if available",
+                  "description": "Judul laporan, jika tersedia",
                   "type": "String"
                 },
                 {
                   "field": "text",
-                  "description": "Body of report, if available",
+                  "description": "Teks laporan, jika tersedia",
                   "type": "String"
                 }
               ]
@@ -635,62 +635,62 @@
       "short": "floodwatch",
       "methods": [
         {
-          "Synopsis": "Confirmed flood reports with name of city containing location of report",
-          "Results": "Results",
+          "Synopsis": "Laporan banjir terkonfirmasi dengan keterangan nama kota lokasi laporan",
+          "Results": "Hasil",
           "HTTPMethod": "GET",
           "URI": "https://petajakarta.org/banjir/data/api/v2/floodwatch/reports?area_name=JAKARTA%20SELATAN",
           "RequiresOAuth": "N",
           "tblParameters":[
             {
-              "hName": "Field",
-              "hDescription": "Description",
+              "hName": "Nama",
+              "hDescription": "Deskripsi",
               "hRequired": "Required",
-              "hType": "Type",
-              "hOptions": "Options"
+              "hType": "Tipe",
+              "hOptions": "Pilihan"
             }
           ],
           "parameters": [
             {
               "Name": "format",
-              "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai geojson (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
               "Required": "N",
               "Default": "geojson",
-              "Type": "enumerated",
+              "Type": "enumerasi",
               "EnumeratedList": "[\"geojson\",\"topojson\"]"
             },
             {
               "Name": "area_name",
-              "Description": "Filters reports by city",
+              "Description": "Filter laporan berdasarkan kota",
               "Required": "N",
               "Default": "subdistrict",
-              "Type": "enumerated",
+              "Type": "enumerasi",
               "EnumeratedList": "[\"JAKARTA PUSAT\",\"JAKARTA TIMUR\",<BR>\"JAKARTA SELATAN\",\"JAKARTA UTARA\",\"JAKARTA BARAT\"]"
             }
           ],
           "tblAttributes": [
             {
-              "hField": "Field",
-              "hDescription": "Description",
-              "hType": "Type",
+              "hField": "Isian",
+              "hDescription": "Deskripsi",
+              "hType": "Tipe",
               "fields": [
                 {
                   "field": "pkey",
-                  "description": "Unique Identifier",
-                  "type": "Integer"
+                  "description": "Penanda Unik",
+                  "type": "Bilangan bulat"
                 },
                 {
                   "field": "st_asgeojson",
-                  "description": "Geographical representation of flood report location",
-                  "type": "Point / WGS84 (EPSG 4326)"
+                  "description": "Representasi geografis dari lokasi laporan banjir",
+                  "type": "Titik / WGS84 (EPSG 4326)"
                 },
                 {
                   "field": "created_at",
-                  "description": "Report creation time",
+                  "description": "Waktu pembuatan laporan",
                   "type": "String (ISO 8601 datetime)"
                 },
                 {
                   "field": "area_name",
-                  "description": "City containing report",
+                  "description": "Isian laporan nama kota",
                   "type": "String"
                 }
               ]
@@ -704,64 +704,64 @@
       "short": "flooded",
       "methods": [
         {
-          "Synopsis": "Flood affected areas",
-          "Results": "Results",
+          "Synopsis": "Area terdampak banjir",
+          "Results": "Hasil",
           "HTTPMethod": "GET",
           "URI": "https://rem.petajakarta.org/banjir/data/api/v2/rem/flooded",
           "RequiresOAuth": "N",
           "tblParameters":[
             {
-              "hName": "Field",
-              "hDescription": "Description",
-              "hRequired": "Required",
-              "hType": "Type",
-              "hOptions": "Options"
+              "hName": "Nama",
+              "hDescription": "Deskripsi",
+              "hRequired": "Syarat",
+              "hType": "Tipe",
+              "hOptions": "Pilihan"
             }
           ],
           "parameters": [
             {
               "Name": "format",
-              "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai geojson (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
               "Required": "N",
               "Default": "geojson",
-              "Type": "enumerated",
+              "Type": "enumerasi",
               "EnumeratedList": "[\"geojson\",\"topojson\"]"
             }
           ],
           "tblAttributes": [
             {
-              "hField": "Field",
-              "hDescription": "Description",
-              "hType": "Type",
+              "hField": "Isian",
+              "hDescription": "Deskripsi",
+              "hType": "Tipe",
               "fields": [
                 {
                   "field": "pkey",
-                  "description": "Unique Region Identifier",
-                  "type": "Integer"
+                  "description": "Penanda unik wilayah",
+                  "type": "Bilangan bulat"
                 },
                 {
                   "field": "geometry",
-                  "description": "Polygon of affected area",
-                  "type": "Polygon / WGS84 (EPSG 4326)"
+                  "description": "Poligon dari area terdampak",
+                  "type": "Poligon / WGS84 (EPSG 4326)"
                 },
                 {
                   "field": "level_name",
-                  "description": "Name of affected rukun warga (RW)",
+                  "description": "Nama Rukun Warga (RW) yang terdampak",
                   "type": "String"
                 },
                 {
                   "field": "parent_name",
-                  "description": "Name of parent administrative village (kelurahan) containing specified 'RW'",
+                  "description": "Nama Kelurahan dengan RW tertentu",
                   "type": "String"
                 },
                 {
                   "field": "state",
-                  "description": "Flood state / height (cm) {0: No flooding, 1: Use caution, 2: 10-70, 3: 71-150, 4: 150>}",
-                  "type": "Integer"
+                  "description": "Penggolongan tinggi genangan (cm) {0: Tidak banjir, 1: Hati-hati, 2: 10-70, 3: 71-150, 4: 150>}",
+                  "type": "Bilangan bulat"
                 },
                 {
                   "field": "QueryTime",
-                  "description": "The QueryTime parameter represents the time that the data was retrieved from the server, represented as an ISO 8601 string. In absence of other timestamps in the returned data, such as with live data from the REM flooded API, the QueryTime can be interpreted as the timestamp attributed to that data. That is, the data returned reflects the conditions/measurements at the time represented by the QueryTime parameter.",
+                  "description": "Parameter QueryTime merepresentasikan kapan data diambil dari server, sebagai string ISO 8601. Bila tidak terdapat keterangan waktu pada data yang ditarik, seperti pada data live banjir REM API, QueryTime akan direpresentasikan sebagai atribut keterangan waktu pada data tersebut. Artinya, data yang ditarik mencerminkan kondisi/pengukuran pada waktu yang sama sesuai yang direpresentasikan oleh parameter QueryTime.",
                   "type": "String (ISO 8601 datetime)"
                 }
               ]
@@ -776,33 +776,33 @@
       "methods": [
         {
           "MethodName": "floodgauges",
-          "Synopsis": "Locations of floodgauges (river gauges) and current water levels",
-          "Results": "Results",
+          "Synopsis": "Lokasi pengukur Tinggi Muka Air dan level ketinggian air terkini",
+          "Results": "Hasil",
           "HTTPMethod": "GET",
           "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/floodgauges",
           "RequiresOAuth": "N",
           "tblParameters":[
             {
-              "hName": "Field",
-              "hDescription": "Description",
-              "hRequired": "Required",
-              "hType": "Type",
-              "hOptions": "Options"
+              "hName": "Nama",
+              "hDescription": "Deskripsi",
+              "hRequired": "Syarat",
+              "hType": "Tipe",
+              "hOptions": "Pilihan"
             }
           ],
           "parameters": [
             {
               "Name": "format",
-              "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai geojson (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
               "Required": "N",
               "Default": "geojson",
-              "Type": "enumerated",
+              "Type": "enumerasi",
               "EnumeratedList": "[\"geojson\",\"topojson\"]"
             }
           ],
           "tblAttributes": [
             {
-              "hField": "Field",
+              "hField": "Isian",
               "hDescription": "Description",
               "hType": "Type",
               "fields": [
@@ -849,7 +849,7 @@
           "RequiresOAuth": "N",
           "tblParameters":[
             {
-              "hName": "Field",
+              "hName": "Nama",
               "hDescription": "Description",
               "hRequired": "Required",
               "hType": "Type",
@@ -868,7 +868,7 @@
           ],
           "tblAttributes": [
             {
-              "hField": "Field",
+              "hField": "Isian",
               "hDescription": "Description",
               "hType": "Type",
               "fields": [
@@ -895,7 +895,7 @@
           "RequiresOAuth": "N",
           "tblParameters":[
             {
-              "hName": "Field",
+              "hName": "Nama",
               "hDescription": "Description",
               "hRequired": "Required",
               "hType": "Type",
@@ -913,7 +913,7 @@
             }
           ],"tblAttributes": [
             {
-              "hField": "Field",
+              "hField": "Isian",
               "hDescription": "Description",
               "hType": "Type",
               "fields": [
@@ -940,7 +940,7 @@
           "RequiresOAuth": "N",
           "tblParameters":[
             {
-              "hName": "Field",
+              "hName": "Nama",
               "hDescription": "Description",
               "hRequired": "Required",
               "hType": "Type",
@@ -959,7 +959,7 @@
           ],
           "tblAttributes": [
             {
-              "hField": "Field",
+              "hField": "Isian",
               "hDescription": "Description",
               "hType": "Type",
               "fields": [
