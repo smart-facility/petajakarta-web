@@ -96,7 +96,9 @@
     },
     "contact":{
       "title": "Contact",
-      "text": "You can contact the PetaJakarta.org team via email or Twitter."
+      "text": "You can contact the PetaJakarta.org team via email or Twitter.",
+      "email": "Email: <a href='mailto:info@petajakarta.org'>info@petajakarta.org</a>",
+      "twitter": "Twitter: <a href='https://twitter.com/petajkt' target='_blank'>@petajkt</a>"
     },
     "download":{
       "title": "Download",
@@ -463,9 +465,19 @@
         "methods": [
           {
             "Synopsis": "Confirmed flood reports",
+            "Results": "Results",
             "HTTPMethod": "GET",
             "URI": "https://petajakarta.org/banjir/data/api/v2/reports/confirmed",
             "RequiresOAuth": "N",
+            "tblParameters":[
+              {
+                "hName": "Field",
+                "hDescription": "Description",
+                "hRequired": "Required",
+                "hType": "Type",
+                "hOptions": "Options"
+              }
+            ],
             "parameters": [
               {
                 "Name": "format",
@@ -539,9 +551,19 @@
         "methods": [
           {
             "Synopsis": "Confirmed flood report specified by numeric id",
+            "Results": "Results",
             "HTTPMethod": "GET",
             "URI": "https://petajakarta.org/banjir/data/api/v2/reports/confirmed/22",
             "RequiresOAuth": "N",
+            "tblParameters":[
+              {
+                "hName": "Field",
+                "hDescription": "Description",
+                "hRequired": "Required",
+                "hType": "Type",
+                "hOptions": "Options"
+              }
+            ],
             "parameters": [
               {
                 "Name": "format",
@@ -615,9 +637,19 @@
         "methods": [
           {
             "Synopsis": "Confirmed flood reports with name of city containing location of report",
+            "Results": "Results",
             "HTTPMethod": "GET",
             "URI": "https://petajakarta.org/banjir/data/api/v2/floodwatch/reports?area_name=JAKARTA%20SELATAN",
             "RequiresOAuth": "N",
+            "tblParameters":[
+              {
+                "hName": "Field",
+                "hDescription": "Description",
+                "hRequired": "Required",
+                "hType": "Type",
+                "hOptions": "Options"
+              }
+            ],
             "parameters": [
               {
                 "Name": "format",
@@ -674,9 +706,19 @@
         "methods": [
           {
             "Synopsis": "Flood affected areas",
+            "Results": "Results",
             "HTTPMethod": "GET",
             "URI": "https://rem.petajakarta.org/banjir/data/api/v2/rem/flooded",
             "RequiresOAuth": "N",
+            "tblParameters":[
+              {
+                "hName": "Field",
+                "hDescription": "Description",
+                "hRequired": "Required",
+                "hType": "Type",
+                "hOptions": "Options"
+              }
+            ],
             "parameters": [
               {
                 "Name": "format",
@@ -736,9 +778,19 @@
           {
             "MethodName": "floodgauges",
             "Synopsis": "Locations of floodgauges (river gauges) and current water levels",
+            "Results": "Results",
             "HTTPMethod": "GET",
             "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/floodgauges",
             "RequiresOAuth": "N",
+            "tblParameters":[
+              {
+                "hName": "Field",
+                "hDescription": "Description",
+                "hRequired": "Required",
+                "hType": "Type",
+                "hOptions": "Options"
+              }
+            ],
             "parameters": [
               {
                 "Name": "format",
@@ -792,9 +844,19 @@
           {
             "MethodName": "floodgates",
             "Synopsis": "Floodgates in Jakarta represented by point geometry",
+            "Results": "Results",
             "HTTPMethod": "GET",
             "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/floodgates",
             "RequiresOAuth": "N",
+            "tblParameters":[
+              {
+                "hName": "Field",
+                "hDescription": "Description",
+                "hRequired": "Required",
+                "hType": "Type",
+                "hOptions": "Options"
+              }
+            ],
             "parameters": [
               {
                 "Name": "format",
@@ -828,9 +890,19 @@
           {
             "MethodName": "pumps",
             "Synopsis": "Pump stations in Jakarta represented by point geometry",
+            "Results": "Results",
             "HTTPMethod": "GET",
             "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/pumps",
             "RequiresOAuth": "N",
+            "tblParameters":[
+              {
+                "hName": "Field",
+                "hDescription": "Description",
+                "hRequired": "Required",
+                "hType": "Type",
+                "hOptions": "Options"
+              }
+            ],
             "parameters": [
               {
                 "Name": "format",
@@ -863,9 +935,19 @@
           {
             "MethodName": "waterways",
             "Synopsis": "Rivers and canals in Jakarta represented by line geometry",
+            "Results": "Results",
             "HTTPMethod": "GET",
             "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/waterways",
             "RequiresOAuth": "N",
+            "tblParameters":[
+              {
+                "hName": "Field",
+                "hDescription": "Description",
+                "hRequired": "Required",
+                "hType": "Type",
+                "hOptions": "Options"
+              }
+            ],
             "parameters": [
               {
                 "Name": "format",

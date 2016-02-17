@@ -92,8 +92,8 @@
             <p class="lead">{{{data.v2.archive.text}}}</p>
             <!--Contact-->
             <h3><a name="contact"></a>{{data.contact.title}}</h3>
-            <p class="lead">Email: <a href="mailto:info@petajakarta.org">info@petajakarta.org</a><BR>Twitter:
-            <a href="https://twitter.com/petajkt" target="_blank">@petajkt</a>
+            <p class="lead">{{{data.contact.email}}}<BR>
+              {{{data.contact.twitter}}}
             </p>
           </div>
         </div>
@@ -112,18 +112,19 @@
               {{/if}}
               <p class="lead">{{Synopsis}}</p>
               <p><pre><strong>{{HTTPMethod}}</strong> <a href={{URI}} target="_blank">{{URI}}</a></pre></p>
-
               {{#if parameters}}
                 <h4>Parameters</h4>
                 <table class="table">
                 <thead>
+                {{#each tblParameters}}
                   <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Required</th>
-                    <th>Type</th>
-                    <th>Options</th>
+                    <th>{{hName}}</th>
+                    <th>{{hDescription}}</th>
+                    <th>{{hRequired}}</th>
+                    <th>{{hType}}</th>
+                    <th>{{hOptions}}</th>
                   </tr>
+                {{/each}}
                 </thead>
                   <tbody>
                     {{#each parameters}}
@@ -142,7 +143,7 @@
                   </tbody>
                 </table>
               {{/if}}
-              <h4>Results</h4>
+              <h4>{{Results}}</h4>
               <table class="table table-responsive table-hover">
               {{#each tblAttributes}}
               <thead>

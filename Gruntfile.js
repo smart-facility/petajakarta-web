@@ -99,7 +99,7 @@ module.exports = function(grunt) {
       },
       id_data_v2: {
         files: {'build/banjir/id/data/v2/*.html': 'banjir/assets/templates/data/v2/*.hbs'},
-        options: {json: 'banjir/assets/translations/en.json'}
+        options: {json: 'banjir/assets/translations/id.json'}
       },
       id_research: {
         files: {'build/banjir/id/research*.html': 'banjir/assets/templates/research/*.hbs'},
