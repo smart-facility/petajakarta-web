@@ -174,7 +174,7 @@
       },
       "licensing":{
         "title": "Lisensi",
-        "text":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by/4.0/deed.id\">Creative Commons Atribusi 4.0 Internasional Lisensi</a>."
+        "text":"<a rel=\"license\" target=\"_blank\" href=\"http://creativecommons.org/licenses/by/4.0/deed.id\">Creative Commons Atribusi 4.0 Internasional Lisensi</a>."
       },
       "api":{
         "title": "Data API v2.0",
@@ -644,7 +644,7 @@
             {
               "hName": "Nama",
               "hDescription": "Deskripsi",
-              "hRequired": "Required",
+              "hRequired": "Syarat",
               "hType": "Tipe",
               "hOptions": "Pilihan"
             }
@@ -803,37 +803,37 @@
           "tblAttributes": [
             {
               "hField": "Isian",
-              "hDescription": "Description",
-              "hType": "Type",
+              "hDescription": "Deskripsi",
+              "hType": "Tipe",
               "fields": [
                 {
                   "field": "gaugeid",
-                  "description": "Unique Gauge Identifier",
+                  "description": "Penanda unik pengukur tinggi muka air",
                   "type": "String"
                 },
                 {
                   "field": "gaugenameid",
-                  "description": "Gauge name (Bahasa Indonesian)",
+                  "description": "Nama tinggi muka air (Bahasa Indonesia)",
                   "type": "String"
                 },
                 {
                   "field": "measuredatetime",
-                  "description": "Timestamp of observation (WIB)",
+                  "description": "Keterangan waktu saat observasi (WIB)",
                   "type": "String (ISO 8601 datetime)"
                 },
                 {
                   "field": "depth",
-                  "description": "Water height (cm)",
-                  "type": "Integer"
+                  "description": "Tinggi air (cm)",
+                  "type": "Bilangan bulat"
                 },
                 {
                   "field": "warninglevel",
-                  "description": "Warning level",
-                  "type": "Integer"
+                  "description": "Level Siaga",
+                  "type": "Bilangan bulat"
                 },
                 {
                   "field": "warninglevelid",
-                  "description": "Warning level name (Bahasa Indonesian)",
+                  "description": "Nama level siaga (Bahasa Indonesia)",
                   "type": "String"
                 }
               ]
@@ -842,45 +842,45 @@
         },
         {
           "MethodName": "floodgates",
-          "Synopsis": "Floodgates in Jakarta represented by point geometry",
-          "Results": "Results",
+          "Synopsis": "Pintu air di Jakarta diwakili oleh titik geometri",
+          "Results": "Hasil",
           "HTTPMethod": "GET",
           "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/floodgates",
           "RequiresOAuth": "N",
           "tblParameters":[
             {
               "hName": "Nama",
-              "hDescription": "Description",
-              "hRequired": "Required",
-              "hType": "Type",
-              "hOptions": "Options"
+              "hDescription": "Deskripsi",
+              "hRequired": "Syarat",
+              "hType": "Tipe",
+              "hOptions": "Pilihan"
             }
           ],
           "parameters": [
             {
               "Name": "format",
-              "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai geojson (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
               "Required": "N",
               "Default": "geojson",
-              "Type": "enumerated",
+              "Type": "enumerasi",
               "EnumeratedList": "[\"geojson\",\"topojson\"]"
             }
           ],
           "tblAttributes": [
             {
               "hField": "Isian",
-              "hDescription": "Description",
-              "hType": "Type",
+              "hDescription": "Deskripsi",
+              "hType": "Tipe",
               "fields": [
                 {
-                  "field": "name",
-                  "description": "Name of floodgate",
+                  "field": "nama",
+                  "description": "Nama pintu air",
                   "type": "String"
                 },
                 {
                   "field": "geometry",
-                  "description": "Geographical representation of floodgate location",
-                  "type": "Point / WGS84 (EPSG 4326)"
+                  "description": "Representasi geografis lokasi pintu air",
+                  "type": "Poin / WGS84 (EPSG 4326)"
                 }
               ]
             }
@@ -888,44 +888,44 @@
         },
         {
           "MethodName": "pumps",
-          "Synopsis": "Pump stations in Jakarta represented by point geometry",
-          "Results": "Results",
+          "Synopsis": "Rumah pompa di Jakarta diwakili oleh titik geometri",
+          "Results": "Hasil",
           "HTTPMethod": "GET",
           "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/pumps",
           "RequiresOAuth": "N",
           "tblParameters":[
             {
               "hName": "Nama",
-              "hDescription": "Description",
-              "hRequired": "Required",
-              "hType": "Type",
-              "hOptions": "Options"
+              "hDescription": "Deskripsi",
+              "hRequired": "Syarat",
+              "hType": "Tipe",
+              "hOptions": "Pilihan"
             }
           ],
           "parameters": [
             {
               "Name": "format",
-              "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai geojson (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
               "Required": "N",
               "Default": "geojson",
-              "Type": "enumerated",
+              "Type": "enumerasi",
               "EnumeratedList": "[\"geojson\",\"topojson\"]"
             }
           ],"tblAttributes": [
             {
               "hField": "Isian",
-              "hDescription": "Description",
-              "hType": "Type",
+              "hDescription": "Deskripsi",
+              "hType": "Tipe",
               "fields": [
                 {
-                  "field": "name",
-                  "description": "Name of pump",
+                  "field": "Nama",
+                  "description": "Nama pompa",
                   "type": "String"
                 },
                 {
                   "field": "geometry",
-                  "description": "Geographical representation of pump location",
-                  "type": "Point / WGS84 (EPSG 4326)"
+                  "description": "Representasi geografis lokasi pompa",
+                  "type": "Poin / WGS84 (EPSG 4326)"
                 }
               ]
             }
@@ -933,7 +933,7 @@
         },
         {
           "MethodName": "waterways",
-          "Synopsis": "Rivers and canals in Jakarta represented by line geometry",
+          "Synopsis": "Sungai dan kanal di Jakarta diwakili oleh garis geometri",
           "Results": "Results",
           "HTTPMethod": "GET",
           "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/waterways",
@@ -941,36 +941,36 @@
           "tblParameters":[
             {
               "hName": "Nama",
-              "hDescription": "Description",
-              "hRequired": "Required",
-              "hType": "Type",
-              "hOptions": "Options"
+              "hDescription": "Deskripsi",
+              "hRequired": "Syarat",
+              "hType": "Tipe",
+              "hOptions": "Pilihan"
             }
           ],
           "parameters": [
             {
               "Name": "format",
-              "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai geojson (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
               "Required": "N",
               "Default": "geojson",
-              "Type": "enumerated",
+              "Type": "enumerasi",
               "EnumeratedList": "[\"geojson\",\"topojson\"]"
             }
           ],
           "tblAttributes": [
             {
               "hField": "Isian",
-              "hDescription": "Description",
-              "hType": "Type",
+              "hDescription": "Deskripsi",
+              "hType": "Tipe",
               "fields": [
                 {
-                  "field": "name",
-                  "description": "Name of waterway",
+                  "field": "Nama",
+                  "description": "Nama jalur air",
                   "type": "String"
                 },
                 {
                   "field": "geometry",
-                  "description": "Geographical representation of waterway location",
+                  "description": "Representasi geografis lokasi jalur air",
                   "type": "LineString / WGS84 (EPSG 4326)"
                 }
               ]

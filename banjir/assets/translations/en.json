@@ -170,7 +170,7 @@
       },
       "licensing":{
         "title": "License",
-        "text":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by/4.0/\">Creative Commons Attribution 4.0 International License</a>."
+        "text":"<a rel=\"license\" target=\"_blank\" href=\"http://creativecommons.org/licenses/by/4.0/\">Creative Commons Attribution 4.0 International License</a>."
       },
       "api":{
         "title": "Data API v2.0",
