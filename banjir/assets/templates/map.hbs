@@ -18,7 +18,9 @@
     <link href='https://fonts.googleapis.com/css?family=Lato:100,300,400,900' rel='stylesheet' type='text/css'>
 
     <!-- Site stylesheet -->
-    <link href="/{{site.url-prefix}}/css/application.min.css" rel="stylesheet">
+    <link href="/{{site.url-prefix}}/css/common.min.css" rel="stylesheet">
+    <link href="/{{site.url-prefix}}/css/site.min.css" rel="stylesheet">
+    <link href="/{{site.url-prefix}}/css/map.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -69,7 +71,7 @@
               <div class="modal-body" id="modal-reports-body" style="height:300px; overflow:scroll;">
               </div>
               <div class="modal-footer">
-                <div class="pull-left"><label><input type="checkbox" autocomplete="off" onclick="toggle_timestamp(this.checked);">{{{confirmed-reports.timestamp}}}</label></div>
+                <div class="pull-left"><label><input type="checkbox" autocomplete="off" onclick="petajakarta.toggle_timestamp(this.checked);">{{{confirmed-reports.timestamp}}}</label></div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div><!-- /.modal-content -->
@@ -96,13 +98,12 @@
         </div><!-- /.modal -->
       </div>
       <div id="content">
-        <div id="map"></div>
+        <div id="map" class="map site"></div>
       </div>
     </div>
 
   <!-- Site JavaScript -->
-  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
 
   <script> //Determine if device is touchscreen/mobile
     window.isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
@@ -112,7 +113,8 @@
     }
   </script>
   <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <script src="/{{site.url-prefix}}/js/application.min.js"></script>
+  <script src="/{{site.url-prefix}}/js/common.min.js"></script>
+  <script src="/{{site.url-prefix}}/js/site.min.js"></script>
   <script src="/{{site.url-prefix}}/js/map.min.js"></script>
 
   <!-- Google analytics -->

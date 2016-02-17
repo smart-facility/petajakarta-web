@@ -1,25 +1,7 @@
-html,
-body {
-  height: 100%;
-  padding:0;
-  margin:0;
-}
-
-#page {
-    min-height: 100%;
-}
-
-#header {
-    height: 40px;
-}
-
-#content {
-    height: auto;
-    width: 100%;
-    position: absolute;
-    top: 0px;
-    bottom: 0;
-}
+/**
+ * Styles used by the petajakarta.org map widget.
+ * E.g. map elements, leaflet panels, etc.
+ */
 
 .leaflet-control-attribution {
   font-size:18px !important;
@@ -27,7 +9,8 @@ body {
 }
 
 /*add space for banner around zoom control*/
-.leaflet-control-zoom, .timestamp {
+.map.site .leaflet-control-zoom, 
+.map.site .timestamp {
   margin-top:55px !important;
 }
 
@@ -291,4 +274,9 @@ label {
 
 .twitter-tweet-rendered{
   width:60% !important;
+}
+
+p {
+    font-size: 24px;
+    font-weight:300;
 }

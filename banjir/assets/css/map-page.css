@@ -1,0 +1,27 @@
+/**
+ * Styles used by the 'Map' page within the petajakarta.org website.
+ * Not needed by the map itself, or on other pages of the website.
+ */
+
+html,
+body {
+  height: 100%;
+  padding:0;
+  margin:0;
+}
+
+#page {
+    min-height: 100%;
+}
+
+#header {
+    height: 40px;
+}
+
+#content {
+    height: auto;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+}

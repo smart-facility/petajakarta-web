@@ -4,34 +4,63 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
-      js: {
-        src: [
-          'banjir/vendor/js/jquery-1.10.2.min.js',
-          'banjir/vendor/js/bootstrap.min.js',
-          'banjir/vendor/js/leaflet.js',
-          'banjir/vendor/js/betterWMS.js',
-          'banjir/vendor/js/leaflet-providers.js',
-          'banjir/vendor/js/L.Control.MousePosition.js',
-          'banjir/vendor/js/leaflet.markercluster.js',
-          'banjir/vendor/js/spin.min.js',
-          'banjir/vendor/js/leaflet.spin.js',
-          'banjir/vendor/js/topojson.js',
-          'banjir/vendor/js/rsvp.js',
-          'banjir/vendor/js/underscore-min.js',
-          'banjir/vendor/js/Chart.min.js',
-          'banjir/vendor/js/jquery.growl.js',
-          'banjir/vendor/js/jquery.scrollUp.min.js',
-          'banjir/vendor/js/url.min.js',
-          'banjir/assets/js/reports.js',
-          'banjir/assets/js/validation.js',
-          'banjir/assets/js/chart.lines.extend.js'
-        ],
-        dest: 'build/banjir/js/application.js'
+      commonJs: {
+          src: [
+            'banjir/vendor/js/jquery-1.10.2.min.js',
+            'banjir/vendor/js/bootstrap.min.js',
+          ],
+          dest: 'build/banjir/js/common.js'
       },
-      css: {
-        src: ['banjir/vendor/css/*.css', 'banjir/assets/css/*.css'],
-        dest: 'build/banjir/css/application.css'
-      }
+      siteJs: {
+        src: [
+          'banjir/vendor/js/jquery.growl.js',
+          'banjir/vendor/js/jquery.scrollUp.min.js'
+        ],
+        dest: 'build/banjir/js/site.js'
+      },
+      mapJs: {
+          src: [
+            'banjir/vendor/js/jquery-1.10.2.min.js',
+            'banjir/vendor/js/leaflet.js',
+            'banjir/vendor/js/leaflet-providers.js',
+            'banjir/vendor/js/L.Control.MousePosition.js',
+            'banjir/vendor/js/leaflet.markercluster.js',
+            'banjir/vendor/js/spin.min.js',
+            'banjir/vendor/js/leaflet.spin.js',
+            'banjir/vendor/js/topojson.js',
+            'banjir/vendor/js/rsvp.js',
+            'banjir/vendor/js/Chart.min.js',
+            'banjir/vendor/js/url.min.js',
+            'banjir/assets/js/reports.js',
+            'banjir/assets/js/validation.js',
+            'banjir/assets/js/map.js'
+          ],
+          dest: 'build/banjir/js/map.js'
+      },
+      commonCss: {
+          src: [
+                'banjir/vendor/css/bootstrap.min.css'
+            ],
+         dest: 'build/banjir/css/common.css'
+      },
+      siteCss: {
+        src: [
+            'banjir/vendor/css/jquery.growl.css',
+            'banjir/assets/css/main.css',
+            'banjir/assets/css/map-page.css'
+        ],
+        dest: 'build/banjir/css/site.css'
+      },
+      mapCss: {
+          src: [
+              'banjir/vendor/css/MarkerCluster.css',
+              'banjir/vendor/css/MarkerCluster.default.css',
+              'banjir/vendor/css/L.Control.MousePosition.css',
+              'banjir/vendor/css/leaflet.css',
+              'banjir/assets/css/map.css'
+          ],
+          dest: 'build/banjir/css/map.css'
+        }
     },
     jshint: {
       beforeconcat: ['banjir/assets/js/**/*.js']
@@ -42,8 +71,9 @@ module.exports = function(grunt) {
       },
       build: {
         files :[
-          {src: 'build/banjir/js/application.js', dest: 'build/banjir/js/application.min.js'},
-          {src: "banjir/assets/js/map.js", dest: "build/banjir/js/map.min.js"}
+          {src: 'build/banjir/js/common.js', dest: 'build/banjir/js/common.min.js'},
+          {src: 'build/banjir/js/site.js', dest: 'build/banjir/js/site.min.js'},
+          {src: "build/banjir/js/map.js", dest: "build/banjir/js/map.min.js"}
         ]
       }
     },
@@ -53,8 +83,11 @@ module.exports = function(grunt) {
         keepSpecialComments: false
       },
       build: {
-        src: 'build/banjir/css/application.css',
-        dest: 'build/banjir/css/application.min.css'
+        files: [
+           {src: 'build/banjir/css/common.css', dest: 'build/banjir/css/common.min.css'},
+           {src: 'build/banjir/css/site.css', dest: 'build/banjir/css/site.min.css'},
+           {src: 'build/banjir/css/map.css', dest: 'build/banjir/css/map.min.css'}
+        ]
       }
     },
     staticHandlebars: {
@@ -116,6 +149,16 @@ module.exports = function(grunt) {
           { expand: true, flatten: true, src: "banjir/vendor/fonts/*", dest: "build/banjir/fonts/"},
           { expand: true, flatten: true, src: "banjir/robots.txt", dest: "build/"}
         ]
+      },
+      // Copy the un-minified JS files into the build directory for development
+      // TODO Is there a nicer way to do this where they're not called *.min.js?
+      devjs: {
+    	  files: [
+   	          {src: 'build/banjir/js/common.js', dest: 'build/banjir/js/common.min.js'},
+   	          {src: 'build/banjir/js/site.js', dest: 'build/banjir/js/site.min.js'},
+	          {src: "banjir/assets/js/analytics.js", dest: "build/banjir/js/analytics.min.js"},
+	          {src: "build/banjir/js/map.js", dest: "build/banjir/js/map.min.js"}
+    	  ]
       }
     },
     connect: {
@@ -130,11 +173,11 @@ module.exports = function(grunt) {
     watch: {
       js: {
         files: 'banjir/assets/js/**/*.js',
-        tasks: ['jshint', 'concat:js', 'uglify:build']
+        tasks: ['jshint', 'concat:commonJs', 'concat:siteJs', 'concat:mapJs', 'copy:devjs']
       },
       css: {
         files: 'banjir/assets/css/**/*.css',
-        tasks: ['concat:css', 'cssmin:build']
+        tasks: ['concat:commonCss', 'concat:siteCss', 'concat:mapCss', 'cssmin:build']
       },
       templates: {
         files: [
@@ -173,10 +216,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jsdoc');
 
   // Tasks
-  grunt.registerTask('assets', ['jshint', 'concat:js', 'uglify:build', 'concat:css', 'cssmin:build', 'copy:images']);
+  grunt.registerTask('assets', ['jshint', 'concat', 'uglify:build', 'cssmin:build', 'copy:images']);
   grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in', 'staticHandlebars:id', 'staticHandlebars:en_data', 'staticHandlebars:en_data_v2', 'staticHandlebars:in_data', 'staticHandlebars:id_data','staticHandlebars:id_data_v2', 'staticHandlebars:en_research', 'staticHandlebars:in_research', 'staticHandlebars:id_research']);
   grunt.registerTask('server', ['assets', 'site', 'concurrent:server']);
   grunt.registerTask('default', ['assets', 'site']);
   grunt.registerTask('docs', ['jsdoc:dist'])
+  grunt.registerTask('dev', ['copy:devjs'])
 
 };
