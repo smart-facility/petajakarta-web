@@ -156,7 +156,7 @@
               "api": "data/api/v2/infrastructure/pumps"
             },
             {
-              "name": "Pinut air",
+              "name": "Pintu air",
               "url": "#floodgates",
               "description": "Poin geometri yang merepresentasikan lokasi pintu air di Jakarta",
               "api": "data/api/v2/infrastructure/floodgates"
@@ -480,7 +480,7 @@
           "parameters": [
             {
               "Name": "format",
-              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau topojson. Jika tidak ditentukan akan default sebagai GeoJSON.",
+              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau TopoJSON. Jika tidak ditentukan akan default sebagai GeoJSON.",
               "Required": "N",
               "Default": "geojson",
               "Type": "enumerasi",
@@ -566,7 +566,7 @@
           "parameters": [
             {
               "Name": "format",
-              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau TopoJSON. Jika tidak ditentukan akan default sebagai GeoJSON.",
               "Required": "N",
               "Default": "geojson",
               "Type": "enumerasi",
@@ -652,7 +652,7 @@
           "parameters": [
             {
               "Name": "format",
-              "Description": "Menentukan format data laporan yang diminta sebagai geojson (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau TopoJSON. Jika tidak ditentukan akan default sebagai GeoJSON.",
               "Required": "N",
               "Default": "geojson",
               "Type": "enumerasi",
@@ -721,7 +721,7 @@
           "parameters": [
             {
               "Name": "format",
-              "Description": "Menentukan format data laporan yang diminta sebagai geojson (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau TopoJSON. Jika tidak ditentukan akan default sebagai GeoJSON.",
               "Required": "N",
               "Default": "geojson",
               "Type": "enumerasi",
@@ -793,7 +793,7 @@
           "parameters": [
             {
               "Name": "format",
-              "Description": "Menentukan format data laporan yang diminta sebagai geojson (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau TopoJSON. Jika tidak ditentukan akan default sebagai GeoJSON.",
               "Required": "N",
               "Default": "geojson",
               "Type": "enumerasi",
@@ -842,7 +842,7 @@
         },
         {
           "MethodName": "floodgates",
-          "Synopsis": "Pintu air di Jakarta diwakili oleh titik geometri",
+          "Synopsis": "Pintu air di Jakarta diwakili oleh poin geometri",
           "Results": "Hasil",
           "HTTPMethod": "GET",
           "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/floodgates",
@@ -859,7 +859,7 @@
           "parameters": [
             {
               "Name": "format",
-              "Description": "Menentukan format data laporan yang diminta sebagai geojson (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau TopoJSON. Jika tidak ditentukan akan default sebagai GeoJSON.",
               "Required": "N",
               "Default": "geojson",
               "Type": "enumerasi",
@@ -888,7 +888,7 @@
         },
         {
           "MethodName": "pumps",
-          "Synopsis": "Rumah pompa di Jakarta diwakili oleh titik geometri",
+          "Synopsis": "Rumah pompa di Jakarta diwakili oleh poin geometri",
           "Results": "Hasil",
           "HTTPMethod": "GET",
           "URI": "https://petajakarta.org/banjir/data/api/v2/infrastructure/pumps",
@@ -905,7 +905,7 @@
           "parameters": [
             {
               "Name": "format",
-              "Description": "Menentukan format data laporan yang diminta sebagai geojson (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau TopoJSON. Jika tidak ditentukan akan default sebagai GeoJSON.",
               "Required": "N",
               "Default": "geojson",
               "Type": "enumerasi",
@@ -950,7 +950,7 @@
           "parameters": [
             {
               "Name": "format",
-              "Description": "Menentukan format data laporan yang diminta sebagai geojson (default) atau topojson. Jika tidak ditentukan akan default sebagai geojson.",
+              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau TopoJSON. Jika tidak ditentukan akan default sebagai GeoJSON.",
               "Required": "N",
               "Default": "geojson",
               "Type": "enumerasi",

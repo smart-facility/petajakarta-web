@@ -481,7 +481,7 @@
             "parameters": [
               {
                 "Name": "format",
-                "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+                "Description": "Defines the format of the requested reports data as either GeoJSON (default) or TopoJSON. If unspecified will default to GeoJSON.",
                 "Required": "N",
                 "Default": "geojson",
                 "Type": "enumerated",
@@ -567,7 +567,7 @@
             "parameters": [
               {
                 "Name": "format",
-                "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+                "Description": "Defines the format of the requested reports data as either GeoJSON (default) or TopoJSON. If unspecified will default to GeoJSON.",
                 "Required": "N",
                 "Default": "geojson",
                 "Type": "enumerated",
@@ -653,7 +653,7 @@
             "parameters": [
               {
                 "Name": "format",
-                "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+                "Description": "Defines the format of the requested reports data as either GeoJSON (default) or TopoJSON. If unspecified will default to GeoJSON.",
                 "Required": "N",
                 "Default": "geojson",
                 "Type": "enumerated",
@@ -722,7 +722,7 @@
             "parameters": [
               {
                 "Name": "format",
-                "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+                "Description": "Defines the format of the requested reports data as either GeoJSON (default) or TopoJSON. If unspecified will default to GeoJSON.",
                 "Required": "N",
                 "Default": "geojson",
                 "Type": "enumerated",
@@ -747,7 +747,7 @@
                   },
                   {
                     "field": "level_name",
-                    "description": "Name of affected rukun warga (RW)",
+                    "description": "Name of administrative neighbourhood affected (rukun warga ['RW'])",
                     "type": "String"
                   },
                   {
@@ -794,7 +794,7 @@
             "parameters": [
               {
                 "Name": "format",
-                "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+                "Description": "Defines the format of the requested reports data as either GeoJSON (default) or TopoJSON. If unspecified will default to GeoJSON.",
                 "Required": "N",
                 "Default": "geojson",
                 "Type": "enumerated",
@@ -860,7 +860,7 @@
             "parameters": [
               {
                 "Name": "format",
-                "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+                "Description": "Defines the format of the requested reports data as either GeoJSON (default) or TopoJSON. If unspecified will default to GeoJSON.",
                 "Required": "N",
                 "Default": "geojson",
                 "Type": "enumerated",
@@ -906,7 +906,7 @@
             "parameters": [
               {
                 "Name": "format",
-                "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+                "Description": "Defines the format of the requested reports data as either GeoJSON (default) or TopoJSON. If unspecified will default to GeoJSON.",
                 "Required": "N",
                 "Default": "geojson",
                 "Type": "enumerated",
@@ -951,7 +951,7 @@
             "parameters": [
               {
                 "Name": "format",
-                "Description": "Defines the format of the requested reports data as either geojson (default) or topojson. If unspecified will default to geojson.",
+                "Description": "Defines the format of the requested reports data as either GeoJSON (default) or TopoJSON. If unspecified will default to GeoJSON.",
                 "Required": "N",
                 "Default": "geojson",
                 "Type": "enumerated",
