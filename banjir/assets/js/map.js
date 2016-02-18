@@ -7,16 +7,25 @@
 */
 
 var petajakarta = {
+	// Store our configuration variables here
 	config: {
 		// Default config
 		elementId: "map"
+	},
+	// Useful status variables
+	status: {
+		lang: null,
+		embedded: null
 	}
 };
 
 petajakarta.start = function() {
 	// Fetch the map HTML include from the server
-	var langAttr = $("html").attr('lang');
-	$("#includes").load('/banjir/'+langAttr+'/map-include/');
+	petajakarta.status.lang = $("html").attr('lang');
+	$("#includes").load('/banjir/'+petajakarta.status.lang+'/map-include/');
+	
+	// Are we in embedded mode?
+	petajakarta.status.embedded = $("#"+petajakarta.config.elementId).hasClass('embedded');
 	
     petajakarta.isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
 
@@ -167,7 +176,7 @@ petajakarta.start = function() {
 
 		return div;
 	};
-
+	
 	//Initialise map
 	petajakarta.latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
 	petajakarta.map = L.map(petajakarta.config.elementId, {zoomControl:true}).setView(petajakarta.latlon, 12); // Initialise map
@@ -176,8 +185,19 @@ petajakarta.start = function() {
 
 	//Specify default image path for Leaflet
 	L.Icon.Default.imagePath = '/banjir/css/images/';
+
+	// Branding logo when embedded
+	if (petajakarta.status.embedded) {
+		petajakarta.logo = L.control({position:'topright'});
+		petajakarta.logo.onAdd = function(map) {
+			var div = L.DomUtil.create('div', 'logo');
+			div.innerHTML += '<a href="http://petajakarta.org/banjir/'+petajakarta.status.lang+'/" target="_blank"><img border="0" src="/banjir/img/pj_logo_black_text_150.png"/></a>';
+			return div;
+		};
+		petajakarta.logo.addTo(petajakarta.map);
+	}
 	
-	// Reports control
+	// Add controls to map
 	petajakarta.infoControl.addTo(petajakarta.map);
 	petajakarta.reportsControl.addTo(petajakarta.map);
 	petajakarta.locationControl.addTo(petajakarta.map);
