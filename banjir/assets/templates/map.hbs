@@ -57,76 +57,38 @@
             </div>
           </div>
         </div>
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="reportsModal" tabindex="-1" role="dialog" aria-labelledby="reportsModal" aria-hidden="true" style="height:500px;">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">{{{confirmed-reports.title}}}</h4>
-                {{{confirmed-reports.instructions}}}
-              </div>
-              <div class="modal-body" id="modal-reports-body" style="height:300px; overflow:scroll;">
-              </div>
-              <div class="modal-footer">
-                <div class="pull-left"><label><input type="checkbox" autocomplete="off" onclick="petajakarta.toggle_timestamp(this.checked);">{{{confirmed-reports.timestamp}}}</label></div>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-        <!-- Info Modal -->
-        <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModal" aria-hidden="true" style="height:500px;">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">{{{map-information.title}}}</h4>
-              </div>
-              <div class="modal-body" id="modal-info-body" style="height:300px; overflow:scroll;">
-                {{{map-information.acknowledgements}}}
-              </div>
-              <div class="modal-footer">
-                <h5 class="pull-left">PetaJakarta.org &copy; SMART Infrastructure Facility, University of Wollongong</h5>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-              </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+        <div id="includes"></div>
       </div>
+      
       <div id="content">
         <div id="map" class="map site"></div>
       </div>
+      
     </div>
 
-  <!-- Site JavaScript -->
+    <!-- Site JavaScript -->
 
+    <script> //Determine if device is touchscreen/mobile
+      window.isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
 
-  <script> //Determine if device is touchscreen/mobile
-    window.isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+      if (window.isTouch){
+        L_PREFER_CANVAS = true; //Leaflet canvas rendering
+      }
+    </script>
+    <script src="/{{site.url-prefix}}/js/common.min.js"></script>
+    <script src="/{{site.url-prefix}}/js/site.min.js"></script>
+    <script src="/{{site.url-prefix}}/js/map.min.js"></script>
 
-    if (window.isTouch){
-      L_PREFER_CANVAS = true; //Leaflet canvas rendering
-    }
-  </script>
-  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <script src="/{{site.url-prefix}}/js/common.min.js"></script>
-  <script src="/{{site.url-prefix}}/js/site.min.js"></script>
-  <script src="/{{site.url-prefix}}/js/map.min.js"></script>
+    <!-- Google analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  <!-- Google analytics -->
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-46996603-1', 'petajakarta.org');
+      ga('send', 'pageview');
+    </script>
 
-    ga('create', 'UA-46996603-1', 'petajakarta.org');
-    ga('send', 'pageview');
-  </script>
-
-</body>
+  </body>
 </html>

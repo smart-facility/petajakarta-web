@@ -1,10 +1,12 @@
 {{!
 
-This file is an embeddable map - it can be included via an iframe from third-party websites.
+This file is a demonstration of embedding an inline map.
+
+The map element, CSS and JS includes required are used in this source code.
 
 }}
 <!DOCTYPE html>
-<html lang="{{site.locale-url-prefix}}" style="width: 100%; height: 100%;">
+<html lang="{{site.locale-url-prefix}}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,13 +16,13 @@ This file is an embeddable map - it can be included via an iframe from third-par
 
   </head>
 
-  <body class="{{{site.locale-url-prefix}}}" style="width: 100%; height: 100%; margin: 0;">
+  <body class="{{{site.locale-url-prefix}}}">
 
     <div id="includes"></div>
         
-    <div id="map" class="map embedded" style="width: 100%; height: 100%;"></div>
+    <div id="map" class="map embedded" style="width: 500px; height: 300px; margin: 100px;"></div>
 
-    <!-- Site JavaScript -->  
+    <!-- Site JavaScript -->
     <script src="/{{site.url-prefix}}/js/common.min.js"></script>
     <script src="/{{site.url-prefix}}/js/map.min.js"></script>
 

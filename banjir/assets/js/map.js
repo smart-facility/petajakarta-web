@@ -14,6 +14,10 @@ var petajakarta = {
 };
 
 petajakarta.start = function() {
+	// Fetch the map HTML include from the server
+	var langAttr = $("html").attr('lang');
+	$("#includes").load('/banjir/'+langAttr+'/map-include/');
+	
     petajakarta.isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
 
 	//Check user location and alter map view accordingly
