@@ -31,7 +31,6 @@ module.exports = function(grunt) {
             'banjir/vendor/js/rsvp.js',
             'banjir/vendor/js/Chart.min.js',
             'banjir/vendor/js/url.min.js',
-            'banjir/assets/js/reports.js',
             'banjir/assets/js/validation.js',
             'banjir/assets/js/map.js'
           ],

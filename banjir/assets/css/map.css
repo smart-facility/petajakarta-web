@@ -164,7 +164,7 @@
 }
 
 .leaflet-control-reports-button {
-  background-image: url(/banjir/img/reports.png);
+  background-image: url(../img/reports.png);
 }
 
 .leaflet-control-reports-button .badge {
@@ -173,23 +173,23 @@
 }
 
 .leaflet-retina .leaflet-control-reports-button {
-  background-image: url(/banjir/img/reports-2x.png);
+  background-image: url(../img/reports-2x.png);
 }
 
 .leaflet-control-info-button {
-  background-image: url(/banjir/img/info.png);
+  background-image: url(../img/info.png);
 }
 
 .leaflet-retina .leaflet-control-info-button {
-  background-image: url(/banjir/img/info-2x.png);
+  background-image: url(../img/info-2x.png);
 }
 
 .leaflet-control-location-button {
-  background-image: url(/banjir/img/location-icon.png);
+  background-image: url(../img/location-icon.png);
 }
 
 .leaflet-retina .leaflet-control-location-button {
-  background-image: url(/banjir/img/location-icon-2x.png);
+  background-image: url(../img/location-icon-2x.png);
 }
 
 .leaflet-touch .leaflet-control-reports-button,

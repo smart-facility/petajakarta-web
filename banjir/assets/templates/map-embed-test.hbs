@@ -10,21 +10,43 @@ The map element, CSS and JS includes required are used in this source code.
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Site stylesheet -->
-    <link href="/{{site.url-prefix}}/css/common.min.css" rel="stylesheet">
-    <link href="/{{site.url-prefix}}/css/map.min.css" rel="stylesheet">
-
   </head>
 
   <body class="{{{site.locale-url-prefix}}}">
 
-    <div id="includes"></div>
-        
-    <div id="map" class="map embedded" style="width: 500px; height: 300px; margin: 100px;"></div>
+    <!-- BEGIN REQUIRED FOR INLINE -->
 
-    <!-- Site JavaScript -->
+    <link href="/{{site.url-prefix}}/css/common.min.css" rel="stylesheet">
+    <link href="/{{site.url-prefix}}/css/map.min.css" rel="stylesheet">
+    
+    <div id="includes"></div>
+
     <script src="/{{site.url-prefix}}/js/common.min.js"></script>
     <script src="/{{site.url-prefix}}/js/map.min.js"></script>
+
+	<!-- A div with id="map" is also required -->
+
+    <!-- END REQUIRED FOR INLINE -->
+        
+    <div style="float: left; margin: 100px;">
+      <span style="color: #f00">inline</span>
+      <br />
+      <div id="map" class="map embedded" style="width: 400px; height: 400px; border: 1px solid #f00;"></div>
+    </div>
+    
+    <script>
+	$(function() {
+		petajakarta.config.urlPrefix = '/banjir/';
+		petajakarta.config.serverUrlPrefix = '/banjir/';
+		petajakarta.start();
+	});
+	</script>
+    
+    <div style="float: right; margin: 100px;">
+      <span style="color: #00f">iframe</span>
+      <br />
+      <iframe src="/banjir/id/map-embed/" style="width: 500px; height: 500px; border: 1px solid #00f;">no frames</iframe>
+    </div>
 
   </body>
 </html>

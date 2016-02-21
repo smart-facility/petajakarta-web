@@ -10,7 +10,10 @@ var petajakarta = {
 	// Store our configuration variables here
 	config: {
 		// Default config
-		elementId: "map"
+		elementId: "map",
+		urlPrefix: '',
+		serverUrlPrefix: 'http://petajakarta.org/banjir/',
+		remServerUrlPrefix: 'https://rem.petajakarta.org/banjir/'
 	},
 	// Useful status variables
 	status: {
@@ -21,8 +24,21 @@ var petajakarta = {
 
 petajakarta.start = function() {
 	// Fetch the map HTML include from the server
-	petajakarta.status.lang = $("html").attr('lang');
-	$("#includes").load('/banjir/'+petajakarta.status.lang+'/map-include/');
+	petajakarta.status.lang = $("html").attr('lang') ? $("html").attr('lang') : 'id';
+	petajakarta.loadedIncludes = new RSVP.Promise( function(resolve, reject) {
+		$("#includes").load( 
+			petajakarta.config.urlPrefix + petajakarta.status.lang + '/map-include/', 
+			function( response, status, xhr ) {
+				if (status==='error') {
+					reject(status);
+				} else {
+					resolve();
+				}
+			}
+		);
+	}).catch( function(e) {
+		// TODO Handle error
+	});
 	
 	// Are we in embedded mode?
 	petajakarta.status.embedded = $("#"+petajakarta.config.elementId).hasClass('embedded');
@@ -68,13 +84,13 @@ petajakarta.start = function() {
 			opacity:1,
 		},
 		pumps:L.icon({
-			iconUrl: '/banjir/img/pump.svg',
+			iconUrl: petajakarta.config.urlPrefix + 'img/pump.svg',
 			iconSize: [22,22],
 			iconAnchor: [11, 11],
 			popupAnchor: [0, 0],
 		}),
 		floodgates:L.icon({
-			iconUrl: '/banjir/img/floodgate.svg',
+			iconUrl: petajakarta.config.urlPrefix + 'img/floodgate.svg',
 			iconSize: [22,22],
 			iconAnchor: [11, 11],
 			popupAnchor: [0, 0],
@@ -131,11 +147,11 @@ petajakarta.start = function() {
 		petajakarta.siagaNames[3] = 'Alert Level 3';
 		petajakarta.siagaNames[4] = 'Alert Level 4';
 	}
-	petajakarta.gaugesLegend = '<div id="gaugesLegend"><div class="sublegend"><div style="font-weight:bold">'+petajakarta.layernames.floodgauges+'</div><div><img src="/banjir/img/floodgauge_1.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[1]+'</span></div><div><img src="/banjir/img/floodgauge_2.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[2]+'</span></div><div><img src="/banjir/img/floodgauge_3.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[3]+'</span></div><div><img src="/banjir/img/floodgauge.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[4]+'</span></div></div>';
+	petajakarta.gaugesLegend = '<div id="gaugesLegend"><div class="sublegend"><div style="font-weight:bold">'+petajakarta.layernames.floodgauges+'</div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_1.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[1]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_2.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[2]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_3.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[3]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[4]+'</span></div></div>';
 
 	//infrastructure legend items
-	petajakarta.pumpsLegend = '<div id="pumpsLegend"><div class="sublegend"><div><img src="/banjir/img/pump.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.layernames.pumps+'</span></div></div>';
-	petajakarta.floodgatesLegend =  '<div id="floodgatesLegend"><div class="sublegend"><div><img src="/banjir/img/floodgate.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.layernames.floodgates+'</span></div></div>';
+	petajakarta.pumpsLegend = '<div id="pumpsLegend"><div class="sublegend"><div><img src="'+petajakarta.config.urlPrefix+'img/pump.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.layernames.pumps+'</span></div></div>';
+	petajakarta.floodgatesLegend =  '<div id="floodgatesLegend"><div class="sublegend"><div><img src="'+petajakarta.config.urlPrefix+'img/floodgate.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.layernames.floodgates+'</span></div></div>';
 	petajakarta.waterwaysLegend = '<div id="waterwaysLegend"><div class="sublegend"><div><span style="background-color:#3960ac; font-size:6px;padding-top:8px;margin-left:8px;margin-right:5px;">&nbsp;</span><span>&nbsp;'+petajakarta.layernames.waterways+'</span></div></div>';
 
 	// Reports control
@@ -184,14 +200,14 @@ petajakarta.start = function() {
 	L.control.scale({'position':'bottomright', 'imperial':false, 'maxWidth':200}).addTo(petajakarta.map);
 
 	//Specify default image path for Leaflet
-	L.Icon.Default.imagePath = '/banjir/css/images/';
+	L.Icon.Default.imagePath = petajakarta.config.urlPrefix+'css/images/';
 
 	// Branding logo when embedded
 	if (petajakarta.status.embedded) {
 		petajakarta.logo = L.control({position:'topright'});
 		petajakarta.logo.onAdd = function(map) {
 			var div = L.DomUtil.create('div', 'logo');
-			div.innerHTML += '<a href="http://petajakarta.org/banjir/'+petajakarta.status.lang+'/" target="_blank"><img border="0" src="/banjir/img/pj_logo_black_text_150.png"/></a>';
+			div.innerHTML += '<a href="http://petajakarta.org/banjir/'+petajakarta.status.lang+'/" target="_blank"><img border="0" src="'+petajakarta.config.urlPrefix+'img/pj_logo_black_text_150.png"/></a>';
 			return div;
 		};
 		petajakarta.logo.addTo(petajakarta.map);
@@ -309,7 +325,7 @@ petajakarta.start = function() {
 petajakarta.tweetPopup = function(feature){
 	var popup = '<div id="tweet-container" style="width:220px; height:auto; max-height:220px; overflow-y:scroll"><blockquote class="twitter-tweet" data-conversation="none"><a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'</a></blockquote></div>';
 	if (feature.properties.status == 'verified'){
-		popup = '<div style="padding:5px"><img src="/banjir/img/bpbd_dki.png" height="35px;"> @BPBDJakarta <i>Retweeted</i></div><div id="tweet-container" style="width:220px; height:auto; max-height:220px; overflow-y:scroll;"><blockquote class="twitter-tweet"><a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'</a></blockquote></div>';
+		popup = '<div style="padding:5px"><img src="'+petajakarta.config.urlPrefix+'img/bpbd_dki.png" height="35px;"> @BPBDJakarta <i>Retweeted</i></div><div id="tweet-container" style="width:220px; height:auto; max-height:220px; overflow-y:scroll;"><blockquote class="twitter-tweet"><a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'</a></blockquote></div>';
 	}
 	return popup;
 };
@@ -320,7 +336,7 @@ petajakarta.tweetPopup = function(feature){
 	@param {object} feature - a GeoJSON feature representing a report
 */
 petajakarta.detikPopup = function(feature){
-	var popup = '<div id="detik-container" style="width:220px; height:220px; overflow-y:scroll; background-color:white;"><div class="media"><a class="pull-left" href="#"><img class="media-object" src="/banjir/img/logo_detik.png" height="22"></a><div class="media-body"><h4 style="font-size:18px; line-height:1.2;" class="media-heading">PASANGMATA.COM</h4></div></div><p class="lead" style="margin:4px;font-size:16px;">'+feature.properties.title+'</p><img class="img-responsive" src="'+feature.properties.image_url+'" width="210"/><h5>'+feature.properties.text+'</h5><h5>'+feature.properties.created_at.replace('T',' ')+'</h5><a href="'+feature.properties.url+'" target="_blank">'+feature.properties.url+'</a></div>';
+	var popup = '<div id="detik-container" style="width:220px; height:220px; overflow-y:scroll; background-color:white;"><div class="media"><a class="pull-left" href="#"><img class="media-object" src="'+petajakarta.config.urlPrefix+'img/logo_detik.png" height="22"></a><div class="media-body"><h4 style="font-size:18px; line-height:1.2;" class="media-heading">PASANGMATA.COM</h4></div></div><p class="lead" style="margin:4px;font-size:16px;">'+feature.properties.title+'</p><img class="img-responsive" src="'+feature.properties.image_url+'" width="210"/><h5>'+feature.properties.text+'</h5><h5>'+feature.properties.created_at.replace('T',' ')+'</h5><a href="'+feature.properties.url+'" target="_blank">'+feature.properties.url+'</a></div>';
 	return popup;
 };
 
@@ -331,7 +347,7 @@ petajakarta.detikPopup = function(feature){
 */
 
 petajakarta.qluePopup = function(feature){
-	var popup = '<div id="qlue-container" style="width:220px; height:220px; overflow-y:scroll; background-color:white;"><div class="media"><a class="pull-left" href="#"><img class="media-object" src="/banjir/img/logo_qlue_height_32.png" height="32"></a></div><p class="lead" style="margin-bottom:4px;margin-top:4px;font-size:16px;">'+feature.properties.title+'</p><img class="img-responsive" src="'+feature.properties.image_url+'" width="210"/><h5>'+feature.properties.text+'</h5><h5>'+feature.properties.created_at.replace('T',' ')+'</div>';
+	var popup = '<div id="qlue-container" style="width:220px; height:220px; overflow-y:scroll; background-color:white;"><div class="media"><a class="pull-left" href="#"><img class="media-object" src="'+petajakarta.config.urlPrefix+'img/logo_qlue_height_32.png" height="32"></a></div><p class="lead" style="margin-bottom:4px;margin-top:4px;font-size:16px;">'+feature.properties.title+'</p><img class="img-responsive" src="'+feature.properties.image_url+'" width="210"/><h5>'+feature.properties.text+'</h5><h5>'+feature.properties.created_at.replace('T',' ')+'</div>';
 	return popup;
 };
 
@@ -382,7 +398,7 @@ petajakarta.markerPopup = function(feature, layer) {
 petajakarta.getInfrastructure = function(layer) {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
-		jQuery.getJSON("/banjir/data/api/v2/infrastructure/"+layer+"?format=topojson", function(data){
+		jQuery.getJSON(petajakarta.config.serverUrlPrefix + "data/api/v2/infrastructure/"+layer+"?format=topojson", function(data){
 				if (data.features !== null){
 					resolve(topojson.feature(data, data.objects.collection));
 				} else {
@@ -435,7 +451,7 @@ petajakarta.floodgaugePopoup = function(feature){
 	}
 	var popup = '';
 	if (feature.properties !== null){
-		popup = '<div id="floodgauge-container" style="width:220px; height:220px; overflow-y:scroll"><div class="media"><img class="media-object pull-left" src="/banjir/img/dki_jayaraya.png" height="22"/><img class="media-object pull-left" src="/banjir/img/bpbd_dki.png" height="22"/><h4 style="font-size:18px; line-height:1.2;" class="media-heading pull-left">'+feature.properties.gaugenameid+'</h4></div>'+label+'&nbsp;&nbsp|&nbsp;&nbsp;<span style="color:black; background-color:'+petajakarta.getSiagaLevelIconography(feature.properties.observations[feature.properties.observations.length-1].warninglevel).color+'">'+feature.properties.observations[feature.properties.observations.length-1].warningnameid+'</span><canvas id="gaugeChart" class="chart" width="210" height="180"></canvas></div>';
+		popup = '<div id="floodgauge-container" style="width:220px; height:220px; overflow-y:scroll"><div class="media"><img class="media-object pull-left" src="'+petajakarta.config.urlPrefix+'img/dki_jayaraya.png" height="22"/><img class="media-object pull-left" src="'+petajakarta.config.urlPrefix+'img/bpbd_dki.png" height="22"/><h4 style="font-size:18px; line-height:1.2;" class="media-heading pull-left">'+feature.properties.gaugenameid+'</h4></div>'+label+'&nbsp;&nbsp|&nbsp;&nbsp;<span style="color:black; background-color:'+petajakarta.getSiagaLevelIconography(feature.properties.observations[feature.properties.observations.length-1].warninglevel).color+'">'+feature.properties.observations[feature.properties.observations.length-1].warningnameid+'</span><canvas id="gaugeChart" class="chart" width="210" height="180"></canvas></div>';
 	}
 	else {
 		popup = 'Data not available | Tidak ada data';
@@ -466,7 +482,7 @@ petajakarta.floodgaugeMarker = function(feature, layer){
 petajakarta.getReports = function(type) {
 	return new RSVP.Promise(function(resolve, reject) {
 		// Use live data
-		jQuery.getJSON('/banjir/data/api/v2/reports/'+type+'?format=topojson', function(data) {
+		jQuery.getJSON(petajakarta.config.serverUrlPrefix + 'data/api/v2/reports/'+type+'?format=topojson', function(data) {
 			if (data.features !== null){
 				//Convert topojson back to geojson for Leaflet
 				resolve(topojson.feature(data, data.objects.collection));
@@ -486,7 +502,7 @@ petajakarta.getReports = function(type) {
 */
 petajakarta.getReport = function(id) {
 	return new RSVP.Promise(function(resolve, reject){
-		jQuery.getJSON('/banjir/data/api/v2/reports/confirmed/'+id+'?format=geojson', function(data){
+		jQuery.getJSON(petajakarta.config.serverUrlPrefix + 'data/api/v2/reports/confirmed/'+id+'?format=geojson', function(data){
 			if (data.features !== null){
 				resolve(data);
 			}
@@ -502,7 +518,7 @@ petajakarta.getReport = function(id) {
 	@param {function} callback - a function to be called when data is finished loading
 */
 petajakarta.getREM = function(callback) {
-	jQuery.getJSON('https://rem.petajakarta.org/banjir/data/api/v2/rem/flooded?format=topojson', function(data){
+	jQuery.getJSON( petajakarta.config.remServerUrlPrefix + 'data/api/v2/rem/flooded?format=topojson', function(data){
 		if (data.features !== null){
 			callback(topojson.feature(data, data.objects.collection));
 		}
@@ -553,7 +569,7 @@ petajakarta.iconConfirmedReports = function(feature){
 */
 petajakarta.loadConfirmedPoints = function(reports) {
 	if (reports) {
-		loadTable(reports); //sneaky loadTable function.
+		petajakarta.loadTable(reports); //sneaky loadTable function.
 		// badge reports button
 		petajakarta.reportsBadge.textContent = reports.features.length;
 
@@ -628,7 +644,7 @@ petajakarta.loadInfrastructure = function(layer, infrastructure){
 				pointToLayer: function(feature, latlng) {
 					return L.marker(latlng, {icon: L.icon(
 						{
-							iconUrl:'/banjir/img/'+petajakarta.getSiagaLevelIconography(feature.properties.observations[feature.properties.observations.length-1].warninglevel).icon,
+							iconUrl:petajakarta.config.urlPrefix+'img/'+petajakarta.getSiagaLevelIconography(feature.properties.observations[feature.properties.observations.length-1].warninglevel).icon,
 							iconSize: [22,22],
 							iconAnchor: [11, 11],
 							popupAnchor: [0, 0]
@@ -681,8 +697,8 @@ petajakarta.setViewJakarta = function(position) {
 		  position.coords.longitude >= 106.5894 && position.coords.longitude <= 107.0782) {
 				petajakarta.map.setView(L.latLng(position.coords.latitude,position.coords.longitude), 17, {animate:true}); // Set to the users current view
 				// Color the user location button as feedback
-				$('.leaflet-control-location-button').css("background-image", "url(/banjir/img/location-icon-blue.png)");
-				$('.leaflet-retina .leaflet-control-location-button').css("background-image", "url(/banjir/img/location-icon-2x-blue.png)");
+				$('.leaflet-control-location-button').css("background-image", "url("+petajakarta.config.urlPrefix+"img/location-icon-blue.png)");
+				$('.leaflet-retina .leaflet-control-location-button').css("background-image", "url("+petajakarta.config.urlPrefix+"img/location-icon-2x-blue.png)");
 
 				//Remove existing marker if present
 				if (petajakarta.bluedot){
@@ -742,7 +758,61 @@ petajakarta.loadSecondaryLayers = function(layerControl) {
 	});
 };
 
-$(function() {
-	petajakarta.start();
-});
+/**
+ * Generate a table based on the provided reports
+ *@file JavaScript to display confirmed reports within map (PetaJakarta.org) via map.js
+ *@copyright (c) Tomas Holderness & SMART Infrastructure Facility January 2014
+ *@module reports
+ *
+ * @param {object} reports - a GeoJSON object
+ */
+petajakarta.loadTable = function(reports) {
+	var rows, thead;
 
+	rows = "";
+	
+	// TODO Wait for the include HTML request to do this if it's not ready
+
+	for (var i=0;i<reports.features.length;i++) {
+		var report = reports.features[i].properties;
+		var reportGeo = reports.features[i].geometry;
+
+		var logo = "";
+		if (report.source == 'detik'){
+			logo = '<img src="https://pasangmata.detik.com/assets/fe/img/logo_detik.png" height="22">';
+		}
+		else if (report.source == 'twitter'){
+			logo = '<img src="'+petajakarta.config.urlPrefix +'/img/twitter_logo_blue.png" height="22">';
+		}
+		else if (report.source == 'qlue'){
+			logo = '<img src="'+petajakarta.config.urlPrefix +'/img/logo_qlue_height_22.png" height="22">';
+		}
+		if (report.status == 'verified'){
+			logo+= ' <img src="'+petajakarta.config.urlPrefix +'/img/bpbd_dki.png" height="22">';
+		}
+
+		//Catch those reports that have no text, only a title
+		var text = report.text;
+		if (report.text.length < 1){
+			text += report.title;
+		}
+
+		rows +='<tr>';
+			rows += '<td>' + report.created_at.substring(11, 19) + '</td>'; // Time
+			rows += '<td>' + logo + '</td>';
+			rows += '<td><a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+report.pkey+','+reportGeo.coordinates[1]+','+reportGeo.coordinates[0]+')">'+text+'</a></td>'; // Message
+		rows += '</tr>';
+	}
+	if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id') {
+		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Waktu</th><th class="col-xs-2">Sumber</th><th class="col-xs-6">Laporkan</th></tr></thead>';
+	} else {
+		thead = '<table class="table table-hover"><thead><tr><th class="col-xs-2">Time</th><th class="col-xs-2">Source</th><th class="col-xs-6">Message</th></tr></thead>';
+	}
+	var tbody = '<tbody>'+rows+'</tbody></table>';
+
+	petajakarta.loadedIncludes.then( function(v){
+		$("#modal-reports-body").append(thead+tbody);
+	}).catch( function(e) {
+		// TODO Handle error
+	});
+};
