@@ -79,7 +79,7 @@ Be sure to replace the string URL_TO_FILES with the URL to the files noted down 
 
 You should now be able to load the web page with the embedded map.
 
-### Discuss dependency conflict esp. jQuery and Bootstrap
+### Potential Conflicts
 
 The map has dependencies on a number of third-party libraries. These dependencies include jQuery and Bootstrap, which are
 included with the map files.
