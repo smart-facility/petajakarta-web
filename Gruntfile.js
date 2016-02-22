@@ -233,6 +233,7 @@ module.exports = function(grunt) {
   grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in', 'staticHandlebars:id', 'staticHandlebars:en_data', 'staticHandlebars:en_data_v2', 'staticHandlebars:in_data', 'staticHandlebars:id_data','staticHandlebars:id_data_v2', 'staticHandlebars:en_research', 'staticHandlebars:in_research', 'staticHandlebars:id_research']);
   grunt.registerTask('server', ['assets', 'site', 'concurrent:server']);
   grunt.registerTask('default', ['assets', 'site']);
+  grunt.registerTask('embed', ['assets', 'site', 'copy:embed']);
   grunt.registerTask('docs', ['jsdoc:dist'])
   grunt.registerTask('dev', ['copy:devjs'])
 
