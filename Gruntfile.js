@@ -38,8 +38,8 @@ module.exports = function(grunt) {
       },
       commonCss: {
           src: [
-                'banjir/vendor/css/bootstrap.min.css'
-            ],
+              'banjir/vendor/css/bootstrap.min.css'
+          ],
          dest: 'build/banjir/css/common.css'
       },
       siteCss: {

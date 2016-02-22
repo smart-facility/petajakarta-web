@@ -280,3 +280,95 @@ p {
     font-size: 24px;
     font-weight:300;
 }
+
+/*
+ Set some global styles on the map and dialogs
+*/
+ 
+#includes {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  base-font-size: 16px;
+  color: #555;
+}
+
+.map {
+  font: 12px/1.5 "Helvetica Neue",Arial,Helvetica,sans-serif;
+  color: #555;
+}
+
+/* Titles */
+#includes h1, 
+#includes h2, 
+#includes h3, 
+#includes h4, 
+#includes h5, 
+#includes h6,
+.map h1, 
+.map h2, 
+.map h3, 
+.map h4, 
+.map h5, 
+.map h6 {
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+	color: #333;
+}
+
+#includes h1,
+.map h1 {
+	font-size: 40px;
+}
+
+#includes h3,
+.map h3 {
+	color: #696a6a;
+	font-weight: 400;
+}
+
+#includes h4,
+.map h4 {
+	color: #000;
+	font-weight: 400;
+	font-size: 20px;
+}
+
+/* Links */
+#includes a,
+.map a {
+    color: #00AAEE;
+    word-wrap: break-word;
+
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+#includes a:hover,
+#includes a:focus,
+.map a:hover,
+.map a:focus {
+    color: #7b7b7b;
+    text-decoration: none;
+    outline: 0;
+}
+
+#includes a:before,
+#includes a:after,
+.map a:before,
+.map a:after {
+    -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+    -o-transition: color 0.1s ease-in, background 0.1s ease-in;
+    transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+/*
+ Overrides to set some leaflet styles back to leaflet defaults within the map styles
+*/
+.map .leaflet-bar a, 
+.map .leaflet-bar a:hover {
+    color: #000;
+}
