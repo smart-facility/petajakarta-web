@@ -13,12 +13,13 @@ as needed. Data is served from the petajakarta web server but the map files are 
 
 Insert HTML like this into your web site:
 
-`<iframe src="http://petajakarta.org/banjir/id/map-embed/" style="width: 500px; height: 400px;">This browser does not 
-support frames</iframe>`
+````
+<iframe src="http://petajakarta.org/banjir/id/map-embed/" style="width: 500px; height: 400px;">This browser does not support frames</iframe>
+````
 
 Change the style as necessary to position and layout the frame.
 
-Change the '/id/' part of the link to '/en/' to embed an English language map.
+Change the `/id/` part of the link to `/en/` to embed an English language map.
 
 ## Embedding inline
 
@@ -42,7 +43,7 @@ In the web page which will include the embedded map, add the following lines to 
 
 (Replace the string URL_TO_FILES with the URL to the files noted down earlier)
 
-`
+````
 <link href="URL_TO_FILES/css/common.css" rel="stylesheet">
 <link href="URL_TO_FILES/css/map.css" rel="stylesheet">
 		
@@ -50,29 +51,29 @@ In the web page which will include the embedded map, add the following lines to 
 
 <script src="URL_TO_FILES/js/common.js"></script>
 <script src="URL_TO_FILES/js/map.js"></script>
-`
+````
 
 Ensure that there is an element ready to be replaced by the map. This element must have:
 - A unique ID
 - The classes `map` and `embedded`
 - Dimensions (e.g. width and height)
 
-`
+````
 <div id="map" class="map embedded" style="width: 400px; height: 400px;"></div>
-`
+````
 
 ### Update map settings
 
 Place this script in the BODY of the page to initialize the map:
 
-`
+````
 <script>
 $(function() {
 	petajakarta.config.urlPrefix = 'URL_TO_FILES';
 	petajakarta.start();
 });
 </script>
-`
+````
 
 Be sure to replace the string URL_TO_FILES with the URL to the files noted down earlier.
 
