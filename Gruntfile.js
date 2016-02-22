@@ -158,6 +158,20 @@ module.exports = function(grunt) {
 	          {src: "banjir/assets/js/analytics.js", dest: "build/banjir/js/analytics.min.js"},
 	          {src: "build/banjir/js/map.js", dest: "build/banjir/js/map.min.js"}
     	  ]
+      },
+      // Copy all the files needed to host an embedded map on a third-party server to a distribution folder 
+      embed: {
+    	  files: [
+    	      {expand: true, flatten: true, src: 'build/banjir/js/**', dest: 'build/embed/banjir/js/'},
+    	      {expand: true, flatten: true, src: 'build/banjir/css/**', dest: 'build/embed/banjir/css/'},
+    	      {expand: true, flatten: true, src: 'build/banjir/css/images/**', dest: 'build/embed/banjir/css/images/'},
+    	      {expand: true, flatten: true, src: 'build/banjir/img/**', dest: 'build/embed/banjir/img/'},
+    	      {expand: true, flatten: true, src: 'build/banjir/fonts/**', dest: 'build/embed/banjir/fonts/'},
+    	      {src: 'build/banjir/en/map-embed-test/index.html', dest: 'build/embed/banjir/embed.en.html'},
+    	      {src: 'build/banjir/id/map-embed-test/index.html', dest: 'build/embed/banjir/embed.id.html'},
+    	      {src: 'build/banjir/en/map-include/index.html', dest: 'build/embed/banjir/en/map-include/index.html'},
+    	      {src: 'build/banjir/id/map-include/index.html', dest: 'build/embed/banjir/id/map-include/index.html'}
+    	  ]
       }
     },
     connect: {
