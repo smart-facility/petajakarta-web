@@ -14,7 +14,7 @@ as needed. Data is served from the petajakarta web server but the map files are 
 Insert HTML like this into your web site:
 
 ````
-<iframe src="http://petajakarta.org/banjir/id/map-embed/" style="width: 500px; height: 400px;">This browser does not support frames</iframe>
+<iframe src="https://petajakarta.org/banjir/id/map-embed/" style="width: 500px; height: 400px;">This browser does not support frames</iframe>
 ````
 
 Change the style as necessary to position and layout the frame.
