@@ -1,0 +1,59 @@
+{{!
+
+This file is a HTML include loaded by the map.
+
+It contains:
+- The Bootstrap modal HTML structure
+- Twitter script include
+
+}}
+<!DOCTYPE html>
+<html lang="{{site.locale-url-prefix}}">
+  <head>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+
+    <!-- Modal -->
+    <div class="modal fade" id="reportsModal" tabindex="-1" role="dialog" aria-labelledby="reportsModal" aria-hidden="true" style="height:500px;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">{{{confirmed-reports.title}}}</h4>
+            {{{confirmed-reports.instructions}}}
+          </div>
+          <div class="modal-body" id="modal-reports-body" style="height:300px; overflow:scroll;">
+          </div>
+          <div class="modal-footer">
+            <div class="pull-left"><label><input type="checkbox" autocomplete="off" onclick="petajakarta.toggle_timestamp(this.checked);">{{{confirmed-reports.timestamp}}}</label></div>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- Info Modal -->
+    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModal" aria-hidden="true" style="height:500px;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">{{{map-information.title}}}</h4>
+          </div>
+          <div class="modal-body" id="modal-info-body" style="height:300px; overflow:scroll;">
+            {{{map-information.acknowledgements}}}
+          </div>
+          <div class="modal-footer">
+            <h5 class="pull-left">PetaJakarta.org &copy; SMART Infrastructure Facility, University of Wollongong</h5>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        
+  </body>
+</html>

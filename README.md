@@ -44,6 +44,10 @@ Builds the site and launches a barebones server to serve up files in the `\build
 ### Generate Documentation - `grunt docs`
 Generates documentation from the site's JavaScript files using [JSDoc](http://usejsdoc.org/)
 
+### Embedded version
+
+See the [embedded map documentation](EMBED.md) for more details on embedding the map in a third-party website.
+
 ## Contribution Guidelines
 
 The site should be compiled with the `grunt` command before committing, this way there'll always be a pre-built, up to date version of the site included with the repo.

@@ -1,0 +1,35 @@
+{{!
+
+This file is an embeddable map - it can be included via an iframe from third-party websites.
+
+}}
+<!DOCTYPE html>
+<html lang="{{site.locale-url-prefix}}" style="width: 100%; height: 100%;">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Site stylesheet -->
+    <link href="/{{site.url-prefix}}/css/common.min.css" rel="stylesheet">
+    <link href="/{{site.url-prefix}}/css/map.min.css" rel="stylesheet">
+
+  </head>
+
+  <body class="{{{site.locale-url-prefix}}}" style="width: 100%; height: 100%; margin: 0;">
+
+    <div id="includes"></div>
+        
+    <div id="map" class="map embedded" style="width: 100%; height: 100%;"></div>
+
+    <!-- Site JavaScript -->  
+    <script src="/{{site.url-prefix}}/js/common.min.js"></script>
+    <script src="/{{site.url-prefix}}/js/map.min.js"></script>
+    
+    <script>
+	$(function() {
+		petajakarta.config.serverUrlPrefix = '/banjir/'; // This setting will work on the live site and during local development
+		petajakarta.start();
+	});
+	</script>
+
+  </body>
+</html>
