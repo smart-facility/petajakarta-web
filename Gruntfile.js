@@ -121,6 +121,7 @@ module.exports = function(grunt) {
         files: {'build/banjir/in/research*.html': 'banjir/assets/templates/research/*.hbs'},
         options: {json: 'banjir/assets/translations/id.json'}
       },
+      
       id: {
         files: { 'build/banjir/id/*.html': 'banjir/assets/templates/*.hbs'},
         options: { json: 'banjir/assets/translations/id.json' }
@@ -137,6 +138,17 @@ module.exports = function(grunt) {
         files: {'build/banjir/id/research*.html': 'banjir/assets/templates/research/*.hbs'},
         options: {json: 'banjir/assets/translations/id.json'}
       },
+      
+      // Embed example
+      en: {
+	      files: { 'build/example/en/*.html': 'banjir/assets/example/*.hbs' },
+	      options: { json: 'banjir/assets/translations/en.json' }
+	  },
+	  id: {
+	      files: { 'build/example/id/*.html': 'banjir/assets/example/*.hbs'},
+	      options: { json: 'banjir/assets/translations/id.json' }
+	  }
+
     },
     copy: {
       images: {
@@ -167,8 +179,8 @@ module.exports = function(grunt) {
     	      {expand: true, flatten: true, src: 'build/banjir/css/images/**', dest: 'build/embed/banjir/css/images/'},
     	      {expand: true, flatten: true, src: 'build/banjir/img/**', dest: 'build/embed/banjir/img/'},
     	      {expand: true, flatten: true, src: 'build/banjir/fonts/**', dest: 'build/embed/banjir/fonts/'},
-    	      {src: 'build/banjir/en/map-embed-test/index.html', dest: 'build/embed/banjir/embed.en.html'},
-    	      {src: 'build/banjir/id/map-embed-test/index.html', dest: 'build/embed/banjir/embed.id.html'},
+    	      {src: 'build/example/en/map-embed-example/index.html', dest: 'build/embed/banjir/embed.en.html'},
+    	      {src: 'build/example/id/map-embed-example/index.html', dest: 'build/embed/banjir/embed.id.html'},
     	      {src: 'build/banjir/en/map-include/index.html', dest: 'build/embed/banjir/en/map-include/index.html'},
     	      {src: 'build/banjir/id/map-include/index.html', dest: 'build/embed/banjir/id/map-include/index.html'}
     	  ]
