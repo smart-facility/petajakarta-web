@@ -109,6 +109,7 @@ module.exports = function(grunt) {
         files: {'build/banjir/en/research*.html': 'banjir/assets/templates/research/*.hbs'},
         options: {json: 'banjir/assets/translations/en.json'}
       },
+      
       in: {
         files: { 'build/banjir/in/*.html': 'banjir/assets/templates/*.hbs'},
         options: { json: 'banjir/assets/translations/id.json' }
@@ -140,11 +141,11 @@ module.exports = function(grunt) {
       },
       
       // Embed example
-      en: {
+      en_example: {
 	      files: { 'build/example/en/*.html': 'banjir/assets/example/*.hbs' },
 	      options: { json: 'banjir/assets/translations/en.json' }
 	  },
-	  id: {
+	  id_example: {
 	      files: { 'build/example/id/*.html': 'banjir/assets/example/*.hbs'},
 	      options: { json: 'banjir/assets/translations/id.json' }
 	  }
