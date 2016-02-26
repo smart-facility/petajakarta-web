@@ -16,13 +16,13 @@ The map element, CSS and JS includes required are used in this source code.
 
     <!-- BEGIN REQUIRED FOR INLINE -->
 
-    <link href="/{{site.url-prefix}}/css/common.min.css" rel="stylesheet">
-    <link href="/{{site.url-prefix}}/css/map.min.css" rel="stylesheet">
+    <link href="css/common.min.css" rel="stylesheet">
+    <link href="css/map.min.css" rel="stylesheet">
     
     <div id="includes"></div>
 
-    <script src="/{{site.url-prefix}}/js/common.min.js"></script>
-    <script src="/{{site.url-prefix}}/js/map.min.js"></script>
+    <script src="js/common.min.js"></script>
+    <script src="js/map.min.js"></script>
 
 	<!-- A div with id="map" is also required -->
 
@@ -36,8 +36,7 @@ The map element, CSS and JS includes required are used in this source code.
     
     <script>
 	$(function() {
-		petajakarta.config.urlPrefix = '/banjir/'; // This setting will work on third-party hosting with the distributable folder
-		petajakarta.config.serverUrlPrefix = '/banjir/'; // This setting will work on the live site and during local development
+		petajakarta.config.urlPrefix = 'https://petajakarta.org/banjir/'; // This setting will work on third-party hosting with the distributable folder
 		petajakarta.start();
 	});
 	</script>
@@ -45,7 +44,7 @@ The map element, CSS and JS includes required are used in this source code.
     <div style="float: right; margin: 100px;">
       <span style="color: #00f">iframe</span>
       <br />
-      <iframe src="/banjir/id/map-embed/" style="width: 500px; height: 500px; border: 1px solid #00f;">no frames</iframe>
+      <iframe src="https://petajakarta.org/banjir/{{site.locale-url-prefix}}/map-embed/" style="width: 500px; height: 500px; border: 1px solid #00f;">no frames</iframe>
     </div>
 
   </body>
