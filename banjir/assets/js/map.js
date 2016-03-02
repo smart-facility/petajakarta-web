@@ -29,8 +29,8 @@ petajakarta.start = function() {
 	// Fetch the map HTML include from the server
 	petajakarta.status.lang = $("html").attr('lang') ? $("html").attr('lang') : 'id';
 	petajakarta.loadedIncludes = new RSVP.Promise( function(resolve, reject) {
-		$("#includes").load( 
-			petajakarta.config.urlPrefix + petajakarta.status.lang + '/map-include/', 
+		$("#includes").load(
+			petajakarta.config.urlPrefix + petajakarta.status.lang + '/map-include/',
 			function( response, status, xhr ) {
 				if (status==='error') {
 					reject(status);
@@ -42,20 +42,20 @@ petajakarta.start = function() {
 	}).catch( function(e) {
 		// TODO Handle error
 	});
-	
+
 	// Are we in embedded mode?
 	petajakarta.status.embedded = $("#"+petajakarta.config.elementId).hasClass('embedded');
-	
+
     petajakarta.isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
 
 	//Check user location and alter map view accordingly
 	if (petajakarta.isTouch){
         L_PREFER_CANVAS = true; //Leaflet canvas rendering
 	}
-	
+
 	// Labels for the layers in the legend, localised in start()
 	petajakarta.layernames = {};
-	
+
 	if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
 		petajakarta.layernames.confirmed = 'Laporan Banjir';
 		petajakarta.layernames.verified = 'Laporan BPBD';
@@ -79,7 +79,7 @@ petajakarta.start = function() {
 		};
 		petajakarta.layernames.floodgauges = 'River Gauges';
 	}
-	
+
 	petajakarta.styleInfrastructure = {
 		waterways:{
 			color:'#3960ac',
@@ -99,7 +99,7 @@ petajakarta.start = function() {
 			popupAnchor: [0, 0],
 		})
 	};
-	
+
 	// Create timestamp control
 	petajakarta.timestamp = L.control({'position':'topright'});
 
@@ -195,7 +195,7 @@ petajakarta.start = function() {
 
 		return div;
 	};
-	
+
 	//Initialise map
 	petajakarta.latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
 	petajakarta.map = L.map(petajakarta.config.elementId, {zoomControl:true}).setView(petajakarta.latlon, 12); // Initialise map
@@ -215,7 +215,7 @@ petajakarta.start = function() {
 		};
 		petajakarta.logo.addTo(petajakarta.map);
 	}
-	
+
 	// Add controls to map
 	petajakarta.infoControl.addTo(petajakarta.map);
 	petajakarta.reportsControl.addTo(petajakarta.map);
@@ -229,7 +229,7 @@ petajakarta.start = function() {
 	}
 	petajakarta.base = L.tileLayer('https://api.mapbox.com/v4/petajakarta.lcf40klb/{z}/{x}/{y}'+petajakarta.tileformat+'?access_token=pk.eyJ1IjoicGV0YWpha2FydGEiLCJhIjoiTExKVVZ5TSJ9.IFf5jeFKz2iwMpBi5N3kUg').addTo(petajakarta.map);
 	petajakarta.markerMap = {}; //Reference list of markers stored outside of Leaflet
-	
+
 	/**
 	Listen for map events and load required layers
 	*/
@@ -250,7 +250,7 @@ petajakarta.start = function() {
 			$('#floodgatesLegend').remove();
 		}
 	});
-	
+
 	petajakarta.map.on('overlayadd', function(event){
 		if (event.layer == petajakarta.floodheights){
 			$('#legendbox').append(petajakarta.heightsLegend);
@@ -268,12 +268,12 @@ petajakarta.start = function() {
 			$('#legendbox').append(petajakarta.floodgatesLegend);
 		}
 	});
-	
+
 	/**
 		Ask popups to render using Twitter embedded tweets
 	*/
 	petajakarta.map.on('popupopen', function(popup){
-	
+
 		if ($('tweet-container')){
 				twttr.widgets.load($('.leaflet-popup-content'));
 			}
@@ -315,7 +315,7 @@ petajakarta.start = function() {
 	petajakarta.layerControl = L.control.layers({}, {}, {position: 'bottomleft'}).addTo(petajakarta.map);
 	petajakarta.loadPrimaryLayers(petajakarta.layerControl).then(petajakarta.loadSecondaryLayers);
 	petajakarta.getREM(petajakarta.loadREM);
-	
+
 	// Finally, add the legend
 	petajakarta.mapLegend.addTo(petajakarta.map);
 };
@@ -521,7 +521,7 @@ petajakarta.getReport = function(id) {
 	@param {function} callback - a function to be called when data is finished loading
 */
 petajakarta.getREM = function(callback) {
-	jQuery.getJSON( petajakarta.config.remServerUrlPrefix + 'data/api/v2/rem/flooded?format=topojson', function(data){
+	jQuery.getJSON( petajakarta.config.remServerUrlPrefix + 'data/api/v2/rem/flooded?format=topojson&minimum_state=1', function(data){
 		if (data.features !== null){
 			callback(topojson.feature(data, data.objects.collection));
 		}
@@ -773,7 +773,7 @@ petajakarta.loadTable = function(reports) {
 	var rows, thead;
 
 	rows = "";
-	
+
 	// TODO Wait for the include HTML request to do this if it's not ready
 
 	for (var i=0;i<reports.features.length;i++) {
