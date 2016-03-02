@@ -79,7 +79,7 @@ module.exports = function(grunt) {
     cssmin: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-        keepSpecialComments: false
+        keepSpecialComments: 0
       },
       build: {
         files: [
