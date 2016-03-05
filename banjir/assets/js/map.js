@@ -803,7 +803,7 @@ petajakarta.loadTable = function(reports) {
 		rows +='<tr>';
 			rows += '<td>' + report.created_at.substring(11, 19) + '</td>'; // Time
 			rows += '<td>' + logo + '</td>';
-			rows += '<td><a data-dismiss="modal" href="#map" onclick="javascript:centreMapOnPopup('+report.pkey+','+reportGeo.coordinates[1]+','+reportGeo.coordinates[0]+')">'+text+'</a></td>'; // Message
+			rows += '<td><a data-dismiss="modal" href="#map" onclick="javascript:petajakarta.centreMapOnPopup('+report.pkey+','+reportGeo.coordinates[1]+','+reportGeo.coordinates[0]+')">'+text+'</a></td>'; // Message
 		rows += '</tr>';
 	}
 	if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id') {
