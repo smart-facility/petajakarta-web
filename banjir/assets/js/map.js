@@ -46,7 +46,7 @@ petajakarta.start = function() {
 	// Are we in embedded mode?
 	petajakarta.status.embedded = $("#"+petajakarta.config.elementId).hasClass('embedded');
 
-    petajakarta.isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+  petajakarta.isTouch = (('ontouchstart' in window) || navigator.msMaxTouchPoints || navigator.maxTouchPoints);
 
 	//Check user location and alter map view accordingly
 	if (petajakarta.isTouch){

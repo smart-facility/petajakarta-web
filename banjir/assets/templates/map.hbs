@@ -81,7 +81,7 @@
     <!-- Site JavaScript -->
 
     <script> //Determine if device is touchscreen/mobile
-      window.isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
+      window.isTouch = (('ontouchstart' in window) || navigator.msMaxTouchPoints || navigator.maxTouchPoints);
 
       if (window.isTouch){
         L_PREFER_CANVAS = true; //Leaflet canvas rendering
