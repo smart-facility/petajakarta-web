@@ -483,3 +483,10 @@ a:after {
     top: -50px;
     visibility: hidden;
 }
+
+/*Remove rounded corners of leaflet legend and buttons*/
+.btn, .modal-content {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+   border-radius: 0 !important;
+}

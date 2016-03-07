@@ -240,7 +240,7 @@ label {
    border-radius: 0 !important;
 }
 
-.leaflet-bar {
+.leaflet-bar a {
   border-radius: 0 !important;
 }
 
