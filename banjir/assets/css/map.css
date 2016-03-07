@@ -19,7 +19,8 @@
   .navbar-header img {
     margin-left: -10px;
   }
-  .timestamp, .leaflet-control-zoom{
+  .map.site .timestamp, 
+  .map.site .leaflet-control-zoom{
      margin-top: 38px !important;
   }
 }
