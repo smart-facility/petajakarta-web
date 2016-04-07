@@ -35,6 +35,9 @@ Run `grunt assets` to compile the site's CSS and JS files into single, minified 
 #### Build HTML - `grunt site`
 Fill in the site's HTML templates with strings for each of the various translations available, with the output in `/build/:language`.
 
+#### Update build for development - `grunt dev`
+Update assets from the already built site to aid development. Copies un-minified JavaScript into the build folder.
+
 ### Rebuild Site on Changes - `grunt watch`
 Watches for changes in the `assets` directory and rebuilds the site when they change. Useful during development.
 

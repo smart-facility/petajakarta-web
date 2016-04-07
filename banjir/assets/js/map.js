@@ -763,9 +763,9 @@ petajakarta.loadSecondaryLayers = function(layerControl) {
 
 /**
  * Generate a table based on the provided reports
- *@file JavaScript to display confirmed reports within map (PetaJakarta.org) via map.js
- *@copyright (c) Tomas Holderness & SMART Infrastructure Facility January 2014
- *@module reports
+ * @file JavaScript to display confirmed reports within map (PetaJakarta.org) via map.js
+ * @copyright (c) Tomas Holderness & SMART Infrastructure Facility January 2014
+ * @module reports
  *
  * @param {object} reports - a GeoJSON object
  */
@@ -773,8 +773,6 @@ petajakarta.loadTable = function(reports) {
 	var rows, thead;
 
 	rows = "";
-
-	// TODO Wait for the include HTML request to do this if it's not ready
 
 	for (var i=0;i<reports.features.length;i++) {
 		var report = reports.features[i].properties;
@@ -813,6 +811,7 @@ petajakarta.loadTable = function(reports) {
 	}
 	var tbody = '<tbody>'+rows+'</tbody></table>';
 
+	// Wait until the includes have been loaded before we insert this table into the DOM
 	petajakarta.loadedIncludes.then( function(v){
 		$("#modal-reports-body").append(thead+tbody);
 	}).catch( function(e) {
