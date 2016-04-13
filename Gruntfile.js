@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -247,7 +249,7 @@ module.exports = function(grunt) {
   grunt.registerTask('server', ['assets', 'site', 'concurrent:server']);
   grunt.registerTask('default', ['assets', 'site']);
   grunt.registerTask('embed', ['assets', 'site', 'copy:embed']);
-  grunt.registerTask('docs', ['jsdoc:dist'])
-  grunt.registerTask('dev', ['copy:devjs'])
+  grunt.registerTask('docs', ['jsdoc:dist']);
+  grunt.registerTask('dev', ['copy:devjs']);
 
 };
