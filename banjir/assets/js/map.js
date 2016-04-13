@@ -274,10 +274,10 @@ petajakarta.start = function() {
 	*/
 	petajakarta.map.on('popupopen', function(popup){
 
-		if ($('tweet-container')){
+		if ( $('#tweet-container').length ){
 				twttr.widgets.load($('.leaflet-popup-content'));
 			}
-		if ($('floodgauge-container')){
+		if ( $('#floodgauge-container').length ){
 			if (popup.popup._source.feature.properties !== null){
 					var properties = popup.popup._source.feature.properties;
 					var ctx = $("#gaugeChart").get(0).getContext("2d");
