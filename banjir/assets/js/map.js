@@ -87,13 +87,13 @@ petajakarta.start = function() {
 			opacity:1,
 		},
 		pumps:L.icon({
-			iconUrl: petajakarta.config.urlPrefix + 'img/pump.svg',
+			iconUrl: petajakarta.config.urlPrefix + 'img/pump.png',
 			iconSize: [22,22],
 			iconAnchor: [11, 11],
 			popupAnchor: [0, 0],
 		}),
 		floodgates:L.icon({
-			iconUrl: petajakarta.config.urlPrefix + 'img/floodgate.svg',
+			iconUrl: petajakarta.config.urlPrefix + 'img/floodgate.png',
 			iconSize: [22,22],
 			iconAnchor: [11, 11],
 			popupAnchor: [0, 0],
@@ -150,11 +150,11 @@ petajakarta.start = function() {
 		petajakarta.siagaNames[3] = 'Alert Level 3';
 		petajakarta.siagaNames[4] = 'Alert Level 4';
 	}
-	petajakarta.gaugesLegend = '<div id="gaugesLegend"><div class="sublegend"><div style="font-weight:bold">'+petajakarta.layernames.floodgauges+'</div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_1.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[1]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_2.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[2]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_3.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[3]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[4]+'</span></div></div>';
+	petajakarta.gaugesLegend = '<div id="gaugesLegend"><div class="sublegend"><div style="font-weight:bold">'+petajakarta.layernames.floodgauges+'</div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_1.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[1]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_2.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[2]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_3.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[3]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[4]+'</span></div></div>';
 
 	//infrastructure legend items
-	petajakarta.pumpsLegend = '<div id="pumpsLegend"><div class="sublegend"><div><img src="'+petajakarta.config.urlPrefix+'img/pump.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.layernames.pumps+'</span></div></div>';
-	petajakarta.floodgatesLegend =  '<div id="floodgatesLegend"><div class="sublegend"><div><img src="'+petajakarta.config.urlPrefix+'img/floodgate.svg" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.layernames.floodgates+'</span></div></div>';
+	petajakarta.pumpsLegend = '<div id="pumpsLegend"><div class="sublegend"><div><img src="'+petajakarta.config.urlPrefix+'img/pump.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.layernames.pumps+'</span></div></div>';
+	petajakarta.floodgatesLegend =  '<div id="floodgatesLegend"><div class="sublegend"><div><img src="'+petajakarta.config.urlPrefix+'img/floodgate.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.layernames.floodgates+'</span></div></div>';
 	petajakarta.waterwaysLegend = '<div id="waterwaysLegend"><div class="sublegend"><div><span style="background-color:#3960ac; font-size:6px;padding-top:8px;margin-left:8px;margin-right:5px;">&nbsp;</span><span>&nbsp;'+petajakarta.layernames.waterways+'</span></div></div>';
 
 	// Reports control
@@ -431,13 +431,13 @@ petajakarta.infrastructureMarkerPopup = function(feature, layer){
 petajakarta.getSiagaLevelIconography = function(level){
 	switch (level) {
 		case 1:
-			return {'color':'#FF4000','icon':'floodgauge_1.svg'};
+			return {'color':'#FF4000','icon':'floodgauge_1.png'};
 		case 2:
-			return {'color':'#FF8000','icon':'floodgauge_2.svg'};
+			return {'color':'#FF8000','icon':'floodgauge_2.png'};
 		case 3:
-			return {'color':'#F7D358','icon':'floodgauge_3.svg'};
+			return {'color':'#F7D358','icon':'floodgauge_3.png'};
 		default:
-			return {'color':'#01DF01','icon':'floodgauge.svg'};
+			return {'color':'#01DF01','icon':'floodgauge.png'};
 	}
 };
 
