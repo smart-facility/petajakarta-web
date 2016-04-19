@@ -8,22 +8,22 @@ module.exports = function(grunt) {
     concat: {
       commonJs: {
           src: [
-            'banjir/vendor/js/jquery-1.10.2.min.js',
-            'banjir/vendor/js/bootstrap.min.js',
+            'banjir/vendor/js/jquery-1.10.2.js',
+            'banjir/vendor/js/bootstrap.js',
           ],
           dest: 'build/banjir/js/common.js'
       },
       siteJs: {
         src: [
           'banjir/vendor/js/jquery.growl.js',
-          'banjir/vendor/js/jquery.scrollUp.min.js'
+          'banjir/vendor/js/jquery.scrollUp.js'
         ],
         dest: 'build/banjir/js/site.js'
       },
       mapJs: {
           src: [
             'banjir/vendor/js/jquery-1.10.2.min.js',
-            'banjir/vendor/js/leaflet.js',
+            'banjir/vendor/js/leaflet-src.js',
             'banjir/vendor/js/leaflet-providers.js',
             'banjir/vendor/js/L.Control.MousePosition.js',
             'banjir/vendor/js/leaflet.markercluster.js',
@@ -31,7 +31,7 @@ module.exports = function(grunt) {
             'banjir/vendor/js/leaflet.spin.js',
             'banjir/vendor/js/topojson.js',
             'banjir/vendor/js/rsvp.js',
-            'banjir/vendor/js/Chart.min.js',
+            'banjir/vendor/js/Chart.js',
             'banjir/vendor/js/url.min.js',
             'banjir/assets/js/validation.js',
             'banjir/assets/js/map.js'
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
       },
       commonCss: {
           src: [
-              'banjir/vendor/css/bootstrap.min.css'
+              'banjir/vendor/css/bootstrap.css'
           ],
          dest: 'build/banjir/css/common.css'
       },
