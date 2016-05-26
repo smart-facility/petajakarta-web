@@ -24,15 +24,13 @@ module.exports = function(grunt) {
           src: [
             'banjir/vendor/js/jquery-1.10.2.min.js',
             'banjir/vendor/js/leaflet-src.js',
-            'banjir/vendor/js/leaflet-providers.js',
             'banjir/vendor/js/L.Control.MousePosition.js',
-            'banjir/vendor/js/leaflet.markercluster.js',
             'banjir/vendor/js/spin.min.js',
             'banjir/vendor/js/leaflet.spin.js',
             'banjir/vendor/js/topojson.js',
             'banjir/vendor/js/rsvp.js',
             'banjir/vendor/js/Chart.js',
-            'banjir/vendor/js/url.min.js',
+            'banjir/vendor/js/url.js',
             'banjir/assets/js/validation.js',
             'banjir/assets/js/map.js'
           ],
@@ -55,8 +53,6 @@ module.exports = function(grunt) {
       },
       mapCss: {
           src: [
-              'banjir/vendor/css/MarkerCluster.css',
-              'banjir/vendor/css/MarkerCluster.default.css',
               'banjir/vendor/css/L.Control.MousePosition.css',
               'banjir/vendor/css/leaflet.css',
               'banjir/assets/css/map.css'
