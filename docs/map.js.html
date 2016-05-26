@@ -30,19 +30,356 @@
 
 /**
 *@file LeafletJS map to display data from cognicity server (PetaJakarta.org)
-*@copyright (c) Tomas Holderness &amp; SMART Infrastructure Facility January 2014
+*@copyright (c) Tomas Holderness &amp; SMART Infrastructure Facility January 2014-2016
 *@module map
 */
 
-/**
-	Transforms a number into a formatted, comma separated string. e.g. `1234567`
-	becomes `"1,234,567"`.
+var petajakarta = {
+	// Default configuration
+	config: {
+		// The ID of the element which will become the map
+		elementId: "map",
+		// The start of the URL for the web server serving the map resources (CSS, JS, HTML)
+		urlPrefix: '/banjir/',
+		// The start of the URL to the API server
+		serverUrlPrefix: 'https://petajakarta.org/banjir/',
+		// The start of the URL to the REM API server
+		remServerUrlPrefix: 'https://rem.petajakarta.org/banjir/'
+	},
+	// Useful status variables
+	status: {
+		lang: null,
+		embedded: null
+	}
+};
 
-	@function
-	@param {number} x the number to be formatted
+petajakarta.start = function() {
+	// Fetch the map HTML include from the server
+	petajakarta.status.lang = $("html").attr('lang') ? $("html").attr('lang') : 'id';
+	petajakarta.loadedIncludes = new RSVP.Promise( function(resolve, reject) {
+		$("#includes").load(
+			petajakarta.config.urlPrefix + petajakarta.status.lang + '/map-include/',
+			function( response, status, xhr ) {
+				if (status==='error') {
+					reject(status);
+				} else {
+					resolve();
+				}
+			}
+		);
+	}).catch( function(e) {
+		// TODO Handle error
+	});
+
+	// Are we in embedded mode?
+	petajakarta.status.embedded = $("#"+petajakarta.config.elementId).hasClass('embedded');
+
+  petajakarta.isTouch = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+
+	//Check user location and alter map view accordingly
+	if (petajakarta.isTouch){
+        L_PREFER_CANVAS = true; //Leaflet canvas rendering
+	}
+
+	// Labels for the layers in the legend, localised in start()
+	petajakarta.layernames = {};
+
+	if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
+		petajakarta.layernames.confirmed = 'Laporan Banjir';
+		petajakarta.layernames.verified = 'Laporan BPBD';
+		petajakarta.layernames.waterways = 'Aliran Air';
+		petajakarta.layernames.pumps = 'Pompa Air';
+		petajakarta.layernames.floodgates = 'Pintu Air';
+		petajakarta.layernames.floodheights = {
+			title: 'Tinggi Banjir',
+			tentative_areas: 'Hati-Hati'
+		};
+		petajakarta.layernames.floodgauges = 'Tinggi Muka Air';
+	} else {
+		petajakarta.layernames.confirmed = 'Flood Reports';
+		petajakarta.layernames.verified = 'BPBD Reports';
+		petajakarta.layernames.waterways = 'Waterways';
+		petajakarta.layernames.pumps = 'Pumps';
+		petajakarta.layernames.floodgates = 'Floodgates';
+		petajakarta.layernames.floodheights = {
+			title: 'Flood Heights',
+			tentative_areas: 'Use Caution'
+		};
+		petajakarta.layernames.floodgauges = 'River Gauges';
+	}
+
+	petajakarta.styleInfrastructure = {
+		waterways:{
+			color:'#3960ac',
+			weight:0.9,
+			opacity:1,
+		},
+		pumps:L.icon({
+			iconUrl: petajakarta.config.urlPrefix + 'img/pump.svg',
+			iconSize: [22,22],
+			iconAnchor: [11, 11],
+			popupAnchor: [0, 0],
+		}),
+		floodgates:L.icon({
+			iconUrl: petajakarta.config.urlPrefix + 'img/floodgate.svg',
+			iconSize: [22,22],
+			iconAnchor: [11, 11],
+			popupAnchor: [0, 0],
+		})
+	};
+
+	// Create timestamp control
+	petajakarta.timestamp = L.control({'position':'topright'});
+
+	/**
+		Toggle timestamp on map based on checkbox behaviour
+
+		@param {Boolean} checkbox - true/false representation of checkbox state
+	*/
+	petajakarta.toggle_timestamp = function(checkbox){
+
+		if (checkbox === true){
+			petajakarta.timestamp.addTo(petajakarta.map);
+		} else {
+			if (petajakarta.timestamp._map){
+				petajakarta.map.removeControl(petajakarta.timestamp);
+			}
+		}
+	};
+	// Create timestamp text
+	petajakarta.timestamp.onAdd = function(map){
+		var time = String(new Date()).slice(4,21);
+		this._div = L.DomUtil.create('div', 'info timestamp');
+		this._div.innerHTML = time;
+		return this._div;
+	};
+
+	// map legend
+	petajakarta.mapLegend = L.control({position:'bottomright'});
+
+	petajakarta.mapLegend.onAdd = function(map) {
+		var div = L.DomUtil.create('div', 'info legend');
+		div.innerHTML += '&lt;div id="legendbox">&lt;div class="sublegend">&lt;div>&lt;span class="div-icon-confirmed-legend glyphicon glyphicon-tint" aria-hidden="true" style="margin-left:1px;">&lt;/span>&amp;nbsp;'+petajakarta.layernames.confirmed+'&lt;/div>&lt;div>&lt;span class="div-icon-verified-legend glyphicon glyphicon-tint" aria-hidden="true" style="margin-right:1px;">&lt;/span>'+petajakarta.layernames.verified+'&lt;/div>&lt;/div>&lt;/div>';
+		return div;
+	};
+
+	//flood heights scale
+	petajakarta.heightsLegend = '&lt;div id="heightsLegend">&lt;div class="sublegend">&lt;div style="font-weight:bold">'+petajakarta.layernames.floodheights.title+'&lt;/div>&lt;div>&lt;i class="color" style="background:#CC2A41;">&lt;/i>&lt;span>&amp;nbsp;&amp;gt; 150 cm&lt;/span>&lt;/div>&lt;div>&lt;i class="color" style="background:#FF8300">&lt;/i>&lt;span>&amp;nbsp;71 cm &amp;ndash; 150 cm &lt;/span>&lt;/div>&lt;div>&lt;i class="color" style="background:#FFFF00">&lt;/i>&lt;span>&amp;nbsp;10 cm &amp;ndash; 70 cm&lt;/span>&lt;/div>&lt;i class="color" style="background:#A0A9F7">&lt;/i>&lt;span>&amp;nbsp;'+petajakarta.layernames.floodheights.tentative_areas+'&lt;/span>&lt;/div>&lt;/div>';
+	//flood gauges legend
+	petajakarta.siagaNames = {};
+	if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
+		petajakarta.siagaNames[1] = 'Siaga I';
+		petajakarta.siagaNames[2] = 'Siaga II';
+		petajakarta.siagaNames[3] = 'Siaga III';
+		petajakarta.siagaNames[4] = 'Siaga IV';
+	} else {
+		petajakarta.siagaNames[1] = 'Alert Level 1';
+		petajakarta.siagaNames[2] = 'Alert Level 2';
+		petajakarta.siagaNames[3] = 'Alert Level 3';
+		petajakarta.siagaNames[4] = 'Alert Level 4';
+	}
+	petajakarta.gaugesLegend = '&lt;div id="gaugesLegend">&lt;div class="sublegend">&lt;div style="font-weight:bold">'+petajakarta.layernames.floodgauges+'&lt;/div>&lt;div>&lt;img src="'+petajakarta.config.urlPrefix+'img/floodgauge_1.svg" height="18px;" width="auto" />&lt;span>&amp;nbsp;'+petajakarta.siagaNames[1]+'&lt;/span>&lt;/div>&lt;div>&lt;img src="'+petajakarta.config.urlPrefix+'img/floodgauge_2.svg" height="18px;" width="auto" />&lt;span>&amp;nbsp;'+petajakarta.siagaNames[2]+'&lt;/span>&lt;/div>&lt;div>&lt;img src="'+petajakarta.config.urlPrefix+'img/floodgauge_3.svg" height="18px;" width="auto" />&lt;span>&amp;nbsp;'+petajakarta.siagaNames[3]+'&lt;/span>&lt;/div>&lt;div>&lt;img src="'+petajakarta.config.urlPrefix+'img/floodgauge.svg" height="18px;" width="auto" />&lt;span>&amp;nbsp;'+petajakarta.siagaNames[4]+'&lt;/span>&lt;/div>&lt;/div>';
+
+	//infrastructure legend items
+	petajakarta.pumpsLegend = '&lt;div id="pumpsLegend">&lt;div class="sublegend">&lt;div>&lt;img src="'+petajakarta.config.urlPrefix+'img/pump.svg" height="18px;" width="auto" />&lt;span>&amp;nbsp;'+petajakarta.layernames.pumps+'&lt;/span>&lt;/div>&lt;/div>';
+	petajakarta.floodgatesLegend =  '&lt;div id="floodgatesLegend">&lt;div class="sublegend">&lt;div>&lt;img src="'+petajakarta.config.urlPrefix+'img/floodgate.svg" height="18px;" width="auto" />&lt;span>&amp;nbsp;'+petajakarta.layernames.floodgates+'&lt;/span>&lt;/div>&lt;/div>';
+	petajakarta.waterwaysLegend = '&lt;div id="waterwaysLegend">&lt;div class="sublegend">&lt;div>&lt;span style="background-color:#3960ac; font-size:6px;padding-top:8px;margin-left:8px;margin-right:5px;">&amp;nbsp;&lt;/span>&lt;span>&amp;nbsp;'+petajakarta.layernames.waterways+'&lt;/span>&lt;/div>&lt;/div>';
+
+	// Reports control
+	petajakarta.reportsControl = L.control({position:'bottomleft'});
+	petajakarta.reportsControl.onAdd = function(map) {
+	  var div = L.DomUtil.create('div', 'leaflet-control');
+
+	  var reportsLink = L.DomUtil.create('a', 'leaflet-control-reports-button', div);
+	  //reportsLink.textContent = "&lt;span class='badge'>4&lt;/span>";
+	  reportsLink.setAttribute('data-toggle', 'modal');
+	  reportsLink.setAttribute('href', '#reportsModal');
+
+		petajakarta.reportsBadge = L.DomUtil.create('span', 'badge progress-bar-danger', reportsLink);
+
+	  return div;
+	};
+
+	petajakarta.infoControl = L.control({position:'bottomleft'});
+
+	petajakarta.infoControl.onAdd = function(map) {
+	  var div = L.DomUtil.create('div', 'leaflet-control');
+	  var infoLink = L.DomUtil.create('a', 'leaflet-control-info-button', div);
+	  infoLink.textContent = "Information";
+	  infoLink.setAttribute('data-toggle', 'modal');
+	  infoLink.setAttribute('href', '#infoModal');
+
+	  return div;
+	};
+
+	petajakarta.locationControl = L.control({position:'bottomleft'});
+
+	petajakarta.locationControl.onAdd = function(map){
+		var div = L.DomUtil.create('div', 'leaflet-control');
+		var locationLink = L.DomUtil.create('a', 'leaflet-control-location-button', div);
+		locationLink.textContent = 'Current Location';
+		locationLink.setAttribute('href', '#');
+		locationLink.setAttribute('onclick', 'navigator.geolocation.getCurrentPosition(petajakarta.setViewJakarta); return false;');
+
+		return div;
+	};
+
+	//Initialise map
+	petajakarta.latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
+	petajakarta.map = L.map(petajakarta.config.elementId, {zoomControl:true}).setView(petajakarta.latlon, 12); // Initialise map
+	petajakarta.map.attributionControl.setPrefix('');
+	L.control.scale({'position':'bottomright', 'imperial':false, 'maxWidth':200}).addTo(petajakarta.map);
+
+	//Specify default image path for Leaflet
+	L.Icon.Default.imagePath = petajakarta.config.urlPrefix+'css/images/';
+
+	// Branding logo when embedded
+	if (petajakarta.status.embedded) {
+		petajakarta.logo = L.control({position:'topright'});
+		petajakarta.logo.onAdd = function(map) {
+			var div = L.DomUtil.create('div', 'logo');
+			div.innerHTML += '&lt;a href="http://petajakarta.org/banjir/'+petajakarta.status.lang+'/" target="_blank">&lt;img border="0" src="'+petajakarta.config.urlPrefix+'img/pj_logo_black_text_150.png"/>&lt;/a>';
+			return div;
+		};
+		petajakarta.logo.addTo(petajakarta.map);
+	}
+
+	// Add controls to map
+	petajakarta.infoControl.addTo(petajakarta.map);
+	petajakarta.reportsControl.addTo(petajakarta.map);
+	petajakarta.locationControl.addTo(petajakarta.map);
+
+	// Basemap - check for HD/Retina display
+	// See: http://www.robertprice.co.uk/robblog/2011/05/detecting_retina_displays_from_javascript_and_css-shtml/
+	petajakarta.tileformat = '.png128';
+	if (window.devicePixelRatio > 1) {
+		petajakarta.tileformat = '@2x.png128';
+	}
+	petajakarta.base = L.tileLayer('https://api.mapbox.com/v4/petajakarta.lcf40klb/{z}/{x}/{y}'+petajakarta.tileformat+'?access_token=pk.eyJ1IjoicGV0YWpha2FydGEiLCJhIjoiTExKVVZ5TSJ9.IFf5jeFKz2iwMpBi5N3kUg').addTo(petajakarta.map);
+	petajakarta.markerMap = {}; //Reference list of markers stored outside of Leaflet
+
+	/**
+	Listen for map events and load required layers
+	*/
+	petajakarta.map.on('overlayremove', function(event){
+		if (event.layer == petajakarta.floodheights){
+			$('#heightsLegend').remove();
+		}
+		else if (event.layer == petajakarta.floodgauges){
+			$('#gaugesLegend').remove();
+		}
+		else if (event.layer == petajakarta.pumps){
+			$('#pumpsLegend').remove();
+		}
+		else if (event.layer == petajakarta.waterways){
+			$('#waterwaysLegend').remove();
+		}
+		else if (event.layer == petajakarta.floodgates){
+			$('#floodgatesLegend').remove();
+		}
+	});
+
+	petajakarta.map.on('overlayadd', function(event){
+		if (event.layer == petajakarta.floodheights){
+			$('#legendbox').append(petajakarta.heightsLegend);
+		}
+		else if (event.layer == petajakarta.floodgauges) {
+			$('#legendbox').append(petajakarta.gaugesLegend);
+		}
+		else if (event.layer == petajakarta.pumps) {
+			$('#legendbox').append(petajakarta.pumpsLegend);
+		}
+		else if (event.layer == petajakarta.waterways) {
+			$('#legendbox').append(petajakarta.waterwaysLegend);
+		}
+		else if (event.layer == petajakarta.floodgates) {
+			$('#legendbox').append(petajakarta.floodgatesLegend);
+		}
+	});
+
+	/**
+		Ask popups to render using Twitter embedded tweets
+	*/
+	petajakarta.map.on('popupopen', function(popup){
+
+		if ($('tweet-container')){
+				twttr.widgets.load($('.leaflet-popup-content'));
+			}
+		if ($('floodgauge-container')){
+			if (popup.popup._source.feature.properties !== null){
+					var properties = popup.popup._source.feature.properties;
+					var ctx = $("#gaugeChart").get(0).getContext("2d");
+					var data = {
+						labels : [],
+						datasets : [{
+							label: "",
+							fillColor: "rgba(151,187,205,0.2)",
+							strokeColor: "rgba(151,187,205,1)",
+							pointColor: "rgba(151,187,205,1)",
+							pointStrokeColor: "#fff",
+							pointHighlightFill: "#fff",
+							pointHighlightStroke: "rgba(151,187,205,1)",
+							data: []
+						}]
+					};
+					for (var i = 0; i &lt; properties.observations.length; i++){
+						data.labels.push(properties.observations[i].measuredatetime.slice(11,16));
+						data.datasets[0].data.push(properties.observations[i].depth);
+					}
+					var gaugeChart = new Chart(ctx).Line(data, {bezierCurve:true, scaleLabel: "&lt;%= ' ' + value%>"});
+				}
+			}
+	});
+
+	if (petajakarta.isTouch){
+		petajakarta.map.locate({setView:false});
+		if ('geolocation' in navigator) {
+			navigator.geolocation.getCurrentPosition(petajakarta.setViewJakarta);
+		}
+	}
+
+	//Load reports
+	petajakarta.map.spin(true);
+	petajakarta.layerControl = L.control.layers({}, {}, {position: 'bottomleft'}).addTo(petajakarta.map);
+	petajakarta.loadPrimaryLayers(petajakarta.layerControl).then(petajakarta.loadSecondaryLayers);
+	petajakarta.getREM(petajakarta.loadREM);
+
+	// Finally, add the legend
+	petajakarta.mapLegend.addTo(petajakarta.map);
+};
+
+/**
+	Format popup with an embedded tweet
+
+	@param {object} feature - a GeoJSON feature representing a report
 */
-var formatNumberAsString = function(x) {
-	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+petajakarta.tweetPopup = function(feature){
+	var popup = '&lt;div id="tweet-container" style="width:220px; height:auto; max-height:220px; overflow-y:scroll">&lt;blockquote class="twitter-tweet" data-conversation="none">&lt;a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'&lt;/a>&lt;/blockquote>&lt;/div>';
+	if (feature.properties.status == 'verified'){
+		popup = '&lt;div style="padding:5px">&lt;img src="'+petajakarta.config.urlPrefix+'img/bpbd_dki.png" height="35px;"> @BPBDJakarta &lt;i>Retweeted&lt;/i>&lt;/div>&lt;div id="tweet-container" style="width:220px; height:auto; max-height:220px; overflow-y:scroll;">&lt;blockquote class="twitter-tweet">&lt;a target="_blank"  href="'+feature.properties.url+'">'+feature.properties.text+'&lt;/a>&lt;/blockquote>&lt;/div>';
+	}
+	return popup;
+};
+
+/**
+	Format popup with a Detik report
+
+	@param {object} feature - a GeoJSON feature representing a report
+*/
+petajakarta.detikPopup = function(feature){
+	var popup = '&lt;div id="detik-container" style="width:220px; height:220px; overflow-y:scroll; background-color:white;">&lt;div class="media">&lt;a class="pull-left" href="#">&lt;img class="media-object" src="'+petajakarta.config.urlPrefix+'img/logo_detik.png" height="22">&lt;/a>&lt;div class="media-body">&lt;h4 style="font-size:18px; line-height:1.2;" class="media-heading">PASANGMATA.COM&lt;/h4>&lt;/div>&lt;/div>&lt;p class="lead" style="margin:4px;font-size:16px;">'+feature.properties.title+'&lt;/p>&lt;img class="img-responsive" src="'+feature.properties.image_url+'" width="210"/>&lt;h5>'+feature.properties.text+'&lt;/h5>&lt;h5>'+feature.properties.created_at.replace('T',' ')+'&lt;/h5>&lt;a href="'+feature.properties.url+'" target="_blank">'+feature.properties.url+'&lt;/a>&lt;/div>';
+	return popup;
+};
+
+/**
+	Format popup with a Qlue report
+
+	@param {object} feature - a GeoJSON feature representing a report
+*/
+
+petajakarta.qluePopup = function(feature){
+	var popup = '&lt;div id="qlue-container" style="width:220px; height:220px; overflow-y:scroll; background-color:white;">&lt;div class="media">&lt;a class="pull-left" href="#">&lt;img class="media-object" src="'+petajakarta.config.urlPrefix+'img/logo_qlue_height_32.png" height="32">&lt;/a>&lt;/div>&lt;p class="lead" style="margin-bottom:4px;margin-top:4px;font-size:16px;">'+feature.properties.title+'&lt;/p>&lt;img class="img-responsive" src="'+feature.properties.image_url+'" width="210"/>&lt;h5>'+feature.properties.text+'&lt;/h5>&lt;h5>'+feature.properties.created_at.replace('T',' ')+'&lt;/div>';
+	return popup;
 };
 
 /**
@@ -51,26 +388,34 @@ var formatNumberAsString = function(x) {
 	@param {object} feature - a GeoJSON feature
 	@param {L.ILayer} layer - the layer to attach the popup to
 */
-var markerPopup = function(feature, layer) {
+petajakarta.markerPopup = function(feature, layer) {
 	if (feature.properties) {
-		markerMap[feature.properties.pkey] = layer;
-		//Create reference list of markers
-		layer.bindPopup(feature.properties.text.parseURL());
-	}
-};
+		petajakarta.markerMap[feature.properties.pkey] = layer;
+		// Render as tweet
+		if (feature.properties.source == 'twitter'){
+			layer.bindPopup(petajakarta.tweetPopup(feature), {autoPanPadding:([0,140])});
+		}
+		// Render as Detik report
+		else if (feature.properties.source == 'detik'){
+			layer.bindPopup(petajakarta.detikPopup(feature), {autoPanPadding:([0,60])});
+		}
 
-/**
-	Add a text popup to the provided layer
+		// Render as Qlue
+		else if (feature.properties.source == 'qlue'){
+			layer.bindPopup(petajakarta.qluePopup(feature), {autoPanPadding:([0,60])});
+		}
 
-	@param {object} feature - a GeoJSON feature
-	@param {L.ILayer} layer - the layer to attach the popup to
-*/
-var uncomfirmedMarkerPopup = function(feature, layer) {
-	if (feature.properties) {
-		if (document.documentElement.lang == 'in') {
-			layer.bindPopup('Laporan belum dikonfirmasi. Twit pesanmu dengan menyebutkan @petajkt #banjir');
-		} else {
-			layer.bindPopup('Unconfirmed report. To confirm tweet @petajkt #banjir');
+		// Default to text rendering
+		else {
+
+			var message = "";
+			if (feature.properties.title &amp;&amp; feature.properties.title.length !== 0){
+				message += feature.properties.title;
+			}
+			if (feature.properties.text &amp;&amp; feature.properties.text.length !==0){
+				message += '&amp;#151'+feature.properties.text;
+			}
+			layer.bindPopup(message, {autoPanPadding:([0,60])});
 		}
 	}
 };
@@ -81,10 +426,10 @@ var uncomfirmedMarkerPopup = function(feature, layer) {
 	@param {string} layer - the layer to be fetched
 	@return {L.TileLayer} layer - the layer that was fetched from the server
 */
-var getInfrastructure = function(layer) {
+petajakarta.getInfrastructure = function(layer) {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
-		jQuery.getJSON("/banjir/data/api/v1/infrastructure/"+layer+"?format=topojson", function(data){
+		jQuery.getJSON(petajakarta.config.serverUrlPrefix + "data/api/v2/infrastructure/"+layer+"?format=topojson", function(data){
 				if (data.features !== null){
 					resolve(topojson.feature(data, data.objects.collection));
 				} else {
@@ -100,9 +445,60 @@ var getInfrastructure = function(layer) {
 	@param {object} feature - a GeoJSON feature
 	@param {L.ILayer} layer - the layer to attach the popup to
 */
-var infrastructureMarkerPopup = function(feature, layer){
+petajakarta.infrastructureMarkerPopup = function(feature, layer){
 	if (feature.properties){
 		layer.bindPopup(feature.properties.name);
+	}
+};
+
+/**
+	Returns floodgauge icon and color based on siaga (alert) level
+
+	@param {level} integer - the alert level (1-4)
+*/
+petajakarta.getSiagaLevelIconography = function(level){
+	switch (level) {
+		case 1:
+			return {'color':'#FF4000','icon':'floodgauge_1.svg'};
+		case 2:
+			return {'color':'#FF8000','icon':'floodgauge_2.svg'};
+		case 3:
+			return {'color':'#F7D358','icon':'floodgauge_3.svg'};
+		default:
+			return {'color':'#01DF01','icon':'floodgauge.svg'};
+	}
+};
+
+/**
+	Format popup with a floodgauge report
+
+	@param {object} feature - a GeoJSON feature representing a report
+*/
+petajakarta.floodgaugePopoup = function(feature){
+
+	var label = 'Water Level (cm)';
+	if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id'){
+			label = 'Tinggi Muka Air (cm)';
+	}
+	var popup = '';
+	if (feature.properties !== null){
+		popup = '&lt;div id="floodgauge-container" style="width:220px; height:220px; overflow-y:scroll">&lt;div class="media">&lt;img class="media-object pull-left" src="'+petajakarta.config.urlPrefix+'img/dki_jayaraya.png" height="22"/>&lt;img class="media-object pull-left" src="'+petajakarta.config.urlPrefix+'img/bpbd_dki.png" height="22"/>&lt;h4 style="font-size:18px; line-height:1.2;" class="media-heading pull-left">'+feature.properties.gaugenameid+'&lt;/h4>&lt;/div>'+label+'&amp;nbsp;&amp;nbsp|&amp;nbsp;&amp;nbsp;&lt;span style="color:black; background-color:'+petajakarta.getSiagaLevelIconography(feature.properties.observations[feature.properties.observations.length-1].warninglevel).color+'">'+feature.properties.observations[feature.properties.observations.length-1].warningnameid+'&lt;/span>&lt;canvas id="gaugeChart" class="chart" width="210" height="180">&lt;/canvas>&lt;/div>';
+	}
+	else {
+		popup = 'Data not available | Tidak ada data';
+	}
+	return popup;
+};
+
+/**
+	Add a text popup to the floodgauge layer
+
+	@param {object} feature - a GeoJSON feature
+	@param {L.ILayer} layer - the layer to attach the popup to
+*/
+petajakarta.floodgaugeMarker = function(feature, layer){
+	if (feature.properties){
+		layer.bindPopup(petajakarta.floodgaugePopoup(feature),{autoPanPadding:([0,60])});
 	}
 };
 
@@ -114,12 +510,10 @@ var infrastructureMarkerPopup = function(feature, layer){
 
 	Converts TopoJson to GeoJson using topojson
 */
-var getReports = function(type) {
+petajakarta.getReports = function(type) {
 	return new RSVP.Promise(function(resolve, reject) {
 		// Use live data
-		jQuery.getJSON('/banjir/data/api/v1/reports/'+type+'?format=topojson', function(data) {
-		// Use fixture data
-		// jQuery.getJSON('http://localhost:31338/' + type + '_reports.json', function(data) {
+		jQuery.getJSON(petajakarta.config.serverUrlPrefix + 'data/api/v2/reports/'+type+'?format=topojson', function(data) {
 			if (data.features !== null){
 				//Convert topojson back to geojson for Leaflet
 				resolve(topojson.feature(data, data.objects.collection));
@@ -128,84 +522,141 @@ var getReports = function(type) {
 			}
 		});
 	});
-
 };
 
-var aggregateHours = 1;
-
 /**
-	Get GeoJSON representing counts of reports in RW polygons
-	@param {function} callback - a function to be called when data is finished loading
-	@param {level} string - administrative boundary level to load. Can be 'rw' or 'village', also passed to load function for identification
+	Get GeoJSON representing a single confirmed flooding report
+
+	@param {integer} id - the unique id of the confirmed report to get
+
+	For single point feature GeoJSON is smaller than TopoJSON
 */
-var getAggregates = function(level) {
-	return new RSVP.Promise(function(resolve, reject) {
-		jQuery.getJSON('/banjir/data/api/v1/aggregates/live?format=topojson&amp;level='+level+'&amp;hours='+aggregateHours, function(data) {
-			resolve(topojson.feature(data, data.objects.collection));
+petajakarta.getReport = function(id) {
+	return new RSVP.Promise(function(resolve, reject){
+		jQuery.getJSON(petajakarta.config.serverUrlPrefix + 'data/api/v2/reports/confirmed/'+id+'?format=geojson', function(data){
+			if (data.features !== null){
+				resolve(data);
+			}
+				else {
+					resolve(null);
+				}
 		});
 	});
+};
+
+/**
+	Get GeoJSON representing current flooding
+	@param {function} callback - a function to be called when data is finished loading
+*/
+petajakarta.getREM = function(callback) {
+	jQuery.getJSON( petajakarta.config.remServerUrlPrefix + 'data/api/v2/rem/flooded?format=topojson&amp;minimum_state=1', function(data){
+		if (data.features !== null){
+			callback(topojson.feature(data, data.objects.collection));
+		}
+		else {
+			callback(null);
+		}
+	})
+	.fail(function(){
+		console.log('getREM(): Error fetching REM data');
+	});
+};
+
+/**
+	Load GeoJSON representing current flooding
+	@param {object} data - geojson polygon representation of affected areas
+*/
+petajakarta.loadREM = function(data){
+	petajakarta.floodheights = L.geoJson(data, {clickable: false, style:function(feature){
+		switch (feature.properties.state) {
+			case 4: return {fillColor:"#CC2A41",weight:1,color:"#CC2A41", opacity:0.8,fillOpacity: 0.8};
+			case 3: return {fillColor:"#FF8300",weight:1,color:"#FF8300", opacity:0.8,fillOpacity: 0.8};
+			case 2: return {fillColor:"#FFFF00",weight:1,color:"#FFFF00", opacity:0.8,fillOpacity: 0.8};
+			case 1: return {fillColor:"#A0A9F7", weight:1,color:"#A0A9F7",opacity:0.8,fillOpacity: 0.8};
+			default: return {color:"rgba(0,0,0,0)",weight:0,fillOpacity:0};
+		}
+	}}).addTo(petajakarta.map).bringToBack();
+
+	$('#legendbox').append(petajakarta.heightsLegend);
+	petajakarta.layerControl.addOverlay(petajakarta.floodheights, petajakarta.layernames.floodheights.title);
+};
+
+/** Style confirmed reports
+		@param {object} feature - geojson report feature
+*/
+petajakarta.iconConfirmedReports = function(feature){
+	//default confirmed style
+	var myicon = L.divIcon({className: 'div-icon-confirmed', html:'&lt;p>&lt;span class="glyphicon glyphicon-tint" aria-hidden="true">&lt;/span>&lt;/p>', popupAnchor:[5,0]});
+	//else return verified style
+	if (feature.properties.status == 'verified'){
+		myicon = L.divIcon({className: 'div-icon-verified', html:'&lt;p>&lt;span class="glyphicon glyphicon-tint" aria-hidden="true">&lt;/span>&lt;/p>', popupAnchor:[5,0]});
+	}
+	return (myicon);
 };
 
 /**
 	Plots confirmed points on the map as circular markers
 	@param {object} reports - a GeoJSON object containing report locations
 */
-var loadConfirmedPoints = function(reports) {
+petajakarta.loadConfirmedPoints = function(reports) {
 	if (reports) {
-		loadTable(reports); //sneaky loadTable function.
+		petajakarta.loadTable(reports); //sneaky loadTable function.
+		// badge reports button
+		petajakarta.reportsBadge.textContent = reports.features.length;
 
-		window.reportsBadge.textContent = reports.features.length;
-
-		window.confirmedPoints = L.geoJson(reports, {
+		// create points
+		petajakarta.confirmedPoints = L.geoJson(reports, {
 			pointToLayer: function(feature, latlng) {
-				return L.circleMarker(latlng, styleConfirmed);
+				var zIndexOffset = 0;
+				if (feature.properties.status == 'verified') zIndexOffset = 1000;
+				return  L.marker(latlng, {icon:petajakarta.iconConfirmedReports(feature), zIndexOffset: zIndexOffset});
 			},
-			onEachFeature: markerPopup
+			onEachFeature: petajakarta.markerPopup
 		});
   } else {
-		window.confirmedPoints = L.geoJson();
-	}
-
-	return window.confirmedPoints;
-};
-
-/**
-	Plots unconfirmed points on the map as circular markers
-
-	@param {object} reports - a GeoJSON object containing report locations
-*/
-var loadUnconfirmedPoints = function(reports) {
-	if (reports) {
-		window.unconfirmedPoints = L.geoJson(reports, {
-			pointToLayer: function (feature, latlng) {
-					return L.circleMarker(latlng, styleUnconfirmed);
-			}, onEachFeature: uncomfirmedMarkerPopup
+		petajakarta.confirmedPoints = L.geoJson(null, {
+			pointToLayer: function(feature, latlng) {
+				var zIndexOffset = 0;
+				if (feature.properties.status == 'verified') zIndexOffset = 1000;
+				return  L.marker(latlng, {icon:petajakarta.iconConfirmedReports(feature), zIndexOffset: zIndexOffset});
+			},
+			onEachFeature: petajakarta.markerPopup
 		});
-	} else {
-		window.unconfirmedPoints = L.geoJson();
 	}
 
-	return window.unconfirmedPoints;
+	return petajakarta.confirmedPoints;
 };
 
 /**
-	Plots counts of reports in RW polygons
-
-	@param {string} level - string - administrative boundary level to load. Can be 'rw' or 'village', should be passed from getfunction
-	@param {object} aggregates - a GeoJSON object containing polygon features
+	If a unique ID is specified in the URL, zoom to this point, getting specified point if need.
+ 	@param {object} report - a GeoJSON object contiaing report location and metadata
 */
+petajakarta.showURLReport = function() {
+	//Test if URL parameter present
+	if ($.url('?report')){
+			//Check if Integer
+			var id = parseInt($.url('?report'));
+			var err;
+			if ( !validation.validateNumberParameter(id,1) ) err = new Error( "'report id parameter is invalid" );
+			if (err) {
+				console.log(err);
+				return;
+			}
+			//Zoom to object if exists
+			if (petajakarta.markerMap.hasOwnProperty(id)){
+				petajakarta.centreMapOnPopup(id);
 
-var aggregateLayers = {};
-var aggregateVersions = {};
-var aggregateInc = 0;
+			}
 
-var loadAggregates = function(level, aggregates){
-	var aggregateLayer = L.geoJson(aggregates, {style:styleAggregates, onEachFeature:labelAggregates});
-	aggregateLayers[level] = aggregateLayer;
-	aggregateLayers[level].version = aggregateInc;
-  aggregateVersions[level] = aggregateInc;
-  aggregateInc += 1;
-	return aggregateLayers[level];
+			else {
+				//Else attempt to get from server
+				var promise = petajakarta.getReport(id);
+				promise.then(function(data){
+					petajakarta.confirmedPoints.addData(data);
+					petajakarta.centreMapOnPopup(id);
+					});
+				}
+			}
 };
 
 /**
@@ -215,691 +666,186 @@ var loadAggregates = function(level, aggregates){
 	@param {object} infrastructure - a GeoJSON object containing infrastructure features
 */
 
-var loadInfrastructure = function(layer, infrastructure){
+petajakarta.loadInfrastructure = function(layer, infrastructure){
 	if(infrastructure) {
 		if (layer == 'waterways'){
-			window[layer] = L.geoJson(infrastructure, {style:styleInfrastructure[layer]});
-		}
-		else {
-
-			window[layer] = L.geoJson(infrastructure, {
+			petajakarta[layer] = L.geoJson(infrastructure, {style:petajakarta.styleInfrastructure[layer]});
+		} else if (layer == 'floodgauges'){
+			petajakarta[layer] = L.geoJson(infrastructure, {
 				pointToLayer: function(feature, latlng) {
-					return L.marker(latlng, {icon: styleInfrastructure[layer]});
-				}, onEachFeature: infrastructureMarkerPopup
+					return L.marker(latlng, {icon: L.icon(
+						{
+							iconUrl:petajakarta.config.urlPrefix+'img/'+petajakarta.getSiagaLevelIconography(feature.properties.observations[feature.properties.observations.length-1].warninglevel).icon,
+							iconSize: [22,22],
+							iconAnchor: [11, 11],
+							popupAnchor: [0, 0]
+						}
+					)});
+				}, onEachFeature: petajakarta.floodgaugeMarker
+			}).addTo(petajakarta.map);
+			$('#legendbox').append(petajakarta.gaugesLegend);
+		} else {
+			petajakarta[layer] = L.geoJson(infrastructure, {
+				pointToLayer: function(feature, latlng) {
+					return L.marker(latlng, {icon: petajakarta.styleInfrastructure[layer]});
+				}, onEachFeature: petajakarta.infrastructureMarkerPopup
 			});
 		}
+	} else {
+			petajakarta[layer] = L.geoJson();
 	}
-	else {
-			window[layer] = L.geoJson();
-	}
 
-	return window[layer];
-};
-
-var styleInfrastructure = {
-
-	waterways:{
-		color:'#3960ac',
-		weight:2.5,
-		opacity:1,
-	},
-	pumps:L.icon({
-		iconUrl: '/banjir/img/pump.svg',
-		iconSize: [28,28],
-		iconAnchor: [14, 14],
-		popupAnchor: [0, 0],
-	}),
-	floodgates:L.icon({
-		iconUrl: '/banjir/img/floodgate.svg',
-		iconSize: [28,28],
-		iconAnchor: [14, 14],
-		popupAnchor: [0, 0],
-	})
+	return petajakarta[layer];
 };
 
 /**
-	Styles counts of reports in RW polygons
+	Centre the map on a given location and open a popup's text box.
 
-	@param {object} feature - individual Leaflet/GeoJSON feature object
-	*/
-function styleAggregates(feature) {
-    return {
-        fillColor: getColor(feature.properties.count),
-        weight: 0,
-				//disabled polygon borders for clarity
-        //opacity: 1,
-        //color: 'white',
-        //dashArray: '3',
-        fillOpacity: 0.7
-    };
-}
-
-/**
-	Return a colour based on input number - based on Color Brewer
-
-	@param {integer} d - number representing some attribute (e.g. count)
-
-*/
-function getColor(d) {
-    return d > 30 ? '#800026' :
-           d > 25  ? '#BD0026' :
-           d > 20  ? '#E31A1C' :
-           d > 15  ? '#FC4E2A' :
-           d > 10   ? '#FD8D3C' :
-           d > 5   ? '#FEB24C' :
-           d > 1   ? '#FED976' :
-					 d > 0	?	'#FFEDA0' :
-                      '#FFEDA0';
-}
-
-/**
-	Set a popup label for an aggregate poplygon based on it's count attribute
-
-	@param {object} feature - individual Leaflet/GeoJSON object
-	@param {object}	layer - leaflet layer object
-*/
-function labelAggregates(feature, layer) {
-		// commented pop up label as working on touch/info box
-    // does this feature have a property named count?
-  	/*if (feature.properties &amp;&amp; feature.properties.count &amp;&amp; feature.properties.level_name) {
-        layer.bindPopup(JSON.stringify(feature.properties.level_name+': '+feature.properties.count+' reports'));
-    }*/
-		layer.on({
-			mouseover: highlightAggregate,
-			mouseout: resetAggregate,
-      click: highlightAggregate,
-			dblclick: zoomToFeature
-		});
-}
-
-var activeAggregate = null;
-
-/**
-	Visual highlighting of polygon when hovered over with the mouse
-
-	@param {object} event - leaflet event object
-*/
-function highlightAggregate(e) {
-  var layer = e.target;
-
-  if (activeAggregate !== null) {
-    activeAggregate.setStyle(styleAggregates(activeAggregate.feature));
-    activeAggregate.bringToBack();
-  }
-
-  layer.setStyle({
-    weight: 5,
-    color: '#333',
-    opacity:1,
-    dashArray: '',
-    fillOpacity: 0.7
-  });
-
-  layer.bringToFront(); //buggy?
-
-  info.update(layer.feature.properties);
-
-  activeAggregate = layer;
-}
-/**
-	Reset style of aggregate after hover over
-
-	@param {object} event - leaflet event object
-*/
-function resetAggregate(e){
-	var layer = e.target;
-
-	layer.setStyle(styleAggregates(layer.feature));
-	layer.bringToBack();
-
-	info.update();
-}
-
-
-function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
-		//pan to
-}
-
-/**
-	Centre the map on a given location and open a popup's text box
+	Turn on point layer if required.
 
 	@param {string} pkey - the key of the marker to display
 	@param {number} lat - latitude to center on
 	@param {number} lon - longitude to center on
 */
-var centreMapOnPopup = function(pkey,lat,lon) {
-	var m = markerMap[pkey];
-	map.setView(m._latlng, 17);
+petajakarta.centreMapOnPopup = function(pkey,lat,lon) {
+	if (petajakarta.map.hasLayer(petajakarta.confirmedPoints) === false){
+		petajakarta.confirmedPoints.addTo(petajakarta.map).bringToFront();
+	}
+
+	var m = petajakarta.markerMap[pkey];
+	petajakarta.map.setView(m._latlng, 17);
 	m.openPopup();
 };
 
 /**
 	Center the map on the user's location if they're in jakarta &amp; add a pin to show location
+	See http://leafletjs.com/examples/mobile.html for reference implementation.
 
-	@param {Position} position - the user's position
+	@param {Position} position - the user's position as provided by client browser
 */
-var setViewJakarta = function(position) {
+petajakarta.setViewJakarta = function(position) {
 	if (position.coords.latitude >= -6.4354 &amp;&amp; position.coords.latitude &lt;= -5.9029 &amp;&amp;
 		  position.coords.longitude >= 106.5894 &amp;&amp; position.coords.longitude &lt;= 107.0782) {
-				map.setView(L.latLng(position.coords.latitude,position.coords.longitude), 17); // Set to the users current view
+				petajakarta.map.setView(L.latLng(position.coords.latitude,position.coords.longitude), 17, {animate:true}); // Set to the users current view
+				// Color the user location button as feedback
+				$('.leaflet-control-location-button').css("background-image", "url("+petajakarta.config.urlPrefix+"img/location-icon-blue.png)");
+				$('.leaflet-retina .leaflet-control-location-button').css("background-image", "url("+petajakarta.config.urlPrefix+"img/location-icon-2x-blue.png)");
 
 				//Remove existing marker if present
-				if (window.bluedot){
-					map.removeLayer(window.bluedot);
+				if (petajakarta.bluedot){
+					petajakarta.map.removeLayer(petajakarta.bluedot);
 				}
 				// Add new marker
-				window.bluedot = L.marker([position.coords.latitude,position.coords.longitude]);
-				window.bluedot.addTo(map);
+				petajakarta.bluedot = L.marker([position.coords.latitude,position.coords.longitude]);
+				petajakarta.bluedot.addTo(petajakarta.map);
 	}
 };
 
-/**
-	Information box for aggregate details
-*/
-var info = L.control({'position':'topright'});
-//Create info box
-info.onAdd = function(map){
-	this.flag = 1;
-	this._div = L.DomUtil.create('div', 'info'); // Create a div with class info
-	this.update();
-	return this._div;
-};
-
-//Update info box
-
-var hover_text;
-var reports_text;
-
-if (document.documentElement.lang == 'in'){
-	hover_text = 'Arahkan ke area';
-	reports_text = 'laporan';
-}
-else {
-	hover_text = 'Hover over an area';
-	reports_text = 'reports';
-}
-
-info.update = function(properties){
-
-		this._div.innerHTML = (properties ? properties.level_name+': '+properties.count+' '+reports_text : hover_text);
-};
-
-/**
-	Legend box
-*/
-var legend = L.control({position:'bottomright'});
-
-legend.onAdd = function(map) {
-
-	var div = L.DomUtil.create('div', 'info legend'),
-	grades = [0,1, 5, 10, 15, 20, 25, 30],
-	labels = [];
-  // label for legend
-	if (document.documentElement.lang == 'in') {
-		div.innerHTML+='Jumlah laporan&lt;BR>';
-	}
-	else {
-		div.innerHTML+='Number of reports&lt;BR>';
-	}
-	// loop through density intervals and generate label with coloured square
-	for (var i=0; i &lt;grades.length; i++) {
-		div.innerHTML += '&lt;i class="color" style="background:'+getColor(grades[i]+1) + '">&lt;/i>';
-	}
-  div.innerHTML += '&lt;br>';
-	// loop through density intervals and generate label with coloured square
-	for (i=0; i &lt;grades.length-1; i++) {
-		div.innerHTML += '&lt;span class="number">'+grades[i]+'&lt;/span>';
-	}
-	div.innerHTML +='&lt;span class="number" style="margin-left:1px;">'+grades[grades.length-1]+'+&lt;/span>';
-	//div.innerHTML +='+';
-
-	return div;
-};
-
-var aggregatesControl = L.control({position:'bottomright'});
-
-var hideAggregates = function() {
-  if (aggregateLayers) {
-    if (aggregateLayers.subdistrict) {
-      map.removeLayer(aggregateLayers.subdistrict);
-      window.layerControl.removeLayer(aggregateLayers.subdistrict);
-    }
-    if (aggregateLayers.village) {
-      map.removeLayer(aggregateLayers.village);
-      window.layerControl.removeLayer(aggregateLayers.village);
-    }
-    if (aggregateLayers.rw) {
-      map.removeLayer(aggregateLayers.rw);
-      window.layerControl.removeLayer(aggregateLayers.rw);
-    }
-  }
-};
-
-var reloadAggregates = function() {
-  var promises = {
-    subdistrict: getAggregates('subdistrict')
-				.then(function(aggregates) {
-					return loadAggregates('subdistrict', aggregates);
-				}),
-    village: getAggregates('village')
-				.then(function(aggregates) {
-					return loadAggregates('village', aggregates);
-				}),
-    rw: getAggregates('rw')
-				.then(function(aggregates) {
-					return loadAggregates('rw', aggregates);
-				})
-  };
-
-  return RSVP.hash(promises);
-};
-
-var hideReports = function (){
-	map.removeLayer(window.unconfirmedPoints);
-	map.removeLayer(window.confirmedPoints);
-
-	window.layerControl.removeLayer(window.unconfirmedPoints);
-	window.layerControl.removeLayer(window.confirmedPoints);
-};
-
-// Turn layers on/off depending on zoom level
-var updateAggregateVisibility = function() {
-	var zoom  = map.getZoom();
-
-	if (zoom &lt; 13) {
-		hideReports();
-		hideAggregates();
-		aggregateLayers.subdistrict.addTo(map);
-		aggregateLayers.subdistrict.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.subdistrict, layernames.subdistrict);
-
-	} else if (zoom >= 13 &amp;&amp; zoom &lt;= 14) {
-		hideReports();
-		hideAggregates();
-		aggregateLayers.village.addTo(map);
-		aggregateLayers.village.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.village, layernames.village);
-
-	} else if (zoom >= 15 &amp;&amp; zoom &lt; 16) {
-		hideReports();
-		hideAggregates();
-		aggregateLayers.rw.addTo(map);
-		aggregateLayers.rw.bringToBack();
-		window.layerControl.addOverlay(aggregateLayers.rw, layernames.neighbourhood);
-
-		//Update legend boxes
-		info.update();
-		if (!legend._map){
-			legend.addTo(map);
-		}
-		if (!aggregatesControl._map){
-			aggregatesControl.addTo(map);
-			$('.control.aggregates button').prop('disabled', false);
-		}
-
-
-	} else if (zoom >= 16) {
-		//Turn aggregates off
-		hideAggregates();
-		//Update info box for street level
-		if (document.documentElement.lang == 'in') {
-			info._div.innerHTML = 'Jalan laporan dari jam terakhir';
-		}
-		else {
-			info._div.innerHTML = 'Street level reports from last hour';
-		}
-
-		if (legend._map){
-			map.removeControl(legend);
-		}
-		if (aggregatesControl._map){
-			map.removeControl(aggregatesControl);
-		}
-
-		// Add reports to legend at street level
-		layerControl.addOverlay(window.unconfirmedPoints, layernames.unconfirmed);
-		layerControl.addOverlay(window.confirmedPoints, layernames.confirmed);
-
-		// Turn reports on at street level
-		window.unconfirmedPoints.addTo(map);
-		window.confirmedPoints.addTo(map);
-
-	}
-	else {
-		hideAggregates();
-
-	}
-
-  activeAggregate = null;
-};
-
-aggregatesControl.onAdd = function(map) {
-	var div = L.DomUtil.create('div', 'info control aggregates');
-
-  var buttonGroup = L.DomUtil.create('div', 'btn-group', div);
-  var buttons = [];
-	var labels = [];
-	if (document.documentElement.lang == 'in'){
-		labels = ['1 jam', '3 jam', '6 jam'];
-	}
-	else {
-  	labels = ['1hr', '3hrs', '6hrs'];
-	}
-  var values = [1, 3, 6];
-
-  var clickCallback = function() {
-    $('.control.aggregates button.active').removeClass('active');
-    this.className += " active";
-    aggregateHours = parseInt(this.getAttribute('value'), 10);
-    aggregateLayers.subdistrict.foo = "bar";
-    hideAggregates();
-    reloadAggregates().then(function() {
-      updateAggregateVisibility();
-    });
-  };
-
-  for (var i = 0; i &lt; 3; i++) {
-    buttons[i] = L.DomUtil.create('button', 'btn btn-default', buttonGroup);
-    buttons[i].setAttribute('value', values[i]);
-    buttons[i].setAttribute('disabled', true);
-    buttons[i].textContent = labels[i];
-    buttons[i].addEventListener("click", clickCallback);
-  }
-
-  L.DomUtil.addClass(buttons[Math.round(aggregateHours/3)], 'active');
-	console.log(Math.round(aggregateHours/3));
-	console.log(aggregateHours);
-
-  return div;
-};
-
-var reportsControl = L.control({position:'bottomleft'});
-
-reportsControl.onAdd = function(map) {
-  var div = L.DomUtil.create('div', 'leaflet-control');
-
-	//var reportsBadge = L.DomUtil.create('span', 'badge', div);
-	//reportsBadge.textContent = "4";
-
-  var reportsLink = L.DomUtil.create('a', 'leaflet-control-reports-button', div);
-  //reportsLink.textContent = "&lt;span class='badge'>4&lt;/span>";
-  reportsLink.setAttribute('data-toggle', 'modal');
-  reportsLink.setAttribute('href', '#reportsModal');
-
-	window.reportsBadge = L.DomUtil.create('span', 'badge progress-bar-danger', reportsLink);
-	//reportsBadge.textContent = "4";
-	//console.log(reports.features.length);
-
-  return div;
-};
-
-var infoControl = L.control({position:'bottomleft'});
-
-infoControl.onAdd = function(map) {
-  var div = L.DomUtil.create('div', 'leaflet-control');
-  var infoLink = L.DomUtil.create('a', 'leaflet-control-info-button', div);
-  infoLink.textContent = "Information";
-  infoLink.setAttribute('data-toggle', 'modal');
-  infoLink.setAttribute('href', '#infoModal');
-
-  return div;
-};
-
-var locationControl = L.control({position:'bottomleft'});
-
-locationControl.onAdd = function(map){
-	var div = L.DomUtil.create('div', 'leaflet-control');
-	var locationLink = L.DomUtil.create('a', 'leaflet-control-location-button', div);
-	locationLink.textContent = 'Current Location';
-	locationLink.setAttribute('href', '#');
-	locationLink.setAttribute('onclick', 'navigator.geolocation.getCurrentPosition(setViewJakarta); return false;');
-
-	return div;
-};
-
-//Initialise map
-var latlon = new L.LatLng(-6.1924, 106.8317); //Centre Jakarta
-var map = L.map('map').setView(latlon, 12); // Initialise map
-map.attributionControl.setPrefix('');
-
-//Specify default image path for Leaflet
-L.Icon.Default.imagePath = '/banjir/css/images/';
-
-//Check user location and alter map view accordingly
-map.locate({setView:false});
-if ('geolocation' in navigator &amp;&amp; window.isTouch) {
-	navigator.geolocation.getCurrentPosition(setViewJakarta);
-}
-
-//Add info box
-info.addTo(map);
-
-//Add legend
-legend.addTo(map);
-
-//Add aggregates control
-aggregatesControl.addTo(map);
-
-// Reports control
-infoControl.addTo(map);
-reportsControl.addTo(map);
-locationControl.addTo(map);
-
-//Old Mapnik B&amp;W rendering before aggregates layer was added
-//var base0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png').addTo(map);
-//Using stamen toner-lite
-var base0 = L.tileLayer('http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png', {
-	//attribution: 'Map tiles by &lt;a href="http://stamen.com">Stamen Design&lt;/a>, &lt;a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0&lt;/a> &amp;mdash; Map data &amp;copy; &lt;a href="http://openstreetmap.org">OpenStreetMap&lt;/a> contributors, &lt;a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA&lt;/a>',
-	subdomains: 'abcd',
-	minZoom: 0,
-	maxZoom: 20
-}).addTo(map);
-var base1 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-
-var precip = L.tileLayer('http://{s}.tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png', {
-	attribution: 'Map data &amp;copy; &lt;a href="http://openweathermap.org">OpenWeatherMap&lt;/a>',
-	opacity: 0.5
-});
-
-var pressure = L.tileLayer('http://{s}.tile.openweathermap.org/map/pressure_cntr/{z}/{x}/{y}.png', {
-	attribution: 'Map data &amp;copy; &lt;a href="http://openweathermap.org">OpenWeatherMap&lt;/a>',
-	opacity: 0.5
-});
-
-var temp = L.tileLayer('http://{s}.tile.openweathermap.org/map/temp/{z}/{x}/{y}.png', {
-	attribution: 'Map data &amp;copy; &lt;a href="http://openweathermap.org">OpenWeatherMap&lt;/a>',
-	opacity: 0.5
-});
-
-//Ancillary layers control
-if (document.documentElement.lang == 'in') {
-	var baseMaps = {
-		"Open Street Map": base0,
-		"Open Street Map (warna)":base1
-	};
-} else {
-	var baseMaps = {
-    	"Open Street Map (B&amp;W)": base0,
-			"Open Street Map (colour)": base1
-		};
-	}
-
-var markerMap = {}; //Reference list of markers stored outside of Leaflet
-
-// Styles for confirmed and unconfirmed points
-var styleUnconfirmed = {
-    radius: 7,
-    fillColor: "#ff7800",
-    color: "#000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-};
-
-var styleConfirmed = {
-    radius: 7,
-    fillColor: "blue",
-    color: "#000",
-    weight: 1,
-    opacity: 1,
-    fillOpacity: 0.8
-};
-
-// URL replacement in tweets
-String.prototype.parseURL = function() {
-	return this.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&amp;~\?\/.=]+/g, function(url) {
-		return "&lt;a target='_blank' href='"+url+"'>"+url+"&lt;/a>";
-	});
-};
-
-var layernames = {};
-
-if (document.documentElement.lang == 'in'){
-	layernames.confirmed = 'Laporan dikonfirmasi';
-	layernames.unconfirmed = 'Laporan belum dikonfirmasi';
-	layernames.subdistrict = 'Laporan Kecamatan';
-	layernames.village = 'Laporan Desa';
-	layernames.neighbourhood = 'Laporan RW';
-	layernames.waterways = 'Aliran Air';
-	layernames.pumps = 'Pompa Air';
-	layernames.floodgates = 'Pintu Air';
-}
-else {
-	layernames.confirmed = 'Confirmed Reports';
-	layernames.unconfirmed = 'Unconfirmed Reports';
-	layernames.subdistrict = 'Subdistrict Aggregates';
-	layernames.village = 'Village Aggregates';
-	layernames.neighbourhood = 'Neighbourhood Aggregates';
-	layernames.waterways = 'Waterways';
-	layernames.pumps = 'Pumps';
-	layernames.floodgates = 'Floodgates';
-}
-
-var loadPrimaryLayers = function(layerControl) {
+petajakarta.loadPrimaryLayers = function(layerControl) {
 	var layerPromises = {
-		confirmed: getReports('confirmed')
-			.then(loadConfirmedPoints),
-			unconfirmed: getReports('unconfirmed')
-				.then(loadUnconfirmedPoints)};
-
-  if (!window.isTouch) {
-    layerPromises.subdistrict = getAggregates('subdistrict')
-      .then(function(aggregates) {
-        return loadAggregates('subdistrict', aggregates);
-      });
-  }
+		confirmed: petajakarta.getReports('confirmed')
+			.then(petajakarta.loadConfirmedPoints)};
 
 	return new RSVP.Promise(function(resolve, reject) {
 		RSVP.hash(layerPromises).then(function(overlays) {
-
-      if (!window.isTouch) {
-        layerControl.addOverlay(overlays.subdistrict, layernames.subdistrict);
-        overlays.subdistrict.addTo(map);
-      }
-
-			else {
-				// Add overlays to the layers control
-				layerControl.addOverlay(overlays.confirmed, layernames.confirmed);
-				layerControl.addOverlay(overlays.unconfirmed, layernames.unconfirmed);
-
-				// Make overlays visible
-				overlays.confirmed.addTo(map);
-				overlays.unconfirmed.addTo(map);
-			}
-
-			map.spin(false);
+			layerControl.addBaseLayer(overlays.confirmed, petajakarta.layernames.confirmed);
+			overlays.confirmed.addTo(petajakarta.map);
+			petajakarta.map.spin(false);
 
 			resolve(layerControl);
 		}, reject);
 	});
 };
 
-var loadSecondaryLayers = function(layerControl) {
+petajakarta.loadSecondaryLayers = function(layerControl) {
 	return new RSVP.Promise(function(resolve, reject) {
-		secondaryPromises = {
-			waterways: getInfrastructure('waterways')
+		var secondaryPromises = {
+			waterways: petajakarta.getInfrastructure('waterways')
 				.then(function(waterways){
-					return loadInfrastructure('waterways', waterways);
+					return petajakarta.loadInfrastructure('waterways', waterways);
 				}),
-			pumps: getInfrastructure('pumps')
+			pumps: petajakarta.getInfrastructure('pumps')
 				.then(function(pumps){
-					return loadInfrastructure('pumps', pumps);
+					return petajakarta.loadInfrastructure('pumps', pumps);
 				}),
-			floodgates: getInfrastructure('floodgates')
+			floodgates: petajakarta.getInfrastructure('floodgates')
 				.then(function(floodgates){
-					return loadInfrastructure('floodgates', floodgates);
+					return petajakarta.loadInfrastructure('floodgates', floodgates);
+				}),
+			floodgauges: petajakarta.getInfrastructure('floodgauges')
+				.then(function(floodgauges){
+					return petajakarta.loadInfrastructure('floodgauges', floodgauges);
 				})
 		};
 
-    if (!window.isTouch) {
-      _.extend(secondaryPromises, {
-      village: getAggregates('village')
-				.then(function(aggregates) {
-					return loadAggregates('village', aggregates);
-				}),
-      rw: getAggregates('rw')
-				.then(function(aggregates) {
-					return loadAggregates('rw', aggregates);
-				})
-      });
-    }
-
 		RSVP.hash(secondaryPromises).then(function(overlays) {
 			// Add overlays to the layer control
-			layerControl.addOverlay(overlays.waterways, layernames.waterways);
-			layerControl.addOverlay(overlays.pumps, layernames.pumps);
-			layerControl.addOverlay(overlays.floodgates, layernames.floodgates);
-
-			// Make overlays visible unless of touch device
-			if (!window.isTouch){
-				overlays.waterways.addTo(map);
-				overlays.pumps.addTo(map);
-				overlays.floodgates.addTo(map);
-			}
-
-      $('.control.aggregates button').prop('disabled', false);
+			layerControl.addOverlay(overlays.floodgauges, petajakarta.layernames.floodgauges);
+			layerControl.addOverlay(overlays.pumps, petajakarta.layernames.pumps);
+			layerControl.addOverlay(overlays.floodgates, petajakarta.layernames.floodgates);
+			layerControl.addOverlay(overlays.waterways, petajakarta.layernames.waterways);
+			petajakarta.showURLReport(); //once point layers loaded zoom to report specified in URL
 		});
 	});
 };
 
-// Load reports
-$(function() {
-	map.spin(true);
-	window.layerControl = L.control.layers(baseMaps, {}, {position: 'bottomleft'}).addTo(map);
-	loadPrimaryLayers(window.layerControl).then(loadSecondaryLayers);
-});
-
-
-// Hack in the symbols for reports
-if (document.documentElement.lang == 'in') {
-	$('.leaflet-control-layers-overlays').append('&lt;/div>&lt;label>&lt;div class=c>&lt;/div>&lt;span>Laporan dikonfirmasi dari jam terakhir&lt;/span>&lt;/label>&lt;label>&lt;div class=u>&lt;/div>&lt;span>Laporan belum dikonfirmasi&lt;/span>&lt;/label>');
-} else {
-	$('.leaflet-control-layers-overlays').append('&lt;label>&lt;div class=c>&lt;/div>&lt;span>Confirmed reports&lt;/span>&lt;/label>&lt;label>&lt;div class=u>&lt;/div>&lt;span>Unconfirmed reports&lt;/span>&lt;/label>');
-}
-
-
 /**
-Add user location (if in Jakarta) -> this logic moved to setViewJakarta()
--left in for reference.
-*/
-/*
-function onLocationFound(e) {
-	var radius = e.accuracy / 2;
+ * Generate a table based on the provided reports
+ * @file JavaScript to display confirmed reports within map (PetaJakarta.org) via map.js
+ * @copyright (c) Tomas Holderness &amp; SMART Infrastructure Facility January 2014
+ * @module reports
+ *
+ * @param {object} reports - a GeoJSON object
+ */
+petajakarta.loadTable = function(reports) {
+	var rows, thead;
 
-	L.circle(e.latlng, radius).addTo(map);
-}
+	rows = "";
 
-map.on('locationfound', onLocationFound);
-*/
+	for (var i=0;i&lt;reports.features.length;i++) {
+		var report = reports.features[i].properties;
+		var reportGeo = reports.features[i].geometry;
 
+		var logo = "";
+		if (report.source == 'detik'){
+			logo = '&lt;img src="https://pasangmata.detik.com/assets/fe/img/logo_detik.png" height="22">';
+		}
+		else if (report.source == 'twitter'){
+			logo = '&lt;img src="'+petajakarta.config.urlPrefix +'/img/twitter_logo_blue.png" height="22">';
+		}
+		else if (report.source == 'qlue'){
+			logo = '&lt;img src="'+petajakarta.config.urlPrefix +'/img/logo_qlue_height_22.png" height="22">';
+		}
+		if (report.status == 'verified'){
+			logo+= ' &lt;img src="'+petajakarta.config.urlPrefix +'/img/bpbd_dki.png" height="22">';
+		}
 
-/**
-	Listen for map zoom events and load required layers [non-touch devices]
-*/
-if (!window.isTouch) {
-  map.on('zoomend', updateAggregateVisibility);
-}
+		//Catch those reports that have no text, only a title
+		var text = report.text;
+		if (report.text.length &lt; 1){
+			text += report.title;
+		}
+
+		rows +='&lt;tr>';
+			rows += '&lt;td>' + report.created_at.substring(11, 19) + '&lt;/td>'; // Time
+			rows += '&lt;td>' + logo + '&lt;/td>';
+			rows += '&lt;td>&lt;a data-dismiss="modal" href="#map" onclick="javascript:petajakarta.centreMapOnPopup('+report.pkey+','+reportGeo.coordinates[1]+','+reportGeo.coordinates[0]+')">'+text+'&lt;/a>&lt;/td>'; // Message
+		rows += '&lt;/tr>';
+	}
+	if (document.documentElement.lang == 'in' || document.documentElement.lang == 'id') {
+		thead = '&lt;table class="table table-hover">&lt;thead>&lt;tr>&lt;th class="col-xs-2">Waktu&lt;/th>&lt;th class="col-xs-2">Sumber&lt;/th>&lt;th class="col-xs-6">Laporkan&lt;/th>&lt;/tr>&lt;/thead>';
+	} else {
+		thead = '&lt;table class="table table-hover">&lt;thead>&lt;tr>&lt;th class="col-xs-2">Time&lt;/th>&lt;th class="col-xs-2">Source&lt;/th>&lt;th class="col-xs-6">Message&lt;/th>&lt;/tr>&lt;/thead>';
+	}
+	var tbody = '&lt;tbody>'+rows+'&lt;/tbody>&lt;/table>';
+
+	// Wait until the includes have been loaded before we insert this table into the DOM
+	petajakarta.loadedIncludes.then( function(v){
+		$("#modal-reports-body").append(thead+tbody);
+	}).catch( function(e) {
+		// TODO Handle error
+	});
+};
 </code></pre>
         </article>
     </section>
@@ -910,13 +856,13 @@ if (!window.isTouch) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-analytics.html">analytics</a></li><li><a href="module-map.html">map</a></li><li><a href="module-reports.html">reports</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-map.html">map</a></li><li><a href="module-reports.html">reports</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Thu Oct 08 2015 21:50:49 GMT+1100 (AEDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Apr 07 2016 15:56:32 GMT+1000 (AEST)
 </footer>
 
 <script> prettyPrint(); </script>

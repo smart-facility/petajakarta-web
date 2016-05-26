@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -6,31 +8,29 @@ module.exports = function(grunt) {
     concat: {
       commonJs: {
           src: [
-            'banjir/vendor/js/jquery-1.10.2.min.js',
-            'banjir/vendor/js/bootstrap.min.js',
+            'banjir/vendor/js/jquery-1.10.2.js',
+            'banjir/vendor/js/bootstrap.js',
           ],
           dest: 'build/banjir/js/common.js'
       },
       siteJs: {
         src: [
           'banjir/vendor/js/jquery.growl.js',
-          'banjir/vendor/js/jquery.scrollUp.min.js'
+          'banjir/vendor/js/jquery.scrollUp.js'
         ],
         dest: 'build/banjir/js/site.js'
       },
       mapJs: {
           src: [
             'banjir/vendor/js/jquery-1.10.2.min.js',
-            'banjir/vendor/js/leaflet.js',
-            'banjir/vendor/js/leaflet-providers.js',
+            'banjir/vendor/js/leaflet-src.js',
             'banjir/vendor/js/L.Control.MousePosition.js',
-            'banjir/vendor/js/leaflet.markercluster.js',
             'banjir/vendor/js/spin.min.js',
             'banjir/vendor/js/leaflet.spin.js',
             'banjir/vendor/js/topojson.js',
             'banjir/vendor/js/rsvp.js',
-            'banjir/vendor/js/Chart.min.js',
-            'banjir/vendor/js/url.min.js',
+            'banjir/vendor/js/Chart.js',
+            'banjir/vendor/js/url.js',
             'banjir/assets/js/validation.js',
             'banjir/assets/js/map.js'
           ],
@@ -38,7 +38,8 @@ module.exports = function(grunt) {
       },
       commonCss: {
           src: [
-              'banjir/vendor/css/bootstrap.min.css'
+              'banjir/assets/css/fonts.css',
+              'banjir/vendor/css/bootstrap.css'
           ],
          dest: 'build/banjir/css/common.css'
       },
@@ -52,8 +53,6 @@ module.exports = function(grunt) {
       },
       mapCss: {
           src: [
-              'banjir/vendor/css/MarkerCluster.css',
-              'banjir/vendor/css/MarkerCluster.default.css',
               'banjir/vendor/css/L.Control.MousePosition.css',
               'banjir/vendor/css/leaflet.css',
               'banjir/assets/css/map.css'
@@ -158,6 +157,7 @@ module.exports = function(grunt) {
         files: [
           { expand: true, flatten: true, src: "banjir/assets/img/*", dest: "build/banjir/img/" },
           { expand: true, flatten: true, src: "banjir/vendor/css/images/*", dest: "build/banjir/css/images/" },
+          { expand: true, flatten: true, src: "banjir/assets/fonts/*", dest: "build/banjir/fonts/"},
           { expand: true, flatten: true, src: "banjir/vendor/fonts/*", dest: "build/banjir/fonts/"},
           { expand: true, flatten: true, src: "banjir/robots.txt", dest: "build/"}
         ]
@@ -226,12 +226,16 @@ module.exports = function(grunt) {
           destination: 'docs'
         }
       }
+    },
+    clean: {
+    	build: ['build/*']
     }
   });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
@@ -244,10 +248,10 @@ module.exports = function(grunt) {
   // Tasks
   grunt.registerTask('assets', ['jshint', 'concat', 'uglify:build', 'cssmin:build', 'copy:images']);
   grunt.registerTask('site', ['staticHandlebars:en', 'staticHandlebars:in', 'staticHandlebars:id', 'staticHandlebars:en_data', 'staticHandlebars:en_data_v2', 'staticHandlebars:in_data', 'staticHandlebars:id_data','staticHandlebars:id_data_v2', 'staticHandlebars:en_research', 'staticHandlebars:in_research', 'staticHandlebars:id_research']);
-  grunt.registerTask('server', ['assets', 'site', 'concurrent:server']);
-  grunt.registerTask('default', ['assets', 'site']);
+  grunt.registerTask('server', ['clean', 'assets', 'site', 'concurrent:server']);
+  grunt.registerTask('default', ['clean', 'assets', 'site']);
   grunt.registerTask('embed', ['assets', 'site', 'copy:embed']);
-  grunt.registerTask('docs', ['jsdoc:dist'])
-  grunt.registerTask('dev', ['copy:devjs'])
+  grunt.registerTask('docs', ['jsdoc:dist']);
+  grunt.registerTask('dev', ['copy:devjs']);
 
 };

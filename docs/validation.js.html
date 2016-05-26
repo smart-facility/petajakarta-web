@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: validation.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,35 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: validation.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var validation = {
+		
+	/**
+	 * Validate a parameter which should be a number, optionally with min and max values.
+	 * @param {number} param Parameter to validate
+	 * @param {number=} min Minimum value parameter can have and be valid
+	 * @param {number=} max Maximum value parameter can have and be valid
+	 */
+	validateNumberParameter: function(param, min, max) {
+		var valid = true;
+		if ( typeof param !== 'number' ) valid = false;
+		if ( isNaN(param) ) valid = false;
+		if ( min &amp;&amp; param &lt; min ) valid = false;
+		if ( max &amp;&amp; param > max ) valid = false;
+		return valid;
+	}
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+};</code></pre>
+        </article>
+    </section>
 
 
 
