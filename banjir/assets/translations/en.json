@@ -722,11 +722,11 @@
             "parameters": [
               {
                 "Name": "format",
-                "Description": "Defines the format of the requested reports data as either GeoJSON (default) or TopoJSON. If unspecified will default to GeoJSON.",
+                "Description": "Defines the format of flood reports as either GeoJSON (default), TopoJSON or in the Common Alerting Protocol XML schema (CAP). If unspecified will default to GeoJSON. <BR><BR>Reports in the Common Alerting Protocol are provided as an Atom feed.<ul class='list-unstyled'><li>- <a href='http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2-os.html' target='_blank'>CAP specification</a> (via oasis-open.org)</li><li>- <a href='http://docs.oasis-open.org/emergency-adopt/cap-feeds/v1.0/cap-feeds-v1.0.html' target='_blank'>CAP Atom specification</a> (via oasis-open.org)</li></ul>",
                 "Required": "N",
                 "Default": "geojson",
                 "Type": "enumerated",
-                "EnumeratedList": "[\"geojson\",\"topojson\"]"
+                "EnumeratedList": "[\"geojson\",\"topojson\",\"cap\"]"
               }
             ],
             "tblAttributes": [
@@ -757,7 +757,7 @@
                   },
                   {
                     "field": "state",
-                    "description": "Flood state / height (cm) {0: No flooding, 1: Use caution, 2: 10-70, 3: 71-150, 4: 150>}",
+                    "description": "Flood state / height (cm) {null: Never flooded, 0: No flooding currently, 1: Use caution, 2: 10-70, 3: 71-150, 4: 150>}",
                     "type": "Integer"
                   },
                   {
