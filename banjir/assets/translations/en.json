@@ -727,6 +727,14 @@
                 "Default": "geojson",
                 "Type": "enumerated",
                 "EnumeratedList": "[\"geojson\",\"topojson\",\"cap\"]"
+              },
+              {
+                "Name": "minimum_state",
+                "Description": "Filters returned reports by flooded state, returns reports either equal to or greater then the specified value.",
+                "Required": "N",
+                "Default": "geojson",
+                "Type": "enumerated",
+                "EnumeratedList": "[\"0\",\"1\",\"2\",\"3\",\"4\"]"
               }
             ],
             "tblAttributes": [
@@ -761,8 +769,13 @@
                     "type": "Integer"
                   },
                   {
+                    "field": "last_updated",
+                    "description": "Last time that information was updated for specified RW, represented as an ISO 8601 string.",
+                    "type": "String (ISO 8601 datetime)"
+                  },
+                  {
                     "field": "QueryTime",
-                    "description": "The QueryTime parameter represents the time that the data was retrieved from the server, represented as an ISO 8601 string. In absence of other timestamps in the returned data, such as with live data from the REM flooded API, the QueryTime can be interpreted as the timestamp attributed to that data. That is, the data returned reflects the conditions/measurements at the time represented by the QueryTime parameter.",
+                    "description": "Returned once per request. The QueryTime parameter represents the time that the data was retrieved from the server, represented as an ISO 8601 string.",
                     "type": "String (ISO 8601 datetime)"
                   }
                 ]
