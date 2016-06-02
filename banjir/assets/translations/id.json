@@ -726,6 +726,14 @@
               "Default": "geojson",
               "Type": "enumerasi",
               "EnumeratedList": "[\"geojson\",\"topojson\"]"
+            },
+            {
+              "Name": "minimum_state",
+              "Description": "Filter menghasilkan laporan berdasarkan keadaan banjir, menghasilkan sama atau lebih besar dari nilai yang telah ditentukan.",
+              "Required": "N",
+              "Default": "geojson",
+              "Type": "enumerated",
+              "EnumeratedList": "[\"0\",\"1\",\"2\",\"3\",\"4\"]"
             }
           ],
           "tblAttributes": [

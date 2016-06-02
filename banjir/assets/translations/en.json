@@ -770,12 +770,12 @@
                   },
                   {
                     "field": "last_updated",
-                    "description": "Last time that information was updated for specified RW, represented as an ISO 8601 string.",
+                    "description": "Last time that information was updated for specified RW, represented as an ISO 8601 string",
                     "type": "String (ISO 8601 datetime)"
                   },
                   {
                     "field": "QueryTime",
-                    "description": "Returned once per request. The QueryTime parameter represents the time that the data was retrieved from the server, represented as an ISO 8601 string.",
+                    "description": "Returned once per request. The QueryTime parameter represents the time that the data was retrieved from the server, represented as an ISO 8601 string",
                     "type": "String (ISO 8601 datetime)"
                   }
                 ]
