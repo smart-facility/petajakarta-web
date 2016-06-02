@@ -761,7 +761,7 @@
                 },
                 {
                   "field": "QueryTime",
-                  "description": "Parameter QueryTime merepresentasikan kapan data diambil dari server, sebagai string ISO 8601. Bila tidak terdapat keterangan waktu pada data yang ditarik, seperti pada data live banjir REM API, QueryTime akan direpresentasikan sebagai atribut keterangan waktu pada data tersebut. Artinya, data yang ditarik mencerminkan kondisi/pengukuran pada waktu yang sama sesuai yang direpresentasikan oleh parameter QueryTime.",
+                  "description": "Dibalas sekali per permintaan. Parameter QueryTime merepresentasikan kapan data diambil dari server, sebagai string ISO 8601.",
                   "type": "String (ISO 8601 datetime)"
                 }
               ]
