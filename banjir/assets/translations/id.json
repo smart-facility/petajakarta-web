@@ -721,7 +721,7 @@
           "parameters": [
             {
               "Name": "format",
-              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau TopoJSON. Jika tidak ditentukan akan default sebagai GeoJSON.",
+              "Description": "Mendefinisikan format laporan banjir dalam GeoJSON (default), TopoJSON, atau dalam skema XML Common Alerting Protocol (CAP). Jika tidak ditentukan akan default sebagai GeoJSON. <BR><BR>Laporan dalam bentuk Common Alerting Protocol disediakan sebagai feed Atom.<ul class='list-unstyled'><li>- <a href='http://docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2-os.html' target='_blank'>spesifikasi CAP</a> (via oasis-open.org)</li><li>- <a href='http://docs.oasis-open.org/emergency-adopt/cap-feeds/v1.0/cap-feeds-v1.0.html' target='_blank'>spesifikasi Atom CAP</a> (via oasis-open.org)</li></ul>",
               "Required": "N",
               "Default": "geojson",
               "Type": "enumerasi",
@@ -756,7 +756,7 @@
                 },
                 {
                   "field": "state",
-                  "description": "Penggolongan tinggi genangan (cm) {0: Tidak banjir, 1: Hati-hati, 2: 10-70, 3: 71-150, 4: 150>}",
+                  "description": "Penggolongan tinggi genangan (cm) {null: Tidak pernah banjir, 0: Tidak ada banjir saat ini, 1: Hati-hati, 2: 10-70, 3: 71-150, 4: 150>}",
                   "type": "Bilangan bulat"
                 },
                 {
