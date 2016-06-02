@@ -760,8 +760,13 @@
                   "type": "Bilangan bulat"
                 },
                 {
+                  "field": "last_updated",
+                  "description": "Terakhir kali, informasi tersebut diupdate untuk RW spesifik, direpresentasikan sebagai string ISO 8601",
+                  "type": "String (ISO 8601 datetime)"
+                },
+                {
                   "field": "QueryTime",
-                  "description": "Dibalas sekali per permintaan. Parameter QueryTime merepresentasikan kapan data diambil dari server, sebagai string ISO 8601.",
+                  "description": "Dibalas sekali per permintaan. Parameter QueryTime merepresentasikan kapan data diambil dari server, sebagai string ISO 8601",
                   "type": "String (ISO 8601 datetime)"
                 }
               ]
