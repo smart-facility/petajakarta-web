@@ -47,6 +47,7 @@ module.exports = function(grunt) {
         src: [
             'banjir/vendor/css/jquery.growl.css',
             'banjir/assets/css/main.css',
+            'banjir/assets/css/ribbon.css',
             'banjir/assets/css/map-page.css'
         ],
         dest: 'build/banjir/css/site.css'
@@ -108,7 +109,7 @@ module.exports = function(grunt) {
         files: {'build/banjir/en/research*.html': 'banjir/assets/templates/research/*.hbs'},
         options: {json: 'banjir/assets/translations/en.json'}
       },
-      
+
       in: {
         files: { 'build/banjir/in/*.html': 'banjir/assets/templates/*.hbs'},
         options: { json: 'banjir/assets/translations/id.json' }
@@ -121,7 +122,7 @@ module.exports = function(grunt) {
         files: {'build/banjir/in/research*.html': 'banjir/assets/templates/research/*.hbs'},
         options: {json: 'banjir/assets/translations/id.json'}
       },
-      
+
       id: {
         files: { 'build/banjir/id/*.html': 'banjir/assets/templates/*.hbs'},
         options: { json: 'banjir/assets/translations/id.json' }
@@ -138,7 +139,7 @@ module.exports = function(grunt) {
         files: {'build/banjir/id/research*.html': 'banjir/assets/templates/research/*.hbs'},
         options: {json: 'banjir/assets/translations/id.json'}
       },
-      
+
       // Embed example
       en_example: {
 	      files: { 'build/example/en/*.html': 'banjir/assets/example/*.hbs' },
@@ -172,7 +173,7 @@ module.exports = function(grunt) {
 	          {src: "build/banjir/js/map.js", dest: "build/banjir/js/map.min.js"}
     	  ]
       },
-      // Copy all the files needed to host an embedded map on a third-party server to a distribution folder 
+      // Copy all the files needed to host an embedded map on a third-party server to a distribution folder
       embed: {
     	  files: [
     	      {expand: true, flatten: true, src: 'build/banjir/js/**', dest: 'build/embed/banjir/js/'},

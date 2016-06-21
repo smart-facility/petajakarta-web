@@ -55,12 +55,14 @@
     <![endif]-->
   </head>
   <body>
+
     <div style="margin-top:0px;
     background: url('../img/zte_bw_cropped_light.jpg') no-repeat center top;
     background-size:cover; overflow-x:hidden; width:100%;">
 
       <!-- Fixed navbar -->
       <div class="navbar navbar-default navbar-fixed-top">
+          <div class="ribbon-wrapper"><a href="#"><div class="ribbon-green">{{{navbar.ribbon}}} <span class="glyphicon glyphicon-film" style="vertical-align:-1px;" aria-hidden="true"></span></div></a></div>
         <div class="container" style="-webkit-overflow-scrolling: touch;">
           <div class="navbar-header">
               <a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/"><img src="/{{site.url-prefix}}/img/petajakarta_white_pixel_top.png" width="auto" height="48" alt=""/></a>
@@ -71,7 +73,7 @@
               <span class="icon-bar" style="background-color:#CCC;"></span>
             </button>
           </div>
-          <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <div class="collapse navbar-collapse navbar-ex1-collapse" style="margin-right:100px;">
             <ul class="nav navbar-nav navbar-right">
               <li class="active"><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/">{{{navbar.home}}}</a></li>
               <li><a href="/{{site.url-prefix}}/{{site.locale-url-prefix}}/map">{{{navbar.map}}}</a></li>
@@ -84,6 +86,7 @@
         </div>
       </div>
       <div class="main container">
+
         <!--Header-->
         <div class="jumbotron" style="background-color:transparent;">
           <div class="row">
@@ -95,6 +98,7 @@
           <!--Action buttons-->
           <div class="row" style="margin-top:4%; margin-left:-5px;">
               <a href="./map" class="btn btn-default btn-lg pull-left" style="margin:5px;"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{{header.btn-map}}}</a>
+              <!--<a href="./cognicity" class="btn btn-default btn-lg pull-left" style="margin:5px;"><span class="glyphicon glyphicon-info-sign" style="vertical-align:-1px;" aria-hidden="true"></span> Learn more</a>-->
               <a href="#video-anchor" class="btn btn-default btn-lg pull-left" style="margin:5px;"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> {{{header.btn-video}}}</a>
           </div>
           <!--Logos at top of page at request of Gov. Ahok-->

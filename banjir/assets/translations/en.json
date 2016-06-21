@@ -11,14 +11,15 @@
     "research": "Research",
     "data": "Data",
     "analytics": "Analytics",
-    "other-locale": "Bahasa Indonesian"
+    "other-locale": "Bahasa Indonesian",
+    "ribbon": "ODI Showcase"
   },
   "header": {
     "title": "Open Source <BR>Flood Map",
     "lead": "share real-time flood information using social media",
     "video-url": "//www.youtube.com/embed/JHqTD8QoyPw",
     "btn-map": "Open Map",
-    "btn-video": "Watch Video"
+    "btn-video": "Send Report"
     },
   "twitter-card" : {
     "title":"PetaJakarta.org is a free and open source real-time flood map.",

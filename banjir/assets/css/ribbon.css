@@ -1,0 +1,50 @@
+
+.ribbon-wrapper {
+  width: 150px;
+  height: 145px;
+  overflow: hidden;
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  padding-top:25px;
+}
+.ribbon-green {
+  font: bold 15px Sans-Serif;
+  color: #FFF;
+  text-align: center;
+  text-shadow: rgba(255,255,255,0.5) 0px 1px 0px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform:    rotate(45deg);
+  -ms-transform:     rotate(45deg);
+  -o-transform:      rotate(45deg);
+  position: relative;
+  padding: 7px 0;
+  left: -5px;
+  top: 15px;
+  width: 198px;
+  background-color: #79A70A;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#F70505), to(#BF1408));
+  background-image: -webkit-linear-gradient(top, #F70505, #BF1408);
+  background-image:    -moz-linear-gradient(top, #F70505, #BF1408);
+  background-image:     -ms-linear-gradient(top, #F70505, #BF1408);
+  background-image:      -o-linear-gradient(top, #F70505, #BF1408);
+  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
+  box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+}
+
+.ribbon-green:before, .ribbon-green:after {
+  content: "";
+  border-top:   3px solid #6e8900;
+  border-left:  3px solid transparent;
+  border-right: 3px solid transparent;
+  position:absolute;
+  bottom: -3px;
+}
+
+.ribbon-green:before {
+  left: 0;
+}
+.ribbon-green:after {
+  right: 0;
+}​
