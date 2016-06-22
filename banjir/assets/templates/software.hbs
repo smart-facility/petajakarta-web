@@ -51,13 +51,13 @@
     </div>
 
     <div class="container top-navbar-padding">
-      <h1 style="margin-left:13px;">Powered by CogniCity</h1>
+      <h1 style="margin-left:13px;">{{{software.title}}}</h1>
       <div class="row" style="margin-left:0px; margin-right:0px;">
         <div class="col-md-8">
-        <p class="lead" style="text-align:justify;">PetaJakarta.org is powered by <a href="https://github.com/smart-facility/cognicity-server" target="blank">CogniCity</a>, a free and open source framework for urban data.</p>
-        <h3>Preview CogniCity Video</h3>
-        <p class="lead" style="text-align:justify;"><em>CogniCity as Infrastructure for Climate Adaptation</em>&nbsp; explains how PetaJakarta.org uses the CogniCity software to respond to the challenge of flooding. Produced with support from the Open Data Institute the final release of the video will take place in July.</p>
-        <p class="lead">Follow <a>@petajkt</a> and <a>@ODIHQ</a> for updates. Press release available <a>here</a>.</p>
+        <p class="lead" style="text-align:justify;">{{{software.lead}}}</p>
+        <h3>{{{software.video_title}}}</h3>
+        <p class="lead" style="text-align:justify;">{{{software.video_text}}}</p>
+        <p class="lead">{{{software.video_updates}}}</p>
           <div class="video" style="margin-top:20px; margin-right:2%;">
             <iframe width="640" height="480" src="//www.youtube.com/embed/PmxdjXRp3bg?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
           </div>
@@ -67,8 +67,8 @@
         <div class="col-md-4">
           <div class="well">
             <!--Privacy text-->
-            <h3>Source Code</h3>
-            <p class="lead">CogniCity is available on <a href="https://github.com/smart-facility/cognicity-server" target="_blank">GitHub</a></p>
+            <h3>{{{software.source_code}}}</h3>
+            <p class="lead">{{{software.github}}}</p>
             <!--Contact-->
             <h3><a name="contact"></a>{{data.contact.title}}</h3>
             <p class="lead">{{{data.contact.email}}}<BR>
