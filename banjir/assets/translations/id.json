@@ -186,13 +186,13 @@
     }
   },
   "software": {
-    "title": "Powered by CogniCity",
-    "lead": "PetaJakarta.org is powered by <a href='https://github.com/smart-facility/cognicity-server' target='_blank'>CogniCity</a>, a free and open source framework for urban data.",
-    "video_title": "Preview CogniCity Video (Bahasa Indonesian)",
-    "video_text": "<em>CogniCity as Infrastructure for Climate Adaptation</em>&nbsp; explains how PetaJakarta.org uses the CogniCity software to respond to the challenge of flooding. Produced with support from the Open Data Institute the final release of the video, including an English version, will take place in July.",
-    "video_updates":"Follow <a href='https://twitter.com/petajkt/' target='_blank'>@petajkt</a> and <a href='https://twitter.com/odihq' target='_blank'>@ODIHQ</a> for updates.",
+    "title": "Didukung oleh CogniCity",
+    "lead": "PetaJakarta.org didukung oleh <a href='https://github.com/smart-facility/cognicity-server' target='_blank'>CogniCity</a>, sebuah framework gratis dan open source untuk data-data perkotaan.",
+    "video_title": "Preview CogniCity Video",
+    "video_text": "<em>CogniCity sebagai Infrastruktur untuk Adaptasi Perubahan Iklim</em>&nbsp; emenjelaskan bagaimana PetaJakarta.org menggunakan software CogniCity untuk merespon permasalahan banjir. Video ini dibuat dengan dukungan dari Open Data Institute. Peluncuran resmi dari video ini akan dilakukan pada bulan Juli mendatang.",
+    "video_updates":"Untuk info terbaru, silakan follow twitter <a href='https://twitter.com/petajkt/' target='_blank'>@petajkt</a> dan <a href='https://twitter.com/odihq' target='_blank'>@ODIHQ</a>.",
     "source_code": "Source Code",
-    "github": "CogniCity is available on <a href='https://github.com/smart-facility/cognicity-server' target='_blank'>GitHub</a>."
+    "github": "CogniCity tersedia di <a href='https://github.com/smart-facility/cognicity-server' target='_blank'>GitHub</a>."
   },
   "analytics": {
     "title": "Analytics",
