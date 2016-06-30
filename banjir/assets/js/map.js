@@ -393,7 +393,7 @@ petajakarta.markerPopup = function(feature, layer) {
 };
 
 /**
-	Get a map overlay layer from the geoserver
+	Get infrastructure overlay layer from cognicity-server
 
 	@param {string} layer - the layer to be fetched
 	@return {L.TileLayer} layer - the layer that was fetched from the server
