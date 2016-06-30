@@ -799,7 +799,7 @@ petajakarta.loadSecondaryLayers = function(layerControl) {
 			layerControl.addOverlay(overlays.pumps, petajakarta.layernames.pumps);
 			layerControl.addOverlay(overlays.floodgates, petajakarta.layernames.floodgates);
 			layerControl.addOverlay(overlays.waterways, petajakarta.layernames.waterways);
-			layerControl.addOverlay(overlays.sensors, 'sensors');
+			layerControl.addOverlay(overlays.sensors, 'Sensors/Sensor');
 			petajakarta.showURLReport(); //once point layers loaded zoom to report specified in URL
 		});
 	});
