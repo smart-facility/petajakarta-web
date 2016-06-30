@@ -412,6 +412,25 @@ petajakarta.getInfrastructure = function(layer) {
 };
 
 /**
+	Get infrastructure overlay layer from cognicity-server
+
+	@param {string} layer - the layer to be fetched
+	@return {L.TileLayer} layer - the layer that was fetched from the server
+*/
+petajakarta.getSensors = function() {
+	return new RSVP.Promise(function(resolve, reject){
+		// Use live data
+		jQuery.getJSON(petajakarta.config.serverUrlPrefix + "data/api/v2/iot/floodsensors", function(data){
+				if (data.features !== null){
+					resolve(data);
+				} else {
+					resolve(null);
+				}
+		});
+	});
+};
+
+/**
 	Add a text popup to the provided layer
 
 	@param {object} feature - a GeoJSON feature
@@ -671,6 +690,26 @@ petajakarta.loadInfrastructure = function(layer, infrastructure){
 };
 
 /**
+	Plots floodsensor data points on map
+
+	@param {object} sensor data - a GeoJSON object containing sensor features
+*/
+petajakarta.loadSensors = function(data){
+
+	var icon = L.divIcon({className: 'div-icon-sensor', html:'<p><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span></p>', popupAnchor:[5,0]});
+
+	petajakarta.sensors = L.geoJson(data, {
+		pointToLayer: function(feature, latlng) {
+			return L.marker(latlng, {icon:icon});
+		}
+	});
+
+	return petajakarta.sensors;
+};
+
+
+
+/**
 	Centre the map on a given location and open a popup's text box.
 
 	Turn on point layer if required.
@@ -747,6 +786,10 @@ petajakarta.loadSecondaryLayers = function(layerControl) {
 			floodgauges: petajakarta.getInfrastructure('floodgauges')
 				.then(function(floodgauges){
 					return petajakarta.loadInfrastructure('floodgauges', floodgauges);
+				}),
+			sensors: petajakarta.getSensors()
+				.then(function(sensors){
+					return petajakarta.loadSensors(sensors);
 				})
 		};
 
@@ -756,6 +799,7 @@ petajakarta.loadSecondaryLayers = function(layerControl) {
 			layerControl.addOverlay(overlays.pumps, petajakarta.layernames.pumps);
 			layerControl.addOverlay(overlays.floodgates, petajakarta.layernames.floodgates);
 			layerControl.addOverlay(overlays.waterways, petajakarta.layernames.waterways);
+			layerControl.addOverlay(overlays.sensors, 'sensors');
 			petajakarta.showURLReport(); //once point layers loaded zoom to report specified in URL
 		});
 	});

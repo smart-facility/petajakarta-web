@@ -9,7 +9,7 @@
 }
 
 /*add space for banner around zoom control*/
-.map.site .leaflet-control-zoom, 
+.map.site .leaflet-control-zoom,
 .map.site .timestamp {
   margin-top:55px !important;
 }
@@ -19,7 +19,7 @@
   .navbar-header img {
     margin-left: -10px;
   }
-  .map.site .timestamp, 
+  .map.site .timestamp,
   .map.site .leaflet-control-zoom{
      margin-top: 38px !important;
   }
@@ -266,6 +266,12 @@ label {
   font-size:11px;
 }
 
+.div-icon-sensor{
+  color: white;
+  text-shadow: -2px 0 #FFA500, 0 2px #FFA500, 2px 0 #FFA500, 0 -2px #FFA500;
+  font-size:11px;
+}
+
 .icon-stack {
     position: relative;
 }
@@ -285,7 +291,7 @@ p {
 /*
  Set some global styles on the map and dialogs
 */
- 
+
 #includes {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
@@ -299,17 +305,17 @@ p {
 }
 
 /* Titles */
-#includes h1, 
-#includes h2, 
-#includes h3, 
-#includes h4, 
-#includes h5, 
+#includes h1,
+#includes h2,
+#includes h3,
+#includes h4,
+#includes h5,
 #includes h6,
-.map h1, 
-.map h2, 
-.map h3, 
-.map h4, 
-.map h5, 
+.map h1,
+.map h2,
+.map h3,
+.map h4,
+.map h5,
 .map h6 {
 	font-family: 'Lato', sans-serif;
 	font-weight: 300;
@@ -369,7 +375,7 @@ p {
 /*
  Overrides to set some leaflet styles back to leaflet defaults within the map styles
 */
-.map .leaflet-bar a, 
+.map .leaflet-bar a,
 .map .leaflet-bar a:hover {
     color: #000;
 }
