@@ -61,14 +61,13 @@ It contains:
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title">Sensor Data</h4>
           </div>
-          <div class="modal-body" id="modal-sensor-body" style="height:300px;">
-            <p>test</p>
-            <canvas id="sensorChart" width="200" height="200"></canvas>
+          <div class="modal-body" id="modal-sensor-body" style="height:300px;overflow-y:scroll">
+            <canvas id="sensorChart1" width="200" height="100"></canvas>
+            <canvas id="sensorChart2" width="200" height="100"></canvas>
           </div>
           <div class="modal-footer">
-            <h5 class="pull-left">PetaJakarta.org &copy; SMART Infrastructure Facility, University of Wollongong</h5>
+            <div class="media"><img class="media-object pull-left" src="/{{site.url-prefix}}/img/petajakarta_black.png" height="30"/>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->

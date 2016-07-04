@@ -285,12 +285,11 @@ petajakarta.start = function() {
 						labels : [],
 						datasets : [{
 							label: "",
-							fillColor: "rgba(151,187,205,0.2)",
-							strokeColor: "rgba(151,187,205,1)",
-							pointColor: "rgba(151,187,205,1)",
-							pointStrokeColor: "#fff",
-							pointHighlightFill: "#fff",
-							pointHighlightStroke: "rgba(151,187,205,1)",
+							backgroundColor: "rgba(151,187,205,0.2)",
+							borderColor: "rgba(151,187,205,1)",
+							pointBackgroundColor: "rgba(151,187,205,1)",
+							pointBorderColor: "#fff",
+	            pointRadius: 4,
 							data: []
 						}]
 					};
@@ -298,7 +297,15 @@ petajakarta.start = function() {
 						data.labels.push(properties.observations[i].measuredatetime.slice(11,16));
 						data.datasets[0].data.push(properties.observations[i].depth);
 					}
-					var gaugeChart = new Chart(ctx).Line(data, {bezierCurve:true, scaleLabel: "<%= ' ' + value%>"});
+					var gaugeChart = new Chart(ctx,
+					{type: 'line',
+					data:data,
+					options: {
+						bezierCurve:true,
+						scaleLabel: "<%= ' ' + value%>",
+						legend: {display:false}
+						}
+					});
 				}
 			}
 	});
@@ -473,7 +480,7 @@ petajakarta.floodgaugePopoup = function(feature){
 	}
 	var popup = '';
 	if (feature.properties !== null){
-		popup = '<div id="floodgauge-container" style="width:220px; height:220px; overflow-y:scroll"><div class="media"><img class="media-object pull-left" src="'+petajakarta.config.urlPrefix+'img/dki_jayaraya.png" height="22"/><img class="media-object pull-left" src="'+petajakarta.config.urlPrefix+'img/bpbd_dki.png" height="22"/><h4 style="font-size:18px; line-height:1.2;" class="media-heading pull-left">'+feature.properties.gaugenameid+'</h4></div>'+label+'&nbsp;&nbsp|&nbsp;&nbsp;<span style="color:black; background-color:'+petajakarta.getSiagaLevelIconography(feature.properties.observations[feature.properties.observations.length-1].warninglevel).color+'">'+feature.properties.observations[feature.properties.observations.length-1].warningnameid+'</span><canvas id="gaugeChart" class="chart" width="210" height="180"></canvas></div>';
+		popup = '<div id="floodgauge-container" style="width:220px; height:220px; overflow-y:scroll"><div class="media" style="margin-top:0;"><img class="media-object pull-left" src="'+petajakarta.config.urlPrefix+'img/dki_jayaraya.png" height="22"/><img class="media-object pull-left" src="'+petajakarta.config.urlPrefix+'img/bpbd_dki.png" height="22"/><h4 style="font-size:18px; line-height:1.2;" class="media-heading pull-left">'+feature.properties.gaugenameid+'</h4></div>'+label+'&nbsp;&nbsp|&nbsp;&nbsp;<span style="color:black; background-color:'+petajakarta.getSiagaLevelIconography(feature.properties.observations[feature.properties.observations.length-1].warninglevel).color+'">'+feature.properties.observations[feature.properties.observations.length-1].warningnameid+'</span><canvas id="gaugeChart" class="chart" width="210" height="180" style="margin-top:3px;"></canvas></div>';
 	}
 	else {
 		popup = 'Data not available | Tidak ada data';
@@ -704,22 +711,67 @@ petajakarta.loadSensors = function(data){
 		},
 		onEachFeature: function(feature, layer){
 			layer.on('click', function(e){
+				var properties = feature.properties;
 				$('#sensorModal').modal('show').on('shown.bs.modal', function (event) {
-					var ctx = $("#sensorChart").get(0).getContext("2d");
-					var data = {
-						labels : ["1","2","4"],
+					var ctx1 = $("#sensorChart1").get(0).getContext("2d");
+					var ctx2 = $("#sensorChart2").get(0).getContext("2d");
+					var depthData = {
+						labels : [],
 						datasets : [{
-							label: "",
-							fillColor: "rgba(151,187,205,0.2)",
-							strokeColor: "rgba(151,187,205,1)",
-							pointColor: "rgba(151,187,205,1)",
-							pointStrokeColor: "#fff",
-							pointHighlightFill: "#fff",
-							pointHighlightStroke: "rgba(151,187,205,1)",
-							data: [12,3,4]
+							label: "Water Depth (cm)",
+							backgroundColor: "rgba(151,187,205,0.2)",
+							borderColor: "rgba(151,187,205,1)",
+							pointBackgroundColor: "rgba(151,187,205,1)",
+							pointBorderColor: "#fff",
+	            pointRadius: 4,
+							data: []
 						}]
 					};
-					var gaugeChart = new Chart(ctx).Line(data, {bezierCurve:true, scaleLabel: "<%= ' ' + value%>"});
+					var metData = {
+						labels : [],
+						datasets : [{
+							label: "Air temperature (°C)",
+							backgroundColor: "rgba(0,0,0,0)",
+							borderColor: "rgba( 245, 176, 65 ,1)",
+							pointBackgroundColor: "rgba( 245, 176, 65 ,1)",
+							pointBorderColor: "#fff",
+							pointRadius: 4,
+							data: []
+						}, {
+							label: "Humidity (%)",
+							backgroundColor: "rgba(0,0,0,0)",
+							borderColor: "rgba( 88, 214, 141 ,1)",
+							pointBackgroundColor: "rgba( 88, 214, 141 ,1)",
+							pointBorderColor: "#fff",
+							pointRadius: 4,
+							data: []
+						}]
+					};
+					for (var i = 0; i < properties.measurements.length; i++){
+						depthData.labels.push(properties.measurements[i].measurement_time.slice(11,16));
+						depthData.datasets[0].data.push(properties.measurements[i].distance);
+						metData.labels.push(properties.measurements[i].measurement_time.slice(11,16));
+						metData.datasets[0].data.push(properties.measurements[i].temperature);
+						metData.datasets[1].data.push(properties.measurements[i].humidity);
+					}
+					var gaugeChart = new Chart(ctx1,
+						{type: 'line',
+						data:depthData,
+						options: {
+							bezierCurve:true,
+							scaleLabel: "<%= ' ' + value%>",
+							legend: {display:true}
+							}
+						});
+					var metChart = new Chart(ctx2,
+						{type: 'line',
+						data:metData,
+						options: {
+							bezierCurve:true,
+							scaleLabel: "<%= ' ' + value%>",
+							legend: {display:true}
+							}
+						});
 					});
 				});
 			}
