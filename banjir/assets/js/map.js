@@ -749,7 +749,7 @@ petajakarta.loadSensors = function(data){
 					};
 					for (var i = 0; i < properties.measurements.length; i++){
 						depthData.labels.push(properties.measurements[i].measurement_time.slice(11,16));
-						depthData.datasets[0].data.push(properties.measurements[i].distance);
+						depthData.datasets[0].data.push(properties.measurements[i].computed_depth);
 						metData.labels.push(properties.measurements[i].measurement_time.slice(11,16));
 						metData.datasets[0].data.push(properties.measurements[i].temperature);
 						metData.datasets[1].data.push(properties.measurements[i].humidity);
