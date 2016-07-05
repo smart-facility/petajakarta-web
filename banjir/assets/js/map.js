@@ -716,6 +716,19 @@ petajakarta.loadSensors = function(data){
 
 	var icon = L.divIcon({className: 'div-icon-sensor', html:'<p><span class="glyphicon glyphicon-record" aria-hidden="true"></span></p>', popupAnchor:[5,0]});
 
+	var labels = {
+		id : {
+			depth : 'Tinggi muka air (cm)',
+			temp: 'Suhu udara (°C)',
+			humid: 'Kelembaban (%)'
+		},
+		en : {
+			depth : 'Water depth (cm)',
+			temp: 'Air temperature (°C)',
+			humid: 'Humidity (%)'
+		}
+	};
+
 	petajakarta.sensors = L.geoJson(data, {
 		pointToLayer: function(feature, latlng) {
 			return L.marker(latlng, {icon:icon});
@@ -729,7 +742,7 @@ petajakarta.loadSensors = function(data){
 					var depthData = {
 						labels : [],
 						datasets : [{
-							label: "Water Depth (cm)",
+							label: labels[document.documentElement.lang].depth,
 							backgroundColor: "rgba(151,187,205,0.2)",
 							borderColor: "rgba(151,187,205,1)",
 							pointBackgroundColor: "rgba(151,187,205,1)",
@@ -741,7 +754,7 @@ petajakarta.loadSensors = function(data){
 					var metData = {
 						labels : [],
 						datasets : [{
-							label: "Air temperature (°C)",
+							label: labels[document.documentElement.lang].temp,
 							backgroundColor: "rgba(0,0,0,0)",
 							borderColor: "rgba( 245, 176, 65 ,1)",
 							pointBackgroundColor: "rgba( 245, 176, 65 ,1)",
@@ -749,7 +762,7 @@ petajakarta.loadSensors = function(data){
 							pointRadius: 4,
 							data: []
 						}, {
-							label: "Humidity (%)",
+							label: labels[document.documentElement.lang].humid,
 							backgroundColor: "rgba(0,0,0,0)",
 							borderColor: "rgba( 88, 214, 141 ,1)",
 							pointBackgroundColor: "rgba( 88, 214, 141 ,1)",
