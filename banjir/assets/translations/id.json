@@ -167,6 +167,12 @@
               "url": "#floodgates",
               "description": "Poin geometri yang merepresentasikan lokasi pintu air di Jakarta",
               "api": "data/api/v2/infrastructure/floodgates"
+            },
+            {
+              "name": "Smart Sensors",
+              "url": "#smartsensors",
+              "description": "Current water depth and meteorological measurments from PetaJakarta.org Internet of Things (IoT) Smart Sensors",
+              "api": "data/api/v2/iot/smartsensors"
             }
           ]
         }
@@ -1001,6 +1007,92 @@
                   "field": "geometry",
                   "description": "Representasi geografis lokasi jalur air",
                   "type": "LineString / WGS84 (EPSG 4326)"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "data/api/v2/iot/smartsensors",
+      "short": "smartsensors",
+      "methods": [
+        {
+          "Synopsis": "Current water depth and meteorological measurments from PetaJakarta.org Internet of Things (IoT) Smart Sensors",
+          "Results": "Results",
+          "HTTPMethod": "GET",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/iot/smartsensors",
+          "RequiresOAuth": "N",
+          "tblParameters":[
+            {
+              "hName": "Name",
+              "hDescription": "Description",
+              "hRequired": "Required",
+              "hType": "Type",
+              "hOptions": "Options"
+            }
+          ],
+          "parameters": [
+            {
+              "Name": "format",
+              "Description": "Defines the format of the requested reports data as either GeoJSON (default) or TopoJSON. If unspecified will default to GeoJSON.",
+              "Required": "N",
+              "Default": "geojson",
+              "Type": "enumerated",
+              "EnumeratedList": "[\"geojson\",\"topojson\"]"
+            }
+          ],
+          "tblAttributes": [
+            {
+              "hField": "Field",
+              "hDescription": "Description",
+              "hType": "Type",
+              "fields": [
+                {
+                  "field": "id",
+                  "description": "Unique Sensor Identifier",
+                  "type": "Integer"
+                },
+                {
+                  "field": "geometry",
+                  "description": "Geographical representation of sensor location",
+                  "type": "Point / WGS84 (EPSG 4326)"
+                },
+                {
+                  "field": "height_above_riverbed",
+                  "description": "Distance between bottom of river and sensor (cm)",
+                  "type": "Double precision"
+                },
+                {
+                  "field": "measurements",
+                  "description": "Array of sensor data",
+                  "type": "JSON array"
+                },
+                {
+                  "field": "measurement_time",
+                  "description": "Timestamp of observation (WIB / UTC+0700)",
+                  "type": "String (ISO 8601 datetime)"
+                },
+                {
+                  "field": "distance",
+                  "description": "Distance to top of water as measured by the sensor (cm)",
+                  "type": "Double precision"
+                },
+                {
+                  "field": "computed_depth",
+                  "description": "Calculated water depth [height_above_riverbed - distance] (cm)",
+                  "type": "Double precision"
+                },
+                {
+                  "field": "temperature",
+                  "description": "Air temperature at sensor (°C)",
+                  "type": "Double precision"
+                },
+                {
+                  "field": "humidity",
+                  "description": "Humidity at sensor [relative] (%)",
+                  "type": "Double precision"
                 }
               ]
             }
