@@ -1020,34 +1020,34 @@
       "methods": [
         {
           "Synopsis": "Current water depth and meteorological measurments from PetaJakarta.org Internet of Things (IoT) Smart Sensors",
-          "Results": "Results",
+          "Results": "Hasil",
           "HTTPMethod": "GET",
           "URI": "https://petajakarta.org/banjir/data/api/v2/iot/smartsensors",
           "RequiresOAuth": "N",
           "tblParameters":[
             {
-              "hName": "Name",
-              "hDescription": "Description",
-              "hRequired": "Required",
-              "hType": "Type",
-              "hOptions": "Options"
+              "hName": "Nama",
+              "hDescription": "Deskripsi",
+              "hRequired": "Syarat",
+              "hType": "Tipe",
+              "hOptions": "Pilihan"
             }
           ],
           "parameters": [
             {
               "Name": "format",
-              "Description": "Defines the format of the requested reports data as either GeoJSON (default) or TopoJSON. If unspecified will default to GeoJSON.",
+              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau TopoJSON. Jika tidak ditentukan akan default sebagai GeoJSON.",
               "Required": "N",
               "Default": "geojson",
-              "Type": "enumerated",
+              "Type": "enumerasi",
               "EnumeratedList": "[\"geojson\",\"topojson\"]"
             }
           ],
           "tblAttributes": [
             {
-              "hField": "Field",
-              "hDescription": "Description",
-              "hType": "Type",
+              "hField": "Isian",
+              "hDescription": "Deskripsi",
+              "hType": "Tipe",
               "fields": [
                 {
                   "field": "id",
@@ -1057,7 +1057,7 @@
                 {
                   "field": "geometry",
                   "description": "Geographical representation of sensor location",
-                  "type": "Point / WGS84 (EPSG 4326)"
+                  "type": "Poin / WGS84 (EPSG 4326)"
                 },
                 {
                   "field": "height_above_riverbed",
