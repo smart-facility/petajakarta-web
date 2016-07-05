@@ -438,7 +438,7 @@ petajakarta.getInfrastructure = function(layer) {
 petajakarta.getSensors = function() {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
-		jQuery.getJSON(petajakarta.config.serverUrlPrefix + "data/api/v2/iot/floodsensors", function(data){
+		jQuery.getJSON(petajakarta.config.serverUrlPrefix + "data/api/v2/iot/smartsensors", function(data){
 				if (data.features !== null){
 					resolve(data);
 				} else {
