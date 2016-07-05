@@ -703,7 +703,7 @@ petajakarta.loadInfrastructure = function(layer, infrastructure){
 */
 petajakarta.loadSensors = function(data){
 
-	var icon = L.divIcon({className: 'div-icon-sensor', html:'<p><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span></p>', popupAnchor:[5,0]});
+	var icon = L.divIcon({className: 'div-icon-sensor', html:'<p><span class="glyphicon glyphicon-record" aria-hidden="true"></span></p>', popupAnchor:[5,0]});
 
 	petajakarta.sensors = L.geoJson(data, {
 		pointToLayer: function(feature, latlng) {
