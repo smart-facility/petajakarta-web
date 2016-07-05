@@ -67,6 +67,7 @@ petajakarta.start = function() {
 			tentative_areas: 'Hati-Hati'
 		};
 		petajakarta.layernames.floodgauges = 'Tinggi Muka Air';
+		petajakarta.layernames.sensors = 'Smart Sensor';
 	} else {
 		petajakarta.layernames.confirmed = 'Flood Reports';
 		petajakarta.layernames.verified = 'BPBD Reports';
@@ -78,6 +79,7 @@ petajakarta.start = function() {
 			tentative_areas: 'Use Caution'
 		};
 		petajakarta.layernames.floodgauges = 'River Gauges';
+		petajakarta.layernames.sensors = 'Smart Sensors';
 	}
 
 	petajakarta.styleInfrastructure = {
@@ -131,7 +133,7 @@ petajakarta.start = function() {
 
 	petajakarta.mapLegend.onAdd = function(map) {
 		var div = L.DomUtil.create('div', 'info legend');
-		div.innerHTML += '<div id="legendbox"><div class="sublegend"><div><span class="div-icon-confirmed-legend glyphicon glyphicon-tint" aria-hidden="true" style="margin-left:1px;"></span>&nbsp;'+petajakarta.layernames.confirmed+'</div><div><span class="div-icon-verified-legend glyphicon glyphicon-tint" aria-hidden="true" style="margin-right:1px;"></span>'+petajakarta.layernames.verified+'</div></div></div>';
+		div.innerHTML += '<div id="legendbox"><div class="sublegend"><div><span class="div-icon-confirmed-legend glyphicon glyphicon-tint" aria-hidden="true" style="margin-left:1px;"></span>&nbsp;'+petajakarta.layernames.confirmed+'</div><div><span class="div-icon-verified-legend glyphicon glyphicon-tint" aria-hidden="true" style="margin-right:1px;"></span>'+petajakarta.layernames.verified+'</div><div id="sensorLegend"></div<</div></div>';
 		return div;
 	};
 
@@ -151,6 +153,9 @@ petajakarta.start = function() {
 		petajakarta.siagaNames[4] = 'Alert Level 4';
 	}
 	petajakarta.gaugesLegend = '<div id="gaugesLegend"><div class="sublegend"><div style="font-weight:bold">'+petajakarta.layernames.floodgauges+'</div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_1.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[1]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_2.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[2]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_3.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[3]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[4]+'</span></div></div>';
+
+	//sensor legend
+	petajakarta.sensorLegend = '<div><span class="div-icon-sensor-legend glyphicon glyphicon-record" aria-hidden="true"></span>&nbsp;'+petajakarta.layernames.sensors+'</div>';
 
 	//infrastructure legend items
 	petajakarta.pumpsLegend = '<div id="pumpsLegend"><div class="sublegend"><div><img src="'+petajakarta.config.urlPrefix+'img/pump.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.layernames.pumps+'</span></div></div>';
@@ -249,6 +254,9 @@ petajakarta.start = function() {
 		else if (event.layer == petajakarta.floodgates){
 			$('#floodgatesLegend').remove();
 		}
+		else if (event.layer == petajakarta.sensors) {
+			$('#sensorLegend').empty();
+		}
 	});
 
 	petajakarta.map.on('overlayadd', function(event){
@@ -266,6 +274,9 @@ petajakarta.start = function() {
 		}
 		else if (event.layer == petajakarta.floodgates) {
 			$('#legendbox').append(petajakarta.floodgatesLegend);
+		}
+		else if (event.layer == petajakarta.sensors) {
+			$('#sensorLegend').append(petajakarta.sensorLegend);
 		}
 	});
 
@@ -872,7 +883,7 @@ petajakarta.loadSecondaryLayers = function(layerControl) {
 			layerControl.addOverlay(overlays.pumps, petajakarta.layernames.pumps);
 			layerControl.addOverlay(overlays.floodgates, petajakarta.layernames.floodgates);
 			layerControl.addOverlay(overlays.waterways, petajakarta.layernames.waterways);
-			layerControl.addOverlay(overlays.sensors, 'Sensors/Sensor');
+			layerControl.addOverlay(overlays.sensors, petajakarta.layernames.sensors);
 			petajakarta.showURLReport(); //once point layers loaded zoom to report specified in URL
 		});
 	});
