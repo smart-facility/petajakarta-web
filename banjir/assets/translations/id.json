@@ -171,7 +171,7 @@
             {
               "name": "Smart Sensors",
               "url": "#smartsensors",
-              "description": "Current water depth and meteorological measurments from PetaJakarta.org Internet of Things (IoT) Smart Sensors",
+              "description": "Pengukuran meteorologi dan kedalaman air saat ini, dari PetaJakarta.org Internet of Things (IoT) Smart Sensors",
               "api": "data/api/v2/iot/smartsensors"
             }
           ]
@@ -1019,7 +1019,7 @@
       "short": "smartsensors",
       "methods": [
         {
-          "Synopsis": "Current water depth and meteorological measurments from PetaJakarta.org Internet of Things (IoT) Smart Sensors",
+          "Synopsis": "Pengukuran meteorologi dan kedalaman air saat ini, dari PetaJakarta.org Internet of Things (IoT) Smart Sensors",
           "Results": "Hasil",
           "HTTPMethod": "GET",
           "URI": "https://petajakarta.org/banjir/data/api/v2/iot/smartsensors",
@@ -1051,48 +1051,48 @@
               "fields": [
                 {
                   "field": "id",
-                  "description": "Unique Sensor Identifier",
-                  "type": "Integer"
+                  "description": "Identitas unik sensor",
+                  "type": "Bilangan bulat"
                 },
                 {
                   "field": "geometry",
-                  "description": "Geographical representation of sensor location",
+                  "description": "Posisi geografis sensor",
                   "type": "Poin / WGS84 (EPSG 4326)"
                 },
                 {
                   "field": "height_above_riverbed",
-                  "description": "Distance between bottom of river and sensor (cm)",
-                  "type": "Double precision"
+                  "description": "Jarak antara dasar sungai dengan sensor (cm)",
+                  "type": "Presisi ganda"
                 },
                 {
                   "field": "measurements",
-                  "description": "Array of sensor data",
+                  "description": "Susunan data sensor",
                   "type": "JSON array"
                 },
                 {
                   "field": "measurement_time",
-                  "description": "Timestamp of observation (WIB / UTC+0700)",
-                  "type": "String (ISO 8601 datetime)"
+                  "description": "Waktu observasi (WIB / UTC +0700)",
+                  "type": "String (format waktu ISO 8601)"
                 },
                 {
                   "field": "distance",
-                  "description": "Distance to top of water as measured by the sensor (cm)",
-                  "type": "Double precision"
+                  "description": "Jarak terhadap permukaan air sesuai dengan pengukuran sensor (cm)",
+                  "type": "Presisi ganda"
                 },
                 {
                   "field": "computed_depth",
-                  "description": "Calculated water depth [height_above_riverbed - distance] (cm)",
-                  "type": "Double precision"
+                  "description": "Kedalaman air hasil perhitungan [height_above_riverbed - distance] (cm)",
+                  "type": "Presisi ganda"
                 },
                 {
                   "field": "temperature",
-                  "description": "Air temperature at sensor (°C)",
-                  "type": "Double precision"
+                  "description": "Suhu udara yang terukur sensor (°C)",
+                  "type": "Presisi ganda"
                 },
                 {
                   "field": "humidity",
-                  "description": "Humidity at sensor [relative] (%)",
-                  "type": "Double precision"
+                  "description": "Kelembaban yang terukur sensor [relatif] (%)",
+                  "type": "Presisi ganda"
                 }
               ]
             }
