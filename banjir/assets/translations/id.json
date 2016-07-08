@@ -167,6 +167,12 @@
               "url": "#floodgates",
               "description": "Poin geometri yang merepresentasikan lokasi pintu air di Jakarta",
               "api": "data/api/v2/infrastructure/floodgates"
+            },
+            {
+              "name": "Smart Sensors",
+              "url": "#smartsensors",
+              "description": "Pengukuran meteorologi dan kedalaman air saat ini, dari PetaJakarta.org Internet of Things (IoT) Smart Sensors",
+              "api": "data/api/v2/iot/smartsensors"
             }
           ]
         }
@@ -1001,6 +1007,92 @@
                   "field": "geometry",
                   "description": "Representasi geografis lokasi jalur air",
                   "type": "LineString / WGS84 (EPSG 4326)"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "data/api/v2/iot/smartsensors",
+      "short": "smartsensors",
+      "methods": [
+        {
+          "Synopsis": "Pengukuran meteorologi dan kedalaman air saat ini, dari PetaJakarta.org Internet of Things (IoT) Smart Sensors",
+          "Results": "Hasil",
+          "HTTPMethod": "GET",
+          "URI": "https://petajakarta.org/banjir/data/api/v2/iot/smartsensors",
+          "RequiresOAuth": "N",
+          "tblParameters":[
+            {
+              "hName": "Nama",
+              "hDescription": "Deskripsi",
+              "hRequired": "Syarat",
+              "hType": "Tipe",
+              "hOptions": "Pilihan"
+            }
+          ],
+          "parameters": [
+            {
+              "Name": "format",
+              "Description": "Menentukan format data laporan yang diminta sebagai GeoJSON (default) atau TopoJSON. Jika tidak ditentukan akan default sebagai GeoJSON.",
+              "Required": "N",
+              "Default": "geojson",
+              "Type": "enumerasi",
+              "EnumeratedList": "[\"geojson\",\"topojson\"]"
+            }
+          ],
+          "tblAttributes": [
+            {
+              "hField": "Isian",
+              "hDescription": "Deskripsi",
+              "hType": "Tipe",
+              "fields": [
+                {
+                  "field": "id",
+                  "description": "Identitas unik sensor",
+                  "type": "Bilangan bulat"
+                },
+                {
+                  "field": "geometry",
+                  "description": "Posisi geografis sensor",
+                  "type": "Poin / WGS84 (EPSG 4326)"
+                },
+                {
+                  "field": "height_above_riverbed",
+                  "description": "Jarak antara dasar sungai dengan sensor (cm)",
+                  "type": "Presisi ganda"
+                },
+                {
+                  "field": "measurements",
+                  "description": "Susunan data sensor",
+                  "type": "JSON array"
+                },
+                {
+                  "field": "measurement_time",
+                  "description": "Waktu observasi (WIB / UTC +0700)",
+                  "type": "String (format waktu ISO 8601)"
+                },
+                {
+                  "field": "distance",
+                  "description": "Jarak terhadap permukaan air sesuai dengan pengukuran sensor (cm)",
+                  "type": "Presisi ganda"
+                },
+                {
+                  "field": "computed_depth",
+                  "description": "Kedalaman air hasil perhitungan [height_above_riverbed - distance] (cm)",
+                  "type": "Presisi ganda"
+                },
+                {
+                  "field": "temperature",
+                  "description": "Suhu udara yang terukur sensor (°C)",
+                  "type": "Presisi ganda"
+                },
+                {
+                  "field": "humidity",
+                  "description": "Kelembaban yang terukur sensor [relatif] (%)",
+                  "type": "Presisi ganda"
                 }
               ]
             }

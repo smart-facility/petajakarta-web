@@ -67,6 +67,7 @@ petajakarta.start = function() {
 			tentative_areas: 'Hati-Hati'
 		};
 		petajakarta.layernames.floodgauges = 'Tinggi Muka Air';
+		petajakarta.layernames.sensors = 'Smart Sensor';
 	} else {
 		petajakarta.layernames.confirmed = 'Flood Reports';
 		petajakarta.layernames.verified = 'BPBD Reports';
@@ -78,6 +79,7 @@ petajakarta.start = function() {
 			tentative_areas: 'Use Caution'
 		};
 		petajakarta.layernames.floodgauges = 'River Gauges';
+		petajakarta.layernames.sensors = 'Smart Sensors';
 	}
 
 	petajakarta.styleInfrastructure = {
@@ -131,7 +133,7 @@ petajakarta.start = function() {
 
 	petajakarta.mapLegend.onAdd = function(map) {
 		var div = L.DomUtil.create('div', 'info legend');
-		div.innerHTML += '<div id="legendbox"><div class="sublegend"><div><span class="div-icon-confirmed-legend glyphicon glyphicon-tint" aria-hidden="true" style="margin-left:1px;"></span>&nbsp;'+petajakarta.layernames.confirmed+'</div><div><span class="div-icon-verified-legend glyphicon glyphicon-tint" aria-hidden="true" style="margin-right:1px;"></span>'+petajakarta.layernames.verified+'</div></div></div>';
+		div.innerHTML += '<div id="legendbox"><div class="sublegend"><div><span class="div-icon-confirmed-legend glyphicon glyphicon-tint" aria-hidden="true" style="margin-left:1px;"></span>&nbsp;'+petajakarta.layernames.confirmed+'</div><div><span class="div-icon-verified-legend glyphicon glyphicon-tint" aria-hidden="true" style="margin-right:1px;"></span>'+petajakarta.layernames.verified+'</div><div id="sensorLegend"></div<</div></div>';
 		return div;
 	};
 
@@ -151,6 +153,9 @@ petajakarta.start = function() {
 		petajakarta.siagaNames[4] = 'Alert Level 4';
 	}
 	petajakarta.gaugesLegend = '<div id="gaugesLegend"><div class="sublegend"><div style="font-weight:bold">'+petajakarta.layernames.floodgauges+'</div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_1.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[1]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_2.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[2]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge_3.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[3]+'</span></div><div><img src="'+petajakarta.config.urlPrefix+'img/floodgauge.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.siagaNames[4]+'</span></div></div>';
+
+	//sensor legend
+	petajakarta.sensorLegend = '<div><span class="div-icon-sensor-legend glyphicon glyphicon-record" aria-hidden="true"></span>&nbsp;'+petajakarta.layernames.sensors+'</div>';
 
 	//infrastructure legend items
 	petajakarta.pumpsLegend = '<div id="pumpsLegend"><div class="sublegend"><div><img src="'+petajakarta.config.urlPrefix+'img/pump.png" height="18px;" width="auto" /><span>&nbsp;'+petajakarta.layernames.pumps+'</span></div></div>';
@@ -249,6 +254,9 @@ petajakarta.start = function() {
 		else if (event.layer == petajakarta.floodgates){
 			$('#floodgatesLegend').remove();
 		}
+		else if (event.layer == petajakarta.sensors) {
+			$('#sensorLegend').empty();
+		}
 	});
 
 	petajakarta.map.on('overlayadd', function(event){
@@ -266,6 +274,9 @@ petajakarta.start = function() {
 		}
 		else if (event.layer == petajakarta.floodgates) {
 			$('#legendbox').append(petajakarta.floodgatesLegend);
+		}
+		else if (event.layer == petajakarta.sensors) {
+			$('#sensorLegend').append(petajakarta.sensorLegend);
 		}
 	});
 
@@ -427,7 +438,7 @@ petajakarta.getInfrastructure = function(layer) {
 petajakarta.getSensors = function() {
 	return new RSVP.Promise(function(resolve, reject){
 		// Use live data
-		jQuery.getJSON(petajakarta.config.serverUrlPrefix + "data/api/v2/iot/floodsensors", function(data){
+		jQuery.getJSON(petajakarta.config.serverUrlPrefix + "data/api/v2/iot/smartsensors", function(data){
 				if (data.features !== null){
 					resolve(data);
 				} else {
@@ -703,7 +714,20 @@ petajakarta.loadInfrastructure = function(layer, infrastructure){
 */
 petajakarta.loadSensors = function(data){
 
-	var icon = L.divIcon({className: 'div-icon-sensor', html:'<p><span class="glyphicon glyphicon-cloud-download" aria-hidden="true"></span></p>', popupAnchor:[5,0]});
+	var icon = L.divIcon({className: 'div-icon-sensor', html:'<p><span class="glyphicon glyphicon-record" aria-hidden="true"></span></p>', popupAnchor:[5,0]});
+
+	var labels = {
+		id : {
+			depth : 'Tinggi muka air (cm)',
+			temp: 'Suhu udara (°C)',
+			humid: 'Kelembaban (%)'
+		},
+		en : {
+			depth : 'Water depth (cm)',
+			temp: 'Air temperature (°C)',
+			humid: 'Humidity (%)'
+		}
+	};
 
 	petajakarta.sensors = L.geoJson(data, {
 		pointToLayer: function(feature, latlng) {
@@ -718,7 +742,7 @@ petajakarta.loadSensors = function(data){
 					var depthData = {
 						labels : [],
 						datasets : [{
-							label: "Water Depth (cm)",
+							label: labels[document.documentElement.lang].depth,
 							backgroundColor: "rgba(151,187,205,0.2)",
 							borderColor: "rgba(151,187,205,1)",
 							pointBackgroundColor: "rgba(151,187,205,1)",
@@ -730,7 +754,7 @@ petajakarta.loadSensors = function(data){
 					var metData = {
 						labels : [],
 						datasets : [{
-							label: "Air temperature (°C)",
+							label: labels[document.documentElement.lang].temp,
 							backgroundColor: "rgba(0,0,0,0)",
 							borderColor: "rgba( 245, 176, 65 ,1)",
 							pointBackgroundColor: "rgba( 245, 176, 65 ,1)",
@@ -738,7 +762,7 @@ petajakarta.loadSensors = function(data){
 							pointRadius: 4,
 							data: []
 						}, {
-							label: "Humidity (%)",
+							label: labels[document.documentElement.lang].humid,
 							backgroundColor: "rgba(0,0,0,0)",
 							borderColor: "rgba( 88, 214, 141 ,1)",
 							pointBackgroundColor: "rgba( 88, 214, 141 ,1)",
@@ -872,7 +896,7 @@ petajakarta.loadSecondaryLayers = function(layerControl) {
 			layerControl.addOverlay(overlays.pumps, petajakarta.layernames.pumps);
 			layerControl.addOverlay(overlays.floodgates, petajakarta.layernames.floodgates);
 			layerControl.addOverlay(overlays.waterways, petajakarta.layernames.waterways);
-			layerControl.addOverlay(overlays.sensors, 'Sensors/Sensor');
+			layerControl.addOverlay(overlays.sensors, petajakarta.layernames.sensors);
 			petajakarta.showURLReport(); //once point layers loaded zoom to report specified in URL
 		});
 	});

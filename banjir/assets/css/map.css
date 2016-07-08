@@ -267,8 +267,13 @@ label {
 }
 
 .div-icon-sensor{
-  color: white;
-  text-shadow: -2px 0 #FFA500, 0 2px #FFA500, 2px 0 #FFA500, 0 -2px #FFA500;
+  color: #FFA500;
+  font-size:11px;
+  text-shadow: -3px 0 white, 0 3px white, 3px 0 white, 0 -3px white;
+}
+
+.div-icon-sensor-legend{
+  color: #FFA500;
   font-size:11px;
 }
 
