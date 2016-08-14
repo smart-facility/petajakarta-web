@@ -305,7 +305,7 @@ petajakarta.start = function() {
 						}]
 					};
 					for (var i = 0; i < properties.observations.length; i++){
-						data.labels.push(properties.observations[i].measuredatetime.slice(11,16));
+						data.labels.push(properties.observations[i].measuredatetime);
 						data.datasets[0].data.push(properties.observations[i].depth);
 					}
 					var gaugeChart = new Chart(ctx,
@@ -313,8 +313,28 @@ petajakarta.start = function() {
 					data:data,
 					options: {
 						bezierCurve:true,
+						legend: {display:false},
 						scaleLabel: "<%= ' ' + value%>",
-						legend: {display:false}
+						scales :{
+							xAxes: [{
+									type: 'time',
+									time: {
+										unit: 'minute',
+										unitStepSize: 1,
+										displayFormats: {
+											 'millisecond': 'HH:mm:ss',
+											 'second': 'HH:mm:ss',
+											 'minute': 'HH:mm:ss',
+											 'hour': 'HH:mm:ss',
+											 'day': 'HH:mm:ss',
+											 'week': 'HH:mm:ss',
+											 'month': 'HH:mm:ss',
+											 'quarter': 'HH:mm:ss',
+											 'year': 'HH:mm:ss'
+											}
+										}
+								}]
+							}
 						}
 					});
 				}
@@ -772,18 +792,38 @@ petajakarta.loadSensors = function(data){
 						}]
 					};
 					for (var i = 0; i < properties.measurements.length; i++){
-						depthData.labels.push(properties.measurements[i].measurement_time.slice(11,16));
+						depthData.labels.push(properties.measurements[i].measurement_time);
 						depthData.datasets[0].data.push(properties.measurements[i].computed_depth);
-						metData.labels.push(properties.measurements[i].measurement_time.slice(11,16));
+						metData.labels.push(properties.measurements[i].measurement_time);
 						metData.datasets[0].data.push(properties.measurements[i].temperature);
 						metData.datasets[1].data.push(properties.measurements[i].humidity);
 					}
 					var gaugeChart = new Chart(ctx1,
 						{type: 'line',
 						data:depthData,
+						scaleLabel: "<%= ' ' + value%>",
 						options: {
+							scales :{
+								xAxes: [{
+										type: 'time',
+										time: {
+											unit: 'minute',
+											unitStepSize: 1,
+											displayFormats: {
+							           'millisecond': 'HH:mm:ss',
+							           'second': 'HH:mm:ss',
+							           'minute': 'HH:mm:ss',
+							           'hour': 'HH:mm:ss',
+							           'day': 'HH:mm:ss',
+							           'week': 'HH:mm:ss',
+							           'month': 'HH:mm:ss',
+							           'quarter': 'HH:mm:ss',
+							           'year': 'HH:mm:ss'
+							        	}
+											}
+									}]
+								},
 							bezierCurve:true,
-							scaleLabel: "<%= ' ' + value%>",
 							legend: {display:true}
 							}
 						});
@@ -793,7 +833,27 @@ petajakarta.loadSensors = function(data){
 						options: {
 							bezierCurve:true,
 							scaleLabel: "<%= ' ' + value%>",
-							legend: {display:true}
+							legend: {display:true},
+							scales :{
+								xAxes: [{
+										type: 'time',
+										time: {
+											unit: 'minute',
+											unitStepSize: 1,
+											displayFormats: {
+												 'millisecond': 'HH:mm:ss',
+												 'second': 'HH:mm:ss',
+												 'minute': 'HH:mm:ss',
+												 'hour': 'HH:mm:ss',
+												 'day': 'HH:mm:ss',
+												 'week': 'HH:mm:ss',
+												 'month': 'HH:mm:ss',
+												 'quarter': 'HH:mm:ss',
+												 'year': 'HH:mm:ss'
+												}
+											}
+									}]
+								},
 							}
 						});
 					});

@@ -29,6 +29,7 @@ module.exports = function(grunt) {
             'banjir/vendor/js/leaflet.spin.js',
             'banjir/vendor/js/topojson.js',
             'banjir/vendor/js/rsvp.js',
+            'banjir/vendor/js/moment.js',
             'banjir/vendor/js/Chart.js',
             'banjir/vendor/js/url.js',
             'banjir/assets/js/validation.js',
