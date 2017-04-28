@@ -53,10 +53,19 @@
     </div>
 
     <div class="container top-navbar-padding">
+
+      <div class="row">
+        <div class="col-xs-8 col-xs-push-2" style="margin-top:15px">
+          <p class='lead' style="margin-bottom:5px">{{{static.message}}}</p>
+        </div>
+      </div>
+
+      <!--
         <h1>{{analytics.title}}</h1>
         <p class="text-left">{{analytics.stream_title}}</p>
         <a class="twitter-timeline"  href="https://twitter.com/petajkt" data-widget-id="534916767819124736" data-chrome="nofooter">Tweets by @petajkt</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      -->
     </div>
 
     <!-- Page footer -->
@@ -73,11 +82,12 @@
     <!--analytics JS commented whilst offline-->
     <!--<script src="/{{site.url-prefix}}/js/analytics.min.js"></script>-->
 
-    <!--Offline Growl notification-->
+    <!--Offline Growl notification
     <script>
     $.growl.notice({size: 'large', location:'tr' ,fixed: true, title: "{{{site.map-off-title}}}", message:"{{{site.map-off-text}}}"});
     !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
     </script>
+    -->
 
     <!-- Google analytics -->
     <script>

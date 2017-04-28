@@ -95,7 +95,10 @@
         </div><!-- /.modal -->
       </div>
       <div id="content">
-        <div id="map"></div>
+        <div class="row" style="margin-top:10%">
+          <div class="col-xs-8 col-xs-push-2" style="margin-top:15px">
+            <p class='lead' style="margin-bottom:5px">{{{static.message}}}</p>
+          </div>
       </div>
     </div>
 
@@ -112,10 +115,10 @@
   </script>
 
   <script src="/{{site.url-prefix}}/js/application.min.js"></script>
-  <script src="/{{site.url-prefix}}/js/map.min.js"></script>
+  <!--Map disabled-->
+  <!--<script src="/{{site.url-prefix}}/js/map.min.js"></script>-->
 
   <script>
-  $.growl.notice({size: 'large', location:'tc' ,fixed: true, title: "{{{site.map-off-title}}}", message:"{{{site.map-off-text}}}"});
 
   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 
