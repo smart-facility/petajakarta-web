@@ -15,8 +15,11 @@
     "analytics": "Analytics",
     "other-locale": "Bahasa Indonesian"
   },
+  "static": {
+    "message":"PetaJakarta.org has been replaced by <a href='https://petabencana.id'>PetaBencana.id</a>, an expanded disaster mapping service currently deployed for Jabodetabek (greater Jakarta), Surabaya and Bandung. Please update your bookmarks and click <a href='https://petabencana.id'>here to view the map</a> and find out more."
+  },
   "header": {
-    "title": "<p class='lead'>Our White Paper — <a href='/banjir/en/research' style='color:white; text-decoration:underline'><cite>PetaJakarta.org: Assessing the Role of Social Media for Civic Co-Management During Monsoon Flooding in Jakarta, Indonesia</cite></a> — is now online.</p>",
+    "title": "<p class='lead'></p><p class='lead'>Our White Paper — <a href='/banjir/en/research' style='color:white; text-decoration:underline'><cite>PetaJakarta.org: Assessing the Role of Social Media for Civic Co-Management During Monsoon Flooding in Jakarta, Indonesia</cite></a> — is now online.</p>",
     "lead": "PetaJakarta.org/banjir is an open source, community-led platform to collect and disseminate information about flooding and critical water infrastructure in Jakarta.",
     "video-url": "//www.youtube.com/embed/fDlaGHjFtAY"
   },

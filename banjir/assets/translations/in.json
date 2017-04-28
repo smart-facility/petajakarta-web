@@ -15,6 +15,9 @@
     "analytics": "Analytics",
     "other-locale": "English"
   },
+  "static": {
+      "message":"PetaJakarta.org telah dialihkan menjadi <a href='https://petabencana.id'>PetaBencana.id</a>, sebuah perluasan platform pemetaan kebencanaan yang saat ini tersedia untuk Jabodetabek, Surabaya, dan Bandung. Cek dan perbarui bookmarks Anda dan klik <a href='https://petabencana.id'>di sini</a> untuk melihat serta mengeksplor lebih lanjut."
+  },
   "header": {
     "title": "<h1 id='title'>PetaJakarta.org/banjir</h1>",
     "lead": "<b>petajakarta.org/banjir</b> adalah platform <i>open source</i> berbasis masyarakat untuk mengumpulkan dan menyebarkan informasi tentang banjir dan infrastruktur air utama di Jakarta",
