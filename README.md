@@ -5,7 +5,7 @@ Travis build status: [![Travis Build Status](https://travis-ci.org/smart-facilit
 
 **petajakarta.org/banjir** is an open source, community-led platform to collect and disseminate information about flooding and critical water infrastructure in Jakarta.
 
-The platform runs on the open source software known as [CogniCity](http://cognicity.info/). This GeoSocial Intelligence framework allows data to be collected and disseminated by community members through their location-enabled mobile devices to map information about flooding and water infrastructure in real-time.
+The platform runs on the open source software known as CogniCity. This GeoSocial Intelligence framework allows data to be collected and disseminated by community members through their location-enabled mobile devices to map information about flooding and water infrastructure in real-time.
 
 ## Compiling the Site
 
